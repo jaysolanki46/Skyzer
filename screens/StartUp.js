@@ -1,21 +1,24 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Platform } from 'react-native';
 import Colors from '../config/Colors';
+import { StatusBar } from 'react-native'
+import Logo from '../components/Logo';
 
 export default StartUp = () => {
     
     return (
       <View style={styles.container}>
+        <StatusBar barStyle="dark-content" hidden = {false} translucent = {true}></StatusBar>
   
         <View style={styles.header}>
-          <Image style={styles.logo} source={require('../assets/images/logo.png')}/>
+          <Logo/>
           <Text style={styles.h1}>Welcome to</Text>
           <Text style={styles.h1}>Skyzer Guide</Text>
           <Text style={styles.h5}>Let you explore the terminal</Text>
         </View>
   
         <View style={styles.body}>
-          <Image style={styles.signup_body_image} source={require('../assets/images/signup_body_image.png')} />
+          <Image style={styles.signup_body_image} source={require('../assets/images/startup_body.png')} />
         </View>
   
         <View style={styles.signup_body}>

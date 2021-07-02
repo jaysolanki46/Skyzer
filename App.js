@@ -1,11 +1,13 @@
 import React from 'react';
 
-import StartUp from './containers/StartUp';
+import StartUp from './screens/StartUp';
+import SignUp from './screens/SignUp';
 
 const App = () => {
     
   return (
-    <StartUp/>
+    // <StartUp/>
+    <SignUp/>
   );
 }
 

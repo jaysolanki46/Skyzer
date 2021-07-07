@@ -1,13 +1,13 @@
 import React from 'react';
 
 import StartUp from './screens/StartUp';
-import SignUp from './screens/SignUp';
+import LogIn from './screens/LogIn';
 
 const App = () => {
     
   return (
     // <StartUp/>
-    <SignUp/>
+    <LogIn/>
   );
 }
 

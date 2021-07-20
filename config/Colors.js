@@ -4,4 +4,6 @@ export default {
     link: '#e3176c',
     darkFont: '#2F4F4F',
     lightFont: '#A9A9A9',
+    active: '#0066cb',
+    inactive: '#A9A9A9',
 }

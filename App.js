@@ -26,6 +26,9 @@ const App = () => {
           barStyle={{ backgroundColor: 'transparent',  
                       borderTopWidth: 0,
                       elevation: 0,}}
+          shifting={true}
+          labeled={true}
+          lazy={true}
         >
 
         <Tab.Screen
@@ -34,10 +37,11 @@ const App = () => {
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color, focused }) => (
+              focused={focused},
               <MaterialCommunityIcons
                 name={focused ? "home" : "home-outline"}
                 color={color}
-                size={25}
+                size={27}
               />
             )
           }}
@@ -49,10 +53,11 @@ const App = () => {
           options={{
             tabBarLabel: 'Code List',
             tabBarIcon: ({ color, focused }) => (
+              focused={focused},
               <MaterialCommunityIcons
                 name={focused ? "view-list" : "view-list-outline"}
                 color={color}
-                size={25}
+                size={27}
               />
             )
           }}
@@ -64,10 +69,11 @@ const App = () => {
           options={{
             tabBarLabel: 'Profile',
             tabBarIcon: ({ color, focused }) => (
+              focused={focused},
               <MaterialCommunityIcons
                 name={focused ? "account" : "account-outline"}
                 color={color}
-                size={25}
+                size={27}
               />
             ),
           }}

@@ -4,7 +4,7 @@ export default {
     h1: {
         fontSize: 35,
         fontWeight: 'bold',
-        color: Colors.darkFont
+        color: Colors.darkFont,
     },
     h2: {
         fontSize: 30,

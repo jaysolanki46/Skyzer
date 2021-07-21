@@ -4,11 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import StartUp from './screens/StartUp';
-import LogIn from './screens/LogIn';
+import AllFunctionCodes from './screens/StartUp';
+import Profile from './screens/LogIn';
 import Home from './screens/Home';
-import AllFunctionCodes from './screens/AllFunctionCodes';
-import Profile from './screens/Profile';
+//import AllFunctionCodes from './screens/AllFunctionCodes';
+//import Profile from './screens/Profile';
 import Colors from './config/Colors';
 
 const Tab = createMaterialBottomTabNavigator();

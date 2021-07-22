@@ -4,11 +4,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import AllFunctionCodes from './screens/StartUp';
-import Profile from './screens/LogIn';
 import Home from './screens/Home';
-//import AllFunctionCodes from './screens/AllFunctionCodes';
-//import Profile from './screens/Profile';
+import CodeList from './screens/CodeList';
+import Profile from './screens/Profile';
 import Colors from './config/Colors';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -19,13 +17,14 @@ const App = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <Tab.Navigator
-          initialRouteName="Home"
+          initialRouteName="CodeList"
           activeColor={Colors.active}
           inactiveColor={Colors.inactive}
           labelStyle={{ fontSize: 12 }}
-          barStyle={{ backgroundColor: 'transparent',  
+          barStyle={{ backgroundColor: Colors.background,  
                       borderTopWidth: 0,
-                      elevation: 0,}}
+                      elevation: 0,
+                    }}
           shifting={true}
           labeled={true}
           lazy={true}
@@ -48,8 +47,8 @@ const App = () => {
         />
 
         <Tab.Screen
-          name="AllFunctionCodes"
-          component={AllFunctionCodes}
+          name="CodeList"
+          component={CodeList}
           options={{
             tabBarLabel: 'Code List',
             tabBarIcon: ({ color, focused }) => (

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, StatusBar } from 'react-native';
 import Headertext from '../config/Headertext';
 import { FlatGrid } from 'react-native-super-grid';
+import Colors from '../config/Colors';
 
 
 export default Home = () => {
@@ -22,7 +23,7 @@ export default Home = () => {
             <View style={styles.headerSubView}>
                     <View style={styles.headerLeft}>
                         <Text style={Headertext.h1}>Hey,</Text>
-                        <Text style={Headertext.h4}>Welcome back, Margi!</Text>
+                        <Text style={Headertext.h4}>Welcome back, Jay!</Text>
                     </View>
                     <View style={styles.headerRight}>
                         <Image
@@ -56,22 +57,20 @@ export default Home = () => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: Platform.OS === 'ios'? 10 : 60,
+      paddingTop: Platform.OS === 'ios'? 10 : 20,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: "white",
       flexDirection: 'column',
+      backgroundColor: Colors.background,
     },
     header: {
         flex: 1,
         alignItems: 'baseline',
         width: '100%',
-        marginTop: 20, 
     },
     body: {
         flex: 5,
         alignItems: 'center',
-        backgroundColor: "white",
         width: '100%',
         flexDirection: "row",
         alignContent: "space-between",
@@ -81,6 +80,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginLeft: 10, 
         marginRight: 10,
+        backgroundColor: Colors.background,
     },
     headerLeft: {
         flex: 4,
@@ -97,12 +97,12 @@ const styles = StyleSheet.create({
     tinyLogo: {
         width: 75,
         height: 75,
-        borderWidth: 1,
         borderRadius: 50,
     },
     bodySubView: {
         flex: 1, 
         marginTop: 10,
+        backgroundColor: Colors.background,
     },
     gridView: {
         flex: 1,

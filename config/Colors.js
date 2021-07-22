@@ -6,4 +6,5 @@ export default {
     lightFont: '#A9A9A9',
     active: '#0066cb',
     inactive: '#A9A9A9',
+    background: '#E6F4F1',
 }

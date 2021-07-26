@@ -13,7 +13,7 @@ function TopTabs() {
       <Tab.Navigator
             tabBarOptions={{
                 activeTintColor: Colors.white,
-                inactiveTintColor: Colors.darkFont,
+                inactiveTintColor: Colors.inactive,
                 indicatorStyle: {
                     height: null,
                     top: '10%',
@@ -21,14 +21,14 @@ function TopTabs() {
                     width: '45%',
                     left: '2.5%',
                     borderRadius: 100,
-                    backgroundColor: Colors.primary,
+                    backgroundColor: Colors.pink,
                 },
                 style: {
                     alignSelf: "center",
                     width: '95%',
                     borderRadius: 100,
                     borderColor: "blue",
-                    backgroundColor: "white",
+                    backgroundColor: Colors.lightBackground,
                     elevation: 2, // shadow on Android
                     shadowOpacity: .05, // shadow on iOS,
                     shadowRadius: 4, // shadow blur on iOS
@@ -49,7 +49,7 @@ export default CodeList = () => {
     return (
         <View style={styles.container}>
             {Platform.OS === 'ios' && <>
-            <StatusBar barStyle="dark-content" hidden = {false} translucent = {true}></StatusBar>
+            <StatusBar barStyle="light-content" hidden = {false} translucent = {true}></StatusBar>
             </>}
             <View style={styles.header}>
             <View style={styles.headerSubView}>

@@ -8,6 +8,8 @@ import Home from './screens/Home';
 import CodeList from './screens/CodeList';
 import Profile from './screens/Profile';
 import Colors from './config/Colors';
+import StartUp from './screens/StartUp';
+import LogIn from './screens/LogIn';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -15,6 +17,8 @@ const App = () => {
     
   return (
     <SafeAreaProvider>
+      {/* <StartUp/> */}
+     
       <NavigationContainer>
         <Tab.Navigator
           initialRouteName="CodeList"
@@ -79,6 +83,7 @@ const App = () => {
         />
       </Tab.Navigator>
       </NavigationContainer>
+      
     </SafeAreaProvider>
   );
 }

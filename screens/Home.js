@@ -7,17 +7,17 @@ import Colors from '../config/Colors';
 
 export default Home = () => {
     const [items, setItems] = React.useState([
-        { tag: 'GUIDE', name:'Tetra Reference Guide', color: '#0066CB', image:require('../assets/images/tetra-guide.png') },
-        { tag: 'GUIDE', name:'Telium Reference Guide', color: '#754DD3', image:require('../assets/images/telium-guide.png') },
-        { tag: 'SUPPORT', name:'Conatct Us', color: '#D5004D', image:require('../assets/images/contact-us.png') },
-        { tag: 'SKYZER', name:'About Us', color: '#0066CB', image:require('../assets/images/about-us.png') },
+        { tag: 'GUIDE', name:'Tetra Reference Guide', color: Colors.skyzerCard1, image:require('../assets/images/tetra-guide.png') },
+        { tag: 'GUIDE', name:'Telium Reference Guide', color: Colors.skyzerCard2, image:require('../assets/images/telium-guide.png') },
+        { tag: 'SUPPORT', name:'Conatct Us', color: Colors.skyzerCard3, image:require('../assets/images/contact-us.png') },
+        { tag: 'SKYZER', name:'About Us', color: Colors.skyzerCard4, image:require('../assets/images/about-us.png') },
 
       ]);
 
     return (
         <View style={styles.container}>
             {Platform.OS === 'ios' && <>
-            <StatusBar barStyle="dark-content" hidden = {false} translucent = {true}></StatusBar>
+            <StatusBar barStyle="light-content" hidden = {false} translucent = {true}></StatusBar>
             </>}
             <View style={styles.header}>
             <View style={styles.headerSubView}>
@@ -40,10 +40,10 @@ export default Home = () => {
                             <View style={[styles.gridViewContainer, { backgroundColor: item.color }]}>
                                 <View style={[styles.itemContainer]}>
                                     <Text style={styles.itemTag}>{item.tag}</Text>
-                                    <Text style={styles.itemName}>{item.name}</Text>
+                                    <Image style={styles.itemCardImage} source={item.image} />
                                 </View>
                                 <View style={[styles.footerContainer, { backgroundColor: item.color }]}>
-                                    <Image style={styles.itemCardLogo} source={item.image} />
+                                    <Text style={styles.itemName}>{item.name}</Text>
                                 </View>
                             </View>
                         )}
@@ -58,8 +58,6 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       paddingTop: Platform.OS === 'ios'? 10 : 20,
-      alignItems: 'center',
-      justifyContent: 'center',
       flexDirection: 'column',
       backgroundColor: Colors.background,
     },
@@ -70,7 +68,6 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 5,
-        alignItems: 'center',
         width: '100%',
         flexDirection: "row",
         alignContent: "space-between",
@@ -112,34 +109,39 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         borderRadius: 5,
         padding: 10,
+        height: 170,
     },
     itemContainer: {
         flex:2,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     footerContainer: {
         flex: 4,
+        justifyContent: 'flex-end',
     },
     itemTag: {
         fontSize: 12,
-        color: '#A7AABD',
+        color: Colors.lightFont,
         fontWeight: '600',
         margin: 5,
+        alignSelf: 'center',
     },
     itemName: {
         fontSize: 25,
-        color: '#fff',
+        color: Colors.lightFont,
         fontWeight: 'bold',
         margin: 5,
     },
     itemCode: {
         fontWeight: '600',
         fontSize: 12,
-        color: '#fff',
+        color: Colors.lightFont,
         margin: 5,
     },
-    itemCardLogo: {
-        width: 100,
-        height: 150,
+    itemCardImage: {
+        width: 50,
+        height: 50,
         alignSelf: 'flex-end',
     },
 });

@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, 
 import Logo from '../components/Logo';
 import Modal from 'react-native-modal';
 import WavyHeader from '../components/WavyHeader';
+import Headertext from '../config/Headertext';
 
 export default LogIn = () => {
 
@@ -42,16 +43,16 @@ export default LogIn = () => {
       {/* MODEL SIGNUP PROCESS  */}
        <Modal isVisible={modelSignUpVisible} animationType="fade" transparent={true}>
         <View style={{height: Dimensions.get('window').height - 300}}>
-        <View style={styles.modelContainer} >
+        <View style={[styles.modelContainer, {backgroundColor: Colors.modelBackgroundGreen}]} >
             
-            <View style={styles.modelHeader}>
-              <Text style={[styles.h3, {alignSelf: 'center'}]}>Signup Process!</Text>
+            <View style={[styles.modelHeader, {backgroundColor: Colors.modelBackgroundGreen}]}>
+              <Text style={[Headertext.h3, {alignSelf: 'center'}]}>Signup Process!</Text>
               <TouchableOpacity style={[styles.button, {marginLeft: 'auto',}]} onPress={() => setModelSignUpVisible(false)}>
                   <Image style={styles.iconClose} source={require('../assets/images/close.png')} />
               </TouchableOpacity>
             </View>
 
-            <ScrollView style={{padding: 10}}>
+            <ScrollView style={{padding: 5}}>
               <Text style={{margin: 10, textAlign: 'justify' }}>
                 As you can see the black size is the scroll View, I want it to be small. In routes stack into dashboard screen, the style: const Style = StyleSheet.
                 As you can see the black size is the scroll View, I want it to be small. In routes stack into dashboard screen, the style: const Style = StyleSheet.
@@ -73,10 +74,10 @@ export default LogIn = () => {
       {/* MODEL FORGET PASSWORD PROCESS  */}
       <Modal isVisible={modelForgetPasswordVisible} animationType="fade" transparent={true}>
         <View style={{height: Dimensions.get('window').height - 300}}>
-        <View style={styles.modelContainer} >
+        <View style={[styles.modelContainer, {backgroundColor: Colors.modelBackgroundYellow}]} >
             
-            <View style={styles.modelHeader}>
-              <Text style={[styles.h3, {flex: 5.8, alignSelf: 'center'}]}>Forget Password Process!</Text>
+            <View style={[styles.modelHeader, {backgroundColor: Colors.modelBackgroundYellow}]}>
+              <Text style={[Headertext.h3, {flex: 5.8, alignSelf: 'center'}]}>Forget Password ?</Text>
               <TouchableOpacity style={[styles.button, {flex: .2, marginLeft: 'auto',}]} onPress={() => setModelForgetPasswordVisible(false)}>
                   <Image style={styles.iconClose} source={require('../assets/images/close.png')} />
               </TouchableOpacity>
@@ -103,10 +104,10 @@ export default LogIn = () => {
         
         
         <View style={styles.header}>
-          <Logo/>
-          <Text style={styles.h1}>Welcome to</Text>
-          <Text style={styles.h1}>Skyzer Guide</Text>
-          <Text style={styles.h5}>Let you explore the terminal</Text>
+          {/* <Logo/> */}
+          <Text style={Headertext.h1}>Welcome to</Text>
+          <Text style={Headertext.h1}>Skyzer Guide</Text>
+          <Text style={Headertext.h5}>Let you explore the terminal</Text>
         </View>
 
         <View style={styles.body}>
@@ -117,12 +118,12 @@ export default LogIn = () => {
                 <Text style={styles.bodyFormHeader}> Back</Text>
               </View>
               <View style={{margin: 10}}>
-                <TextInput style={styles.input} placeholder="Username" placeholderTextColor={Colors.white} keyboardType="default" onChangeText={(Username) => setUsername(Username)}/>
-                <TextInput style={styles.input} placeholder="Password" placeholderTextColor={Colors.white} keyboardType="default" secureTextEntry={true} onChangeText={(Password) => setPassword(Password)} />
+                <TextInput style={styles.input} placeholder="Username" placeholderTextColor={Colors.lightFont} keyboardType="default" onChangeText={(Username) => setUsername(Username)}/>
+                <TextInput style={styles.input} placeholder="Password" placeholderTextColor={Colors.lightFont} keyboardType="default" secureTextEntry={true} onChangeText={(Password) => setPassword(Password)} />
                
                 <View style={{flexDirection:'row', alignItems: 'center'}}>
                   <TouchableOpacity style={[styles.button]}  onPress={handleLogin}>
-                    <Text style={[styles.h4, {marginRight: 15, color: Colors.white}]}>Log In</Text>
+                    <Text style={[Headertext.h4, {marginRight: 15, color: Colors.buttonWhite}]}>Log In</Text>
                   </TouchableOpacity>
                   <View style={iconPosition === "left" ? styles.moveLeft : styles.moveRight}>
                     <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />  
@@ -132,10 +133,10 @@ export default LogIn = () => {
               </View>
               <View style={{margin: 10, flexDirection: 'row'}}>
                 <TouchableOpacity style={[styles.navButton]} onPress={() => setModelSignUpVisible(true)}>
-                  <Text style={[styles.h5, {color: Colors.white}]}>Sign Up</Text>
+                  <Text style={[Headertext.h5, {color: Colors.lightFont}]}>Sign Up</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.navButton, {marginLeft: 'auto',}]} onPress={() => setModelForgetPasswordVisible(true)}>
-                  <Text style={[styles.h5, {color: Colors.white}]}>Forget Password?</Text>
+                  <Text style={[Headertext.h5, {color: Colors.lightFont}]}>Forget Password?</Text>
                 </TouchableOpacity>
               </View>
               
@@ -153,38 +154,43 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       paddingTop: Platform.OS === 'ios'? 10 : 60,
+      backgroundColor: Colors.background,
     },
     header: {
       flex: 1.5,
       justifyContent: 'flex-end',
       alignItems: 'center',
-      paddingBottom: 20
+      paddingBottom: 20,
+      backgroundColor: Colors.background,
     },
     body: {
       flex: 4.5,
       alignItems: 'center',
-      backgroundColor: Colors.primary,
+      backgroundColor: Colors.backgroundOptional,
     },
     bodyForm: {
         width: Dimensions.get('window').width - 70, 
         marginTop: 30,
         marginLeft: 70,
         marginRight: 70,
-        color: Colors.white,
+        color: Colors.lightFont,
     }, 
     bodyFormHeader: {
       fontSize: 25,
       fontWeight: 'bold',
-      color: Colors.white,
+      color: Colors.lightFont,
     },
     modelContainer: {
       flex: 1, 
-      backgroundColor: Colors.white, 
+      backgroundColor: Colors.modelBackgroundGreen, 
       borderRadius: 25,
     },
     modelHeader: {
       flexDirection: 'row', 
-      padding: 10
+      padding: 10,
+      marginLeft: 5,
+      backgroundColor: Colors.modelBackgroundGreen,
+      borderRadius: 25,
     },
     input: {
       height: 40,
@@ -192,28 +198,9 @@ const styles = StyleSheet.create({
       marginBottom: 15,
       padding: 10,
       borderRadius: 10,
-      borderBottomColor: Colors.white,
+      borderBottomColor: Colors.lightFont,
       borderBottomWidth: 1,
-      color: Colors.white,
-    },
-    h1: {
-      fontSize: 35,
-      fontWeight: 'bold',
-      color: Colors.darkFont
-    },
-    h3: {
-      fontSize: 25,
-      fontWeight: 'bold',
-      color: Colors.darkFont
-    },
-    h4: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      color: Colors.darkFont
-    },  
-    h5: {
-      fontSize: 15,
-      color: Colors.darkFont
+      color: Colors.lightFont,
     },
     button: {
       marginTop: 15,
@@ -235,7 +222,7 @@ const styles = StyleSheet.create({
       padding: 5,
       borderWidth: 1,
       borderRadius: 5,
-      borderColor: Colors.white,
+      borderColor: Colors.lightFont,
     },
     moveRight: {
       marginLeft: 'auto',

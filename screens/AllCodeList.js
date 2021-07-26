@@ -1,32 +1,54 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, } from 'react-native';
+import { Badge } from 'react-native-paper'; 
 import Colors from '../config/Colors';
-import { FlatGrid } from 'react-native-super-grid';
 
 export default AllCodeList = () => {
     const [items, setItems] = React.useState([
-        { tag: 'FUNCTION', name:'Tetra Reference Guide1', ans:'Tetra ans1'},
-        { tag: 'FUNCTION', name:'Tetra Reference Guide2', ans:'Tetra ans2'},
-        { tag: 'MENU', name:'Tetra Reference Guide3', ans:'Tetra ans3'},
-        { tag: 'FUNCTION', name:'Tetra Reference Guide4', ans:'Tetra ans4'},
+        { id: '1', telium: '1', tetra: '1', function: '1', menu: '0', question:'Tetra Reference Guide1?', answer:'FUNC 3428', favourite: '1'},
+        { id: '2', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
+
     ]);
 
     return (
     <View style={styles.container}>
         <View style={styles.bodySubView}>
-            <FlatGrid itemDimension={130} data={items} style={styles.gridView} spacing={10}
+            <FlatList style={styles.gridView}
+                data={items} 
+                keyExtractor={items => items.id}
                 renderItem={({ item }) => (
-                    <View style={[styles.gridViewContainer, { 
-                            backgroundColor: item.tag == 'MENU' ? Colors.white : Colors.darkFont
-                        }]}>
-                        <View style={[styles.itemContainer]}>
-                            <Text style={styles.itemTag}>{item.tag}</Text>
-                            <Text style={styles.itemName}>{item.name}</Text>
+                    <View style={[styles.listContainer, { backgroundColor: '#496AA9' }]}>
+                        <View style={[styles.itemHeader]}>
+                            <View style={styles.itemHeaderLeft}>
+                                {
+                                    item.tetra === '1' ? <Badge style={[styles.badge, {backgroundColor: Colors.green}]}>TETRA</Badge>: null
+                                }
+                                {
+                                    item.telium === '1' ? <Badge style={[styles.badge, {backgroundColor: Colors.yellow}]}>TELIUM</Badge> : null
+                                }
+                            </View>
+                            <View style={styles.itemHeaderRight}>
+                                {
+                                    item.function === '1' ? <Image style={styles.itemCardImage} source={require('../assets/images/function.png')} /> : null
+                                }
+                                {
+                                    item.menu === '1' ? <Image style={styles.itemCardImage} source={require('../assets/images/menu.png')} /> : null
+                                }
+                            </View>
+                        </View>
+                        <View style={[styles.itemBody]}>
+                            <View style={styles.itemBodyLeft}>
+                                <Text style={styles.itemQuestion}>{item.question}</Text>
+                                <Text style={styles.itemAnswer}>{item.answer}</Text>
+                            </View>
+                            <View style={styles.itemBodyRight}>
+                                <Image style={styles.itemCardImage} source={require('../assets/images/star-outline.png')} />
+                            </View>
                         </View>
                     </View>
                 )}
             />
-                </View>
+        </View>
     </View>
     );
 }
@@ -34,41 +56,63 @@ export default AllCodeList = () => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingBottom: 10,
-      alignItems: 'center',
-      justifyContent: 'center',
       backgroundColor: Colors.background,
     },
     bodySubView: {
         flex: 1, 
-        marginTop: 10,
+        margin: 15,
         backgroundColor: Colors.background,
     },
-    gridViewContainer: {
+    listContainer: {
         flex: 1,
-        justifyContent: 'flex-start',
-        borderRadius: 5,
+        borderRadius: 10,
         padding: 10,
+        marginTop: 5,
+        marginBottom: 5,
     },
-    itemContainer: {
-        flex:2,
+    itemHeader: {
+        flex: 1,
+        flexDirection: 'row',
     },
-    itemTag: {
-        fontSize: 12,
-        color: '#A7AABD',
+    itemHeaderLeft: {
+        flex: 4.5,
+        flexDirection: 'row',
+    },
+    itemHeaderRight: {
+        flex: 1.5,
+    },
+    itemBody: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    itemBodyLeft: {
+        flex: 5.5,
+    },
+    itemBodyRight: {
+        flex: .5,
+        justifyContent: 'flex-end'
+    },
+    badge: {
+        alignSelf: 'flex-start',
+        marginLeft: 5,
+        marginRight: 5,
+        borderRadius: 5,
+    },
+    itemQuestion: {
+        fontSize: 17,
+        color: Colors.white,
         fontWeight: '600',
         margin: 5,
     },
-    itemName: {
-        fontSize: 25,
-        color: '#fff',
+    itemAnswer: {
+        fontSize: 12,
+        color: Colors.lightFont,
         fontWeight: 'bold',
         margin: 5,
     },
-    itemCode: {
-        fontWeight: '600',
-        fontSize: 12,
-        color: '#fff',
-        margin: 5,
+    itemCardImage: {
+        width: 25,
+        height: 25,
+        alignSelf: 'flex-end',
     },
 });

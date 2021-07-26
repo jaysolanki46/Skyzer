@@ -3,18 +3,19 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Platform } from 'react
 import Colors from '../config/Colors';
 import { StatusBar } from 'react-native'
 import Logo from '../components/Logo';
+import Headertext from '../config/Headertext';
 
 export default StartUp = () => {
     
     return (
       <View style={styles.container}>
-        <StatusBar barStyle="dark-content" hidden = {false} translucent = {true}></StatusBar>
+        <StatusBar barStyle="light-content" hidden = {false} translucent = {true}></StatusBar>
   
         <View style={styles.header}>
-          <Logo/>
-          <Text style={styles.h1}>Welcome to</Text>
-          <Text style={styles.h1}>Skyzer Guide</Text>
-          <Text style={styles.h5}>Let you explore the terminal</Text>
+          {/* <Logo/> */}
+          <Text style={Headertext.h1}>Welcome to</Text>
+          <Text style={Headertext.h1}>Skyzer Guide</Text>
+          <Text style={Headertext.h5}>Let you explore the terminal</Text>
         </View>
   
         <View style={styles.body}>
@@ -22,14 +23,14 @@ export default StartUp = () => {
         </View>
   
         <View style={styles.signup_body}>
-          <TouchableOpacity style={styles.login_button}><Text style={[styles.h3, {color: Colors.white}]}>Log In</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.login_button}><Text style={[Headertext.h3, {color: Colors.lightFont}]}>Log In</Text></TouchableOpacity>
           <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 5}}>
-            <Text style={styles.h5}>Don't have an account?</Text><TouchableOpacity><Text style={[styles.h5, {color: Colors.link, marginLeft: 5}]}>Sign Up</Text></TouchableOpacity>
+            <Text style={Headertext.h5}>Don't have an account?</Text><TouchableOpacity><Text style={[styles.h5, {color: Colors.link, marginLeft: 5}]}>Sign Up</Text></TouchableOpacity>
           </View>
         </View>
   
         <View style={styles.footer}>
-          <Text style={[styles.h5, {color: Colors.lightFont}]}>Follow Us:</Text>
+          <Text style={[Headertext.h5, {color: Colors.lightFont}]}>Follow Us:</Text>
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/facebook.png')} /></TouchableOpacity>
               <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/linkedin.png')} /></TouchableOpacity>
@@ -44,12 +45,13 @@ export default StartUp = () => {
         flex: 1,
         paddingTop: Platform.OS === 'ios'? 10 : 60,
         paddingBottom: 10,
+        backgroundColor: Colors.background,
       },
       header: {
         flex: 1.5,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        paddingBottom: 20
+        paddingBottom: 20,
       },
       body: {
         flex: 2.5,
@@ -65,23 +67,8 @@ export default StartUp = () => {
         flex: 1,
         alignItems: 'center',
       },
-      h1: {
-        fontSize: 35,
-        fontWeight: 'bold',
-        color: Colors.darkFont
-      },
-      h3: {
-        fontSize: 25,
-        fontWeight: 'bold',
-        color: Colors.darkFont
-      },
-      h5: {
-        fontSize: 15,
-        fontWeight: 'normal',
-        color: Colors.lightFont
-      },
       login_button: {
-        backgroundColor: Colors.primary,
+        backgroundColor: Colors.buttonPurple,
         paddingLeft: 120,
         paddingRight: 120,
         paddingTop: 10,
@@ -92,8 +79,6 @@ export default StartUp = () => {
         margin: 5,
         borderRadius: 25,
       },
-    
-      /** Images   */
       logo: {
         width: 120,
         height: 50,

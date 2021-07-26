@@ -21,7 +21,7 @@ const App = () => {
      
       <NavigationContainer>
         <Tab.Navigator
-          initialRouteName="CodeList"
+          initialRouteName="Profile"
           activeColor={Colors.active}
           inactiveColor={Colors.inactive}
           labelStyle={{ fontSize: 12 }}

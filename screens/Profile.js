@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, StatusBar, Button,Image  } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Button,Image, TextInput, TouchableOpacity  } from 'react-native';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import * as ImagePicker from 'expo-image-picker';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default Profile = () => {
 
+    const defaultImageUrl = '../assets/images/profile.png';
     const [image, setImage] = useState(null);
+    const [showPassword, setShowPassword] = useState(true);
 
     useEffect(() => {
       (async () => {
@@ -48,24 +51,88 @@ export default Profile = () => {
                 <View style={styles.bodySubView}>
                     <View style={styles.bodyTop}>
                         <View style={styles.bodyTopLeft}>
-                            {image && <Image 
-                                style={styles.tinyLogo}
-                                source={{ uri: image }} />}
-                            <Button title="Edit" onPress={pickImage} />
+                            <View>
+                                {
+                                image == null ? 
+                                    <Image
+                                        style={styles.tinyLogo}
+                                        source={require(defaultImageUrl)}
+                                    /> :
+                                    <Image 
+                                        style={styles.tinyLogo}
+                                        source={{ uri: image }} />
+                                    }
+                                    <MaterialCommunityIcons name="pencil" style={{alignSelf: 'center'}}
+                                    size={24} color={Colors.white} onPress={pickImage}/>
+                            </View>
                         </View>
                         <View style={styles.bodyTopRight}>
-
+                            <Text style={Headertext.h3}>Jay</Text>
+                            <Text style={Headertext.h4}>1248 - Skyzer Technologies</Text>
                         </View>
                     </View>
 
                     <View style={styles.bodyMiddle}>
-
+                        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                            <Text style={Headertext.h4}>Password</Text>
+                            {(() => {
+                                if(showPassword) {
+                                    return  (
+                                        <View style={{flexDirection: 'row', alignItems: 'center'}} >
+                                            <MaterialCommunityIcons name="eye" size={24} color={Colors.white} onPress={() => setShowPassword(false)} />
+                                            <Text style={[Headertext.h5, {marginLeft: 5,}]} onPress={() => setShowPassword(false)}>Show</Text>
+                                        </View>
+                                    )
+                                } else {
+                                    return (
+                                        <View style={{flexDirection: 'row', alignItems: 'center'}} >
+                                            <MaterialCommunityIcons name="eye-off" size={24} color={Colors.white} onPress={() => setShowPassword(true)}/>
+                                            <Text style={[Headertext.h5, {marginLeft: 5,}]} onPress={() => setShowPassword(true)}>Hide</Text>
+                                        </View>
+                                    )
+                                } 
+                            })()}    
+                        </View>
+                        <TextInput style={styles.input} placeholder="Password" 
+                            placeholderTextColor={Colors.lightFont} keyboardType="default" 
+                            secureTextEntry={showPassword} value="12345" />
                     </View>
 
                     <View style={styles.bodyBottom}>
-
+                        <View style={{alignItems: 'center', flexDirection: 'row'}}>
+                            <TouchableOpacity style={[styles.button, {backgroundColor: Colors.buttonPink,}]}>
+                                <MaterialCommunityIcons name="phone" size={24} color={Colors.white}/>
+                            </TouchableOpacity>
+                            <Text style={[Headertext.h4, {color: Colors.lightFont, marginLeft: 5,}]}>Support</Text>
+                        </View>
+                        <View style={{alignItems: 'center', flexDirection: 'row'}}>
+                        <TouchableOpacity style={[styles.button, {backgroundColor: Colors.buttonPurple,}]}>
+                                <MaterialCommunityIcons name="email" size={24} color={Colors.white}/>
+                            </TouchableOpacity>
+                            <Text style={[Headertext.h4, {color: Colors.lightFont, marginLeft: 5,}]}>Support</Text>
+                        </View>
                     </View>
 
+                    <View style={styles.footer}>
+                            <View style={{flex: 4, justifyContent: 'flex-end'}}>
+                                <Text style={[Headertext.h5, {color: Colors.lightFont, alignSelf: 'center'}]}>Follow Us:</Text>
+                                <View style={{flexDirection: 'row'}}>
+                                    <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/facebook.png')} /></TouchableOpacity>
+                                    <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/linkedin.png')} /></TouchableOpacity>
+                                </View>
+                            </View>
+                            <View style={{flex: 2, justifyContent: 'flex-end', alignItems: 'center'}}>
+                                <Text style={[Headertext.h5,]}>
+                                    Version: 1.0 
+                                </Text>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <MaterialCommunityIcons name="copyright" size={20} color={Colors.white} />
+                                    <Text style={[Headertext.h5, {marginLeft: 5,}]}>
+                                            Skyzer Technologies. All Rights Reserved.
+                                    </Text>
+                                </View>
+                            </View>
+                    </View>        
                 </View>
             </View>
         </View>
@@ -102,43 +169,70 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: "row",
         alignContent: "space-between",
-        borderWidth: 1,
     },
     bodySubView: {
         flex: 1, 
         backgroundColor: Colors.background,
     },
     bodyTop: {
-        borderWidth: 1,
         flex: 2,
         flexDirection: 'row',
-        backgroundColor: Colors.white,
     },
     bodyTopLeft: {
-        borderWidth: 1,
-        flex: 2,
-        backgroundColor: Colors.yellow,
+        flex: 1.8,
         justifyContent: 'center',
-        alignItems: 'center'
     },
     bodyTopRight: {
-        borderWidth: 1,
-        flex: 4,
-        backgroundColor: Colors.green,
+        flex: 4.2,
+        justifyContent: 'center',
     },
     bodyMiddle: {
-        borderWidth: 1,
-        flex: 3,
-        backgroundColor: Colors.white,
+        flex: 1,
+        backgroundColor: Colors.background,
+        margin: 10,
     },
     bodyBottom: {
-        borderWidth: 1,
-        flex: 1,
-        backgroundColor: Colors.green,
+        flex: 0.5,
+        flexDirection: 'row',
+        margin: 10,
+        justifyContent: 'space-between',
+    },
+    footer: {
+        flex: 2.5,
+        alignItems: 'center',
+        padding: 5,
     },
     tinyLogo: {
         width: 75,
         height: 75,
         borderRadius: 50,
     },
+    input: {
+      height: 40,
+      marginTop: 15,
+      marginBottom: 15,
+      padding: 10,
+      borderRadius: 10,
+      borderBottomColor: Colors.lightFont,
+      borderBottomWidth: 1,
+      color: Colors.lightFont,
+    },
+    button: {
+      paddingLeft: 20,
+      paddingRight: 20,
+      paddingTop: 10,
+      paddingBottom: 10,
+      borderRadius: 25,
+      alignItems: 'center',
+      flexDirection: 'row',
+    },
+    social_button: {
+      margin: 5,
+      borderRadius: 25,
+    },
+    social_logo: {
+      width: 50,
+      height: 50,
+      resizeMode: 'stretch'
+    }
 });

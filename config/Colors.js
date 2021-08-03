@@ -18,6 +18,7 @@ export default {
 
     buttonPurple: '#5551CC',
     buttonWhite: '#FFFFFF',
+    buttonPink: '#D9484E',
 
     darkFont: '#2F4F4F',
     lightFont: '#FFFFFF',

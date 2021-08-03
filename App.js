@@ -1,88 +1,16 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Home from './screens/Home';
-import CodeList from './screens/CodeList';
-import Profile from './screens/Profile';
-import Colors from './config/Colors';
+import Tabs from './components/Tabs';
 import StartUp from './screens/StartUp';
 import LogIn from './screens/LogIn';
-
-const Tab = createMaterialBottomTabNavigator();
 
 const App = () => {
     
   return (
     <SafeAreaProvider>
-      {/* <StartUp/> */}
-     
-      <NavigationContainer>
-        <Tab.Navigator
-          initialRouteName="Profile"
-          activeColor={Colors.active}
-          inactiveColor={Colors.inactive}
-          labelStyle={{ fontSize: 12 }}
-          barStyle={{ backgroundColor: Colors.background,  
-                      borderTopWidth: 0,
-                      elevation: 0,
-                    }}
-          shifting={true}
-          labeled={true}
-          lazy={true}
-        >
-
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            tabBarLabel: 'Home',
-            tabBarIcon: ({ color, focused }) => (
-              focused={focused},
-              <MaterialCommunityIcons
-                name={focused ? "home" : "home-outline"}
-                color={color}
-                size={27}
-              />
-            )
-          }}
-        />
-
-        <Tab.Screen
-          name="CodeList"
-          component={CodeList}
-          options={{
-            tabBarLabel: 'Code List',
-            tabBarIcon: ({ color, focused }) => (
-              focused={focused},
-              <MaterialCommunityIcons
-                name={focused ? "view-list" : "view-list-outline"}
-                color={color}
-                size={27}
-              />
-            )
-          }}
-        />
-
-        <Tab.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            tabBarLabel: 'Profile',
-            tabBarIcon: ({ color, focused }) => (
-              focused={focused},
-              <MaterialCommunityIcons
-                name={focused ? "account" : "account-outline"}
-                color={color}
-                size={27}
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-      </NavigationContainer>
+    {/* <LogIn/> */}
+    <Tabs/>
+      
       
     </SafeAreaProvider>
   );

@@ -62,8 +62,7 @@ export default Profile = () => {
                                         style={styles.tinyLogo}
                                         source={{ uri: image }} />
                                     }
-                                    <MaterialCommunityIcons name="pencil" style={{alignSelf: 'center'}}
-                                    size={24} color={Colors.white} onPress={pickImage}/>
+                                    <Text style={[Headertext.h5, {alignSelf: 'center'}]} onPress={pickImage}>Edit</Text>
                             </View>
                         </View>
                         <View style={styles.bodyTopRight}>
@@ -99,27 +98,26 @@ export default Profile = () => {
                     </View>
 
                     <View style={styles.bodyBottom}>
-                        <View style={{alignItems: 'center', flexDirection: 'row'}}>
-                            <TouchableOpacity style={[styles.button, {backgroundColor: Colors.buttonPink,}]}>
-                                <MaterialCommunityIcons name="phone" size={24} color={Colors.white}/>
-                            </TouchableOpacity>
-                            <Text style={[Headertext.h4, {color: Colors.lightFont, marginLeft: 5,}]}>Support</Text>
-                        </View>
-                        <View style={{alignItems: 'center', flexDirection: 'row'}}>
-                        <TouchableOpacity style={[styles.button, {backgroundColor: Colors.buttonPurple,}]}>
-                                <MaterialCommunityIcons name="email" size={24} color={Colors.white}/>
-                            </TouchableOpacity>
-                            <Text style={[Headertext.h4, {color: Colors.lightFont, marginLeft: 5,}]}>Support</Text>
-                        </View>
+                        
                     </View>
 
                     <View style={styles.footer}>
-                            <View style={{flex: 4, justifyContent: 'flex-end'}}>
-                                <Text style={[Headertext.h5, {color: Colors.lightFont, alignSelf: 'center'}]}>Follow Us:</Text>
-                                <View style={{flexDirection: 'row'}}>
-                                    <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/facebook.png')} /></TouchableOpacity>
-                                    <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/linkedin.png')} /></TouchableOpacity>
+                            <View style={{flex: 4, width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end'}}>
+                                <View>
+                                    <Text style={[Headertext.h5, {color: Colors.lightFont, alignSelf: 'center', fontWeight: '500'}]}>Contact Us:</Text>
+                                    <View style={{flexDirection: 'row'}}>
+                                        <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/phone.png')} /></TouchableOpacity>
+                                        <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/email.png')} /></TouchableOpacity>
+                                    </View>
                                 </View>
+                                <View>
+                                    <Text style={[Headertext.h5, {color: Colors.lightFont, alignSelf: 'center', fontWeight: '500'}]}>Follow Us:</Text>
+                                    <View style={{flexDirection: 'row'}}>
+                                        <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/facebook.png')} /></TouchableOpacity>
+                                        <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/linkedin.png')} /></TouchableOpacity>
+                                    </View>
+                                </View>
+                                
                             </View>
                             <View style={{flex: 2, justifyContent: 'flex-end', alignItems: 'center'}}>
                                 <Text style={[Headertext.h5,]}>
@@ -179,8 +177,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     bodyTopLeft: {
-        flex: 1.8,
+        flex: 2,
         justifyContent: 'center',
+        alignItems: 'center'
     },
     bodyTopRight: {
         flex: 4.2,
@@ -222,6 +221,7 @@ const styles = StyleSheet.create({
       paddingRight: 20,
       paddingTop: 10,
       paddingBottom: 10,
+      margin: 5,
       borderRadius: 25,
       alignItems: 'center',
       flexDirection: 'row',

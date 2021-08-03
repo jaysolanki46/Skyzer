@@ -21,11 +21,16 @@ export default Home = () => {
             </>}
             <View style={styles.header}>
             <View style={styles.headerSubView}>
-                    <View style={styles.headerLeft}>
-                        <Text style={Headertext.h1}>Hey,</Text>
-                        <Text style={Headertext.h4}>Welcome back, Jay!</Text>
+                <Text style={Headertext.h2}>Hi Jay</Text>
+            </View>
+            </View>
+            <View style={styles.bodyTop}>
+            <View style={styles.bodyTopSubView}>
+                    <View style={styles.bodyTopLeft}>
+                        <Text style={Headertext.h4}>1248</Text>
+                        <Text style={Headertext.h5}>Skyzer Technologies</Text>
                     </View>
-                    <View style={styles.headerRight}>
+                    <View style={styles.bodyTopRight}>
                         <Image
                             style={styles.tinyLogo}
                             source={require('../assets/images/profile.png')}
@@ -62,7 +67,22 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.background,
     },
     header: {
-        flex: 1,
+        flex: .5,
+        width: '100%',
+        marginTop: 20, 
+        marginBottom: 10,
+    },
+    headerSubView: {
+        flex: 1, 
+        flexDirection: 'row',
+        marginLeft: 10, 
+        marginRight: 10,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-end',
+        backgroundColor: Colors.background,
+    },
+    bodyTop: {
+        flex: 0.5,
         alignItems: 'baseline',
         width: '100%',
     },
@@ -72,20 +92,20 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignContent: "space-between",
     },
-    headerSubView: {
+    bodyTopSubView: {
         flex: 1, 
         flexDirection: 'row',
         marginLeft: 10, 
         marginRight: 10,
         backgroundColor: Colors.background,
     },
-    headerLeft: {
+    bodyTopLeft: {
         flex: 4,
         width: '20%',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-start',
         alignItems: 'flex-start',
     },
-    headerRight: {
+    bodyTopRight: {
         flex: 2,
         width: '20%',
         justifyContent: 'flex-end',

@@ -104,14 +104,14 @@ export default Profile = () => {
                     <View style={styles.footer}>
                             <View style={{flex: 4, width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end'}}>
                                 <View>
-                                    <Text style={[Headertext.h5, {color: Colors.lightFont, alignSelf: 'center', fontWeight: '500'}]}>Contact Us:</Text>
+                                    <Text style={[Headertext.h5, {color: Colors.lightFont, alignSelf: 'center', fontWeight: '500'}]}>Need Support?</Text>
                                     <View style={{flexDirection: 'row'}}>
                                         <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/phone.png')} /></TouchableOpacity>
                                         <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/email.png')} /></TouchableOpacity>
                                     </View>
                                 </View>
                                 <View>
-                                    <Text style={[Headertext.h5, {color: Colors.lightFont, alignSelf: 'center', fontWeight: '500'}]}>Follow Us:</Text>
+                                    <Text style={[Headertext.h5, {color: Colors.lightFont, alignSelf: 'center', fontWeight: '500'}]}>Get Know Us:</Text>
                                     <View style={{flexDirection: 'row'}}>
                                         <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/facebook.png')} /></TouchableOpacity>
                                         <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/linkedin.png')} /></TouchableOpacity>

@@ -25,7 +25,7 @@ function TopTabs() {
                 },
                 style: {
                     alignSelf: "center",
-                    width: '95%',
+                    width: '97%',
                     borderRadius: 100,
                     borderColor: "blue",
                     backgroundColor: Colors.lightBackground,

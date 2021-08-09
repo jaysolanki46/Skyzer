@@ -109,7 +109,7 @@ export default AllCodeList = () => {
                 cancelIconColor="#c6c6c6"
                 placeholder="Search here"
                 onChangeText={(text) => searchFilterFunction(text)}
-                onPressCancel={(text) => searchFilterFunction("")}
+                onClearPress={() => searchFilterFunction("")}
             />
             <FlatList style={styles.gridView}
                 data={filteredDataSource} 

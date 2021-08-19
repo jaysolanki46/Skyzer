@@ -5,39 +5,66 @@ import SearchBar from 'react-native-dynamic-search-bar';
 import Colors from '../config/Colors';
 
 export default AllCodeList = () => {
-    /*const items = [
-        { id: '1', telium: '1', tetra: '1', function: '1', menu: '0', question:'Tetra Reference Guide1?', answer:'FUNC 3428', favourite: '1'},
-        { id: '2', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
-        { id: '3', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
-        { id: '4', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
-        { id: '5', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
-        { id: '6', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
-        { id: '7', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
-        { id: '8', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
-        { id: '9', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
-        { id: '10', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
-        { id: '11', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
-        { id: '12', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
-        { id: '13', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
-        { id: '14', telium: '0', tetra: '1', function: '0', menu: '1', question:'Tetra Reference Guide1?', answer:'Tetra ans1', favourite: '1'},
-
-    ];*/
 
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState([]);
     const [masterDataSource, setMasterDataSource] = useState([]);
 
+    const initList = () => {
+
+        /** SESSION VALUE */
+        const userId = 1;
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        
+        fetch("http://192.168.20.12:8080/skyzer-guide/referenceGuideFunctions/user/" + userId, requestOptions)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          setFilteredDataSource(responseJson);
+          setMasterDataSource(responseJson);
+        })
+        .catch(error => console.log('error', error));
+    }
+
+    const updateFavouriteItem = (itemId) => {
+        
+        /** SESSION VALUE */
+        const userId = 1;
+
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "user": {
+                "id": userId
+            },
+            "favorite_reference_guide_function": {
+                "id": itemId
+            }
+        });
+        
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("http://192.168.20.12:8080/skyzer-guide/userFavorites", requestOptions)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          setFilteredDataSource(responseJson);
+          setMasterDataSource(responseJson);
+        })
+        .catch(error => console.log('error', error));
+    }  
+
     useEffect(() => {
-        fetch('http://10.63.192.145:8080/skyzer-guide/referenceGuideFunctions')
-          .then((response) => response.json())
-          .then((responseJson) => {
-            setFilteredDataSource(responseJson);
-            setMasterDataSource(responseJson);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }, []);
+        initList();
+    }, []);
 
     const searchFilterFunction = (text) => {
             if (text) {
@@ -66,7 +93,6 @@ export default AllCodeList = () => {
     const ItemView = ({ item }) => {
         return (
             <View style={[styles.listContainer, { backgroundColor: '#496AA9' }]}>
-                <TouchableOpacity onPress={() => alert(item.id)}>
                 <View style={[styles.itemHeader]}>
                     <View style={styles.itemHeaderLeft}>
                         {
@@ -76,25 +102,31 @@ export default AllCodeList = () => {
                             item.is_telium ? <Badge style={[styles.badge, {backgroundColor: Colors.yellow}]}>TELIUM</Badge> : null
                         }
                     </View>
-                    <View style={styles.itemHeaderRight}>
+                    {/* <View style={styles.itemHeaderRight}>
                         {
                             item.is_function ? <Image style={styles.itemCardImage} source={require('../assets/images/function.png')} /> : null
                         }
                         {
                             item.is_menu ? <Image style={styles.itemCardImage} source={require('../assets/images/menu.png')} /> : null
                         }
-                    </View>
+                    </View> */}
                 </View>
                 <View style={[styles.itemBody]}>
                     <View style={styles.itemBodyLeft}>
                         <Text style={styles.itemQuestion}>{item.name}</Text>
                         <Text style={styles.itemAnswer}>{item.short_solution}</Text>
                     </View>
+                    <TouchableOpacity onPress={() => updateFavouriteItem(item.id)}>
                     <View style={styles.itemBodyRight}>
-                        <Image style={styles.itemCardImage} source={require('../assets/images/star-outline.png')} />
+                        {
+                            item.is_favorite ? 
+                                <Image style={styles.itemCardImage} source={require('../assets/images/star.png')} /> :
+                                <Image style={styles.itemCardImage} source={require('../assets/images/star-outline.png')} />
+                        }
+                        
                     </View>
+                    </TouchableOpacity>
                 </View>
-                </TouchableOpacity>
             </View>
         );
       };

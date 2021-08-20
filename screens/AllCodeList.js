@@ -27,16 +27,18 @@ export default AllCodeList = () => {
             if(response.status == 204) {
                 setIsLoading(false);
                 setRefreshing(false);
+                setFilteredDataSource(null);
+                setMasterDataSource(null);
                 throw new Error('204 - No Content');
             } else {
+                setIsLoading(false);
+                setRefreshing(false);
                 return response.json();
             }
         })
         .then((responseJson) => {
           setFilteredDataSource(responseJson);
           setMasterDataSource(responseJson);
-          setIsLoading(false);
-          setRefreshing(false);
         })
         .catch(error => console.log('InitList error', error));
     }
@@ -73,6 +75,8 @@ export default AllCodeList = () => {
             if(response.status == 204) {
                 setIsLoading(false);
                 setRefreshing(false);
+                setFilteredDataSource(null);
+                setMasterDataSource(null);
                 throw new Error('204 - No Content');
             } else {
                 return response.json();
@@ -179,6 +183,14 @@ export default AllCodeList = () => {
         );
     }
 
+    function renderEmptyContainer() {
+        return (
+            <View style={{alignItems:'center', justifyContent:'center'}}>
+                <Image style={styles.noContent} source={require('../assets/images/no-content.png')} />
+            </View>
+        );
+    }
+
     function Content() {
       return (
             <View>
@@ -195,6 +207,7 @@ export default AllCodeList = () => {
                     data={filteredDataSource} 
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={ItemView}
+                    ListEmptyComponent={renderEmptyContainer()}
                     refreshControl={
                        <RefreshControl
                             refreshing={refreshing}
@@ -288,4 +301,9 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '90%',
     },
+    noContent: {
+        flex:1,
+        resizeMode: 'contain',
+        width: '80%',
+      },
 });

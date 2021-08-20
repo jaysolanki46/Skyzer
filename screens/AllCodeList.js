@@ -23,14 +23,22 @@ export default AllCodeList = () => {
         };
         
         fetch("http://192.168.20.12:8080/skyzer-guide/referenceGuideFunctions/user/" + userId, requestOptions)
-        .then((response) => response.json())
+        .then((response) =>  {
+            if(response.status == 204) {
+                setIsLoading(false);
+                setRefreshing(false);
+                throw new Error('204 - No Content');
+            } else {
+                return response.json();
+            }
+        })
         .then((responseJson) => {
           setFilteredDataSource(responseJson);
           setMasterDataSource(responseJson);
           setIsLoading(false);
           setRefreshing(false);
         })
-        .catch(error => console.log('error', error));
+        .catch(error => console.log('InitList error', error));
     }
 
     const UpdateFavouriteItem = (itemId, isCreate) => {
@@ -60,13 +68,21 @@ export default AllCodeList = () => {
             redirect: 'follow'
         };
 
-        fetch("http://192.168.20.12:8080/skyzer-guide/userFavorites", requestOptions)
-        .then((response) => response.json())
+        fetch("http://192.168.20.12:8080/skyzer-guide/userFavorites/all", requestOptions)
+        .then((response) =>  {
+            if(response.status == 204) {
+                setIsLoading(false);
+                setRefreshing(false);
+                throw new Error('204 - No Content');
+            } else {
+                return response.json();
+            }
+        })
         .then((responseJson) => {
           setFilteredDataSource(responseJson);
           setMasterDataSource(responseJson);
         })
-        .catch(error => console.log('error', error));
+        .catch(error => console.log('UpdateFavouriteItem error', error));
     }
 
     useEffect(() => {

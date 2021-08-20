@@ -94,16 +94,16 @@ export default AllCodeList = () => {
                 const excludeColumns = ["id"];
                 const newData = masterDataSource.filter(function (item) {
                     
-                    /** ONLY SEARCH ON NAMES
+                    /** ONLY SEARCH ON NAMES*/
                     const itemData = item.name ? item.name : '';
                     const textData = text;
 
-                    return itemData.indexOf(textData) > -1;*/
+                    return itemData.indexOf(textData) > -1;
 
                     /** SEARCH ON ALL THE FIELDS */
-                    return Object.keys(item).some(key =>
+                    /*return Object.keys(item).some(key =>
                        excludeColumns.includes(key) ? false : item[key].toString().toLowerCase().includes(text.toLowerCase())
-                    );
+                    );*/
                 });
                     setFilteredDataSource(newData);
                     setSearch(text);
@@ -283,5 +283,9 @@ const styles = StyleSheet.create({
         margin: 5,
         borderColor: '#009688',
         backgroundColor: '#FFFFFF',
+    },
+    gridView: {
+        width: '100%',
+        height: '90%',
     },
 });

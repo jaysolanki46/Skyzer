@@ -181,15 +181,6 @@ export default FavoriteCodeList = () => {
     function Content() {
       return (
             <View>
-                <SearchBar
-                    style={styles.searchInputText}
-                    fontColor="#c6c6c6"
-                    iconColor="#c6c6c6"
-                    cancelIconColor="#c6c6c6"
-                    placeholder="Search here"
-                    onChangeText={(text) => SearchFilterFunction(text)}
-                    onClearPress={() => SearchFilterFunction("")}
-                />
                 <FlatList style={styles.gridView}
                     data={filteredDataSource} 
                     keyExtractor={(item, index) => index.toString()}
@@ -283,4 +274,8 @@ const styles = StyleSheet.create({
           borderColor: '#009688',
           backgroundColor: '#FFFFFF',
       },
+    gridView: {
+        width: '100%',
+        height: '90%',
+    },
 });

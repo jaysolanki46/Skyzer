@@ -33,14 +33,17 @@ export default AllCodeList = () => {
         .catch(error => console.log('error', error));
     }
 
-    const UpdateFavouriteItem = (itemId) => {
+    const UpdateFavouriteItem = (itemId, isCreate) => {
         
         /** SESSION VALUE */
         const userId = 1;
 
         var myHeaders = new Headers();
+        var methodType = "";
         myHeaders.append("Content-Type", "application/json");
 
+        isCreate ? methodType= 'POST' : methodType= 'DELETE'
+        
         var raw = JSON.stringify({
             "user": {
                 "id": userId
@@ -51,7 +54,7 @@ export default AllCodeList = () => {
         });
         
         var requestOptions = {
-            method: 'POST',
+            method: methodType,
             headers: myHeaders,
             body: raw,
             redirect: 'follow'
@@ -64,7 +67,7 @@ export default AllCodeList = () => {
           setMasterDataSource(responseJson);
         })
         .catch(error => console.log('error', error));
-    }  
+    }
 
     useEffect(() => {
         InitList();
@@ -120,16 +123,24 @@ export default AllCodeList = () => {
                         <Text style={styles.itemQuestion}>{item.name}</Text>
                         <Text style={styles.itemAnswer}>{item.short_solution}</Text>
                     </View>
-                    <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id)}>
+                    
                     <View style={styles.itemBodyRight}>
                         {
-                            item.is_favorite ? 
-                                <Image style={styles.itemCardImage} source={require('../assets/images/star.png')} /> :
-                                <Image style={styles.itemCardImage} source={require('../assets/images/star-outline.png')} />
+                            item.is_favorite ?
+                                <View>
+                                <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, false)}>
+                                    <Image style={styles.itemCardImage} source={require('../assets/images/star.png')} />
+                                </TouchableOpacity>
+                                </View>
+                                :
+                                <View>
+                                <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, true)}>
+                                    <Image style={styles.itemCardImage} source={require('../assets/images/star-outline.png')} />
+                                </TouchableOpacity>
+                                </View>
                         }
                         
                     </View>
-                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -145,12 +156,12 @@ export default AllCodeList = () => {
     }, []);
 
     function Spinner() {
-                return (
-                    <View style={{alignItems:'center', justifyContent:'center', flex:1,}}>
-                        <ActivityIndicator size="large" color={Colors.white} />
-                    </View>
-                );
-            }
+        return (
+            <View style={{alignItems:'center', justifyContent:'center', flex:1,}}>
+                <ActivityIndicator size="large" color={Colors.white} />
+            </View>
+        );
+    }
 
     function Content() {
       return (
@@ -178,6 +189,7 @@ export default AllCodeList = () => {
             </View>
         );
     }
+
     return (
     <View style={styles.container}>
         <View style={styles.bodySubView}>

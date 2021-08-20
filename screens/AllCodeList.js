@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, ActivityIndicator, RefreshControl } from 'react-native';
 import { Badge } from 'react-native-paper'; 
 import SearchBar from 'react-native-dynamic-search-bar';
 import Colors from '../config/Colors';
@@ -10,6 +10,7 @@ export default AllCodeList = () => {
     const [filteredDataSource, setFilteredDataSource] = useState([]);
     const [masterDataSource, setMasterDataSource] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
 
     const InitList = () => {
 
@@ -27,6 +28,7 @@ export default AllCodeList = () => {
           setFilteredDataSource(responseJson);
           setMasterDataSource(responseJson);
           setIsLoading(false);
+          setRefreshing(false);
         })
         .catch(error => console.log('error', error));
     }
@@ -133,6 +135,15 @@ export default AllCodeList = () => {
         );
     };
 
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+    }
+    
+    const OnRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(1500).then(() => InitList());
+    }, []);
+
     function Spinner() {
                 return (
                     <View style={{alignItems:'center', justifyContent:'center', flex:1,}}>
@@ -157,6 +168,12 @@ export default AllCodeList = () => {
                     data={filteredDataSource} 
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={ItemView}
+                    refreshControl={
+                       <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={OnRefresh}
+                        />
+                       }
                 />
             </View>
         );

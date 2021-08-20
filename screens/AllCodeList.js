@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Badge } from 'react-native-paper'; 
 import SearchBar from 'react-native-dynamic-search-bar';
 import Colors from '../config/Colors';
@@ -9,8 +9,9 @@ export default AllCodeList = () => {
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState([]);
     const [masterDataSource, setMasterDataSource] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const initList = () => {
+    const InitList = () => {
 
         /** SESSION VALUE */
         const userId = 1;
@@ -25,11 +26,12 @@ export default AllCodeList = () => {
         .then((responseJson) => {
           setFilteredDataSource(responseJson);
           setMasterDataSource(responseJson);
+          setIsLoading(false);
         })
         .catch(error => console.log('error', error));
     }
 
-    const updateFavouriteItem = (itemId) => {
+    const UpdateFavouriteItem = (itemId) => {
         
         /** SESSION VALUE */
         const userId = 1;
@@ -63,10 +65,10 @@ export default AllCodeList = () => {
     }  
 
     useEffect(() => {
-        initList();
+        InitList();
     }, []);
 
-    const searchFilterFunction = (text) => {
+    const SearchFilterFunction = (text) => {
             if (text) {
                 const excludeColumns = ["id"];
                 const newData = masterDataSource.filter(function (item) {
@@ -116,7 +118,7 @@ export default AllCodeList = () => {
                         <Text style={styles.itemQuestion}>{item.name}</Text>
                         <Text style={styles.itemAnswer}>{item.short_solution}</Text>
                     </View>
-                    <TouchableOpacity onPress={() => updateFavouriteItem(item.id)}>
+                    <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id)}>
                     <View style={styles.itemBodyRight}>
                         {
                             item.is_favorite ? 
@@ -129,25 +131,42 @@ export default AllCodeList = () => {
                 </View>
             </View>
         );
-      };
+    };
 
+    function Spinner() {
+                return (
+                    <View style={{alignItems:'center', justifyContent:'center', flex:1,}}>
+                        <ActivityIndicator size="large" color={Colors.white} />
+                    </View>
+                );
+            }
+
+    function Content() {
+      return (
+            <View>
+                <SearchBar
+                    style={styles.searchInputText}
+                    fontColor="#c6c6c6"
+                    iconColor="#c6c6c6"
+                    cancelIconColor="#c6c6c6"
+                    placeholder="Search here"
+                    onChangeText={(text) => SearchFilterFunction(text)}
+                    onClearPress={() => SearchFilterFunction("")}
+                />
+                <FlatList style={styles.gridView}
+                    data={filteredDataSource} 
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={ItemView}
+                />
+            </View>
+        );
+    }
     return (
     <View style={styles.container}>
         <View style={styles.bodySubView}>
-            <SearchBar
-                style={styles.searchInputText}
-                fontColor="#c6c6c6"
-                iconColor="#c6c6c6"
-                cancelIconColor="#c6c6c6"
-                placeholder="Search here"
-                onChangeText={(text) => searchFilterFunction(text)}
-                onClearPress={() => searchFilterFunction("")}
-            />
-            <FlatList style={styles.gridView}
-                data={filteredDataSource} 
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={ItemView}
-            />
+            {
+                isLoading ? Spinner() : Content()
+           }
         </View>
     </View>
     );

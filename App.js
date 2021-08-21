@@ -8,8 +8,8 @@ const App = () => {
     
   return (
     <SafeAreaProvider>
-    {/* <LogIn/> */}
-    <Tabs/>
+    <LogIn/>
+    {/* <Tabs/> */}
       
       
     </SafeAreaProvider>

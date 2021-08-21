@@ -31,4 +31,32 @@ export default {
     skyzerCard3: '#049F8A',
     skyzerCard4: '#EF9E3D',
 
+
+    bodyColor: '#Fdfcfa',
+    subBodyColor: '#715CFF',
+    modelBodyColor1: '#1AC2B4',
+    modelBodyColor2: '#F26888',
+    modelBodyColor3: '#Fdfcfa',
+
+    fontColorLightBlack: '#696969',
+    fontColorBlack: '#000000',
+    fontColorWhite: '#F7F3FD',
+    fontColorBluest: '#2F3B67',
+    fontColorPurplest: '#8259E6',
+    
+    colorType1_1: '#715CFF',
+    colorType1_2: '#8970FE',
+    colorType1_3: '#A380FF',
+
+    colorType1_1: '#1AC2B4',
+    colorType1_2: '#2ECCCD',
+    colorType1_3: '#48D5E4',
+
+    colorType1_1: '#F26888',
+    colorType1_2: '#F77C91',
+    colorType1_3: '#FE979A',
+
+    colorType1_1: '#EC6E5D',
+    colorType1_2: '#EA9069',
+    colorType1_3: '#FBA578',
 }

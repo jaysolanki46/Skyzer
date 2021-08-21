@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, ActivityIndi
 import { Badge } from 'react-native-paper'; 
 import SearchBar from 'react-native-dynamic-search-bar';
 import Colors from '../config/Colors';
+import Configurations from '../config/Configurations';
 
 export default AllCodeList = () => {
 
@@ -22,7 +23,7 @@ export default AllCodeList = () => {
             redirect: 'follow'
         };
         
-        fetch("http://192.168.20.12:8080/skyzer-guide/referenceGuideFunctions/user/" + userId, requestOptions)
+        fetch(Configurations.host + "/referenceGuideFunctions/user/" + userId, requestOptions)
         .then((response) =>  {
             if(response.status == 204) {
                 setIsLoading(false);
@@ -70,7 +71,7 @@ export default AllCodeList = () => {
             redirect: 'follow'
         };
 
-        fetch("http://192.168.20.12:8080/skyzer-guide/userFavorites/all", requestOptions)
+        fetch(Configurations.host + "/userFavorites/all", requestOptions)
         .then((response) =>  {
             if(response.status == 204) {
                 setIsLoading(false);

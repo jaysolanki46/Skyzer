@@ -32,11 +32,9 @@ export default {
     skyzerCard4: '#EF9E3D',
 
 
-    bodyColor: '#Fdfcfa',
+    //bodyColor: '#Fdfcfa',
+    bodyColor: '#FFFFFF',
     subBodyColor: '#715CFF',
-    modelBodyColor1: '#1AC2B4',
-    modelBodyColor2: '#F26888',
-    modelBodyColor3: '#Fdfcfa',
 
     fontColorLightBlack: '#696969',
     fontColorBlack: '#000000',
@@ -59,4 +57,7 @@ export default {
     colorType1_1: '#EC6E5D',
     colorType1_2: '#EA9069',
     colorType1_3: '#FBA578',
+
+    buttonBody: '#8970FE',
+    buttonFont: '#F7F3FD',
 }

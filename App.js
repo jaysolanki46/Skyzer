@@ -8,7 +8,7 @@ const App = () => {
     
   return (
     <SafeAreaProvider>
-    <LogIn/>
+    <StartUp/>
     {/* <Tabs/> */}
       
       

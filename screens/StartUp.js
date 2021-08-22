@@ -13,9 +13,9 @@ export default StartUp = () => {
   
         <View style={styles.header}>
           {/* <Logo/> */}
-          <Text style={Headertext.h1}>Welcome to</Text>
-          <Text style={Headertext.h1}>Skyzer Guide</Text>
-          <Text style={Headertext.h5}>Let you explore the terminal</Text>
+          <Text style={[Headertext.h1, {color: Colors.fontColorBluest}]}>Welcome to</Text>
+          <Text style={[Headertext.h1, {color: Colors.fontColorPurplest}]}>Skyzer Guide</Text>
+          <Text style={[Headertext.h5, {color: Colors.fontColorLightBlack, fontWeight: '600'}]}>Let you explore the terminal</Text>
         </View>
   
         <View style={styles.body}>
@@ -23,14 +23,14 @@ export default StartUp = () => {
         </View>
   
         <View style={styles.signup_body}>
-          <TouchableOpacity style={styles.login_button}><Text style={[Headertext.h3, {color: Colors.lightFont}]}>Log In</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.login_button}><Text style={[Headertext.h3, {color: Colors.buttonFont}]}>Log In</Text></TouchableOpacity>
           <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 5}}>
-            <Text style={Headertext.h5}>Don't have an account?</Text><TouchableOpacity><Text style={[styles.h5, {color: Colors.link, marginLeft: 5}]}>Sign Up</Text></TouchableOpacity>
+            <Text style={Headertext.h5}>Don't have an account?</Text><TouchableOpacity><Text style={[styles.h5, {color: Colors.link, marginLeft: 5, fontWeight: '500'}]}>Sign Up</Text></TouchableOpacity>
           </View>
         </View>
   
         <View style={styles.footer}>
-          <Text style={[Headertext.h5, {color: Colors.lightFont}]}>Follow Us:</Text>
+          <Text style={[Headertext.h5, ]}>Follow Us:</Text>
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/facebook.png')} /></TouchableOpacity>
               <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/linkedin.png')} /></TouchableOpacity>
@@ -45,7 +45,7 @@ export default StartUp = () => {
         flex: 1,
         paddingTop: Platform.OS === 'ios'? 10 : 60,
         paddingBottom: 10,
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.bodyColor,
       },
       header: {
         flex: 1.5,
@@ -68,12 +68,12 @@ export default StartUp = () => {
         alignItems: 'center',
       },
       login_button: {
-        backgroundColor: Colors.buttonPurple,
+        backgroundColor: Colors.buttonBody,
         paddingLeft: 120,
         paddingRight: 120,
         paddingTop: 10,
         paddingBottom: 10,
-        borderRadius: 25,
+        borderRadius: 10,
       },
       social_button: {
         margin: 5,

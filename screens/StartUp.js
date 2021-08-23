@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, ScrollView,} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, ScrollView, Alert,} from 'react-native';
 import Colors from '../config/Colors';
 import { StatusBar } from 'react-native';
 import Modal from 'react-native-modal';
 import Logo from '../components/Logo';
 import Headertext from '../config/Headertext';
 
-export default StartUp = () => {
+export default StartUp = ({navigation}) => {
     
   const [modelSignUpVisible, setModelSignUpVisible] = useState(false);
 
@@ -90,7 +90,7 @@ export default StartUp = () => {
         </View>
   
         <View style={styles.signup_body}>
-          <TouchableOpacity style={styles.login_button}><Text style={[Headertext.h3, {color: Colors.buttonFont}]}>Log In</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('LogIn')} style={styles.login_button}><Text style={[Headertext.h3, {color: Colors.buttonFont}]}>Log In</Text></TouchableOpacity>
           <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 5}}>
             <Text style={Headertext.h5}>Don't have an account?</Text>
             <TouchableOpacity onPress={() => setModelSignUpVisible(true)}><Text style={[styles.h5, {color: Colors.link, marginLeft: 5, fontWeight: '500'}]}>Sign Up</Text></TouchableOpacity>

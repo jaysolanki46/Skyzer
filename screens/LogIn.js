@@ -5,6 +5,7 @@ import Logo from '../components/Logo';
 import Modal from 'react-native-modal';
 import WavyHeader from '../components/WavyHeader';
 import Headertext from '../config/Headertext';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default LogIn = () => {
 
@@ -13,6 +14,7 @@ export default LogIn = () => {
   const [iconPosition, setIconPosition] = useState("left");
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(true);
 
   const toggleIcon = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -183,8 +185,22 @@ export default LogIn = () => {
               </View>
               <View style={{margin: 10}}>
                 <TextInput style={styles.input} placeholder="Username" placeholderTextColor={Colors.fontColorWhite} keyboardType="default" onChangeText={(Username) => setUsername(Username)}/>
-                <TextInput style={styles.input} placeholder="Password" placeholderTextColor={Colors.fontColorWhite} keyboardType="default" secureTextEntry={true} onChangeText={(Password) => setPassword(Password)} />
-               
+                <View style={[{flexDirection: 'row', alignItems: 'center',}]}>
+                  <TextInput style={styles.input} placeholder="Password" 
+                    placeholderTextColor={Colors.fontColorWhite} 
+                    keyboardType="default" secureTextEntry={!showPassword} 
+                    onChangeText={(Password) => setPassword(Password)} />
+                    {
+                     showPassword ? 
+                      <MaterialCommunityIcons name="eye" size={24} style={{marginLeft: -25}}
+                      color={Colors.white} onPress={() => setShowPassword(false)} /> 
+                     :
+                      <MaterialCommunityIcons name="eye-off" size={24} style={{marginLeft: -25}}
+                      color={Colors.white} onPress={() => setShowPassword(true)} />
+                    }
+                    
+                    
+                </View>
                 <View style={{flexDirection:'row', alignItems: 'center'}}>
                   <TouchableOpacity style={[styles.button]}  onPress={handleLogin}>
                     <Text style={[Headertext.h4, {marginRight: 15, color: Colors.buttonWhite}]}>Log In</Text>
@@ -257,6 +273,7 @@ const styles = StyleSheet.create({
       borderRadius: 25,
     },
     input: {
+      width: 300 ,
       height: 40,
       marginTop: 15,
       marginBottom: 15,

@@ -3,16 +3,24 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Tabs from './components/Tabs';
 import StartUp from './screens/StartUp';
 import LogIn from './screens/LogIn';
+import RootStackScreen from './components/RootStackScreen';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { 
+  NavigationContainer, 
+} from '@react-navigation/native';
+
+const Drawer = createDrawerNavigator();
 
 const App = () => {
     
   return (
-    <SafeAreaProvider>
-    <StartUp/>
+    <NavigationContainer>
+      <RootStackScreen/>
+    {/* <StartUp/> */}
     {/* <Tabs/> */}
       
       
-    </SafeAreaProvider>
+    </NavigationContainer>
   );
 }
 

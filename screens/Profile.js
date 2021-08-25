@@ -4,12 +4,15 @@ import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AuthContext } from '../components/AuthContext';
 
 export default Profile = () => {
 
     const defaultImageUrl = '../assets/images/profile.png';
     const [image, setImage] = useState(null);
     const [showPassword, setShowPassword] = useState(true);
+
+    const  { logOut} = React.useContext(AuthContext);
 
     useEffect(() => {
       (async () => {
@@ -95,6 +98,10 @@ export default Profile = () => {
                         <TextInput style={styles.input} placeholder="Password" 
                             placeholderTextColor={Colors.lightFont} keyboardType="default" 
                             secureTextEntry={showPassword} value="12345" />
+
+                        <TouchableOpacity onPress={() => {logOut()}} 
+                        style={styles.logout_button}>
+                            <Text style={[Headertext.h3, {color: Colors.buttonFont}]}>Logout</Text></TouchableOpacity>
                     </View>
 
                     <View style={styles.bodyBottom}>
@@ -234,5 +241,14 @@ const styles = StyleSheet.create({
       width: 50,
       height: 50,
       resizeMode: 'stretch'
-    }
+    },
+    logout_button: {
+        backgroundColor: Colors.buttonBody,
+        paddingLeft: 120,
+        paddingRight: 120,
+        paddingTop: 10,
+        paddingBottom: 10,
+        borderRadius: 10,
+        alignItems: 'center',
+      },
 });

@@ -12,7 +12,6 @@ const Tab = createMaterialBottomTabNavigator();
 export default Tabs = () => {
 
     return(
-        <NavigationContainer>
         <Tab.Navigator
           initialRouteName="CodeList"
           activeColor={Colors.active}
@@ -75,6 +74,5 @@ export default Tabs = () => {
           }}
         />
       </Tab.Navigator>
-      </NavigationContainer>
     );
 }

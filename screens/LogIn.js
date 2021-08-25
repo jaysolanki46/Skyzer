@@ -6,6 +6,8 @@ import Modal from 'react-native-modal';
 import WavyHeader from '../components/WavyHeader';
 import Headertext from '../config/Headertext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AuthContext } from '../components/AuthContext';
+
 
 export default LogIn = () => {
 
@@ -14,26 +16,13 @@ export default LogIn = () => {
   const [iconPosition, setIconPosition] = useState("left");
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
+  const  { logIn } = React.useContext(AuthContext);
   const toggleIcon = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setIconPosition(iconPosition === "left" ? "right" : "left");
   };
-  
-  const handleLogin = () => {
-    if(!username || !password) {
-      alert("Please fill Username and password");
-    } else {
-
-      if(username == "jay" && password == "pass")  {
-        alert("Pass");  
-        toggleIcon();
-      } else {
-        alert("Invalid username or password!");  
-      }
-    }   
-  }
   
   return (
     
@@ -202,7 +191,7 @@ export default LogIn = () => {
                     
                 </View>
                 <View style={{flexDirection:'row', alignItems: 'center'}}>
-                  <TouchableOpacity style={[styles.button]}  onPress={handleLogin}>
+                  <TouchableOpacity style={[styles.button]}  onPress={() => logIn()}>
                     <Text style={[Headertext.h4, {marginRight: 15, color: Colors.buttonWhite}]}>Log In</Text>
                   </TouchableOpacity>
                   <View style={iconPosition === "left" ? styles.moveLeft : styles.moveRight}>

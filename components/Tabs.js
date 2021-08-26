@@ -13,7 +13,7 @@ export default Tabs = () => {
 
     return(
         <Tab.Navigator
-          initialRouteName="CodeList"
+          initialRouteName="Home"
           activeColor={Colors.active}
           inactiveColor={Colors.inactive}
           labelStyle={{ fontSize: 12 }}

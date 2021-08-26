@@ -10,6 +10,7 @@ import {
   NavigationContainer, 
 } from '@react-navigation/native';
 import { AuthContext } from './components/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator();
 
@@ -18,24 +19,85 @@ const App = () => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [userToken, setUserToken] = React.useState(null); 
 
+  const initialLoginState = {
+    isLoading: true,
+    username: null,
+    userToken: null,
+  }
+
+  const loginReducer = (prevState, action) => {
+    switch(action.type) {
+      case 'RETRIEVE_TOKEN':
+        return {
+          ...prevState,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGIN':
+        return {
+          ...prevState,
+          username: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGOUT':
+        return {
+          ...prevState,
+          username: null,
+          userToken: null,
+          isLoading: false,
+        };  
+    }
+  };
+
+  const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
+
   const authContext = React.useMemo(() => ({
-    logIn: () => {
-      setUserToken('abcd');
-      setIsLoading(false);
+    logIn: async(username, password) => {
+      //setUserToken('abcd');
+      //setIsLoading(false);
+      let userToken = null;
+      if(username == 'Jay' && password == 'pass') {
+        
+        try {
+          userToken = 'u12';
+          await AsyncStorage.setItem('userToken', userToken);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        alert("Invalid username or password!");
+      }
+      console.log("user tocken:" + userToken)
+      dispatch({type: 'LOGIN', id: username, token: userToken})
     },
-    logOut: () => {
-      setUserToken(null);
-      setIsLoading(false);
+    logOut: async() => {
+
+      try {
+        await AsyncStorage.removeItem('userToken');
+      } catch (error) {
+        console.log("Helre" . error);
+      }
+      dispatch({type: 'LOGOUT'})
     },
-  }));
+  }), []);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
+    setTimeout(async() => {
+      //setIsLoading(false);
+      let userToken;
+      userToken = null;
+      try {
+        userToken =  await AsyncStorage.getItem('userToken');
+      } catch (error) {
+        console.log(error);
+      }
+
+      dispatch({type: 'RETRIEVE_TOKEN', token: userToken})
     }, 1000);
   }, []);
 
-  if(isLoading) {
+  if(loginState.isLoading) {
     return (
       <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
         <ActivityIndicator size="large" />
@@ -47,7 +109,7 @@ const App = () => {
     <AuthContext.Provider value={authContext}>
     <NavigationContainer>
       {
-        userToken != null ?
+        loginState.userToken != null ?
           <Tabs/>
           :
           <RootStackScreen/>

@@ -5,14 +5,13 @@ import Headertext from '../config/Headertext';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
+import LogIn from './LogIn';
 
 export default Profile = () => {
 
     const defaultImageUrl = '../assets/images/profile.png';
     const [image, setImage] = useState(null);
     const [showPassword, setShowPassword] = useState(true);
-
-    const  { logOut} = React.useContext(AuthContext);
 
     useEffect(() => {
       (async () => {
@@ -24,7 +23,9 @@ export default Profile = () => {
         }
       })();
     }, []);
-  
+
+    const  { logOut } = React.useContext(AuthContext);
+
     const pickImage = async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -99,7 +100,7 @@ export default Profile = () => {
                             placeholderTextColor={Colors.lightFont} keyboardType="default" 
                             secureTextEntry={showPassword} value="12345" />
 
-                        <TouchableOpacity onPress={() => {logOut()}} 
+                        <TouchableOpacity onPress={() => {logOut()}}
                         style={styles.logout_button}>
                             <Text style={[Headertext.h3, {color: Colors.buttonFont}]}>Logout</Text></TouchableOpacity>
                     </View>

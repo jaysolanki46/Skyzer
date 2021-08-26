@@ -24,6 +24,10 @@ export default LogIn = () => {
     setIconPosition(iconPosition === "left" ? "right" : "left");
   };
   
+  const logInHandle = (username, password) => {
+    logIn(username, password);
+  }
+
   return (
     
     <KeyboardAvoidingView style={styles.container} behavior="height">
@@ -191,7 +195,7 @@ export default LogIn = () => {
                     
                 </View>
                 <View style={{flexDirection:'row', alignItems: 'center'}}>
-                  <TouchableOpacity style={[styles.button]}  onPress={() => logIn()}>
+                  <TouchableOpacity style={[styles.button]}  onPress={() => {logInHandle(username, password)}}>
                     <Text style={[Headertext.h4, {marginRight: 15, color: Colors.buttonWhite}]}>Log In</Text>
                   </TouchableOpacity>
                   <View style={iconPosition === "left" ? styles.moveLeft : styles.moveRight}>

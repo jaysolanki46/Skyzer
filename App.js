@@ -11,6 +11,7 @@ import {
 } from '@react-navigation/native';
 import { AuthContext } from './components/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import StartupLoader from './screens/StartupLoader';
 
 const Drawer = createDrawerNavigator();
 
@@ -54,8 +55,6 @@ const App = () => {
 
   const authContext = React.useMemo(() => ({
     logIn: async(username, password) => {
-      //setUserToken('abcd');
-      //setIsLoading(false);
       let userToken = null;
       if(username == 'Jay' && password == 'pass') {
         
@@ -84,7 +83,6 @@ const App = () => {
 
   useEffect(() => {
     setTimeout(async() => {
-      //setIsLoading(false);
       let userToken;
       userToken = null;
       try {
@@ -92,16 +90,14 @@ const App = () => {
       } catch (error) {
         console.log(error);
       }
-
+      //userToken = null;
       dispatch({type: 'RETRIEVE_TOKEN', token: userToken})
-    }, 1000);
+    }, 2000);
   }, []);
 
   if(loginState.isLoading) {
     return (
-      <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-        <ActivityIndicator size="large" />
-      </View>
+      <StartupLoader/>
     );
   }
 

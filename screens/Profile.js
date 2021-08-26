@@ -102,7 +102,8 @@ export default Profile = () => {
 
                         <TouchableOpacity onPress={() => {logOut()}}
                         style={styles.logout_button}>
-                            <Text style={[Headertext.h3, {color: Colors.buttonFont}]}>Logout</Text></TouchableOpacity>
+                            <Text onPress={() => {logOut()}} style={[Headertext.h3, {color: Colors.buttonFont}]}>Logout</Text>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.bodyBottom}>

@@ -40,24 +40,26 @@ export default {
     fontColorBlack: '#000000',
     fontColorWhite: '#F7F3FD',
     fontColorBluest: '#2F3B67',
-    fontColorPurplest: '#8259E6',
-    
+    fontColorPurplest: '#715CFF',
+
     colorType1_1: '#715CFF',
     colorType1_2: '#8970FE',
     colorType1_3: '#A380FF',
 
-    colorType1_1: '#1AC2B4',
-    colorType1_2: '#2ECCCD',
-    colorType1_3: '#48D5E4',
+    colorType2_1: '#1AC2B4',
+    colorType2_2: '#2ECCCD',
+    colorType2_3: '#48D5E4',
 
-    colorType1_1: '#F26888',
-    colorType1_2: '#F77C91',
-    colorType1_3: '#FE979A',
+    colorType3_1: '#F26888',
+    colorType3_2: '#F77C91',
+    colorType3_3: '#FE979A',
 
-    colorType1_1: '#EC6E5D',
-    colorType1_2: '#EA9069',
-    colorType1_3: '#FBA578',
+    colorType4_1: '#EC6E5D',
+    colorType4_2: '#EA9069',
+    colorType4_3: '#FBA578',
 
     buttonBody: '#8970FE',
     buttonFont: '#F7F3FD',
+
+    profilBackground: '#FFFFFF',
 }

@@ -1,61 +1,80 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Image, StatusBar, SafeAreaView,  } from 'react-native';
 import Headertext from '../config/Headertext';
 import { FlatGrid } from 'react-native-super-grid';
 import Colors from '../config/Colors';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default Home = () => {
     const [items, setItems] = React.useState([
-        { tag: 'GUIDE', name:'Tetra Reference Guide', color: Colors.skyzerCard1, image:require('../assets/images/tetra-guide.png') },
-        { tag: 'GUIDE', name:'Telium Reference Guide', color: Colors.skyzerCard2, image:require('../assets/images/telium-guide.png') },
-        { tag: 'SUPPORT', name:'Conatct Us', color: Colors.skyzerCard3, image:require('../assets/images/contact-us.png') },
-        { tag: 'SKYZER', name:'About Us', color: Colors.skyzerCard4, image:require('../assets/images/about-us.png') },
+        { tag: 'CODE GUIDE', name:'Tetra Guide', color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3, image:require('../assets/images/tetra-guide.png') },
+        { tag: 'CODE GUIDE', name:'Telium Guide', color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3, image:require('../assets/images/telium-guide.png') },
+        { tag: 'SKYZER', name:'About Us', color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3, image:require('../assets/images/about-us.png') },
+        { tag: 'SUPPORT', name:'Conatct Us', color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3, image:require('../assets/images/contact-us.png') },
 
       ]);
 
+    var hours = new Date().getHours(); // Current hour
+    var currentMsg = "";
+    if(hours > 0 && hours < 12) {
+        currentMsg = "Good morning, what are you up to?";
+    } else if (hours > 12 && hours < 17) {
+        currentMsg = "Good afternoon, what are you up to?";
+    } else if (hours > 17 && hours < 24) {
+        currentMsg = "Good evening, what are you up to?";
+    } 
+
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             {Platform.OS === 'ios' && <>
-            <StatusBar barStyle="light-content" hidden = {false} translucent = {true}></StatusBar>
+                <StatusBar barStyle="dark-content" hidden = {false} translucent = {true}></StatusBar>
             </>}
             <View style={styles.header}>
             <View style={styles.headerSubView}>
-                <Text style={Headertext.h2}>Hi Jay</Text>
-            </View>
-            </View>
-            <View style={styles.bodyTop}>
-            <View style={styles.bodyTopSubView}>
-                    <View style={styles.bodyTopLeft}>
-                        <Text style={Headertext.h4}>1248</Text>
-                        <Text style={Headertext.h5}>Skyzer Technologies</Text>
+                <View style={{flex: 5,}}>
+                    <View style={{flexDirection: 'row'}}>
+                        <Text style={[Headertext.h4, {fontWeight: '300'}]}>Hello,</Text><Text style={[Headertext.h4, {fontWeight: 'bold', color: Colors.fontColorBluest}]}> Jay!</Text>
                     </View>
-                    <View style={styles.bodyTopRight}>
+                    <Text style={Headertext.h5}>
+                    {currentMsg}
+                    </Text>
+                </View>
+
+                <View style={{flex: 1,}}>
+                <View style={[styles.headerRight]}>
                         <Image
                             style={styles.tinyLogo}
                             source={require('../assets/images/profile.png')}
                         />
-                    </View>
                 </View>
+                </View>
+            </View>
+            </View>
+            <View style={styles.bodyTop}>
+                <Text style={[Headertext.h1, {marginRight: 10, color: Colors.fontColorBluest}]}>Your</Text>
+                <Text style={[Headertext.h1, {color: Colors.fontColorPurplest,}]}>Home</Text>
             </View>
             <View style={styles.body}>
                 <View style={styles.bodySubView}>
                     <FlatGrid itemDimension={130} data={items} style={styles.gridView} spacing={10}
                         renderItem={({ item }) => (
-                            <View style={[styles.gridViewContainer, { backgroundColor: item.color }]}>
+                          
+                            <LinearGradient colors={[item.color1, item.color2, item.color3]} style={{ borderRadius: 35,}}>
+                            <View style={[styles.gridViewContainer,]}>
                                 <View style={[styles.itemContainer]}>
                                     <Text style={styles.itemTag}>{item.tag}</Text>
                                     <Image style={styles.itemCardImage} source={item.image} />
                                 </View>
-                                <View style={[styles.footerContainer, { backgroundColor: item.color }]}>
+                                <View style={[styles.footerContainer,]}>
                                     <Text style={styles.itemName}>{item.name}</Text>
                                 </View>
                             </View>
+                            </LinearGradient>
                         )}
                         />
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -64,10 +83,10 @@ const styles = StyleSheet.create({
       flex: 1,
       paddingTop: Platform.OS === 'ios'? 10 : 20,
       flexDirection: 'column',
-      backgroundColor: Colors.background,
+      backgroundColor: Colors.bodyColor,
     },
     header: {
-        flex: .5,
+        flex: 1,
         width: '100%',
         marginTop: 20, 
         marginBottom: 10,
@@ -77,49 +96,37 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginLeft: 10, 
         marginRight: 10,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-end',
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.bodyColor,
+        alignItems: 'center',
+    },
+    headerRight: {
+        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     bodyTop: {
         flex: 0.5,
+        flexDirection: 'row',
         alignItems: 'baseline',
         width: '100%',
+        marginLeft: 10, 
     },
     body: {
-        flex: 5,
+        flex: 4.5,
         width: '100%',
         flexDirection: "row",
         alignContent: "space-between",
     },
-    bodyTopSubView: {
-        flex: 1, 
-        flexDirection: 'row',
-        marginLeft: 10, 
-        marginRight: 10,
-        backgroundColor: Colors.background,
-    },
-    bodyTopLeft: {
-        flex: 4,
-        width: '20%',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-    },
-    bodyTopRight: {
-        flex: 2,
-        width: '20%',
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
-    },
     tinyLogo: {
-        width: 75,
-        height: 75,
-        borderRadius: 50,
+        width: 60,
+        height: 60,
+        borderRadius: 10,
+        backgroundColor: Colors.profilBackground,
     },
     bodySubView: {
         flex: 1, 
         marginTop: 10,
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.bodyColor,
     },
     gridView: {
         flex: 1,
@@ -127,9 +134,8 @@ const styles = StyleSheet.create({
     gridViewContainer: {
         flex: 1,
         justifyContent: 'flex-start',
-        borderRadius: 5,
         padding: 10,
-        height: 170,
+        height: 200,
     },
     itemContainer: {
         flex:2,
@@ -138,14 +144,16 @@ const styles = StyleSheet.create({
     },
     footerContainer: {
         flex: 4,
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
+        width: '65%',
     },
     itemTag: {
         fontSize: 12,
         color: Colors.lightFont,
-        fontWeight: '600',
+        fontWeight: 'bold',
         margin: 5,
         alignSelf: 'center',
+        letterSpacing: 2,
     },
     itemName: {
         fontSize: 25,
@@ -160,8 +168,8 @@ const styles = StyleSheet.create({
         margin: 5,
     },
     itemCardImage: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         alignSelf: 'flex-end',
     },
 });

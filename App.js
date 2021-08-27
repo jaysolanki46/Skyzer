@@ -32,7 +32,7 @@ const App = () => {
         return {
           ...prevState,
           userToken: action.token,
-          isLoading: false,
+          isLoading: true,
         };
       case 'LOGIN':
         return {

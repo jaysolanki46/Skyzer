@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, StatusBar, SafeAreaView,  } from 'react-native';
+import { StyleSheet, Text, View, Image, StatusBar, SafeAreaView, TouchableOpacity } from 'react-native';
 import Headertext from '../config/Headertext';
 import { FlatGrid } from 'react-native-super-grid';
 import Colors from '../config/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default Home = () => {
+export default Home = ({navigation}) => {
     const [items, setItems] = React.useState([
         { tag: 'CODE GUIDE', name:'Tetra Guide', color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3, image:require('../assets/images/tetra-guide.png') },
         { tag: 'CODE GUIDE', name:'Telium Guide', color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3, image:require('../assets/images/telium-guide.png') },
@@ -18,9 +18,9 @@ export default Home = () => {
     var currentMsg = "";
     if(hours > 0 && hours < 12) {
         currentMsg = "Good morning, what are you up to?";
-    } else if (hours > 12 && hours < 17) {
+    } else if (hours >= 12 && hours < 17) {
         currentMsg = "Good afternoon, what are you up to?";
-    } else if (hours > 17 && hours < 24) {
+    } else if (hours >= 17 && hours < 24) {
         currentMsg = "Good evening, what are you up to?";
     } 
 
@@ -42,10 +42,13 @@ export default Home = () => {
 
                 <View style={{flex: 1,}}>
                 <View style={[styles.headerRight]}>
+                        <TouchableOpacity style={[styles.button]}  
+                        onPress={() => {alert("Jello")}}>
                         <Image
                             style={styles.tinyLogo}
                             source={require('../assets/images/profile.png')}
                         />
+                        </TouchableOpacity>
                 </View>
                 </View>
             </View>

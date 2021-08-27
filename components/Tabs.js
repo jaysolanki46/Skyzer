@@ -43,7 +43,7 @@ export default Tabs = () => {
                 {
                   focused ? 
                     <Text style={{color: Colors.fontColorPurplest, fontWeight: 'bold'}}>Home</Text> :
-                    null
+                    <Text style={{color: Colors.fontColorPurplest,}}>Home</Text>
                 }
               </View>
             )
@@ -66,7 +66,7 @@ export default Tabs = () => {
                 {
                   focused ? 
                     <Text style={{color: Colors.fontColorPurplest, fontWeight: 'bold'}}>Codes</Text> :
-                    null
+                    <Text style={{color: Colors.fontColorPurplest,}}>Codes</Text>
                 }
               </View>
             )
@@ -89,7 +89,7 @@ export default Tabs = () => {
                 {
                   focused ? 
                     <Text style={{color: Colors.fontColorPurplest, fontWeight: 'bold'}}>Profile</Text> :
-                    null
+                    <Text style={{color: Colors.fontColorPurplest,}}>Profile</Text>
                 }
               </View>
             )

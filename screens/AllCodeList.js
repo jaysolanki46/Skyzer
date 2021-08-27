@@ -40,7 +40,7 @@ export default AllCodeList = () => {
         .then((responseJson) => {
           setFilteredDataSource(responseJson);
           setMasterDataSource(responseJson);
-        }, 50000)
+        })
         .catch(error => console.log('InitList error', error));
     }
 
@@ -95,7 +95,7 @@ export default AllCodeList = () => {
     }, []);
 
     const SearchFilterFunction = (text) => {
-            if (text) {
+        if (text && Array.isArray(masterDataSource)) {
                 const excludeColumns = ["id"];
                 const newData = masterDataSource.filter(function (item) {
                     
@@ -173,7 +173,7 @@ export default AllCodeList = () => {
     
     const OnRefresh = React.useCallback(() => {
         setRefreshing(true);
-        wait(1500).then(() => InitList());
+        wait(1000).then(() => InitList());
     }, []);
 
     function Loader() {

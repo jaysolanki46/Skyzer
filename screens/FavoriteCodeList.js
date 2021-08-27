@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, ActivityIndicator, RefreshControl } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, ActivityIndicator, RefreshControl } from 'react-native';
 import { Badge } from 'react-native-paper'; 
 import SearchBar from 'react-native-dynamic-search-bar';
 import Colors from '../config/Colors';
 import Configurations from '../config/Configurations';
+import Headertext from '../config/Headertext';
 
 export default FavoriteCodeList = () => {
 
@@ -90,7 +91,7 @@ export default FavoriteCodeList = () => {
     }
 
     useEffect(() => {
-        InitList();
+        wait(1000).then(() => InitList());
     }, []);
 
     const SearchFilterFunction = (text) => {
@@ -98,11 +99,11 @@ export default FavoriteCodeList = () => {
                 const excludeColumns = ["id"];
                 const newData = masterDataSource.filter(function (item) {
                     
-                    /** ONLY SEARCH ON NAMES
+                    /** ONLY SEARCH ON NAMES 
                     const itemData = item.name ? item.name : '';
                     const textData = text;
 
-                    return itemData.indexOf(textData) > -1;*/
+                    return itemData.indexOf(textData) > -1; */
 
                     /** SEARCH ON ALL THE FIELDS */
                     return Object.keys(item).some(key =>
@@ -119,14 +120,14 @@ export default FavoriteCodeList = () => {
 
     const ItemView = ({ item }) => {
         return (
-            <View style={[styles.listContainer, { backgroundColor: '#496AA9' }]}>
+            <View style={[styles.listContainer]}>
                 <View style={[styles.itemHeader]}>
                     <View style={styles.itemHeaderLeft}>
                         {
-                            item.is_tetra ? <Badge style={[styles.badge, {backgroundColor: Colors.green}]}>TETRA</Badge>: null
+                            item.is_tetra ? <Badge style={[styles.badge, {backgroundColor: Colors.colorType3_2}]}>TETRA</Badge>: null
                         }
                         {
-                            item.is_telium ? <Badge style={[styles.badge, {backgroundColor: Colors.yellow}]}>TELIUM</Badge> : null
+                            item.is_telium ? <Badge style={[styles.badge, {backgroundColor: Colors.colorType4_2}]}>TELIUM</Badge> : null
                         }
                     </View>
                     {/* <View style={styles.itemHeaderRight}>
@@ -175,18 +176,28 @@ export default FavoriteCodeList = () => {
         wait(1500).then(() => InitList());
     }, []);
 
-    function Spinner() {
+    function Loader() {
         return (
-            <View style={{alignItems:'center', justifyContent:'center', flex:1,}}>
-                <ActivityIndicator size="large" color={Colors.white} />
+            <View style={{flex:1,}}>
+                <Image style={styles.loader} 
+                        source={require('../assets/images/list-loader.gif')} />
+                <Image style={styles.loader} 
+                        source={require('../assets/images/list-loader.gif')} />
+                <Image style={styles.loader} 
+                        source={require('../assets/images/list-loader.gif')} />
+                <Image style={styles.loader} 
+                        source={require('../assets/images/list-loader.gif')} />
+                <Image style={styles.loader} 
+                        source={require('../assets/images/list-loader.gif')} />        
             </View>
         );
     }
 
     function renderEmptyContainer() {
         return (
-            <View style={{alignItems:'center', justifyContent:'center'}}>
-                <Image style={styles.noContent} source={require('../assets/images/no-content.png')} />
+            <View style={{alignItems:'center', }}>
+                <Image style={styles.noContent} source={require('../assets/images/no-content.gif')} />
+                <Text style={[Headertext.h4, {color: Colors.colorType1_1,}]}>No Favorites Yet!</Text>
             </View>
         );
     }
@@ -194,6 +205,15 @@ export default FavoriteCodeList = () => {
     function Content() {
         return (
             <View>
+                <SearchBar
+                    style={styles.searchInputText}
+                    fontColor="#c6c6c6"
+                    iconColor="#c6c6c6"
+                    cancelIconColor="#c6c6c6"
+                    placeholder="Search here"
+                    onChangeText={(text) => SearchFilterFunction(text)}
+                    onClearPress={() => SearchFilterFunction("")}
+                />
                 <FlatList style={styles.gridView}
                     data={filteredDataSource} 
                     keyExtractor={(item, index) => index.toString()}
@@ -214,7 +234,7 @@ export default FavoriteCodeList = () => {
     <View style={styles.container}>
         <View style={styles.bodySubView}>
             {
-                isLoading ? Spinner() : Content()
+                isLoading ? Loader() : Content()
            }
         </View>
     </View>
@@ -224,18 +244,19 @@ export default FavoriteCodeList = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.bodyColor,
       },
       bodySubView: {
           flex: 1, 
-          backgroundColor: Colors.background,
+          backgroundColor: Colors.bodyColor,
       },
-      listContainer: {
-          flex: 1,
-          borderRadius: 10,
-          padding: 10,
-          margin: 5,
-      },
+    listContainer: {
+        flex: 1,
+        borderRadius: 10,
+        padding: 10,
+        margin: 5,
+        backgroundColor: Colors.colorType1_1,
+    },
       itemHeader: {
           flex: 1,
           flexDirection: 'row',
@@ -259,21 +280,24 @@ const styles = StyleSheet.create({
           justifyContent: 'flex-end'
       },
       badge: {
-          alignSelf: 'flex-start',
-          marginLeft: 5,
-          marginRight: 5,
-          borderRadius: 5,
+        alignSelf: 'flex-start',
+        marginLeft: 5,
+        marginRight: 5,
+        borderRadius: 5,
+        letterSpacing: 1,
+        fontWeight: '500',
+        color: Colors.fontColorWhite,
       },
       itemQuestion: {
           fontSize: 17,
           color: Colors.white,
-          fontWeight: '600',
+          fontWeight: '700',
           margin: 5,
       },
       itemAnswer: {
           fontSize: 12,
           color: Colors.lightFont,
-          fontWeight: 'bold',
+          fontWeight: '700',
           margin: 5,
       },
       itemCardImage: {
@@ -282,11 +306,13 @@ const styles = StyleSheet.create({
           alignSelf: 'flex-end',
       },
       searchInputText: {
-          height: 40,
-          width: '97%',
-          margin: 5,
-          borderColor: '#009688',
-          backgroundColor: '#FFFFFF',
+        height: 40,
+        width: '97%',
+        margin: 5,
+        borderColor: '#009688',
+        borderRadius: 10,
+        backgroundColor: Colors.colorType5_1,
+        shadowOpacity: 0,
       },
     gridView: {
         width: '100%',
@@ -294,7 +320,12 @@ const styles = StyleSheet.create({
     },
     noContent: {
         flex:1,
-        resizeMode: 'contain',
         width: '80%',
-      },
+        height: 200,
+    },
+    loader: {
+      width: Dimensions.get('window').width,
+      height: 100,
+      marginTop: 10,
+    },
 });

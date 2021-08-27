@@ -6,7 +6,6 @@ export default {
     modelBackgroundYellow: '#E99D39',
 
     primary: '#0066cb',
-    white: 'white',
     link: '#089E89',
 
     pink: '#DA4149',
@@ -58,8 +57,11 @@ export default {
     colorType4_2: '#EA9069',
     colorType4_3: '#FBA578',
 
+    colorType5_1: '#E7EFFF',
+
     buttonBody: '#8970FE',
     buttonFont: '#F7F3FD',
 
     profilBackground: '#FFFFFF',
+    white: '#FFFFFF',
 }

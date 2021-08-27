@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Image, StatusBar, SafeAreaView } from 'react-native';
 import Headertext from '../config/Headertext';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import AllCodeList from './AllCodeList';
 import FavoriteCodeList from './FavoriteCodeList';
 import Colors from '../config/Colors';
+import { color } from 'react-native-reanimated';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -12,23 +13,23 @@ function TopTabs() {
     return (
       <Tab.Navigator
             tabBarOptions={{
-                activeTintColor: Colors.white,
-                inactiveTintColor: Colors.inactive,
+                showIcon: true,
+                showLabel: false,
                 indicatorStyle: {
                     height: null,
                     top: '10%',
                     bottom: '10%',
                     width: '45%',
                     left: '2.5%',
-                    borderRadius: 100,
-                    backgroundColor: Colors.pink,
+                    borderRadius: 10,
+                    backgroundColor: Colors.colorType1_1,
                 },
                 style: {
                     alignSelf: "center",
                     width: '97%',
-                    borderRadius: 100,
+                    borderRadius: 10,
                     borderColor: "blue",
-                    backgroundColor: Colors.lightBackground,
+                    backgroundColor: Colors.colorType5_1,
                     elevation: 2, // shadow on Android
                     shadowOpacity: .05, // shadow on iOS,
                     shadowRadius: 4, // shadow blur on iOS
@@ -38,8 +39,46 @@ function TopTabs() {
                 },
             }}
          >
-        <Tab.Screen name="All" component={AllCodeList} />
-        <Tab.Screen name="Favourite" component={FavoriteCodeList} />
+        <Tab.Screen name="All" component={AllCodeList} 
+              options={{
+                tabBarIcon: ({ focused }) => (
+                  <View style={{alignSelf: 'center', flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', width: 100,}}>
+                    {
+                        focused ? 
+                        <Image style={styles.icon} 
+                        source={require('../assets/images/top-menu-icons/list-selected.png')} /> :
+                        <Image style={styles.icon} 
+                        source={require('../assets/images/top-menu-icons/list.png')} />
+                    }
+                    {
+                        focused ? 
+                        <Text style={{color: Colors.white, fontWeight: 'bold'}}>ALL</Text> :
+                        <Text style={{color: Colors.fontColorLightBlack,}}>ALL</Text> 
+                    }
+                  </View>
+                )
+              }}
+        />
+        <Tab.Screen name="Favourite" component={FavoriteCodeList} 
+            options={{
+                tabBarIcon: ({ focused }) => (
+                <View style={{alignSelf: 'center', flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', width: 100,}}>
+                    {
+                        focused ? 
+                        <Image style={styles.icon} 
+                        source={require('../assets/images/top-menu-icons/favourite-selected.png')} /> :
+                        <Image style={styles.icon} 
+                        source={require('../assets/images/top-menu-icons/favourite.png')} />
+                    }
+                    {
+                        focused ? 
+                        <Text style={{color: Colors.white, fontWeight: 'bold'}}>Favourite</Text> :
+                        <Text style={{color: Colors.fontColorLightBlack,}}>Favourite</Text> 
+                    }
+                </View>
+                )
+            }}
+        />
       </Tab.Navigator>
     );
 }
@@ -47,13 +86,12 @@ function TopTabs() {
 export default CodeList = () => {
 
     return (
-        <View style={styles.container}>
-            {Platform.OS === 'ios' && <>
-            <StatusBar barStyle="light-content" hidden = {false} translucent = {true}></StatusBar>
-            </>}
+        <SafeAreaView style={styles.container}>
+            <StatusBar barStyle="dark-content" animated></StatusBar>
             <View style={styles.header}>
             <View style={styles.headerSubView}>
-                    <Text style={Headertext.h2}>Code List</Text>
+                <Text style={[Headertext.h1, {marginRight: 10, color: Colors.fontColorBluest}]}>Code</Text>
+                <Text style={[Headertext.h1, {color: Colors.fontColorPurplest,}]}>List</Text>
             </View>
             </View>
             <View style={styles.body}>
@@ -61,7 +99,7 @@ export default CodeList = () => {
                     <TopTabs/>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -72,7 +110,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'column',
-      backgroundColor: Colors.background,
+      backgroundColor: Colors.bodyColor,
     },
     header: {
         flex: .5,
@@ -87,7 +125,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         justifyContent: 'flex-start',
         alignItems: 'flex-end',
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.bodyColor,
     },
     body: {
         flex: 5.5,
@@ -98,6 +136,10 @@ const styles = StyleSheet.create({
     },
     bodySubView: {
         flex: 1, 
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.bodyColor,
     },
+    icon: {
+        width: 20,
+        height: 20,
+      },
 });

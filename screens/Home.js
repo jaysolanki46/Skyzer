@@ -26,9 +26,7 @@ export default Home = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            {Platform.OS === 'ios' && <>
-                <StatusBar barStyle="dark-content" hidden = {false} translucent = {true}></StatusBar>
-            </>}
+            <StatusBar barStyle="dark-content" translucent = {true}></StatusBar>
             <View style={styles.header}>
             <View style={styles.headerSubView}>
                 <View style={{flex: 5,}}>
@@ -42,8 +40,8 @@ export default Home = ({navigation}) => {
 
                 <View style={{flex: 1,}}>
                 <View style={[styles.headerRight]}>
-                        <TouchableOpacity style={[styles.button]}  
-                        onPress={() => {alert("Jello")}}>
+                        <TouchableOpacity style={[styles.button, {borderWidth: 0.5, borderRadius: 10,}]}  
+                        onPress={() => navigation.navigate('Profile')}>
                         <Image
                             style={styles.tinyLogo}
                             source={require('../assets/images/profile.png')}
@@ -156,7 +154,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         margin: 5,
         alignSelf: 'center',
-        letterSpacing: 2,
+        letterSpacing: 1,
     },
     itemName: {
         fontSize: 25,
@@ -171,8 +169,8 @@ const styles = StyleSheet.create({
         margin: 5,
     },
     itemCardImage: {
-        width: 40,
-        height: 40,
-        alignSelf: 'flex-end',
+        width: 30,
+        height: 30,
+        alignSelf: 'center',
     },
 });

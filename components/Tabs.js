@@ -101,15 +101,14 @@ export default Tabs = () => {
 
 const styles = StyleSheet.create({
     icon: {
-      width: 60,
-      height: 60,
+      width: 40,
+      height: 40,
       borderRadius: 10,
       backgroundColor: Colors.profilBackground,
     },
     iconOutline: {
-      width: 40,
-      height: 40,
-      borderRadius: 10,
+      width: 25,
+      height: 25,
       backgroundColor: Colors.profilBackground,
     },
 });

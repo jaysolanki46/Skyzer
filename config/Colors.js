@@ -64,4 +64,6 @@ export default {
 
     profilBackground: '#FFFFFF',
     white: '#FFFFFF',
+    grey: '#696969',
+    danger: '#ff0e0e'
 }

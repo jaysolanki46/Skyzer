@@ -40,10 +40,10 @@ export default Home = ({navigation}) => {
 
                 <View style={{flex: 1,}}>
                 <View style={[styles.headerRight]}>
-                        <TouchableOpacity style={[styles.button, {borderWidth: 0.5, borderRadius: 10,}]}  
+                        <TouchableOpacity style={{borderWidth: 0.5, borderRadius: 10,}}  
                         onPress={() => navigation.navigate('Profile')}>
                         <Image
-                            style={styles.tinyLogo}
+                            style={styles.profile}
                             source={require('../assets/images/profile.png')}
                         />
                         </TouchableOpacity>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignContent: "space-between",
     },
-    tinyLogo: {
+    profile: {
         width: 60,
         height: 60,
         borderRadius: 10,

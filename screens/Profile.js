@@ -168,7 +168,6 @@ const styles = StyleSheet.create({
     bodyProfile: {
         flex: 2.5,
         width: '100%',
-        borderWidth: 1,
         borderRadius: 10,
         borderColor: Colors.colorType5_1,
         alignItems: 'center',
@@ -182,16 +181,17 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     profile: {
-        width: 130,
-        height: 130,
-        borderRadius: 50,
+        width: 360,
+        height: 200,
+        resizeMode: 'contain',
+        borderRadius: 10,
         backgroundColor: Colors.colorType5_1,
     },
     profileEdit: {
         width: 30,
         height: 30,
         margin: -20,
-        marginLeft: 90,
+        alignSelf: 'center',
     },
     fieldBlock: {
         borderBottomWidth: 1, 

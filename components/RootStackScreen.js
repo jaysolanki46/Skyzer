@@ -10,29 +10,11 @@ import Colors from '../config/Colors';
 const RootStack = createStackNavigator();
 
 const RootStackScreen = ({navigation}) => (
-    <RootStack.Navigator screenOptions={{ headerTitle: false, headerBackTitleVisible: true, }}>
-        <RootStack.Screen options={{ headerShown: false }} name="StartUp" component={StartUp}/>
-        <RootStack.Screen options={{headerShown: false }} name="LogIn" component={LogIn}/>
-        <RootStack.Screen options={{
-            headerStyle: {
-                backgroundColor: Colors.colorType1_3
-                },
-            headerBackTitleStyle: {
-                color: Colors.fontColorWhite
-            },
-            headerTintColor: Colors.fontColorWhite
-            }
-        }  name="SignUp" component={SignUp} />
-        <RootStack.Screen options={{
-            headerStyle: {
-                backgroundColor: Colors.colorType1_3
-            },
-            headerBackTitleStyle: {
-                color: Colors.fontColorWhite
-            },
-            headerTintColor: Colors.fontColorWhite
-        }
-        } name="ForgetPassword" component={ForgetPassword} />
+    <RootStack.Navigator headerMode='none'>
+        <RootStack.Screen name="StartUp" component={StartUp}/>
+        <RootStack.Screen name="LogIn" component={LogIn}/>
+        <RootStack.Screen name="SignUp" component={SignUp} />
+        <RootStack.Screen name="ForgetPassword" component={ForgetPassword} />
     </RootStack.Navigator>
 );
 

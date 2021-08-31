@@ -17,13 +17,14 @@ const Drawer = createDrawerNavigator();
 
 const App = () => {
     
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [userToken, setUserToken] = React.useState(null); 
-
   const initialLoginState = {
     isLoading: true,
-    username: null,
     userToken: null,
+    username: null,
+    
+    email: null,
+    password: null,
+    account: null,
   }
 
   const loginReducer = (prevState, action) => {

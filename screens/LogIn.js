@@ -35,14 +35,13 @@ export default LogIn = ({navigation}) => {
 
         <View style={styles.header}>
           {/* <Logo/> */}
-          <Text style={[Headertext.h1, {color: Colors.fontColorBluest}]}>Welcome to</Text>
           <Text style={[Headertext.h1, {color: Colors.fontColorPurplest}]}>Skyzer Guide</Text>
           <Text style={[Headertext.h5, {color: Colors.fontColorLightBlack, fontWeight: '600'}]}>Let you explore the terminal</Text>
         </View>
 
         <View style={styles.body}>
             <WavyHeader customStyles={styles.svgCurve} />
-            <View style={styles.bodyForm}>
+            <ScrollView style={styles.bodyForm} showsVerticalScrollIndicator={false}>
               <View style={{margin: 15}}>
                 <Text style={styles.bodyFormHeader}> Welcome </Text>
                 <Text style={styles.bodyFormHeader}> Back</Text>
@@ -84,7 +83,7 @@ export default LogIn = ({navigation}) => {
                 </TouchableOpacity>
               </View>
               
-            </View>
+          </ScrollView>
         </View>
     </KeyboardAvoidingView>
   );
@@ -97,7 +96,6 @@ const styles = StyleSheet.create({
       },
     container: {
       flex: 1,
-      paddingTop: Platform.OS === 'ios'? 10 : 60,
       backgroundColor: Colors.bodyColor,
     },
     header: {

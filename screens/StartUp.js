@@ -8,75 +8,11 @@ import Headertext from '../config/Headertext';
 
 export default StartUp = ({navigation}) => {
     
-  const [modelSignUpVisible, setModelSignUpVisible] = useState(false);
-
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <>
         <StatusBar barStyle="dark-content" hidden = {false} translucent = {true}></StatusBar>
         </>}
-        {/* MODEL SIGNUP PROCESS  */}
-      <Modal isVisible={modelSignUpVisible} animationType="fade" transparent={true}>
-        <View style={{height: Dimensions.get('window').height - 300}}>
-        <View style={[styles.modelContainer, {backgroundColor: Colors.bodyColor}]} >
-            
-            <View style={[styles.modelHeader, {backgroundColor: Colors.bodyColor}]}>
-              <Text style={[Headertext.h3, {flex: 5.8, alignSelf: 'center', textAlign: 'center', color: Colors.fontColorBluest}]}>
-                Sign Up!
-              </Text>
-              <TouchableOpacity style={[styles.button, {flex: .2, marginRight: 20,marginLeft: 'auto', alignSelf: 'center', textAlign: 'center'}]} onPress={() => setModelSignUpVisible(false)}>
-                  <Image style={styles.iconClose} source={require('../assets/images/close.png')} />
-              </TouchableOpacity>
-            </View>
-
-            <ScrollView style={{padding: 10}}>
-              <View style={{flexDirection: 'row', marginTop: 10, marginBottom: 10,}}>
-                <View>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack, fontWeight: '600'}]}>
-                    Step 1:
-                  </Text>
-                </View>
-                <View style={{ marginLeft: 10, marginRight: 50, }}>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack}]}>
-                    Please email Skyzer support team at
-                  </Text>
-                  <Text style={{color: 'blue', marginLeft: 1, }} onPress={() => 
-                    Linking.openURL('mailto:support@skyzer.co.nz?subject=Skyzer App: Forget Password!&body=Description') }>
-                      support@skyzer.co.nz
-                  </Text>
-                </View>
-              </View>
-
-              <View style={{flexDirection: 'row', marginTop: 10, marginBottom: 10,}}>
-                <View>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack, fontWeight: '600'}]}>
-                    Step 2:
-                  </Text>
-                </View>
-                <View style={{ marginLeft: 10, marginRight: 50, }}>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack}]}>
-                    You will be receive a call from one of support team with your username and password.
-                  </Text>
-                </View>
-              </View>
-
-              <View style={{flexDirection: 'row', marginTop: 10, marginBottom: 10,}}>
-                <View>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack, fontWeight: '600'}]}>
-                    Step 3:
-                  </Text>
-                </View>
-                <View style={{ marginLeft: 10, marginRight: 50, }}>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack}]}>
-                    That's all! Get login and enjoy the Skyzer app experience.
-                  </Text>
-                </View>
-               </View>
-
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
 
         <View style={styles.header}>
           {/* <Logo/> */}
@@ -93,7 +29,7 @@ export default StartUp = ({navigation}) => {
           <TouchableOpacity onPress={() => navigation.navigate('LogIn')} style={styles.login_button}><Text style={[Headertext.h3, {color: Colors.buttonFont}]}>Log In</Text></TouchableOpacity>
           <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 5}}>
             <Text style={Headertext.h5}>Don't have an account?</Text>
-            <TouchableOpacity onPress={() => setModelSignUpVisible(true)}><Text style={[styles.h5, {color: Colors.link, marginLeft: 5, fontWeight: '500'}]}>Sign Up</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}><Text style={[styles.h5, {color: Colors.link, marginLeft: 5, fontWeight: '500'}]}>Sign Up</Text></TouchableOpacity>
           </View>
         </View>
   

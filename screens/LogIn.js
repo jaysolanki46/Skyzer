@@ -9,10 +9,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
 
 
-export default LogIn = () => {
+export default LogIn = ({navigation}) => {
 
-  const [modelSignUpVisible, setModelSignUpVisible] = useState(false);
-  const [modelForgetPasswordVisible, setModelForgetPasswordVisible] = useState(false);
   const [iconPosition, setIconPosition] = useState("left");
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -35,133 +33,6 @@ export default LogIn = () => {
        <StatusBar barStyle="dark-content" hidden = {false} translucent = {true}></StatusBar>
        </>}
 
-      {/* MODEL SIGNUP PROCESS  */}
-      <Modal isVisible={modelSignUpVisible} animationType="fade" transparent={true}>
-        <View style={{height: Dimensions.get('window').height - 300}}>
-        <View style={[styles.modelContainer, {backgroundColor: Colors.bodyColor}]} >
-            
-            <View style={[styles.modelHeader, {backgroundColor: Colors.bodyColor}]}>
-              <Text style={[Headertext.h3, {flex: 5.8, alignSelf: 'center', textAlign: 'center', color: Colors.fontColorBluest}]}>
-                Sign Up!
-              </Text>
-              <TouchableOpacity style={[styles.button, {flex: .2, marginLeft: 'auto',}]} onPress={() => setModelSignUpVisible(false)}>
-                  <Image style={styles.iconClose} source={require('../assets/images/close.png')} />
-              </TouchableOpacity>
-            </View>
-
-            <ScrollView style={{padding: 10}}>
-              <View style={{flexDirection: 'row', marginTop: 10, marginBottom: 10,}}>
-                <View>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack, fontWeight: '600'}]}>
-                    Step 1:
-                  </Text>
-                </View>
-                <View style={{ marginLeft: 10, marginRight: 50, }}>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack}]}>
-                    Please email Skyzer support team at
-                  </Text>
-                  <Text style={{color: 'blue', marginLeft: 1, }} onPress={() => 
-                    Linking.openURL('mailto:support@skyzer.co.nz?subject=Skyzer App: Forget Password!&body=Description') }>
-                      support@skyzer.co.nz
-                  </Text>
-                </View>
-              </View>
-
-              <View style={{flexDirection: 'row', marginTop: 10, marginBottom: 10,}}>
-                <View>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack, fontWeight: '600'}]}>
-                    Step 2:
-                  </Text>
-                </View>
-                <View style={{ marginLeft: 10, marginRight: 50, }}>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack}]}>
-                    You will be receive a call from one of support team with your username and password.
-                  </Text>
-                </View>
-              </View>
-
-              <View style={{flexDirection: 'row', marginTop: 10, marginBottom: 10,}}>
-                <View>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack, fontWeight: '600'}]}>
-                    Step 3:
-                  </Text>
-                </View>
-                <View style={{ marginLeft: 10, marginRight: 50, }}>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack}]}>
-                    That's all! Get login and enjoy the Skyzer app experience.
-                  </Text>
-                </View>
-               </View>
-
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
-
-      {/* MODEL FORGET PASSWORD PROCESS  */}
-      <Modal isVisible={modelForgetPasswordVisible} animationType="fade" transparent={true}>
-        <View style={{height: Dimensions.get('window').height - 300}}>
-        <View style={[styles.modelContainer, {backgroundColor: Colors.bodyColor}]} >
-            
-            <View style={[styles.modelHeader, {backgroundColor: Colors.bodyColor}]}>
-              <Text style={[Headertext.h3, {flex: 5.8, alignSelf: 'center', textAlign: 'center', color: Colors.fontColorBluest}]}>
-                Forget Password?
-              </Text>
-              <TouchableOpacity style={[styles.button, {flex: .2, marginLeft: 'auto',}]} onPress={() => setModelForgetPasswordVisible(false)}>
-                  <Image style={styles.iconClose} source={require('../assets/images/close.png')} />
-              </TouchableOpacity>
-            </View>
-
-            <ScrollView style={{padding: 10}}>
-              <View style={{flexDirection: 'row', marginTop: 10, marginBottom: 10,}}>
-                <View>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack, fontWeight: '600'}]}>
-                    Step 1:
-                  </Text>
-                </View>
-                <View style={{ marginLeft: 10, marginRight: 50, }}>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack}]}>
-                    Please email Skyzer support team at
-                  </Text>
-                  <Text style={{color: 'blue', marginLeft: 1, }} onPress={() => 
-                    Linking.openURL('mailto:support@skyzer.co.nz?subject=Skyzer App: Forget Password!&body=Description') }>
-                      support@skyzer.co.nz
-                  </Text>
-                </View>
-              </View>
-
-              <View style={{flexDirection: 'row', marginTop: 10, marginBottom: 10,}}>
-                <View>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack, fontWeight: '600'}]}>
-                    Step 2:
-                  </Text>
-                </View>
-                <View style={{ marginLeft: 10, marginRight: 50, }}>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack}]}>
-                    You will be receive a call from one of support team with your username and password.
-                  </Text>
-                </View>
-              </View>
-
-              <View style={{flexDirection: 'row', marginTop: 10, marginBottom: 10,}}>
-                <View>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack, fontWeight: '600'}]}>
-                    Step 3:
-                  </Text>
-                </View>
-                <View style={{ marginLeft: 10, marginRight: 50, }}>
-                  <Text style={[styles.h5, {color: Colors.fontColorBlack}]}>
-                    That's all! Get login and enjoy the Skyzer app experience.
-                  </Text>
-                </View>
-               </View>
-
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
-        
-        
         <View style={styles.header}>
           {/* <Logo/> */}
           <Text style={[Headertext.h1, {color: Colors.fontColorBluest}]}>Welcome to</Text>
@@ -205,10 +76,10 @@ export default LogIn = () => {
 
               </View>
               <View style={{margin: 10, flexDirection: 'row'}}>
-                <TouchableOpacity style={[styles.navButton]} onPress={() => setModelSignUpVisible(true)}>
+            <TouchableOpacity style={[styles.navButton]} onPress={() => navigation.navigate('SignUp')}>
                   <Text style={[Headertext.h5, {color: Colors.fontColorWhite, fontWeight: '700'}]}>Sign Up</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.navButton, {marginLeft: 'auto',}]} onPress={() => setModelForgetPasswordVisible(true)}>
+            <TouchableOpacity style={[styles.navButton, { marginLeft: 'auto', }]} onPress={() => navigation.navigate('ForgetPassword')}>
                   <Text style={[Headertext.h5, {color: Colors.fontColorWhite, fontWeight: '700'}]}>Forget Password?</Text>
                 </TouchableOpacity>
               </View>

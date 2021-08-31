@@ -45,13 +45,13 @@ export default {
     colorType1_2: '#8970FE',
     colorType1_3: '#A380FF',
 
-    colorType2_1: '#1AC2B4',
-    colorType2_2: '#2ECCCD',
-    colorType2_3: '#48D5E4',
+    colorType2_1: '#F26888',
+    colorType2_2: '#F77C91',
+    colorType2_3: '#FE979A',
 
-    colorType3_1: '#F26888',
-    colorType3_2: '#F77C91',
-    colorType3_3: '#FE979A',
+    colorType3_1: '#1AC2B4',
+    colorType3_2: '#2ECCCD',
+    colorType3_3: '#48D5E4',
 
     colorType4_1: '#EC6E5D',
     colorType4_2: '#EA9069',

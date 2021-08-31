@@ -4,17 +4,34 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { StyleSheet, Text, View, Image, StatusBar,  } from 'react-native';
 import Home from '../screens/Home';
+import TetraGuide from '../screens/TetraGuide';
+import TeliumGuide from '../screens/TeliumGuide';
 import CodeList from '../screens/CodeList';
 import Profile from '../screens/Profile';
 import Colors from '../config/Colors';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createMaterialBottomTabNavigator();
+const Stack = createStackNavigator();
+
+function HomeTabs() {
+  return (
+    //<Stack.Navigator screenOptions={{ headerTitle: false, headerStyle: { shadowOffset: { height: 0, width: 0 } } }}>
+    <Stack.Navigator screenOptions={{ headerTitle: false, headerBackTitleVisible: true,}}>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="TetraGuide" component={TetraGuide} />
+      <Stack.Screen name="TeliumGuide" component={TeliumGuide} />
+      {/* <Stack.Screen name="TeliumCodeList" component={TetraCodeList} />
+      <Stack.Screen name="TeliumCodeList" component={TetraCodeList} /> */}
+    </Stack.Navigator>
+  );
+}
 
 export default Tabs = () => {
 
     return(
         <Tab.Navigator
-          initialRouteName="Home"
+        initialRouteName="HomeTabs"
           activeColor={Colors.active}
           inactiveColor={Colors.inactive}
           labelStyle={{ fontSize: 12 }}
@@ -28,8 +45,8 @@ export default Tabs = () => {
         >
 
         <Tab.Screen
-          name="Home"
-          component={Home}
+          name="HomeTabs"
+          component={HomeTabs}
           options={{
             tabBarLabel: false,
             tabBarIcon: ({ focused }) => (

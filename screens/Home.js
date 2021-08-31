@@ -7,10 +7,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export default Home = ({navigation}) => {
     const [items, setItems] = React.useState([
-        { tag: 'CODE GUIDE', name:'Tetra Guide', color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3, image:require('../assets/images/tetra-guide.png') },
-        { tag: 'CODE GUIDE', name:'Telium Guide', color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3, image:require('../assets/images/telium-guide.png') },
-        { tag: 'SKYZER', name:'About Us', color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3, image:require('../assets/images/about-us.png') },
-        { tag: 'SUPPORT', name:'Conatct Us', color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3, image:require('../assets/images/contact-us.png') },
+        { id: 1, tag: 'CODE GUIDE', name:'Tetra Guide', color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3, image:require('../assets/images/tetra-guide.png') },
+        { id: 2, tag: 'CODE GUIDE', name:'Telium Guide', color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3, image:require('../assets/images/telium-guide.png') },
+        { id: 3, tag: 'SKYZER', name:'About Us', color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3, image:require('../assets/images/about-us.png') },
+        { id: 4, tag: 'SUPPORT', name:'Conatct Us', color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3, image:require('../assets/images/contact-us.png') },
 
       ]);
 
@@ -60,6 +60,19 @@ export default Home = ({navigation}) => {
                     <FlatGrid itemDimension={130} data={items} style={styles.gridView} spacing={10}
                         renderItem={({ item }) => (
                           
+                            <TouchableOpacity
+                                onPress={
+                                    () => {
+                                        if(item.id == 1) {
+                                            navigation.navigate('TetraGuide')
+                                        } else if (item.id == 2) {
+                                            navigation.navigate('TeliumGuide')
+                                        } else if (item.id == 3) {
+                                            navigation.navigate('TetraCodeList')
+                                        } else if (item.id == 4) {
+                                            navigation.navigate('TetraCodeList')
+                                        }
+                                    }}>
                             <LinearGradient colors={[item.color1, item.color2, item.color3]} style={{ borderRadius: 35,}}>
                             <View style={[styles.gridViewContainer,]}>
                                 <View style={[styles.itemContainer]}>
@@ -71,6 +84,7 @@ export default Home = ({navigation}) => {
                                 </View>
                             </View>
                             </LinearGradient>
+                            </TouchableOpacity>
                         )}
                         />
                 </View>
@@ -82,15 +96,11 @@ export default Home = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: Platform.OS === 'ios'? 10 : 20,
-      flexDirection: 'column',
       backgroundColor: Colors.bodyColor,
     },
     header: {
         flex: 1,
         width: '100%',
-        marginTop: 20, 
-        marginBottom: 10,
     },
     headerSubView: {
         flex: 1, 

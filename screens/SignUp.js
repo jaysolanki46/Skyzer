@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { Linking, Button, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, KeyboardAvoidingView, StatusBar, ScrollView, LayoutAnimation, Alert } from 'react-native';
+import { Button, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, KeyboardAvoidingView, StatusBar, ScrollView, LayoutAnimation, Alert } from 'react-native';
 import Logo from '../components/Logo';
 import Modal from 'react-native-modal';
 import WavyHeader from '../components/WavyHeader';
 import Headertext from '../config/Headertext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
-
+import Tooltip from 'react-native-walkthrough-tooltip';
+import Configurations from '../config/Configurations';
 
 export default SignUp = ({ navigation }) => {
 
@@ -16,11 +17,43 @@ export default SignUp = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [account, setAccount] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [toolTipVisible, setToolTipVisible] = useState(false);
 
     const { signUp } = React.useContext(AuthContext);
 
-    const signInHandle = (username, email, password, account) => {
-        signUp(username, password);
+    const signInHandle = async(username, email, password, account) => {
+      
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+        
+        if (username === null || username === "" || email === null || email === "" ||
+            password === null || password === "" || account === null || account === "") {
+            
+            Alert.alert("Error","All fields are required");
+
+        } else if (reg.test(email) === false) {
+            Alert.alert("Error","Invalid email");
+        } else if (account.length != 4) {
+            Alert.alert("Error", "Account must be 4 digit long");
+        } else {
+            
+            fetch(Configurations.host + "/division/" + account, {
+                method: 'GET',
+                redirect: 'follow'
+            }).then((response) => {
+                console.log(response.status);
+                if (response.status == 200) {
+                    return response.json();
+                } else {
+                    throw Error("Account doesn't exist");
+                }
+            }).then((responseData) => {
+                console.log(responseData['id']);
+                Alert.alert("Success", "All ok!");
+            }).catch(error => {
+                console.log(error);
+                Alert.alert("Error", "Account doesn't exist, please check your account number again. OR Contact Skyzer if you are not sure.");
+            });
+        }
     }
 
     return (
@@ -48,8 +81,8 @@ export default SignUp = ({ navigation }) => {
                         onChangeText={(Username) => setUsername(Username)} />
 
                         <TextInput style={styles.input} placeholder="Email"
-                            placeholderTextColor={Colors.fontColorWhite} keyboardType="default"
-                            onChangeText={(Username) => setUsername(Username)} />
+                            placeholderTextColor={Colors.fontColorWhite} keyboardType="email-address"
+                            onChangeText={(Email) => setEmail(Email)} />
 
                         <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
                             <TextInput style={styles.input} placeholder="Password"
@@ -67,11 +100,34 @@ export default SignUp = ({ navigation }) => {
                         </View>
 
                         <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
-                            <TextInput style={styles.input} placeholder="Account i.e. 9999"
-                                placeholderTextColor={Colors.fontColorWhite} keyboardType="default"
+                            <TextInput style={styles.input} placeholder="Account number i.e. 9999"
+                                placeholderTextColor={Colors.fontColorWhite} keyboardType="numbers-and-punctuation"
+                                maxLength={4}
                                 onChangeText={(Account) => setAccount(Account)} />
+                            <Tooltip
+                                isVisible={toolTipVisible}
+                                content={
+                                    <View style={{flex: 1, padding: 5}}>
+                                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 5,}}>
+                                            <Text style={[Headertext.h4, {color: Colors.fontColorBluest}]}>Find Account Number?</Text>
+                                        </View>
+                                        <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10 }}>
+                                            <Text style={[Headertext.h5, {fontWeight: 'bold'}]}>Find on Dealer TMS, under Quick stats</Text>
+                                        </View>
+                                        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center', margin: 10    }}>
+                                            <Text style={[Headertext.h4, { color: Colors.fontColorBluest }]}>OR</Text>
+                                        </View>
+                                        <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10   }}>
+                                            <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>Contact Skyzer</Text>
+                                        </View>
+                                    </View>
+                                }
+                                placement="bottom"
+                                onClose={() => setToolTipVisible(false)}
+                            >
+                            </Tooltip>
                             <MaterialCommunityIcons name="comment-question" size={24} style={{ marginLeft: -25 }}
-                                color={Colors.white} />
+                                color={Colors.white} onPress={() => setToolTipVisible(true)} />
                         </View>
                             
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', margin: 5, }}>
@@ -147,6 +203,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginBottom: 15,
         padding: 10,
+        paddingRight: 50,
         borderRadius: 10,
         borderBottomColor: Colors.fontColorWhite,
         borderBottomWidth: 1,

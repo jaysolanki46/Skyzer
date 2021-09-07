@@ -26,10 +26,10 @@ export default StartUp = ({navigation}) => {
         </View>
   
         <View style={styles.signup_body}>
-          <TouchableOpacity onPress={() => navigation.navigate('LogIn')} style={styles.login_button}><Text style={[Headertext.h3, {color: Colors.buttonFont}]}>Log In</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('LogIn')} style={styles.login_button}><Text style={[Headertext.h3, {color: Colors.buttonFont}]}>Login</Text></TouchableOpacity>
           <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 5}}>
             <Text style={Headertext.h5}>Don't have an account?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}><Text style={[styles.h5, {color: Colors.link, marginLeft: 5, fontWeight: '500'}]}>Sign Up</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}><Text style={[styles.h5, {color: Colors.link, marginLeft: 5, fontWeight: '500'}]}>Signup</Text></TouchableOpacity>
           </View>
         </View>
   

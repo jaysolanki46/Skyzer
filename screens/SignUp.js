@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Configurations from '../config/Configurations';
+import { ActivityIndicator } from 'react-native-paper';
 
 export default SignUp = ({ navigation }) => {
 
@@ -16,10 +17,24 @@ export default SignUp = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [account, setAccount] = useState('');
+
+    const [isErrorEmail, setIsErrorEmail] = useState(false);
+    const [isErrorAccount, setIsErrorAccount] = useState(false);
+
     const [showPassword, setShowPassword] = useState(false);
     const [toolTipVisible, setToolTipVisible] = useState(false);
 
-    const { signUp } = React.useContext(AuthContext);
+    function clearState() {
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setAccount('');
+        setIsErrorEmail(false)
+        setIsErrorAccount(false);
+        setShowPassword(false);
+        setToolTipVisible(false);
+        console.log('state clear');
+    };
 
     const signInHandle = async(username, email, password, account) => {
       
@@ -31,29 +46,78 @@ export default SignUp = ({ navigation }) => {
             Alert.alert("Error","All fields are required");
 
         } else if (reg.test(email) === false) {
+            setIsErrorEmail(true);
             Alert.alert("Error","Invalid email");
         } else if (account.length != 4) {
+            setIsErrorAccount(true);
             Alert.alert("Error", "Account must be 4 digit long");
         } else {
-            
-            fetch(Configurations.host + "/division/" + account, {
+            setIsErrorEmail(false);
+            setIsErrorAccount(false);
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var requestOptions = {
                 method: 'GET',
+                headers: myHeaders,
                 redirect: 'follow'
-            }).then((response) => {
-                console.log(response.status);
-                if (response.status == 200) {
-                    return response.json();
-                } else {
+            };
+
+            try {
+                const response = await fetch(Configurations.host + "/divisions/division/" + account, requestOptions);
+                const status = await response.status;
+                
+                if (status != 200) {
+                    /** 200 - OK */
                     throw Error("Account doesn't exist");
+                } else {
+                    /** CREATE NEW USER */
+                    createUser(username, email, password, account);
                 }
-            }).then((responseData) => {
-                console.log(responseData['id']);
-                Alert.alert("Success", "All ok!");
-            }).catch(error => {
-                console.log(error);
+            } catch (error) {
+                setIsErrorAccount(true);
                 Alert.alert("Error", "Account doesn't exist, please check your account number again. OR Contact Skyzer if you are not sure.");
-            });
+                return false;
+            }
         }
+    }
+
+    const createUser = async(username, email, password, account) => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "username": username,
+            "email": email,
+            "password": password,
+            "division": {
+                "division": account
+            }
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        try {
+            const response = await fetch(Configurations.host + "/user", requestOptions);
+            const status = await response.status;
+            
+            if(status != 201) {
+                /** 201 - CREATED */
+                throw Error("Something went wrong!");
+            } else {
+                /** SUCCESS */
+                console.log("user created");
+                clearState();
+                navigation.navigate('SignUpSuccess');
+            }
+        } catch(error) {
+            console.log(error);
+        } 
     }
 
     return (
@@ -76,19 +140,21 @@ export default SignUp = ({ navigation }) => {
                     </View>
                     <View style={styles.form}>
                        
-                       <TextInput style={styles.input} placeholder="Username" 
+                        <TextInput style={[styles.input, { borderColor: Colors.white}]} placeholder="Username"
                         placeholderTextColor={Colors.fontColorWhite} keyboardType="default" 
-                        onChangeText={(Username) => setUsername(Username)} />
+                        onChangeText={(Username) => setUsername(Username)} selectionColor={Colors.white} />
 
-                        <TextInput style={styles.input} placeholder="Email"
+                        <TextInput style={[styles.input, { 
+                            borderColor: isErrorEmail ? Colors.danger : Colors.white
+                        }]} placeholder="Email"
                             placeholderTextColor={Colors.fontColorWhite} keyboardType="email-address"
-                            onChangeText={(Email) => setEmail(Email)} />
+                            onChangeText={(Email) => setEmail(Email)} selectionColor={Colors.white} />
 
                         <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
-                            <TextInput style={styles.input} placeholder="Password"
+                            <TextInput style={[styles.input, { borderColor: Colors.white }]}placeholder="Password"
                                 placeholderTextColor={Colors.fontColorWhite}
                                 keyboardType="default" secureTextEntry={!showPassword}
-                                onChangeText={(Password) => setPassword(Password)} />
+                                onChangeText={(Password) => setPassword(Password)} selectionColor={Colors.white} />
                             {
                                 showPassword ?
                                     <MaterialCommunityIcons name="eye" size={24} style={{ marginLeft: -25 }}
@@ -100,10 +166,12 @@ export default SignUp = ({ navigation }) => {
                         </View>
 
                         <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
-                            <TextInput style={styles.input} placeholder="Account number i.e. 9999"
+                            <TextInput style={[styles.input, { 
+                                borderColor: isErrorAccount ? Colors.danger : Colors.white
+                            }]} placeholder="Account number i.e. 9999"
                                 placeholderTextColor={Colors.fontColorWhite} keyboardType="numbers-and-punctuation"
                                 maxLength={4}
-                                onChangeText={(Account) => setAccount(Account)} />
+                                onChangeText={(Account) => setAccount(Account)} selectionColor={Colors.white} />
                             <Tooltip
                                 isVisible={toolTipVisible}
                                 content={
@@ -131,19 +199,22 @@ export default SignUp = ({ navigation }) => {
                         </View>
                             
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', margin: 5, }}>
-                            <TouchableOpacity style={[styles.navButton]} onPress={() => navigation.navigate('LogIn')}>
-                                <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: '700' }]}>Already a member?</Text>
-                            </TouchableOpacity>
-
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <TouchableOpacity style={[styles.button]} onPress={() => { signInHandle(username, email, password, account) }}>
-                                    <Text style={[Headertext.h4, { marginRight: 15, color: Colors.buttonWhite }]}>Sign In</Text>
+                                <TouchableOpacity style={[styles.button]} onPress={() => { signInHandle(username, email, password, account); }}>
+                                    <Text style={[Headertext.h4, { marginRight: 15, color: Colors.buttonWhite }]}>Sign Up</Text>
                                 </TouchableOpacity>
                                 <View>
                                     <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />
                                 </View>
                             </View>
                         </View>
+
+                        <View style={{ alignItems: 'flex-start', marginTop: 20,}}>
+                            <TouchableOpacity style={[styles.navButton]} onPress={() => navigation.navigate('LogIn')}>
+                                <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: '700' }]}>Already a member?</Text>
+                            </TouchableOpacity>
+                        </View>
+                        
                     </View>
                 </ScrollView>
             </View>
@@ -205,7 +276,6 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingRight: 50,
         borderRadius: 10,
-        borderBottomColor: Colors.fontColorWhite,
         borderBottomWidth: 1,
         color: Colors.fontColorWhite,
     },

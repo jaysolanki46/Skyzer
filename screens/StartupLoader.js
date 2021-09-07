@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
-import { Animated, Text, View , ActivityIndicator, Image, StyleSheet} from 'react-native';
+import { ImageBackground, Animated, Text, View , ActivityIndicator, Image, StyleSheet} from 'react-native';
+import backgroundImage from "../assets/images/background.jpg";
 
 const FadeInView = (props) => {
     const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
@@ -30,14 +31,19 @@ const FadeInView = (props) => {
 export default Loading = () => {
 
     return (
+      <ImageBackground source={backgroundImage} resizeMode="cover" style={{
+        flex: 1,
+        justifyContent: "center"
+      }}>
         <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-        <FadeInView style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+        <FadeInView style={{flex:1, justifyContent: 'center', alignItems: 'center', }}>
             <Image
                             style={styles.logo}
                             source={require('../assets/images/startup-logo.png')}
                         />
         </FadeInView>
         </View>
+      </ImageBackground>
     )
 }
 

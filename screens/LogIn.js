@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { Linking, Button, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, KeyboardAvoidingView, StatusBar, ScrollView, LayoutAnimation, Alert} from 'react-native';
-import Logo from '../components/Logo';
-import Modal from 'react-native-modal';
-import WavyHeader from '../components/WavyHeader';
+import { ImageBackground, Linking, Button, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, KeyboardAvoidingView, StatusBar, ScrollView, LayoutAnimation, Alert} from 'react-native';
 import Headertext from '../config/Headertext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
-
+import backgroundImage from "../assets/images/background-card.jpg";
 
 export default LogIn = ({navigation}) => {
 
@@ -29,6 +26,12 @@ export default LogIn = ({navigation}) => {
   return (
     
     <KeyboardAvoidingView style={styles.container} behavior="height">
+      <ImageBackground source={backgroundImage} resizeMode="cover" style={{
+        position: 'absolute',
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.45)',
+        width: Dimensions.get("window").width,
+        height: Dimensions.get("window").height}}>
        {Platform.OS === 'ios' && <>
        <StatusBar barStyle="dark-content" hidden = {false} translucent = {true}></StatusBar>
        </>}
@@ -40,8 +43,7 @@ export default LogIn = ({navigation}) => {
         </View>
 
         <View style={styles.body}>
-            <WavyHeader customStyles={styles.svgCurve} />
-            <ScrollView style={styles.bodyForm} showsVerticalScrollIndicator={false}>
+            <View style={styles.bodyForm} showsVerticalScrollIndicator={false}>
               <View style={{margin: 15}}>
                 <Text style={styles.bodyFormHeader}> Welcome </Text>
                 <Text style={styles.bodyFormHeader}> Back</Text>
@@ -83,8 +85,13 @@ export default LogIn = ({navigation}) => {
                 </TouchableOpacity>
               </View>
               
-          </ScrollView>
         </View>
+        </View>
+
+      <View style={styles.footer}>
+
+      </View>
+      </ImageBackground>
     </KeyboardAvoidingView>
   );
 };
@@ -96,26 +103,28 @@ const styles = StyleSheet.create({
       },
     container: {
       flex: 1,
-      backgroundColor: Colors.bodyColor,
     },
     header: {
-      flex: 1.5,
+      flex: 1,
       justifyContent: 'flex-end',
       alignItems: 'center',
-      paddingBottom: 20,
-      backgroundColor: Colors.bodyColor,
     },
     body: {
-      flex: 4.5,
+      flex: 4,
       alignItems: 'center',
-      backgroundColor: Colors.subBodyColor,
+    },
+    footer: {
+      flex: 1,
     },
     bodyForm: {
-        width: Dimensions.get('window').width - 70, 
-        marginTop: 30,
-        marginLeft: 70,
-        marginRight: 70,
-        color: Colors.fontColorWhite,
+      width: Dimensions.get('window').width - 60,
+      height: 50,
+      marginTop: 30,
+      marginLeft: 70,
+      marginRight: 70,
+      color: Colors.fontColorWhite,
+      borderRadius: 10,
+      height: 500,
     }, 
     bodyFormHeader: {
       fontSize: 25,
@@ -124,14 +133,12 @@ const styles = StyleSheet.create({
     },
     modelContainer: {
       flex: 1, 
-      backgroundColor: Colors.bodyColor, 
       borderRadius: 25,
     },
     modelHeader: {
       flexDirection: 'row', 
       padding: 10,
       marginLeft: 5,
-      backgroundColor: Colors.bodyColor,
       borderRadius: 25,
     },
     input: {

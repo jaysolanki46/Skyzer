@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, ScrollView, Alert,} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, ScrollView, Alert,} from 'react-native';
 import Colors from '../config/Colors';
 import { StatusBar } from 'react-native';
 import Modal from 'react-native-modal';
 import Logo from '../components/Logo';
 import Headertext from '../config/Headertext';
+import backgroundImage from "../assets/images/background.jpg";
+import bodyImage from "../assets/images/startup_body.png";
 
 export default StartUp = ({navigation}) => {
     
     return (
       <View style={styles.container}>
+        <ImageBackground source={backgroundImage} resizeMode="cover" style={{
+                flex: 1,
+                justifyContent: "center"}}>
         {Platform.OS === 'ios' && <>
         <StatusBar barStyle="dark-content" hidden = {false} translucent = {true}></StatusBar>
         </>}
@@ -22,7 +27,7 @@ export default StartUp = ({navigation}) => {
         </View>
   
         <View style={styles.body}>
-          <Image style={styles.signup_body_image} source={require('../assets/images/startup_body.png')} />
+            <Image style={styles.signup_body_image} source={bodyImage} />
         </View>
   
         <View style={styles.signup_body}>
@@ -40,6 +45,7 @@ export default StartUp = ({navigation}) => {
               <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/linkedin.png')} /></TouchableOpacity>
             </View>
         </View>
+        </ImageBackground>
       </View>
     );
   }
@@ -47,9 +53,6 @@ export default StartUp = ({navigation}) => {
   const styles = StyleSheet.create({
       container: {
         flex: 1,
-        paddingTop: Platform.OS === 'ios'? 10 : 60,
-        paddingBottom: 10,
-        backgroundColor: Colors.bodyColor,
       },
       header: {
         flex: 1.5,
@@ -58,7 +61,7 @@ export default StartUp = ({navigation}) => {
         paddingBottom: 20,
       },
       body: {
-        flex: 2.5,
+        flex: 2,
         alignItems: 'center',
         margin: 10,
       },
@@ -68,7 +71,7 @@ export default StartUp = ({navigation}) => {
         justifyContent: 'center',
       },
       footer: {
-        flex: 1,
+        flex: 1.5,
         alignItems: 'center',
       },
       login_button: {

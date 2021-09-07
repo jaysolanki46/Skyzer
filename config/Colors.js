@@ -34,6 +34,7 @@ export default {
     //bodyColor: '#Fdfcfa',
     bodyColor: '#FFFFFF',
     subBodyColor: '#715CFF',
+    cardBodyColor: '#715CFF',
 
     fontColorLightBlack: '#696969',
     fontColorBlack: '#000000',

@@ -9,16 +9,11 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 
 export default LogIn = ({navigation}) => {
 
-  const [iconPosition, setIconPosition] = useState("left");
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const  { logIn } = React.useContext(AuthContext);
-  const toggleIcon = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setIconPosition(iconPosition === "left" ? "right" : "left");
-  };
   
   const logInHandle = (username, password) => {
     logIn(username, password);
@@ -72,9 +67,7 @@ export default LogIn = ({navigation}) => {
                     <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(username, password) }}>
                       <Text style={[Headertext.h4, { marginRight: 15, color: Colors.buttonWhite }]}>Log In</Text>
                     </TouchableOpacity>
-                    <View style={iconPosition === "left" ? styles.moveLeft : styles.moveRight}>
                       <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />
-                    </View>
                   </View>
                 </View>
                 :
@@ -105,9 +98,7 @@ export default LogIn = ({navigation}) => {
                         <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(username, password) }}>
                           <Text style={[Headertext.h4, { marginRight: 15, color: Colors.buttonWhite }]}>Log In</Text>
                         </TouchableOpacity>
-                        <View style={iconPosition === "left" ? styles.moveLeft : styles.moveRight}>
                           <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />
-                        </View>
                       </View>
                     </View>
                   </View>

@@ -17,7 +17,7 @@ const Stack = createStackNavigator();
 function HomeTabs() {
   return (
     //<Stack.Navigator screenOptions={{ headerTitle: false, headerStyle: { shadowOffset: { height: 0, width: 0 } } }}>
-    <Stack.Navigator screenOptions={{ headerTitle: false, headerBackTitleVisible: true,}}>
+    <Stack.Navigator screenOptions={{ headerTitle: false, headerStyle: { shadowOffset: { height: 0, width: 0 } } }}>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="TetraGuide" component={TetraGuide} />
       <Stack.Screen name="TeliumGuide" component={TeliumGuide} />

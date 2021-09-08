@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { ImageBackground, Linking, Button, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, KeyboardAvoidingView, StatusBar, ScrollView, LayoutAnimation, Alert} from 'react-native';
+import { ImageBackground, Linking, Button, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, KeyboardAvoidingView, StatusBar, ScrollView, LayoutAnimation, Alert, SafeAreaView} from 'react-native';
 import Headertext from '../config/Headertext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
-import backgroundImage from "../assets/images/background-card.jpg";
+import backgroundImage from "../assets/images/background.jpg";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 
 export default LogIn = ({navigation}) => {
 
@@ -25,7 +26,7 @@ export default LogIn = ({navigation}) => {
 
   return (
     
-    <KeyboardAvoidingView style={styles.container} behavior="height">
+    <SafeAreaView style={styles.container} behavior="height">
       <ImageBackground source={backgroundImage} resizeMode="cover" style={{
         position: 'absolute',
         flex: 1,
@@ -43,56 +44,91 @@ export default LogIn = ({navigation}) => {
         </View>
 
         <View style={styles.body}>
-            <View style={styles.bodyForm} showsVerticalScrollIndicator={false}>
-              <View style={{margin: 15}}>
-                <Text style={styles.bodyFormHeader}> Welcome </Text>
-                <Text style={styles.bodyFormHeader}> Back</Text>
-              </View>
-              <View style={{margin: 10}}>
-                <TextInput style={styles.input} placeholder="Username" placeholderTextColor={Colors.fontColorWhite} keyboardType="default" onChangeText={(Username) => setUsername(Username)}/>
-                <View style={[{flexDirection: 'row', alignItems: 'center',}]}>
-                  <TextInput style={styles.input} placeholder="Password" 
-                    placeholderTextColor={Colors.fontColorWhite} 
-                    keyboardType="default" secureTextEntry={!showPassword} 
-                    onChangeText={(Password) => setPassword(Password)} />
+          <View style={styles.bodyForm} showsVerticalScrollIndicator={false}>
+            <View style={{ margin: 15 }}>
+              <Text style={styles.bodyFormHeader}> Welcome Back </Text>
+            </View>
+            {
+              Platform.OS === 'ios' ?
+                <View>
+                  <TextInput style={styles.input} placeholder="Username" placeholderTextColor={Colors.fontColorWhite} keyboardType="default" onChangeText={(Username) => setUsername(Username)} />
+                  <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
+                    <TextInput style={styles.input} placeholder="Password"
+                      placeholderTextColor={Colors.fontColorWhite}
+                      keyboardType="default" secureTextEntry={!showPassword}
+                      onChangeText={(Password) => setPassword(Password)} />
                     {
-                     showPassword ? 
-                      <MaterialCommunityIcons name="eye" size={24} style={{marginLeft: -25}}
-                      color={Colors.white} onPress={() => setShowPassword(false)} /> 
-                     :
-                      <MaterialCommunityIcons name="eye-off" size={24} style={{marginLeft: -25}}
-                      color={Colors.white} onPress={() => setShowPassword(true)} />
+                      showPassword ?
+                        <MaterialCommunityIcons name="eye" size={24} style={{ marginLeft: -25 }}
+                          color={Colors.white} onPress={() => setShowPassword(false)} />
+                        :
+                        <MaterialCommunityIcons name="eye-off" size={24} style={{ marginLeft: -25 }}
+                          color={Colors.white} onPress={() => setShowPassword(true)} />
                     }
-                    
-                    
-                </View>
-                <View style={{flexDirection:'row', alignItems: 'center'}}>
-                  <TouchableOpacity style={[styles.button]}  onPress={() => {logInHandle(username, password)}}>
-                    <Text style={[Headertext.h4, {marginRight: 15, color: Colors.buttonWhite}]}>Log In</Text>
-                  </TouchableOpacity>
-                  <View style={iconPosition === "left" ? styles.moveLeft : styles.moveRight}>
-                    <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />  
+
+
+                  </View>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(username, password) }}>
+                      <Text style={[Headertext.h4, { marginRight: 15, color: Colors.buttonWhite }]}>Log In</Text>
+                    </TouchableOpacity>
+                    <View style={iconPosition === "left" ? styles.moveLeft : styles.moveRight}>
+                      <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />
+                    </View>
                   </View>
                 </View>
+                :
+                <KeyboardAwareScrollView
+                  enableOnAndroid={true}
+                  style={{ flexGrow: 1 }}
+                >
+                  <View style={{ height: 300 }}>
+                    <View>
+                      <TextInput style={styles.input} placeholder="Username" placeholderTextColor={Colors.fontColorWhite} keyboardType="default" onChangeText={(Username) => setUsername(Username)} />
+                      <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
+                        <TextInput style={styles.input} placeholder="Password"
+                          placeholderTextColor={Colors.fontColorWhite}
+                          keyboardType="default" secureTextEntry={!showPassword}
+                          onChangeText={(Password) => setPassword(Password)} />
+                        {
+                          showPassword ?
+                            <MaterialCommunityIcons name="eye" size={24} style={{ marginLeft: -25 }}
+                              color={Colors.white} onPress={() => setShowPassword(false)} />
+                            :
+                            <MaterialCommunityIcons name="eye-off" size={24} style={{ marginLeft: -25 }}
+                              color={Colors.white} onPress={() => setShowPassword(true)} />
+                        }
 
-              </View>
-              <View style={{margin: 10, flexDirection: 'row'}}>
-            <TouchableOpacity style={[styles.navButton]} onPress={() => navigation.navigate('SignUp')}>
-                  <Text style={[Headertext.h5, {color: Colors.fontColorWhite, fontWeight: '700'}]}>Sign Up</Text>
-                </TouchableOpacity>
-            <TouchableOpacity style={[styles.navButton, { marginLeft: 'auto', }]} onPress={() => navigation.navigate('ForgetPassword')}>
-                  <Text style={[Headertext.h5, {color: Colors.fontColorWhite, fontWeight: '700'}]}>Forget Password?</Text>
-                </TouchableOpacity>
-              </View>
-              
-        </View>
+
+                      </View>
+                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(username, password) }}>
+                          <Text style={[Headertext.h4, { marginRight: 15, color: Colors.buttonWhite }]}>Log In</Text>
+                        </TouchableOpacity>
+                        <View style={iconPosition === "left" ? styles.moveLeft : styles.moveRight}>
+                          <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </KeyboardAwareScrollView>
+            }
+            <View style={{ marginTop: 10, marginBottom: 10, width: Dimensions.get('window').width - 100, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
+              <TouchableOpacity style={[styles.navButton]} onPress={() => navigation.navigate('SignUp')}>
+                <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: '700' }]}>Sign Up</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.navButton, { marginLeft: 'auto', }]} onPress={() => navigation.navigate('ForgetPassword')}>
+                <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: '700' }]}>Forget Password?</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
 
       <View style={styles.footer}>
 
       </View>
       </ImageBackground>
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -124,7 +160,10 @@ const styles = StyleSheet.create({
       marginRight: 70,
       color: Colors.fontColorWhite,
       borderRadius: 10,
-      height: 500,
+      height: 350,
+      backgroundColor: Colors.cardBodyColor,
+      justifyContent: 'center',
+      alignItems: 'center',
     }, 
     bodyFormHeader: {
       fontSize: 25,
@@ -142,7 +181,7 @@ const styles = StyleSheet.create({
       borderRadius: 25,
     },
     input: {
-      width: 300 ,
+      width: Dimensions.get('window').width - 100,
       height: 40,
       marginTop: 15,
       marginBottom: 15,

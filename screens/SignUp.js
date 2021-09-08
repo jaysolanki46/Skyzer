@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { ImageBackground, Button, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, KeyboardAvoidingView, StatusBar, ScrollView, LayoutAnimation, Alert } from 'react-native';
+import { ImageBackground, Button, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, KeyboardAvoidingView, StatusBar, ScrollView, LayoutAnimation, Alert, SafeAreaView } from 'react-native';
 import Headertext from '../config/Headertext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Configurations from '../config/Configurations';
 import { ActivityIndicator } from 'react-native-paper';
-import backgroundImage from "../assets/images/background-card.jpg";
+import backgroundImage from "../assets/images/background.jpg";
+import { color } from 'react-native-reanimated';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 
 export default SignUp = ({ navigation }) => {
 
@@ -31,27 +33,27 @@ export default SignUp = ({ navigation }) => {
         setIsErrorAccount(false);
         setShowPassword(false);
         setToolTipVisible(false);
-        console.log('state clear');
     };
 
-    const signInHandle = async(username, email, password, account) => {
-      
+    const signInHandle = async (username, email, password, account) => {
+
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-        
+
         if (username === null || username === "" || email === null || email === "" ||
             password === null || password === "" || account === null || account === "") {
-            
-            Alert.alert("Error","All fields are required");
+
+            Alert.alert("Error", "All fields are required");
 
         } else if (reg.test(email) === false) {
             setIsErrorEmail(true);
-            Alert.alert("Error","Invalid email");
+            Alert.alert("Error", "Invalid email");
         } else if (account.length != 4) {
             setIsErrorAccount(true);
             Alert.alert("Error", "Account must be 4 digit long");
         } else {
             setIsErrorEmail(false);
             setIsErrorAccount(false);
+
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
@@ -62,10 +64,24 @@ export default SignUp = ({ navigation }) => {
             };
 
             try {
-                const response = await fetch(Configurations.host + "/divisions/division/" + account, requestOptions);
-                const status = await response.status;
-                
-                if (status != 200) {
+                const responseEmail = await fetch(Configurations.host + "/users/user/" + email, requestOptions);
+                const statusEmail = await responseEmail.status;
+
+                if (statusEmail == 200) {
+                    /** 200 - OK */
+                    throw Error("Email already exist");
+                }
+            } catch (error) {
+                setIsErrorEmail(true);
+                Alert.alert("Error", "Email already exist, please try to login");
+                return false;
+            }
+
+            try {
+                const responseDivision = await fetch(Configurations.host + "/divisions/division/" + account, requestOptions);
+                const statusDivision = await responseDivision.status;
+
+                if (statusDivision != 200) {
                     /** 200 - OK */
                     throw Error("Account doesn't exist");
                 } else {
@@ -80,7 +96,7 @@ export default SignUp = ({ navigation }) => {
         }
     }
 
-    const createUser = async(username, email, password, account) => {
+    const createUser = async (username, email, password, account) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -103,8 +119,8 @@ export default SignUp = ({ navigation }) => {
         try {
             const response = await fetch(Configurations.host + "/user", requestOptions);
             const status = await response.status;
-            
-            if(status != 201) {
+
+            if (status != 201) {
                 /** 201 - CREATED */
                 throw Error("Something went wrong!");
             } else {
@@ -113,14 +129,14 @@ export default SignUp = ({ navigation }) => {
                 clearState();
                 navigation.navigate('SignUpSuccess');
             }
-        } catch(error) {
+        } catch (error) {
             console.log(error);
-        } 
+        }
     }
 
     return (
 
-        <KeyboardAvoidingView style={styles.container} behavior="height">
+        <SafeAreaView style={styles.container}>
             <ImageBackground source={backgroundImage} resizeMode="cover" style={{
                 position: 'absolute',
                 flex: 1,
@@ -128,104 +144,192 @@ export default SignUp = ({ navigation }) => {
                 width: Dimensions.get("window").width,
                 height: Dimensions.get("window").height
             }}>
-            <StatusBar barStyle="dark-content" hidden={false} translucent={true}></StatusBar>
+                <StatusBar barStyle="dark-content" hidden={false} translucent={true}></StatusBar>
 
-            <View style={styles.header}>
-                {/* <Logo/> */}
-                <Text style={[Headertext.h1, { color: Colors.fontColorPurplest }]}>Skyzer Guide</Text>
-                <Text style={[Headertext.h5, { color: Colors.fontColorLightBlack, fontWeight: '600' }]}>Let you explore the terminal</Text>
-            </View>
+                <View style={styles.header}>
+                    {/* <Logo/> */}
+                    <Text style={[Headertext.h1, { color: Colors.fontColorPurplest }]}>Skyzer Guide</Text>
+                    <Text style={[Headertext.h5, { color: Colors.fontColorLightBlack, fontWeight: '600' }]}>Let you explore the terminal</Text>
+                </View>
 
-            <View style={styles.body}>
-                <View style={styles.bodyForm}>
-                    <View style={{ marginTop: 15 }}>
-                        <Text style={styles.bodyFormHeader}> Create an Account </Text>
-                    </View>
-                    <View>
-                       
-                        <TextInput style={[styles.input, { borderColor: Colors.white}]} placeholder="Username"
-                        placeholderTextColor={Colors.fontColorWhite} keyboardType="default" 
-                        onChangeText={(Username) => setUsername(Username)} selectionColor={Colors.white} />
-
-                        <TextInput style={[styles.input, { 
-                            borderColor: isErrorEmail ? Colors.danger : Colors.white
-                        }]} placeholder="Email"
-                            placeholderTextColor={Colors.fontColorWhite} keyboardType="email-address"
-                            onChangeText={(Email) => setEmail(Email)} selectionColor={Colors.white} />
-
-                        <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
-                            <TextInput style={[styles.input, { borderColor: Colors.white }]}placeholder="Password"
-                                placeholderTextColor={Colors.fontColorWhite}
-                                keyboardType="default" secureTextEntry={!showPassword}
-                                onChangeText={(Password) => setPassword(Password)} selectionColor={Colors.white} />
-                            {
-                                showPassword ?
-                                    <MaterialCommunityIcons name="eye" size={24} style={{ marginLeft: -25 }}
-                                        color={Colors.white} onPress={() => setShowPassword(false)} />
-                                    :
-                                    <MaterialCommunityIcons name="eye-off" size={24} style={{ marginLeft: -25 }}
-                                        color={Colors.white} onPress={() => setShowPassword(true)} />
-                            }
+                <View style={styles.body}>
+                    <View style={styles.bodyForm}>
+                        <View style={{ marginTop: 15 }}>
+                            <Text style={styles.bodyFormHeader}> Create an Account </Text>
                         </View>
+                        {
+                            Platform.OS === 'ios' ?
+                                <KeyboardAwareScrollView
+                                    style={{ flex: 1 }}>
+                                    <View style={{ height: 600 }}>
+                                        <View>
+                                            <TextInput style={[styles.input, { borderColor: Colors.white }]} placeholder="Username"
+                                                placeholderTextColor={Colors.fontColorWhite} keyboardType="default"
+                                                onChangeText={(Username) => props.setUsername(Username)} selectionColor={Colors.white} />
 
-                        <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
-                            <TextInput style={[styles.input, { 
-                                borderColor: isErrorAccount ? Colors.danger : Colors.white
-                            }]} placeholder="Account number i.e. 9999"
-                                placeholderTextColor={Colors.fontColorWhite} keyboardType="default"
-                                maxLength={4}
-                                onChangeText={(Account) => setAccount(Account)} selectionColor={Colors.white} />
-                            <Tooltip
-                                isVisible={toolTipVisible}
-                                content={
-                                    <View style={{flex: 1, padding: 5}}>
-                                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 5,}}>
-                                            <Text style={[Headertext.h4, {color: Colors.fontColorBluest}]}>Find Account Number?</Text>
-                                        </View>
-                                        <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10 }}>
-                                            <Text style={[Headertext.h5, {fontWeight: 'bold'}]}>Find on Dealer TMS, under Quick stats</Text>
-                                        </View>
-                                        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center', margin: 10    }}>
-                                            <Text style={[Headertext.h4, { color: Colors.fontColorBluest }]}>OR</Text>
-                                        </View>
-                                        <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10   }}>
-                                            <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>Contact Skyzer</Text>
+                                            <TextInput style={[styles.input, {
+                                                borderColor: isErrorEmail ? Colors.danger : Colors.white
+                                            }]} placeholder="Email"
+                                                placeholderTextColor={Colors.fontColorWhite} keyboardType="email-address"
+                                                onChangeText={(Email) => setEmail(Email)} selectionColor={Colors.white} />
+
+                                            <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
+                                                <TextInput style={[styles.input, { borderColor: Colors.white }]} placeholder="Password"
+                                                    placeholderTextColor={Colors.fontColorWhite}
+                                                    keyboardType="default" secureTextEntry={!showPassword}
+                                                    onChangeText={(Password) => setPassword(Password)} selectionColor={Colors.white} />
+                                                {
+                                                    showPassword ?
+                                                        <MaterialCommunityIcons name="eye" size={24} style={{ marginLeft: -25 }}
+                                                            color={Colors.white} onPress={() => setShowPassword(false)} />
+                                                        :
+                                                        <MaterialCommunityIcons name="eye-off" size={24} style={{ marginLeft: -25 }}
+                                                            color={Colors.white} onPress={() => setShowPassword(true)} />
+                                                }
+                                            </View>
+
+                                            <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
+                                                <TextInput style={[styles.input, {
+                                                    borderColor: isErrorAccount ? Colors.danger : Colors.white
+                                                }]} placeholder="Account number i.e. 1234"
+                                                    placeholderTextColor={Colors.fontColorWhite} keyboardType="default"
+                                                    maxLength={4}
+                                                    onChangeText={(Account) => setAccount(Account)} selectionColor={Colors.white} />
+                                                <Tooltip
+                                                    isVisible={toolTipVisible}
+                                                    content={
+                                                        <View style={{ flex: 1, padding: 5 }}>
+                                                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 5, }}>
+                                                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest }]}>Find Account Number?</Text>
+                                                            </View>
+                                                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10 }}>
+                                                                <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>Find on Dealer TMS, under Quick stats</Text>
+                                                            </View>
+                                                            <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center', margin: 10 }}>
+                                                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest }]}>OR</Text>
+                                                            </View>
+                                                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10 }}>
+                                                                <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>Contact Skyzer</Text>
+                                                            </View>
+                                                        </View>
+                                                    }
+                                                    placement="bottom"
+                                                    onClose={() => setToolTipVisible(false)}
+                                                >
+                                                </Tooltip>
+                                                <MaterialCommunityIcons name="comment-question" size={24} style={{ marginLeft: -25 }}
+                                                    color={Colors.white} onPress={() => setToolTipVisible(true)} />
+                                            </View>
+
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', margin: 10, }}>
+                                                <TouchableOpacity style={[styles.navButton]} onPress={() => navigation.navigate('LogIn')}>
+                                                    <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: '700' }]}>Already a member?</Text>
+                                                </TouchableOpacity>
+
+                                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                                    <TouchableOpacity style={[styles.button]} onPress={() => { signInHandle(username, email, password, account); }}>
+                                                        <Text style={[Headertext.h4, { color: Colors.buttonWhite }]}>Sign Up</Text>
+                                                    </TouchableOpacity>
+                                                    <View>
+                                                        <Image style={[styles.icon, { marginRight: 10 }]} source={require('../assets/images/right-arrow.png')} />
+                                                    </View>
+                                                </View>
+                                            </View>
                                         </View>
                                     </View>
-                                }
-                                placement="bottom"
-                                onClose={() => setToolTipVisible(false)}
-                            >
-                            </Tooltip>
-                            <MaterialCommunityIcons name="comment-question" size={24} style={{ marginLeft: -25 }}
-                                color={Colors.white} onPress={() => setToolTipVisible(true)} />
-                        </View>
-                            
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', margin: 5, }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <TouchableOpacity style={[styles.button]} onPress={() => { signInHandle(username, email, password, account); }}>
-                                    <Text style={[Headertext.h4, { marginRight: 15, color: Colors.buttonWhite }]}>Sign Up</Text>
-                                </TouchableOpacity>
-                                <View>
-                                    <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />
-                                </View>
-                            </View>
-                        </View>
+                                </KeyboardAwareScrollView>
+                                :
+                                <KeyboardAwareScrollView
+                                    enableAutomaticScroll
+                                    extraScrollHeight={10}
+                                    enableOnAndroid={true}
+                                    extraHeight={Platform.select({ android: 100 })}
+                                    style={{ flexGrow: 1 }}>
+                                    <View style={{ height: 500 }}>
+                                        <View>
+                                            <TextInput style={[styles.input, { borderColor: Colors.white }]} placeholder="Username"
+                                                placeholderTextColor={Colors.fontColorWhite} keyboardType="default"
+                                                onChangeText={(Username) => props.setUsername(Username)} selectionColor={Colors.white} />
 
-                        <View style={{ alignItems: 'flex-start', marginTop: 20,}}>
-                            <TouchableOpacity style={[styles.navButton]} onPress={() => navigation.navigate('LogIn')}>
-                                <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: '700' }]}>Already a member?</Text>
-                            </TouchableOpacity>
-                        </View>
-                        
+                                            <TextInput style={[styles.input, {
+                                                borderColor: isErrorEmail ? Colors.danger : Colors.white
+                                            }]} placeholder="Email"
+                                                placeholderTextColor={Colors.fontColorWhite} keyboardType="email-address"
+                                                onChangeText={(Email) => setEmail(Email)} selectionColor={Colors.white} />
+
+                                            <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
+                                                <TextInput style={[styles.input, { borderColor: Colors.white }]} placeholder="Password"
+                                                    placeholderTextColor={Colors.fontColorWhite}
+                                                    keyboardType="default" secureTextEntry={!showPassword}
+                                                    onChangeText={(Password) => setPassword(Password)} selectionColor={Colors.white} />
+                                                {
+                                                    showPassword ?
+                                                        <MaterialCommunityIcons name="eye" size={24} style={{ marginLeft: -25 }}
+                                                            color={Colors.white} onPress={() => setShowPassword(false)} />
+                                                        :
+                                                        <MaterialCommunityIcons name="eye-off" size={24} style={{ marginLeft: -25 }}
+                                                            color={Colors.white} onPress={() => setShowPassword(true)} />
+                                                }
+                                            </View>
+
+                                            <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
+                                                <TextInput style={[styles.input, {
+                                                    borderColor: isErrorAccount ? Colors.danger : Colors.white
+                                                }]} placeholder="Account number i.e. 1234"
+                                                    placeholderTextColor={Colors.fontColorWhite} keyboardType="default"
+                                                    maxLength={4}
+                                                    onChangeText={(Account) => setAccount(Account)} selectionColor={Colors.white} />
+                                                <Tooltip
+                                                    isVisible={toolTipVisible}
+                                                    content={
+                                                        <View style={{ flex: 1, padding: 5 }}>
+                                                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 5, }}>
+                                                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest }]}>Find Account Number?</Text>
+                                                            </View>
+                                                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10 }}>
+                                                                <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>Find on Dealer TMS, under Quick stats</Text>
+                                                            </View>
+                                                            <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center', margin: 10 }}>
+                                                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest }]}>OR</Text>
+                                                            </View>
+                                                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10 }}>
+                                                                <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>Contact Skyzer</Text>
+                                                            </View>
+                                                        </View>
+                                                    }
+                                                    placement="bottom"
+                                                    onClose={() => setToolTipVisible(false)}
+                                                >
+                                                </Tooltip>
+                                                <MaterialCommunityIcons name="comment-question" size={24} style={{ marginLeft: -25 }}
+                                                    color={Colors.white} onPress={() => setToolTipVisible(true)} />
+                                            </View>
+
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', margin: 10, }}>
+                                                <TouchableOpacity style={[styles.navButton]} onPress={() => navigation.navigate('LogIn')}>
+                                                    <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: '700' }]}>Already a member?</Text>
+                                                </TouchableOpacity>
+
+                                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                                    <TouchableOpacity style={[styles.button]} onPress={() => { signInHandle(username, email, password, account); }}>
+                                                        <Text style={[Headertext.h4, { color: Colors.buttonWhite }]}>Sign Up</Text>
+                                                    </TouchableOpacity>
+                                                    <View>
+                                                        <Image style={[styles.icon, { marginRight: 10 }]} source={require('../assets/images/right-arrow.png')} />
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    </View>
+                                </KeyboardAwareScrollView>
+                        }
                     </View>
                 </View>
-            </View>
 
-            <View style={styles.footer}>
-            </View>      
+                <View style={styles.footer}>
+                </View>
             </ImageBackground>
-        </KeyboardAvoidingView>
+        </SafeAreaView>
     );
 };
 
@@ -253,7 +357,10 @@ const styles = StyleSheet.create({
         marginRight: 70,
         color: Colors.fontColorWhite,
         borderRadius: 10,
-        height: 500,
+        height: 450,
+        backgroundColor: Colors.cardBodyColor,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     bodyFormHeader: {
         fontSize: 25,

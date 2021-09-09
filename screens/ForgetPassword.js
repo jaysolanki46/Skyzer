@@ -108,10 +108,6 @@ console.log(status);
 };
 
 const styles = StyleSheet.create({
-    svgCurve: {
-        position: 'absolute',
-        width: Dimensions.get('window').width,
-    },
     container: {
         flex: 1,
     },

@@ -7,10 +7,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export default Home = ({navigation}) => {
     const [items, setItems] = React.useState([
-        { id: 1, tag: 'CODE GUIDE', name:'Tetra Guide', color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3, image:require('../assets/images/tetra-guide.png') },
-        { id: 2, tag: 'CODE GUIDE', name:'Telium Guide', color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3, image:require('../assets/images/telium-guide.png') },
-        { id: 3, tag: 'SKYZER', name:'About Us', color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3, image:require('../assets/images/about-us.png') },
-        { id: 4, tag: 'SUPPORT', name:'Conatct Us', color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3, image:require('../assets/images/contact-us.png') },
+        { id: 1, tag: 'CODE GUIDE', name:'Tetra', desc:'Provide you the complete guide for your knowledge', color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3, image:require('../assets/images/tetra-guide.png') },
+        { id: 2, tag: 'CODE GUIDE', name: 'Telium', desc: 'Provide you the complete guide for your knowledge', color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3, image:require('../assets/images/telium-guide.png') },
+        { id: 3, tag: 'SKYZER', name: 'About', desc: 'Provide you the complete guide for your knowledge', color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3, image:require('../assets/images/about-us.png') },
+        { id: 4, tag: 'SUPPORT', name:'Conatct',  desc:'Provide you the complete guide for your knowledge', color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3, image:require('../assets/images/contact-us.png') },
 
       ]);
 
@@ -80,7 +80,10 @@ export default Home = ({navigation}) => {
                                     <Image style={styles.itemCardImage} source={item.image} />
                                 </View>
                                 <View style={[styles.footerContainer,]}>
-                                    <Text style={styles.itemName}>{item.name}</Text>
+                                    <Text style={[Headertext.h3, {color: Colors.fontColorWhite}]}>{item.name}</Text>
+                                    <Text style={[Headertext.h5, {color: Colors.fontColorWhite, }]}>
+                                                {item.desc}
+                                    </Text>
                                 </View>
                             </View>
                             </LinearGradient>
@@ -97,6 +100,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: Colors.bodyColor,
+      paddingTop: Platform.OS === 'ios'? null : 20,
     },
     header: {
         flex: 1,
@@ -156,7 +160,6 @@ const styles = StyleSheet.create({
     footerContainer: {
         flex: 4,
         justifyContent: 'center',
-        width: '65%',
     },
     itemTag: {
         fontSize: 12,
@@ -165,12 +168,6 @@ const styles = StyleSheet.create({
         margin: 5,
         alignSelf: 'center',
         letterSpacing: 1,
-    },
-    itemName: {
-        fontSize: 25,
-        color: Colors.lightFont,
-        fontWeight: 'bold',
-        margin: 5,
     },
     itemCode: {
         fontWeight: '600',

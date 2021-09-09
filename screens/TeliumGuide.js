@@ -24,7 +24,7 @@ export default TeliumGuide = () => {
             redirect: 'follow'
         };
         
-        fetch(Configurations.host + "/referenceGuideFunctions/user/" + userId, requestOptions)
+        fetch(Configurations.host + "/referenceGuideFunctions/tetra/user/" + userId, requestOptions)
         .then((response) =>  {
             if(response.status == 204) {
                 setIsLoading(false);
@@ -42,7 +42,7 @@ export default TeliumGuide = () => {
           setFilteredDataSource(responseJson);
           setMasterDataSource(responseJson);
         })
-        .catch(error => console.log('InitList error', error));
+        .catch(error => console.log('Tetra Guide Error: ', error));
     }
 
     const UpdateFavouriteItem = (itemId, isCreate) => {
@@ -88,7 +88,7 @@ export default TeliumGuide = () => {
           setFilteredDataSource(responseJson);
           setMasterDataSource(responseJson);
         })
-        .catch(error => console.log('UpdateFavouriteItem error', error));
+        .catch(error => console.log('Tetra', error));
     }
 
     useEffect(() => {
@@ -188,12 +188,6 @@ export default TeliumGuide = () => {
                         source={require('../assets/images/list-loader.gif')} />
                 <Image style={styles.loader} 
                         source={require('../assets/images/list-loader.gif')} />
-                <Image style={styles.loader} 
-                        source={require('../assets/images/list-loader.gif')} />
-                <Image style={styles.loader} 
-                        source={require('../assets/images/list-loader.gif')} />
-                <Image style={styles.loader} 
-                        source={require('../assets/images/list-loader.gif')} />        
             </View>
         );
     }

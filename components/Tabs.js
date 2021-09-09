@@ -17,9 +17,14 @@ const Stack = createStackNavigator();
 function HomeTabs() {
   return (
     //<Stack.Navigator screenOptions={{ headerTitle: false, headerStyle: { shadowOffset: { height: 0, width: 0 } } }}>
-    <Stack.Navigator screenOptions={{ headerTitle: false, headerStyle: { shadowOffset: { height: 0, width: 0 } } }}>
+    <Stack.Navigator screenOptions={{ headerStyle: { shadowOffset: { height: 0, width: 0 }, elevation: 0, } }}>
       <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-      <Stack.Screen name="TetraGuide" component={TetraGuide} />
+      <Stack.Screen name="TetraGuide" component={TetraGuide} options={{
+        headerShown: true, 
+        headerTitle: "Tetra Guide",
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
+        }} />
       <Stack.Screen name="TeliumGuide" component={TeliumGuide} />
       {/* <Stack.Screen name="TeliumCodeList" component={TetraCodeList} />
       <Stack.Screen name="TeliumCodeList" component={TetraCodeList} /> */}
@@ -38,7 +43,6 @@ export default Tabs = () => {
       barStyle={{
         backgroundColor: 'transparent',
         elevation: 0,
-        height: 80,
       }}
       shifting={true}
       labeled={true}
@@ -51,8 +55,9 @@ export default Tabs = () => {
         options={{
           tabBarLabel: false,
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', width: 100, justifyContent: 'center', 
+            <View style={{ alignItems: 'center', width: 90,
                 flexDirection: 'row',
+                justifyContent: focused ? null : 'center',
                 backgroundColor: focused? Colors.cardBodyColor : null,
                 borderRadius: focused ? 10 : null,
             }}>
@@ -78,8 +83,9 @@ export default Tabs = () => {
         options={{
           tabBarLabel: false,
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', width: 120, justifyContent: 'center', 
+            <View style={{ alignItems: 'center', width: 115,
               flexDirection: 'row',
+              justifyContent: focused ? null : 'center',
               backgroundColor: focused ? Colors.cardBodyColor : null,
               borderRadius: focused ? 10 : null,
               }}>
@@ -105,8 +111,9 @@ export default Tabs = () => {
         options={{
           tabBarLabel: false,
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', width: 100, justifyContent: 'center',
+            <View style={{ alignItems: 'center', width: 100, 
               flexDirection: 'row',
+              justifyContent: focused ? null : 'center',
               backgroundColor: focused ? Colors.cardBodyColor : null,
               borderRadius: focused ? 10 : null, }}>
               {

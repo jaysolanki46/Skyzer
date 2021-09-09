@@ -51,7 +51,11 @@ export default Tabs = () => {
         options={{
           tabBarLabel: false,
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', width: 100, justifyContent: 'center', }}>
+            <View style={{ alignItems: 'center', width: 100, justifyContent: 'center', 
+                flexDirection: 'row',
+                backgroundColor: focused? Colors.cardBodyColor : null,
+                borderRadius: focused ? 10 : null,
+            }}>
               {
                 focused ? <Image style={styles.icon}
                   source={require('../assets/images/menu-icons/home.png')} /> :
@@ -60,8 +64,8 @@ export default Tabs = () => {
               }
               {
                 focused ?
-                  <Text style={{ color: Colors.fontColorPurplest, fontWeight: 'bold' }}>Home</Text> :
-                  <Text style={{ color: Colors.fontColorPurplest, }}>Home</Text>
+                  <Text style={{ color: Colors.fontColorWhite, fontWeight: 'bold' }}>Home</Text> :
+                  null
               }
             </View>
           )
@@ -74,17 +78,21 @@ export default Tabs = () => {
         options={{
           tabBarLabel: false,
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', width: 100, justifyContent: 'center' }}>
+            <View style={{ alignItems: 'center', width: 120, justifyContent: 'center', 
+              flexDirection: 'row',
+              backgroundColor: focused ? Colors.cardBodyColor : null,
+              borderRadius: focused ? 10 : null,
+              }}>
               {
                 focused ? <Image style={styles.icon}
-                  source={require('../assets/images/menu-icons/list.png')} /> :
+                  source={require('../assets/images/menu-icons/favourite.png')} /> :
                   <Image style={styles.iconOutline}
-                    source={require('../assets/images/menu-icons/list-outline.png')} />
+                    source={require('../assets/images/menu-icons/favourite-outline.png')} />
               }
               {
                 focused ?
-                  <Text style={{ color: Colors.fontColorPurplest, fontWeight: 'bold' }}>Codes</Text> :
-                  <Text style={{ color: Colors.fontColorPurplest, }}>Codes</Text>
+                  <Text style={{ color: Colors.fontColorWhite, fontWeight: 'bold' }}>Favourites</Text> :
+                  null
               }
             </View>
           )
@@ -97,7 +105,10 @@ export default Tabs = () => {
         options={{
           tabBarLabel: false,
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', width: 100, justifyContent: 'center' }}>
+            <View style={{ alignItems: 'center', width: 100, justifyContent: 'center',
+              flexDirection: 'row',
+              backgroundColor: focused ? Colors.cardBodyColor : null,
+              borderRadius: focused ? 10 : null, }}>
               {
                 focused ? <Image style={styles.icon}
                   source={require('../assets/images/menu-icons/profile.png')} /> :
@@ -106,8 +117,8 @@ export default Tabs = () => {
               }
               {
                 focused ?
-                  <Text style={{ color: Colors.fontColorPurplest, fontWeight: 'bold' }}>Profile</Text> :
-                  <Text style={{ color: Colors.fontColorPurplest, }}>Profile</Text>
+                  <Text style={{ color: Colors.fontColorWhite, fontWeight: 'bold' }}>Profile</Text> :
+                  null
               }
             </View>
           )
@@ -119,14 +130,12 @@ export default Tabs = () => {
 
 const styles = StyleSheet.create({
   icon: {
-    width: 40,
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: Colors.profilBackground,
+    width: 30,
+    height: 30,
+    margin: 5,
   },
   iconOutline: {
-    width: 25,
-    height: 25,
-    backgroundColor: Colors.profilBackground,
+    width: 30,
+    height: 30,
   },
 });

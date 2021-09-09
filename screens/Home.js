@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, StatusBar, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, StatusBar, SafeAreaView, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
 import Headertext from '../config/Headertext';
 import { FlatGrid } from 'react-native-super-grid';
 import Colors from '../config/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
+import backgroundImage from "../assets/images/background-main.jpg";
 
 export default Home = ({navigation}) => {
     const [items, setItems] = React.useState([
@@ -57,6 +58,13 @@ export default Home = ({navigation}) => {
             </View>
             <View style={styles.body}>
                 <View style={styles.bodySubView}>
+                    <ImageBackground source={backgroundImage} resizeMode="cover" style={{
+                        position: 'absolute',
+                        flex: 1,
+                        backgroundColor: 'rgba(0,0,0,0.45)',
+                        width: Dimensions.get("window").width,
+                        height: Dimensions.get("window").height
+                    }}>
                     <FlatGrid itemDimension={130} data={items} style={styles.gridView} spacing={10}
                         renderItem={({ item }) => (
                           
@@ -90,6 +98,7 @@ export default Home = ({navigation}) => {
                             </TouchableOpacity>
                         )}
                         />
+                        </ImageBackground>
                 </View>
             </View>
         </SafeAreaView>
@@ -124,7 +133,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'baseline',
         width: '100%',
-        marginLeft: 10, 
+        marginLeft: 10,
     },
     body: {
         flex: 4.5,
@@ -141,7 +150,6 @@ const styles = StyleSheet.create({
     bodySubView: {
         flex: 1, 
         marginTop: 10,
-        backgroundColor: Colors.bodyColor,
     },
     gridView: {
         flex: 1,

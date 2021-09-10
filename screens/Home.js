@@ -76,7 +76,7 @@ export default Home = ({navigation}) => {
                                         } else if (item.id == 2) {
                                             navigation.navigate('TeliumGuide')
                                         } else if (item.id == 3) {
-                                            navigation.navigate('TetraCodeList')
+                                            navigation.navigate('About')
                                         } else if (item.id == 4) {
                                             navigation.navigate('TetraCodeList')
                                         }

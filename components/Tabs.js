@@ -6,6 +6,7 @@ import { StyleSheet, Text, View, Image, StatusBar, Platform, } from 'react-nativ
 import Home from '../screens/Home';
 import TetraGuide from '../screens/TetraGuide';
 import TeliumGuide from '../screens/TeliumGuide';
+import About from '../screens/About';
 import CodeList from '../screens/CodeList';
 import Profile from '../screens/Profile';
 import Colors from '../config/Colors';
@@ -31,8 +32,12 @@ function HomeTabs() {
         headerTitleAlign: 'center',
         headerBackTitleVisible: false,
       }} />
-      {/* <Stack.Screen name="TeliumCodeList" component={TetraCodeList} />
-      <Stack.Screen name="TeliumCodeList" component={TetraCodeList} /> */}
+      <Stack.Screen name="About" component={About} options={{
+        headerShown: true,
+        headerTitle: "About",
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
+      }} />
     </Stack.Navigator>
   );
 }

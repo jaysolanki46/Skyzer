@@ -25,7 +25,12 @@ function HomeTabs() {
         headerTitleAlign: 'center',
         headerBackTitleVisible: false,
         }} />
-      <Stack.Screen name="TeliumGuide" component={TeliumGuide} />
+      <Stack.Screen name="TeliumGuide" component={TeliumGuide} options={{
+        headerShown: true,
+        headerTitle: "Telium Guide",
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
+      }} />
       {/* <Stack.Screen name="TeliumCodeList" component={TetraCodeList} />
       <Stack.Screen name="TeliumCodeList" component={TetraCodeList} /> */}
     </Stack.Navigator>

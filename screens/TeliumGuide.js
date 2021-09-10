@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Dimensions, StatusBar, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, ActivityIndicator, RefreshControl, SafeAreaView } from 'react-native';
-import { Badge } from 'react-native-paper'; 
+import { Badge } from 'react-native-paper';
 import SearchBar from 'react-native-dynamic-search-bar';
 import Colors from '../config/Colors';
 import Configurations from '../config/Configurations';
@@ -14,7 +14,7 @@ export default TeliumGuide = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
 
-    const InitList = () => {
+    const InitList = async () => {
 
         /** SESSION VALUE */
         const userId = 1;
@@ -23,10 +23,13 @@ export default TeliumGuide = () => {
             method: 'GET',
             redirect: 'follow'
         };
-        
-        fetch(Configurations.host + "/referenceGuideFunctions/tetra/user/" + userId, requestOptions)
-        .then((response) =>  {
-            if(response.status == 204) {
+
+        try {
+            const response = await fetch(Configurations.host + "/referenceGuideFunctions/telium/user/" + userId, requestOptions)
+            const status = await response.status;
+            const responseJson = await response.json();
+
+            if (response.status == 204) {
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(null);
@@ -35,18 +38,18 @@ export default TeliumGuide = () => {
             } else {
                 setIsLoading(false);
                 setRefreshing(false);
-                return response.json();
+                setFilteredDataSource(responseJson);
+                setMasterDataSource(responseJson);
             }
-        })
-        .then((responseJson) => {
-          setFilteredDataSource(responseJson);
-          setMasterDataSource(responseJson);
-        })
-        .catch(error => console.log('Tetra Guide Error: ', error));
+
+        } catch (error) {
+            console.log('Tetra Guide Error', error);
+            return false;
+        }
     }
 
-    const UpdateFavouriteItem = (itemId, isCreate) => {
-        
+    const UpdateFavouriteItem = async (itemId, isCreate) => {
+
         /** SESSION VALUE */
         const userId = 1;
 
@@ -54,8 +57,8 @@ export default TeliumGuide = () => {
         var methodType = "";
         myHeaders.append("Content-Type", "application/json");
 
-        isCreate ? methodType= 'POST' : methodType= 'DELETE'
-        
+        isCreate ? methodType = 'POST' : methodType = 'DELETE'
+
         var raw = JSON.stringify({
             "user": {
                 "id": userId
@@ -64,7 +67,7 @@ export default TeliumGuide = () => {
                 "id": itemId
             }
         });
-        
+
         var requestOptions = {
             method: methodType,
             headers: myHeaders,
@@ -72,55 +75,58 @@ export default TeliumGuide = () => {
             redirect: 'follow'
         };
 
-        fetch(Configurations.host + "/userFavorites/all", requestOptions)
-        .then((response) =>  {
-            if(response.status == 204) {
+        try {
+            const response = await fetch(Configurations.host + "/userFavorites/telium/user/", requestOptions);
+            const status = await response.status;
+            const responseJson = await response.json();
+
+            if (response.status == 204) {
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(null);
                 setMasterDataSource(null);
                 throw new Error('204 - No Content');
             } else {
-                return response.json();
+                setFilteredDataSource(responseJson);
+                setMasterDataSource(responseJson);
             }
-        })
-        .then((responseJson) => {
-          setFilteredDataSource(responseJson);
-          setMasterDataSource(responseJson);
-        })
-        .catch(error => console.log('Tetra', error));
+
+        } catch (error) {
+            console.log('Tetra Guide Fav Error', error);
+            return false;
+        }
     }
 
     useEffect(() => {
-        let isMounted = true;    
+        let isMounted = true;
         wait(1000).then(() => {
-                if (isMounted) InitList()
-            });
+            if (isMounted) InitList()
+        });
         return () => { isMounted = false };
     }, []);
 
-    const SearchFilterFunction = (text) => {
+    function SearchFilterFunction(text) {
         if (text && Array.isArray(masterDataSource)) {
-                const excludeColumns = ["id"];
-                const newData = masterDataSource.filter(function (item) {
-                    
-                    /** ONLY SEARCH ON NAMES
-                    const itemData = item.name ? item.name : '';
-                    const textData = text;
+            const excludeColumns = ["id"];
+            const newData = masterDataSource.filter(function (item) {
 
-                    return itemData.indexOf(textData) > -1;*/
+                /** ONLY SEARCH ON NAMES
+                const itemData = item.name ? item.name : '';
+                const textData = text;
 
-                    /** SEARCH ON ALL THE FIELDS */
-                    return Object.keys(item).some(key =>
-                       excludeColumns.includes(key) ? false : item[key].toString().toLowerCase().includes(text.toLowerCase())
-                    );
-                });
-                    setFilteredDataSource(newData);
-                    setSearch(text);
-            } else {
-                setFilteredDataSource(masterDataSource);
-                setSearch(text);
-            }
+                return itemData.indexOf(textData) > -1;*/
+
+                /** SEARCH ON ALL THE FIELDS */
+                return Object.keys(item).some(key =>
+                    excludeColumns.includes(key) ? false : item[key].toString().toLowerCase().includes(text.toLowerCase())
+                );
+            });
+            setFilteredDataSource(newData);
+            setSearch(text);
+        } else {
+            setFilteredDataSource(masterDataSource);
+            setSearch(text);
+        }
     };
 
     const ItemView = ({ item }) => {
@@ -129,11 +135,15 @@ export default TeliumGuide = () => {
                 <View style={[styles.itemHeader]}>
                     <View style={styles.itemHeaderLeft}>
                         {
-                            item.is_tetra ? <Badge style={[styles.badge, {backgroundColor: Colors.colorType3_2}]}>TETRA</Badge>: null
+                            item.is_tetra ? <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.fontColorWhite }}>ALSO SUPPORTED BY: </Text> :
+                                <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.colorType2_1 }}>ALSO SUPPORTED BY: </Text>
                         }
                         {
-                            item.is_telium ? <Badge style={[styles.badge, {backgroundColor: Colors.colorType4_2}]}>TELIUM</Badge> : null
+                            item.is_tetra ? <Badge style={[styles.badge, { backgroundColor: Colors.colorType1_2 }]}>TETRA</Badge> : null
                         }
+                        {/* {
+                            item.is_telium ? <Badge style={[styles.badge, { backgroundColor: Colors.colorType4_2 }]}>TELIUM</Badge> : null
+                        } */}
                     </View>
                     {/* <View style={styles.itemHeaderRight}>
                         {
@@ -149,23 +159,23 @@ export default TeliumGuide = () => {
                         <Text style={styles.itemQuestion}>{item.name}</Text>
                         <Text style={styles.itemAnswer}>{item.short_solution}</Text>
                     </View>
-                    
+
                     <View style={styles.itemBodyRight}>
                         {
                             item.is_favorite ?
                                 <View>
-                                <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, false)}>
-                                    <Image style={styles.itemCardImage} source={require('../assets/images/star.png')} />
-                                </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, false)}>
+                                        <Image style={styles.itemCardImage} source={require('../assets/images/star.png')} />
+                                    </TouchableOpacity>
                                 </View>
                                 :
                                 <View>
-                                <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, true)}>
-                                    <Image style={styles.itemCardImage} source={require('../assets/images/star-outline.png')} />
-                                </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, true)}>
+                                        <Image style={styles.itemCardImage} source={require('../assets/images/star-outline.png')} />
+                                    </TouchableOpacity>
                                 </View>
                         }
-                        
+
                     </View>
                 </View>
             </View>
@@ -175,7 +185,7 @@ export default TeliumGuide = () => {
     const wait = (timeout) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
     }
-    
+
     const OnRefresh = React.useCallback(() => {
         setRefreshing(true);
         wait(1000).then(() => InitList());
@@ -183,48 +193,57 @@ export default TeliumGuide = () => {
 
     function Loader() {
         return (
-            <View style={{flex:1,}}>
-                <Image style={styles.loader} 
-                        source={require('../assets/images/list-loader.gif')} />
-                <Image style={styles.loader} 
-                        source={require('../assets/images/list-loader.gif')} />
+            <View style={{ flex: 1, }}>
+                <Image style={styles.loader}
+                    source={require('../assets/images/list-loader.gif')} />
+                <Image style={styles.loader}
+                    source={require('../assets/images/list-loader.gif')} />
+                <Image style={styles.loader}
+                    source={require('../assets/images/list-loader.gif')} />
             </View>
         );
     }
 
     function renderEmptyContainer() {
         return (
-            <View style={{alignItems:'center', justifyContent:'center'}}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Image style={styles.noContent} source={require('../assets/images/no-content.gif')} />
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={[Headertext.h4, { fontWeight: 'bold' }]}>NO ITEMS,</Text>
+                    <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}>SORRY!</Text>
+                </View>
             </View>
         );
     }
 
     function Content() {
-      return (
-          <View>
-              <SearchBar
-                  style={styles.searchInputText}
-                  fontColor="#c6c6c6"
-                  iconColor="#c6c6c6"
-                  cancelIconColor="#c6c6c6"
-                  placeholder="Search here"
-                  onChangeText={(text) => SearchFilterFunction(text)}
-                  onClearPress={() => SearchFilterFunction("")}
-              />
-              <FlatList style={styles.gridView}
-                  data={filteredDataSource}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={ItemView}
-                  //ListEmptyComponent={renderEmptyContainer()}
-                  refreshControl={
-                      <RefreshControl
-                          refreshing={refreshing}
-                          onRefresh={OnRefresh}
-                      />
-                  }
-              />
-          </View>
+        return (
+            <View>
+                <SearchBar
+                    style={styles.searchInputText}
+                    fontColor="#c6c6c6"
+                    iconColor="#c6c6c6"
+                    cancelIconColor="#c6c6c6"
+                    placeholder="Search here"
+                    onChangeText={(text) => SearchFilterFunction(text)}
+                    onClearPress={() => SearchFilterFunction("")}
+                />
+                <FlatList style={styles.gridView}
+                    data={filteredDataSource}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={ItemView}
+                    ListEmptyComponent={renderEmptyContainer()}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={OnRefresh}
+                            tintColor={Colors.colorType2_1}
+                            colors={[Colors.colorType2_1]}
+                            title="Pull to refresh"
+                        />
+                    }
+                />
+            </View>
         );
     }
 
@@ -232,18 +251,11 @@ export default TeliumGuide = () => {
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" animated></StatusBar>
 
-            <View style={styles.header}>
-                <View style={styles.headerSubView}>
-                    <Text style={[Headertext.h1, { marginRight: 10, color: Colors.fontColorBluest }]}>Telium</Text>
-                    <Text style={[Headertext.h1, { color: Colors.fontColorPurplest, }]}>Guide</Text>
-                </View>
-            </View>
-
             <View style={styles.body}>
 
-            {
-                isLoading ? Loader() : Content()
-           }
+                {
+                    isLoading ? Loader() : Content()
+                }
             </View>
         </SafeAreaView>
     );
@@ -254,32 +266,15 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.bodyColor,
     },
-    header: {
-        flex: .5,
-        width: '100%',
-    },
     body: {
-        flex: 5.5,
-    },
-    headerSubView: {
         flex: 1,
-        flexDirection: 'row',
-        marginLeft: 10,
-        marginRight: 10,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-end',
-        backgroundColor: Colors.bodyColor,
-    },
-    bodySubView: {
-        flex: 1, 
-        backgroundColor: Colors.bodyColor,
     },
     listContainer: {
         flex: 1,
         borderRadius: 10,
         padding: 10,
         margin: 5,
-        backgroundColor: Colors.colorType4_1,
+        backgroundColor: Colors.colorType2_1,
     },
     itemHeader: {
         flex: 1,
@@ -288,6 +283,8 @@ const styles = StyleSheet.create({
     itemHeaderLeft: {
         flex: 4.5,
         flexDirection: 'row',
+        alignItems: 'center',
+        margin: 5,
     },
     itemHeaderRight: {
         flex: 1.5,
@@ -343,13 +340,13 @@ const styles = StyleSheet.create({
         height: '90%',
     },
     noContent: {
-        flex:1,
         resizeMode: 'contain',
-        width: '80%',
-      },
+        width: 200,
+        height: 400,
+    },
     loader: {
-      width: Dimensions.get('window').width,
-      height: 100,
-      marginTop: 10,
+        width: Dimensions.get('window').width,
+        height: 100,
+        marginTop: 10,
     },
 });

@@ -136,7 +136,7 @@ export default TetraCodeList = () => {
                     <View style={styles.itemHeaderLeft}>
                         {
                             item.is_telium ? <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.fontColorWhite }}>ALSO SUPPORTED BY: </Text> :
-                                <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.fontColorPurplest }}>ALSO SUPPORTED BY: </Text>
+                                <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.colorType1_1 }}>ALSO SUPPORTED BY: </Text>
                         }
                         {/* {
                             item.is_tetra ? <Badge style={[styles.badge, { backgroundColor: Colors.colorType3_2 }]}>TETRA</Badge> : null
@@ -237,6 +237,9 @@ export default TetraCodeList = () => {
                         <RefreshControl
                             refreshing={refreshing}
                             onRefresh={OnRefresh}
+                            tintColor={Colors.colorType1_1}
+                            colors={[Colors.colorType1_1]}
+                            title="Pull to refresh"
                         />
                     }
                 />

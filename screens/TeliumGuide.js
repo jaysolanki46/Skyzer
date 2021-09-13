@@ -29,7 +29,7 @@ export default TeliumGuide = () => {
             const status = await response.status;
             const responseJson = await response.json();
 
-            if (response.status == 204) {
+            if (status == 204) {
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(null);
@@ -80,7 +80,7 @@ export default TeliumGuide = () => {
             const status = await response.status;
             const responseJson = await response.json();
 
-            if (response.status == 204) {
+            if (status == 204) {
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(null);

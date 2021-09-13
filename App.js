@@ -12,6 +12,7 @@ import {
 import { AuthContext } from './components/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StartupLoader from './screens/StartupLoader';
+import Configurations from './config/Configurations';
 
 const Drawer = createDrawerNavigator();
 
@@ -57,7 +58,49 @@ const App = () => {
   const authContext = React.useMemo(() => ({
     logIn: async(username, password) => {
       let userToken = null;
-      if(username == 'Jay' && password == 'pass') {
+
+      /** AUTH USER */
+      var myHeaders = new Headers();
+      var methodType = 'POST';
+      myHeaders.append("Content-Type", "application/json");
+      
+      var raw = JSON.stringify({
+        "username": username,
+        "password": password
+      });
+
+      var requestOptions = {
+        method: methodType,
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      try {
+        const response = await fetch(Configurations.host + "/user/auth/", requestOptions);
+        const status = await response.status;
+        const responseJson = await response.json();
+
+        if (status != 200) {
+          throw new Error("Status:" + status + " Invalid user");
+        } else {
+
+          /** SET USER SESSION OBJECT */
+          userArray = JSON.parse(JSON.stringify(responseJson));
+          userToken = userArray.username;
+          await AsyncStorage.setItem('userToken', userToken);
+          await AsyncStorage.setItem('username', userArray.username);
+          await AsyncStorage.setItem('profile', userArray.image);
+        }
+
+      } catch (error) {
+        console.log('Login Error:', error);
+        alert("Invalid username or password!");
+      }
+      console.log("user tocken:" + userToken)
+      dispatch({ type: 'LOGIN', id: username, token: userToken })
+
+      /* if(username == 'Jay' && password == 'pass') {
         
         try {
           userToken = 'u12';
@@ -69,7 +112,8 @@ const App = () => {
         alert("Invalid username or password!");
       }
       console.log("user tocken:" + userToken)
-      dispatch({type: 'LOGIN', id: username, token: userToken})
+      dispatch({type: 'LOGIN', id: username, token: userToken})*/
+
     },
     logOut: async() => {
 

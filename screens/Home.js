@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, StatusBar, SafeAreaView, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
 import Headertext from '../config/Headertext';
 import { FlatGrid } from 'react-native-super-grid';
@@ -6,23 +6,37 @@ import Colors from '../config/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import backgroundImage from "../assets/images/background-main.jpg";
 import { Badge } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import defaultProfile from '../assets/images/profile.png';
 
 export default Home = ({navigation}) => {
-    const [items, setItems] = React.useState([
+    const [items, setItems] = useState([
         { id: 1, tag: 'CODE GUIDE', name:'Tetra',
             subItems: [{ id: 1, name: 'DESK3200' }, { id: 2, name: 'DESK5000' }, { id: 3, name: 'MOVE2500' }, { id: 4, name: 'MOVE5000' }],
             color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3, image:require('../assets/images/tetra-guide.png') },
         { id: 2, tag: 'CODE GUIDE', name: 'Telium', 
-            subItems: [{ id: 1, name: 'ICT220' }, { id: 2, name: 'ICT250' }, { id: 3, name: 'IWL255' }, { id: 4, name: 'IWL252' }],
+            subItems: [{ id: 5, name: 'ICT220' }, { id: 6, name: 'ICT250' }, { id: 7, name: 'IWL255' }, { id: 8, name: 'IWL252' }],
             color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3, image:require('../assets/images/telium-guide.png') },
         { id: 3, tag: 'SKYZER', name: 'About', 
-            subItems: [{ id: 1, name: 'VISION' },],
+            subItems: [{ id: 9, name: 'VISION' },],
             color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3, image:require('../assets/images/about-us.png') },
         { id: 4, tag: 'SUPPORT', name:'Contact',  
-            subItems: [{ id: 1, name: 'CALL' }, { id: 2, name: 'EMAIL' }, ],
+            subItems: [{ id: 10, name: 'CALL' }, { id: 11, name: 'EMAIL' }, ],
             color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3, image:require('../assets/images/contact-us.png') },
 
       ]);
+    
+    const [sessionUsername, setSessionUsername] = useState(null);
+    const [sessionUserProfile, setSessionUserProfile] = useState(null);
+
+    const settingSession = async () => {
+        setSessionUsername(await AsyncStorage.getItem('username'));
+        setSessionUserProfile(await AsyncStorage.getItem('profile'));
+    }
+
+    useEffect(() => {
+        settingSession();
+    }, []);
 
     var hours = new Date().getHours(); // Current hour
     var currentMsg = "";
@@ -41,7 +55,7 @@ export default Home = ({navigation}) => {
             <View style={styles.headerSubView}>
                 <View style={{flex: 5,}}>
                     <View style={{flexDirection: 'row'}}>
-                        <Text style={[Headertext.h4, {fontWeight: '300'}]}>Hello,</Text><Text style={[Headertext.h4, {fontWeight: 'bold', color: Colors.fontColorBluest}]}> Jay!</Text>
+                            <Text style={[Headertext.h4, { fontWeight: '300' }]}>Hello,</Text><Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}> {sessionUsername}!</Text>
                     </View>
                     <Text style={Headertext.h5}>
                     {currentMsg}
@@ -52,10 +66,19 @@ export default Home = ({navigation}) => {
                 <View style={[styles.headerRight]}>
                         <TouchableOpacity style={{borderWidth: 0.5, borderRadius: 10,}}  
                         onPress={() => navigation.navigate('Profile')}>
-                        <Image
-                            style={styles.profile}
-                            source={require('../assets/images/profile.png')}
-                        />
+                        {
+                            sessionUserProfile == null ?
+                                        <Image
+                                            style={styles.profile}
+                                            source={defaultProfile}
+                                        /> 
+                                        :
+                                        <Image
+                                            style={styles.profile}
+                                            source={{ uri: sessionUserProfile}}
+                                        />
+                        }
+                        
                         </TouchableOpacity>
                 </View>
                 </View>
@@ -106,7 +129,7 @@ export default Home = ({navigation}) => {
                                         {
                                             item.subItems.map(subItem => {
                                                 return  (
-                                                    <View style={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', margin: 1,}}>
+                                                    <View key={subItem.id} style={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', margin: 1,}}>
                                                         <Text style={[styles.bottomTags, {fontSize: 5,}]}>{'\u2B24'}</Text>
                                                         <Text style={styles.bottomTags}>{subItem.name}</Text>
                                                     </View>

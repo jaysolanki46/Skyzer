@@ -5,13 +5,22 @@ import { FlatGrid } from 'react-native-super-grid';
 import Colors from '../config/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import backgroundImage from "../assets/images/background-main.jpg";
+import { Badge } from 'react-native-paper';
 
 export default Home = ({navigation}) => {
     const [items, setItems] = React.useState([
-        { id: 1, tag: 'CODE GUIDE', name:'Tetra', desc:'Provide you the complete guide for your knowledge', color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3, image:require('../assets/images/tetra-guide.png') },
-        { id: 2, tag: 'CODE GUIDE', name: 'Telium', desc: 'Provide you the complete guide for your knowledge', color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3, image:require('../assets/images/telium-guide.png') },
-        { id: 3, tag: 'SKYZER', name: 'About', desc: 'Provide you the complete guide for your knowledge', color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3, image:require('../assets/images/about-us.png') },
-        { id: 4, tag: 'SUPPORT', name:'Conatct',  desc:'Provide you the complete guide for your knowledge', color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3, image:require('../assets/images/contact-us.png') },
+        { id: 1, tag: 'CODE GUIDE', name:'Tetra',
+            subItems: [{ id: 1, name: 'DESK3200' }, { id: 2, name: 'DESK5000' }, { id: 3, name: 'MOVE2500' }, { id: 4, name: 'MOVE5000' }],
+            color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3, image:require('../assets/images/tetra-guide.png') },
+        { id: 2, tag: 'CODE GUIDE', name: 'Telium', 
+            subItems: [{ id: 1, name: 'ICT220' }, { id: 2, name: 'ICT250' }, { id: 3, name: 'IWL255' }, { id: 4, name: 'IWL252' }],
+            color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3, image:require('../assets/images/telium-guide.png') },
+        { id: 3, tag: 'SKYZER', name: 'About', 
+            subItems: [{ id: 1, name: 'VISION' },],
+            color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3, image:require('../assets/images/about-us.png') },
+        { id: 4, tag: 'SUPPORT', name:'Contact',  
+            subItems: [{ id: 1, name: 'CALL' }, { id: 2, name: 'EMAIL' }, ],
+            color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3, image:require('../assets/images/contact-us.png') },
 
       ]);
 
@@ -87,11 +96,25 @@ export default Home = ({navigation}) => {
                                     <Text style={styles.itemTag}>{item.tag}</Text>
                                     <Image style={styles.itemCardImage} source={item.image} />
                                 </View>
+                                <View style={styles.itemNameContainer}>
+                                    <Text style={[Headertext.h3, { color: Colors.fontColorWhite }]}>{item.name}</Text>
+                                </View>
                                 <View style={[styles.footerContainer,]}>
-                                    <Text style={[Headertext.h3, {color: Colors.fontColorWhite}]}>{item.name}</Text>
-                                    <Text style={[Headertext.h5, {color: Colors.fontColorWhite, }]}>
-                                                {item.desc}
-                                    </Text>
+                                    <View style={{flexDirection: 'row', flexWrap: 'wrap', 
+                                    borderTopWidth: 1, borderTopColor: Colors.white,
+                                     paddingTop: 5}}>
+                                        {
+                                            item.subItems.map(subItem => {
+                                                return  (
+                                                    <View style={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', margin: 1,}}>
+                                                        <Text style={[styles.bottomTags, {fontSize: 5,}]}>{'\u2B24'}</Text>
+                                                        <Text style={styles.bottomTags}>{subItem.name}</Text>
+                                                    </View>
+                                                )
+                                            })
+                                        }
+                                                
+                                    </View>
                                 </View>
                             </View>
                             </LinearGradient>
@@ -165,9 +188,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    footerContainer: {
-        flex: 4,
+    itemNameContainer: {
+        flex: 1,
         justifyContent: 'center',
+    },
+    footerContainer: {
+        flex: 3,
+        justifyContent: 'flex-end',
     },
     itemTag: {
         fontSize: 12,
@@ -187,5 +214,11 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         alignSelf: 'center',
+    },
+    bottomTags: {
+        fontSize: 10,
+        justifyContent: 'center',
+        color: Colors.fontColorWhite,
+        margin: 1,
     },
 });

@@ -114,7 +114,7 @@ export default Home = ({navigation}) => {
                                         } else if (item.id == 3) {
                                             navigation.navigate('About')
                                         } else if (item.id == 4) {
-                                            navigation.navigate('TetraCodeList')
+                                            navigation.navigate('Contact')
                                         }
                                     }}>
                             <LinearGradient colors={[item.color1, item.color2, item.color3]} style={{ borderRadius: 35,}}>

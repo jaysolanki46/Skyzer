@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     },
     boxContainer: {
         flex: 1,
-        backgroundColor: Colors.cardAboutColor,
+        backgroundColor: Colors.cardColor,
         borderRadius: 10,
         marginLeft: 10,
         marginRight: 10,

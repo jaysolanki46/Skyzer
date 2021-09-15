@@ -35,7 +35,8 @@ export default {
     bodyColor: '#FFFFFF',
     subBodyColor: '#715CFF',
     cardBodyColor: '#715CFF',
-    cardAboutColor: '#f1f1f1',
+    cardColor: '#f1f1f1',
+    contactCardColor: '#A7AABD',
 
     fontColorLightBlack: '#696969',
     fontColorBlack: '#000000',
@@ -67,5 +68,6 @@ export default {
     profilBackground: '#FFFFFF',
     white: '#FFFFFF',
     grey: '#696969',
-    danger: '#ff0e0e'
+    danger: '#ff0e0e',
+    seperator: '#f1f1f1',
 }

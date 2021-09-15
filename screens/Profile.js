@@ -8,10 +8,10 @@ import { AuthContext } from '../components/AuthContext';
 import LogIn from './LogIn';
 import Configurations from '../config/Configurations';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import defaultImageUrl from '../assets/images/profile.png';
 
 export default Profile = () => {
 
-    const defaultImageUrl = '../assets/images/profile.png';
     const [image, setImage] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +45,7 @@ export default Profile = () => {
         quality: 1,
       });
   
-      console.log(result);
+      //console.log(result);
   
       if (!result.cancelled) {
 
@@ -113,7 +113,7 @@ export default Profile = () => {
                                 image == null ?
                                     <Image
                                         style={styles.profile}
-                                        source={require(defaultImageUrl)}
+                                        source={defaultImageUrl}
                                     /> :
                                     <Image
                                         style={styles.profile}

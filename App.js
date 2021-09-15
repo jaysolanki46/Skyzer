@@ -86,12 +86,12 @@ const App = () => {
         } else {
 
           /** SET USER SESSION OBJECT */
-          userArray = JSON.parse(JSON.stringify(responseJson));
+          const userArray = JSON.parse(JSON.stringify(responseJson));
           userToken = userArray.username;
           await AsyncStorage.setItem('userToken', userToken);
           await AsyncStorage.setItem('userId', userArray.id.toString());
           await AsyncStorage.setItem('username', userArray.username);
-          await AsyncStorage.setItem('profile', userArray.image);
+          userArray.image != null ? await AsyncStorage.setItem('profile', userArray.image) : "";
         }
 
       } catch (error) {
@@ -120,6 +120,9 @@ const App = () => {
 
       try {
         await AsyncStorage.removeItem('userToken');
+        await AsyncStorage.removeItem('userId');
+        await AsyncStorage.removeItem('username');
+        await AsyncStorage.removeItem('profile');
       } catch (error) {
         console.log("Helre" . error);
       }

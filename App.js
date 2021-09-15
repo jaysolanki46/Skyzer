@@ -89,6 +89,7 @@ const App = () => {
           userArray = JSON.parse(JSON.stringify(responseJson));
           userToken = userArray.username;
           await AsyncStorage.setItem('userToken', userToken);
+          await AsyncStorage.setItem('userId', userArray.id.toString());
           await AsyncStorage.setItem('username', userArray.username);
           await AsyncStorage.setItem('profile', userArray.image);
         }

@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { ImageBackground, StyleSheet, Text, View, StatusBar, Button,Image, TextInput, TouchableOpacity, Dimensions, SafeAreaView  } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, StatusBar, Button, Image, TextInput, TouchableOpacity, ActivityIndicator, SafeAreaView  } from 'react-native';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
 import LogIn from './LogIn';
+import Configurations from '../config/Configurations';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default Profile = () => {
 
     const defaultImageUrl = '../assets/images/profile.png';
     const [image, setImage] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [sessionId, setSessionId] = useState(null);
+
+    const settingSession = async () => {
+        setSessionId(await AsyncStorage.getItem('userId'));
+        setImage(await AsyncStorage.getItem('profile'));
+    }
 
     useEffect(() => {
+        settingSession();
       (async () => {
         if (Platform.OS !== 'web') {
           const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -37,7 +48,41 @@ export default Profile = () => {
       console.log(result);
   
       if (!result.cancelled) {
+
+          setIsLoading(true);
+          
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          var raw = JSON.stringify({
+              "id": sessionId,
+              "image": result.uri
+          });
+
+          var requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+          };
+
+          try {
+              const response = await fetch(Configurations.host + "/user/image/", requestOptions)
+              const status = await response.status;
+
+              if (status != 200) {
+                  throw new Error(status + ' Something went wrong');
+              } else {
+                  await AsyncStorage.removeItem('profile');
+                  await AsyncStorage.setItem('profile', result.uri);
+                  alert("Profile update!")
+              }
+
+          } catch (error) {
+              console.log('Profile Error', error);
+          }
+
         setImage(result.uri);
+        setIsLoading(false);
       }
     };
 
@@ -62,23 +107,24 @@ export default Profile = () => {
                 <View style={styles.bodyProfile}>
                     <View style={ styles.bodyProfileInner}>
                         {
-                            image == null ?
-                                <Image
-                                    style={styles.profile}
-                                    source={require(defaultImageUrl)}
-                                /> :
-                                <Image
-                                    style={styles.profile}
-                                    source={require('../assets/images/menu-icons/home.png')}
-                                />
+                            isLoading ?
+                                <ActivityIndicator />
+                                :
+                                image == null ?
+                                    <Image
+                                        style={styles.profile}
+                                        source={require(defaultImageUrl)}
+                                    /> :
+                                    <Image
+                                        style={styles.profile}
+                                        source={{ uri: image }}
+                                    />
                         }
-                        <TouchableOpacity onPress={pickImage}>
-                            <Image 
-                                style={styles.profileEdit}
-                                source={require('../assets/images/camera.png')}
-                            />
-                        </TouchableOpacity>
                     </View>
+                    <TouchableOpacity style={{ backgroundColor: Colors.colorType3_1, padding: 10, borderRadius: 10, }} onPress={pickImage}>
+                        <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: 'bold' }]}>Edit</Text>
+                    </TouchableOpacity>
+                    
                 </View>
                 <View style={styles.bodyDetails}>
                     <View style={{flex:1.2,}}>
@@ -119,7 +165,7 @@ export default Profile = () => {
                     </View>
                     <View style={{ flex: 1.2, }}>
                         <View style={[styles.fieldBlock, {justifyContent: 'center'}]}>
-                            <TouchableOpacity style={{backgroundColor: Colors.colorType3_1, padding: 10, borderRadius: 10,}} onPress={() => logOut()}>
+                            <TouchableOpacity style={{backgroundColor: Colors.colorType4_1, padding: 10, borderRadius: 10,}} onPress={() => logOut()}>
                                 <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: 'bold' }]}>Log out</Text>
                             </TouchableOpacity>
                         </View>
@@ -186,12 +232,6 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         borderRadius: 10,
         backgroundColor: Colors.colorType5_1,
-    },
-    profileEdit: {
-        width: 30,
-        height: 30,
-        margin: -20,
-        alignSelf: 'center',
     },
     fieldBlock: {
         borderBottomWidth: 1, 

@@ -8,6 +8,7 @@ import backgroundImage from "../assets/images/background-main.jpg";
 import { Badge } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import defaultProfile from '../assets/images/profile.png';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default Home = ({navigation}) => {
     const [items, setItems] = useState([
@@ -34,9 +35,12 @@ export default Home = ({navigation}) => {
         setSessionUserProfile(await AsyncStorage.getItem('profile'));
     }
 
-    useEffect(() => {
-        settingSession();
-    }, []);
+    /** REFRESH THE PAGE ON EVERY VISIT */
+    useFocusEffect(
+        React.useCallback(() => {
+            settingSession();
+        }, [])
+    );
 
     var hours = new Date().getHours(); // Current hour
     var currentMsg = "";

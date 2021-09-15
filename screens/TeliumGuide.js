@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, StatusBar, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, ActivityIndicator, RefreshControl, SafeAreaView } from 'react-native';
+import { Dimensions, StatusBar, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, RefreshControl, SafeAreaView } from 'react-native';
 import { Badge } from 'react-native-paper';
 import SearchBar from 'react-native-dynamic-search-bar';
 import Colors from '../config/Colors';

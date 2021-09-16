@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     },
     cardEmail: {
         height: 70,
-        backgroundColor: Colors.colorType1_1,
+        backgroundColor: Colors.colorType3_2,
         marginTop: 50,
         marginBottom: 50,
         marginRight: 100,
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     },
     cardPhone: {
         height: 70,
-        backgroundColor: Colors.colorType1_1,
+        backgroundColor: Colors.colorType3_2,
         marginBottom: 100,
         marginLeft: 100,
         borderTopLeftRadius: 10,

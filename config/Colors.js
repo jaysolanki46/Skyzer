@@ -33,7 +33,7 @@ export default {
     colorType4_2: '#567FD5',
     colorType4_3: '#7588D4',
 
-    colorType5_1: '#9A9FF4',
+    colorType5_1: '#FFFFFF',
 
     buttonBody: '#8970FE',
     buttonFont: '#F7F3FD',

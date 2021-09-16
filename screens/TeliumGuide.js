@@ -135,11 +135,11 @@ export default TeliumGuide = () => {
                 <View style={[styles.itemHeader]}>
                     <View style={styles.itemHeaderLeft}>
                         {
-                            item.is_tetra ? <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.fontColorWhite }}>ALSO SUPPORTED BY: </Text> :
-                                <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.colorType2_1 }}>ALSO SUPPORTED BY: </Text>
+                            item.is_tetra ? <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.fontColorLightBlack }}>ALSO SUPPORTED BY: </Text> :
+                                <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.colorType5_1 }}>ALSO SUPPORTED BY: </Text>
                         }
                         {
-                            item.is_tetra ? <Badge style={[styles.badge, { backgroundColor: Colors.colorType1_2 }]}>TETRA</Badge> : null
+                            item.is_tetra ? <Badge style={[styles.badge, { backgroundColor: Colors.colorType1_1 }]}>TETRA</Badge> : null
                         }
                         {/* {
                             item.is_telium ? <Badge style={[styles.badge, { backgroundColor: Colors.colorType4_2 }]}>TELIUM</Badge> : null
@@ -274,7 +274,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         margin: 5,
-        backgroundColor: Colors.colorType2_1,
+        backgroundColor: Colors.colorType5_1,
+        shadowColor: '#000',
+        shadowOffset: { width: 1, height: 1 },
+        shadowOpacity: 0.4,
+        shadowRadius: 3,
+        elevation: 5,
     },
     itemHeader: {
         flex: 1,
@@ -311,13 +316,13 @@ const styles = StyleSheet.create({
     },
     itemQuestion: {
         fontSize: 17,
-        color: Colors.white,
+        color: Colors.fontColorLightBlack,
         fontWeight: '700',
         margin: 5,
     },
     itemAnswer: {
         fontSize: 12,
-        color: Colors.fontColorWhite,
+        color: Colors.fontColorLightBlack,
         fontWeight: '700',
         margin: 5,
     },
@@ -333,7 +338,11 @@ const styles = StyleSheet.create({
         borderColor: '#009688',
         borderRadius: 10,
         backgroundColor: Colors.colorType5_1,
-        shadowOpacity: 0,
+        shadowColor: '#000',
+        shadowOffset: { width: 1, height: 1 },
+        shadowOpacity: 0.4,
+        shadowRadius: 3,
+        elevation: 5,
     },
     gridView: {
         width: '100%',

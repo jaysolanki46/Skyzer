@@ -68,7 +68,7 @@ export default Home = ({navigation}) => {
 
                 <View style={{flex: 1,}}>
                 <View style={[styles.headerRight]}>
-                        <TouchableOpacity style={{borderWidth: 0.5, borderRadius: 10,}}  
+                        <TouchableOpacity style={{borderWidth: 0.5, borderRadius: 10, borderColor: Colors.colorType1_1}}  
                         onPress={() => navigation.navigate('Profile')}>
                         {
                             sessionUserProfile == null ?
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     },
     itemTag: {
         fontSize: 12,
-        color: Colors.lightFont,
+        color: Colors.fontColorWhite,
         fontWeight: 'bold',
         margin: 5,
         alignSelf: 'center',

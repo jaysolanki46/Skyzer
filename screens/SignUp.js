@@ -228,7 +228,7 @@ export default SignUp = ({ navigation }) => {
 
                                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                                     <TouchableOpacity style={[styles.button]} onPress={() => { signInHandle(username, email, password, account); }}>
-                                                        <Text style={[Headertext.h4, { color: Colors.buttonWhite }]}>Sign Up</Text>
+                                                        <Text style={[Headertext.h4, { color: Colors.fontColorWhite }]}>Sign Up</Text>
                                                     </TouchableOpacity>
                                                     <View>
                                                         <Image style={[styles.icon, { marginRight: 10 }]} source={require('../assets/images/right-arrow.png')} />

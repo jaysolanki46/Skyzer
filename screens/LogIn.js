@@ -46,9 +46,9 @@ export default LogIn = ({navigation}) => {
             {
               Platform.OS === 'ios' ?
                 <View>
-                  <TextInput style={styles.input} placeholder="Username" placeholderTextColor={Colors.fontColorWhite} keyboardType="default" onChangeText={(Username) => setUsername(Username)} />
+                  <TextInput selectionColor={Colors.white} style={styles.input} placeholder="Username" placeholderTextColor={Colors.fontColorWhite} keyboardType="default" onChangeText={(Username) => setUsername(Username)} />
                   <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
-                    <TextInput style={styles.input} placeholder="Password"
+                    <TextInput selectionColor={Colors.white} style={styles.input} placeholder="Password"
                       placeholderTextColor={Colors.fontColorWhite}
                       keyboardType="default" secureTextEntry={!showPassword}
                       onChangeText={(Password) => setPassword(Password)} />
@@ -65,7 +65,7 @@ export default LogIn = ({navigation}) => {
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(username, password) }}>
-                      <Text style={[Headertext.h4, { marginRight: 15, color: Colors.buttonWhite }]}>Log In</Text>
+                      <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Log In</Text>
                     </TouchableOpacity>
                       <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />
                   </View>

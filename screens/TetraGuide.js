@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
     },
     itemAnswer: {
         fontSize: 12,
-        color: Colors.lightFont,
+        color: Colors.fontColorWhite,
         fontWeight: '700',
         margin: 5,
     },

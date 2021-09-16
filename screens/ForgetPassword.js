@@ -86,7 +86,7 @@ console.log(status);
                             
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <TouchableOpacity style={[styles.button]} onPress={() => { forgetPasswordHandle() }}>
-                                    <Text style={[Headertext.h4, { marginRight: 15, color: Colors.buttonWhite }]}>Send</Text>
+                                    <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Send</Text>
                                 </TouchableOpacity>
                                     <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />
                             </View>

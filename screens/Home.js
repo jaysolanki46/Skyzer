@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, StatusBar, SafeAreaView, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, StatusBar, SafeAreaView, TouchableOpacity, ImageBackground, Dimensions, ScrollView } from 'react-native';
 import Headertext from '../config/Headertext';
 import { FlatGrid } from 'react-native-super-grid';
 import Colors from '../config/Colors';
@@ -12,18 +12,23 @@ import { useFocusEffect } from '@react-navigation/native';
 
 export default Home = ({navigation}) => {
     const [items, setItems] = useState([
-        { id: 1, tag: 'CODE GUIDE', name:'Tetra',
+        { id: 1, tag: 'CODE GUIDE', name:'TETRA',
+            desc: 'Tetra complete guide',
+            image: require('../assets/images/tetra-card-book.png'),
             subItems: [{ id: 1, name: 'DESK3200' }, { id: 2, name: 'DESK5000' }, { id: 3, name: 'MOVE2500' }, { id: 4, name: 'MOVE5000' }],
-            color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3, image:require('../assets/images/tetra-guide.png') },
+            color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3, icon:require('../assets/images/tetra-guide.png') },
         { id: 2, tag: 'CODE GUIDE', name: 'Telium', 
+            desc: 'Telium complete guide',
             subItems: [{ id: 5, name: 'ICT220' }, { id: 6, name: 'ICT250' }, { id: 7, name: 'IWL255' }, { id: 8, name: 'IWL252' }],
-            color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3, image:require('../assets/images/telium-guide.png') },
+            color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3, icon:require('../assets/images/telium-guide.png') },
         { id: 3, tag: 'SKYZER', name: 'About', 
+            desc: 'Know more about us',
             subItems: [{ id: 9, name: 'VISION' },],
-            color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3, image:require('../assets/images/about-us.png') },
+            color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3, icon:require('../assets/images/about-us.png') },
         { id: 4, tag: 'SUPPORT', name:'Contact',  
+            desc: 'Always happy to help you',
             subItems: [{ id: 10, name: 'CALL' }, { id: 11, name: 'EMAIL' }, ],
-            color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3, image:require('../assets/images/contact-us.png') },
+            color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3, icon:require('../assets/images/contact-us.png') },
 
       ]);
     
@@ -93,15 +98,13 @@ export default Home = ({navigation}) => {
                 <Text style={[Headertext.h1, {color: Colors.fontColorPurplest,}]}>Home</Text>
             </View>
             <View style={styles.body}>
-                <View style={styles.bodySubView}>
                     <ImageBackground source={backgroundImage} resizeMode="cover" style={{
-                        position: 'absolute',
                         flex: 1,
                         backgroundColor: 'rgba(0,0,0,0.45)',
                         width: Dimensions.get("window").width,
                         height: Dimensions.get("window").height
                     }}>
-                    <FlatGrid itemDimension={130} data={items} style={styles.gridView} spacing={10}
+                    {/* <FlatGrid itemDimension={130} data={items} style={styles.gridView} spacing={10}
                         renderItem={({ item }) => (
                           
                             <TouchableOpacity
@@ -121,7 +124,7 @@ export default Home = ({navigation}) => {
                             <View style={[styles.gridViewContainer,]}>
                                 <View style={[styles.itemContainer]}>
                                     <Text style={styles.itemTag}>{item.tag}</Text>
-                                    <Image style={styles.itemCardImage} source={item.image} />
+                                    <Image style={styles.itemCardIcon} source={item.image} />
                                 </View>
                                 <View style={styles.itemNameContainer}>
                                     <Text style={[Headertext.h3, { color: Colors.fontColorWhite }]}>{item.name}</Text>
@@ -147,9 +150,100 @@ export default Home = ({navigation}) => {
                             </LinearGradient>
                             </TouchableOpacity>
                         )}
-                        />
+                        /> */}
+                        <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1, paddingBottom: 60,}}>
+                            
+                            {/* BLOCK 1 - 3 COMPONENTS */}
+                            <View style={{
+                                width: Dimensions.get("window").width,
+                                height: 300,
+                                flexDirection: 'row',
+                                padding: 10,
+                                }}>
+
+                                <LinearGradient colors={[items[0].color1, items[0].color2, items[0].color3]} style={{
+                                    width: '50%',
+                                    height: '98%',
+                                    borderRadius: 10,
+                                }}>
+                                    <View style={{flex: 1,}}>
+                                        {/* TETRA BLOCK */}
+                                        <View style={{flex: 1,}}>
+                                            <Image style={styles.itemCardIcon} source={items[0].icon} />
+                                        </View>
+                                        <View style={{ flex: 1,  }}>
+                                            <Text style={[Headertext.h3, { color: Colors.fontColorWhite, alignSelf: 'center',}]}>{items[0].name}</Text>
+                                            <Text style={[Headertext.h5, { color: Colors.fontColorWhite, alignSelf: 'center', }]}>{items[0].desc}</Text>
+                                        </View>
+                                        <View style={{ flex: 4, justifyContent: 'center', }}>
+                                            <Image style={styles.itemCardImage} source={items[0].image} />
+                                        </View>
+                                        <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', padding: 5, justifyContent: 'space-around', }}>
+                                        {
+                                            items[0].subItems.map(subItem => {
+                                                return (
+                                                    <View key={subItem.id} style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', margin: 1, }}>
+                                                        <Text style={[styles.bottomTags, { fontSize: 5, }]}>{'\u2B24'}</Text>
+                                                        <Text style={styles.bottomTags}>{subItem.name}</Text>
+                                                    </View>
+                                                )
+                                            })
+                                        }
+                                        </View>
+                                    </View>
+                                </LinearGradient>
+
+                                 <View style={{
+                                    width: '50%',
+                                    height: '98%',
+                                    paddingLeft: 10,
+                                    flex: 1,
+                                }}>
+
+                                    <LinearGradient colors={[items[1].color1, items[1].color2, items[1].color3]} style={{
+                                        flex: 3, marginBottom: 5,
+                                        borderRadius: 10,
+                                    }}>
+                                        <View >
+                                            {/* TELIUM BLOCK */}
+                                        </View>
+                                    </LinearGradient>
+
+                                    <LinearGradient colors={[items[2].color1, items[2].color2, items[2].color3]} style={{
+                                        flex: 3, marginTop: 5,
+                                        borderRadius: 10,
+                                    }}>
+                                        <View >
+                                            {/* ABOUT BLOCK */}
+                                        </View>
+                                    </LinearGradient>
+                                </View>
+                            </View>
+                            {/* END BLOCK 1 - 3 COMPONENTS */}  
+
+                            {/* BLOCK 2 - 1 COMPONENT */}
+                            <View style={{
+                                width: Dimensions.get("window").width,
+                                height: 170,
+                                paddingLeft: 10,
+                                paddingRight: 10,
+                            }}>
+
+                                <LinearGradient colors={[items[3].color1, items[3].color2, items[3].color3]} style={{
+                                     flex: 1,borderRadius: 10, paddingRight: 10,
+                                }}>
+                                    <View>
+
+                                    </View>
+                                </LinearGradient>
+
+                            </View>
+                            {/* END BLOCK 2 - 1 COMPONENT */}
+
+                        </ScrollView>
+
+
                         </ImageBackground>
-                </View>
             </View>
         </SafeAreaView>
     );
@@ -187,19 +281,12 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 4.5,
-        width: '100%',
-        flexDirection: "row",
-        alignContent: "space-between",
     },
     profile: {
         width: 60,
         height: 60,
         borderRadius: 10,
         backgroundColor: Colors.profilBackground,
-    },
-    bodySubView: {
-        flex: 1, 
-        marginTop: 10,
     },
     gridView: {
         flex: 1,
@@ -237,10 +324,16 @@ const styles = StyleSheet.create({
         color: Colors.lightFont,
         margin: 5,
     },
-    itemCardImage: {
+    itemCardIcon: {
         width: 30,
         height: 30,
-        alignSelf: 'center',
+        marginLeft: 'auto',
+        margin: 5,
+    },
+    itemCardImage: {
+        width: 100,
+        height: 100,
+        marginLeft: -20,
     },
     bottomTags: {
         fontSize: 10,

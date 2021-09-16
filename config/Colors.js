@@ -25,11 +25,15 @@ export default {
     colorType3_2: '#2ECCCD',
     colorType3_3: '#48D5E4',
 
-    colorType4_1: '#EC6E5D',
-    colorType4_2: '#EA9069',
-    colorType4_3: '#FBA578',
+    // colorType4_1: '#EC6E5D',
+    // colorType4_2: '#EA9069',
+    // colorType4_3: '#FBA578',
 
-    colorType5_1: '#E7EFFF',
+    colorType4_1: '#2D74D5',
+    colorType4_2: '#567FD5',
+    colorType4_3: '#7588D4',
+
+    colorType5_1: '#9A9FF4',
 
     buttonBody: '#8970FE',
     buttonFont: '#F7F3FD',

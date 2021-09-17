@@ -6,7 +6,7 @@ import Configurations from '../config/Configurations';
 import Headertext from '../config/Headertext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default TetraCodeList = () => {
+export default TetraGuide = () => {
 
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -150,13 +150,13 @@ export default TetraCodeList = () => {
                             item.is_favorite ?
                                 <View>
                                     <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, false)}>
-                                        <Image style={styles.itemCardImage} source={require('../assets/images/star.png')} />
+                                        <Image style={styles.itemCardImage} source={require('../assets/images/tetra-star.png')} />
                                     </TouchableOpacity>
                                 </View>
                                 :
                                 <View>
                                     <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, true)}>
-                                        <Image style={styles.itemCardImage} source={require('../assets/images/star-outline.png')} />
+                                            <Image style={styles.itemCardImage} source={require('../assets/images/tetra-star-outline.png')} />
                                     </TouchableOpacity>
                                 </View>
                         }

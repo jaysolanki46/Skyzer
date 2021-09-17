@@ -150,13 +150,13 @@ export default AllCodeList = () => {
                             item.is_favorite ?
                                 <View>
                                 <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, false)}>
-                                    <Image style={styles.itemCardImage} source={require('../assets/images/star.png')} />
+                                    {/* <Image style={styles.itemCardImage} source={require('../assets/images/star.png')} /> */}
                                 </TouchableOpacity>
                                 </View>
                                 :
                                 <View>
                                 <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, true)}>
-                                    <Image style={styles.itemCardImage} source={require('../assets/images/star-outline.png')} />
+                                    {/* <Image style={styles.itemCardImage} source={require('../assets/images/star-outline.png')} /> */}
                                 </TouchableOpacity>
                                 </View>
                         }

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, StatusBar, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, ActivityIndicator, RefreshControl, SafeAreaView } from 'react-native';
-import { Badge } from 'react-native-paper';
+import { Dimensions, StatusBar, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, RefreshControl, SafeAreaView } from 'react-native';
 import SearchBar from 'react-native-dynamic-search-bar';
 import Colors from '../config/Colors';
 import Configurations from '../config/Configurations';
 import Headertext from '../config/Headertext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default TetraCodeList = () => {
 
@@ -13,11 +13,25 @@ export default TetraCodeList = () => {
     const [masterDataSource, setMasterDataSource] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
+    const [sessionId, setSessionId] = useState(null);
+
+    const settingSession = async () => {
+        await AsyncStorage.getItem('userId').then(val => setSessionId(val));
+    }
+
+    useEffect(() => {
+        settingSession();
+    }, []);
+
+    useEffect(() => {
+        let isMounted = true;
+        wait(1000).then(() => {
+            if (isMounted) InitList()
+        });
+        return () => { isMounted = false };
+    }, [sessionId]);
 
     const InitList = async () => {
-
-        /** SESSION VALUE */
-        const userId = 1;
 
         var requestOptions = {
             method: 'GET',
@@ -25,11 +39,10 @@ export default TetraCodeList = () => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/referenceGuideFunctions/tetra/user/" + userId, requestOptions)
+            const response = await fetch(Configurations.host + "/referenceGuideFunctions/tetra/user/" + sessionId, requestOptions)
             const status = await response.status;
             const responseJson = await response.json();
-
-            if (response.status == 204) {
+            if (status == 204) {
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(null);
@@ -50,9 +63,6 @@ export default TetraCodeList = () => {
 
     const UpdateFavouriteItem = async (itemId, isCreate) => {
 
-        /** SESSION VALUE */
-        const userId = 1;
-
         var myHeaders = new Headers();
         var methodType = "";
         myHeaders.append("Content-Type", "application/json");
@@ -61,7 +71,7 @@ export default TetraCodeList = () => {
 
         var raw = JSON.stringify({
             "user": {
-                "id": userId
+                "id": sessionId
             },
             "favorite_reference_guide_function": {
                 "id": itemId
@@ -80,7 +90,7 @@ export default TetraCodeList = () => {
             const status = await response.status;
             const responseJson = await response.json();
 
-            if (response.status == 204) {
+            if (status == 204) {
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(null);
@@ -96,14 +106,6 @@ export default TetraCodeList = () => {
             return false;
         }
     }
-
-    useEffect(() => {
-        let isMounted = true;
-        wait(1000).then(() => {
-            if (isMounted) InitList()
-        });
-        return () => { isMounted = false };
-    }, []);
 
     function SearchFilterFunction(text) {
         if (text && Array.isArray(masterDataSource)) {
@@ -132,29 +134,12 @@ export default TetraCodeList = () => {
     const ItemView = ({ item }) => {
         return (
             <View style={[styles.listContainer]}>
-                <View style={[styles.itemHeader]}>
-                    <View style={styles.itemHeaderLeft}>
-                        {
-                            item.is_telium ? <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.fontColorLightBlack }}>ALSO SUPPORTED BY: </Text> :
-                                <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.colorType5_1 }}>ALSO SUPPORTED BY: </Text>
-                        }
-                        {/* {
-                            item.is_tetra ? <Badge style={[styles.badge, { backgroundColor: Colors.colorType3_2 }]}>TETRA</Badge> : null
-                        } */}
-                        {
-                            item.is_telium ? <Badge style={[styles.badge, { backgroundColor: Colors.colorType2_1 }]}>TELIUM</Badge> : null
-                        }
-                    </View>
-                    {/* <View style={styles.itemHeaderRight}>
-                        {
-                            item.is_function ? <Image style={styles.itemCardImage} source={require('../assets/images/function.png')} /> : null
-                        }
-                        {
-                            item.is_menu ? <Image style={styles.itemCardImage} source={require('../assets/images/menu.png')} /> : null
-                        }
-                    </View> */}
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', 
+                backgroundColor: Colors.colorType1_1, borderRadius: 5}}>
+                    <Text style={{ color: Colors.fontColorWhite, letterSpacing: 1, fontWeight: '500' }}>TETRA</Text>
                 </View>
-                <View style={[styles.itemBody]}>
+                <View style={{ flex: 5 }}>
+                    <View style={[styles.itemBody]}>
                     <View style={styles.itemBodyLeft}>
                         <Text style={styles.itemQuestion}>{item.name}</Text>
                         <Text style={styles.itemAnswer}>{item.short_solution}</Text>
@@ -178,6 +163,7 @@ export default TetraCodeList = () => {
 
                     </View>
                 </View>
+                </View>
             </View>
         );
     };
@@ -189,7 +175,7 @@ export default TetraCodeList = () => {
     const OnRefresh = React.useCallback(() => {
         setRefreshing(true);
         wait(1000).then(() => InitList());
-    }, []);
+    }, [sessionId]);
 
     function Loader() {
         return (
@@ -280,19 +266,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.4,
         shadowRadius: 3,
         elevation: 5,
-    },
-    itemHeader: {
-        flex: 1,
         flexDirection: 'row',
-    },
-    itemHeaderLeft: {
-        flex: 4.5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        margin: 5,
-    },
-    itemHeaderRight: {
-        flex: 1.5,
     },
     itemBody: {
         flex: 1,
@@ -305,23 +279,14 @@ const styles = StyleSheet.create({
         flex: .5,
         justifyContent: 'flex-end'
     },
-    badge: {
-        alignSelf: 'flex-start',
-        marginLeft: 5,
-        marginRight: 5,
-        borderRadius: 5,
-        letterSpacing: 1,
-        fontWeight: '500',
-        color: Colors.fontColorWhite,
-    },
     itemQuestion: {
-        fontSize: 17,
+        fontSize: 15,
         color: Colors.fontColorLightBlack,
         fontWeight: '700',
         margin: 5,
     },
     itemAnswer: {
-        fontSize: 12,
+        fontSize: 13,
         color: Colors.fontColorLightBlack,
         fontWeight: '700',
         margin: 5,
@@ -351,7 +316,7 @@ const styles = StyleSheet.create({
     noContent: {
         resizeMode: 'contain',
         width: 200,
-        height: 400,
+        height: 300,
     },
     loader: {
         width: Dimensions.get('window').width,

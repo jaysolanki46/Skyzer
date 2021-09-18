@@ -12,6 +12,7 @@ import Profile from '../screens/Profile';
 import Contact from '../screens/Contact';
 import Colors from '../config/Colors';
 import { createStackNavigator } from '@react-navigation/stack';
+import WhoWeAre from '../screens/WhoWeAre';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -36,6 +37,12 @@ function HomeTabs() {
       <Stack.Screen name="About" component={About} options={{
         headerShown: true,
         headerTitle: "About",
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
+      }} />
+      <Stack.Screen name="WhoWeAre" component={WhoWeAre} options={{
+        headerShown: true,
+        headerTitle: "Who We Are",
         headerTitleAlign: 'center',
         headerBackTitleVisible: false,
       }} />

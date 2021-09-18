@@ -30,14 +30,14 @@ export default Home = ({ navigation }) => {
             id: 3, name: 'SUPPORT',
             desc: 'Happy to help',
             image: require('../assets/images/contact-card-book.png'),
-            subItems: [{ id: 10, name: 'CALL' }, { id: 11, name: 'EMAIL' },],
+            subItems: [{ id: 9, name: 'CALL' }, { id: 10, name: 'EMAIL' },],
             color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3, icon: require('../assets/images/contact-us.png')
         },
         {
             id: 4,name: 'ABOUT US',
             desc: 'Explore the Skyzer',
             image: require('../assets/images/about-card-book.png'),
-            subItems: [{ id: 9, name: 'VISION' },],
+            subItems: [{ id: 11, name: 'WHO WE ARE' }, { id: 12, name: 'VALUES' }, { id: 13, name: 'LOCATION' }, { id: 14, name: 'SOCIAL HANDLES' },],
             color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3, icon: require('../assets/images/about-us.png')
         },
     ]);
@@ -123,7 +123,6 @@ export default Home = ({ navigation }) => {
                             flexDirection: 'row',
                             padding: 10,
                         }}>
-
 
                             <LinearGradient colors={[items[0].color1, items[0].color2, items[0].color3]} style={{
                                 width: '50%',

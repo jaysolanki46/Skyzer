@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
-import { StyleSheet, Platform, StatusBar, SafeAreaView, Text, View, Image, Animated, Alert, TouchableOpacity, Linking } from 'react-native';
+import React, { useRef } from 'react';
+import { StyleSheet, Platform, StatusBar, SafeAreaView, Text, View, Image, Animated, TouchableOpacity, Linking, ImageBackground, Dimensions } from 'react-native';
 import Colors from '../config/Colors';
-import contactImage from '../assets/images/contact.png';
+import contactBanner from '../assets/images/contact-banner.png';
 import phone from '../assets/images/contact-phone.png';
 import email from '../assets/images/contact-email.png';
 import Headertext from '../config/Headertext';
+import backgroundImage from "../assets/images/background-main.jpg";
 
 const LRView = (props) => {
     const LRanim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
@@ -44,12 +45,18 @@ export default Contact = ({ navigation }) => {
                 <View style={styles.headerImage}>
                     <Image
                         style={styles.image}
-                        source={contactImage}
+                        source={contactBanner}
                     />
                 </View>
            </View>
 
             <View style={styles.body}>
+                <ImageBackground source={backgroundImage} style={{
+                    flex: 1,
+                    backgroundColor: 'rgba(0,0,0,0.45)',
+                    width: Dimensions.get("window").width,
+                    height: Dimensions.get("window").height
+                }}>
                 <View style={styles.bodyEmail}>
                     <TouchableOpacity onPress={() => { Linking.openURL(`mailto:support@skyzer.co.nz`) }}>
                     <View style={styles.cardEmail}>
@@ -76,6 +83,7 @@ export default Contact = ({ navigation }) => {
                     </View>
                     </TouchableOpacity>
                 </View>
+            </ImageBackground>
             </View>
             
             <LRView style={styles.footer}>

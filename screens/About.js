@@ -1,11 +1,14 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Platform, Dimensions, StatusBar, SafeAreaView, View, Text, Image } from 'react-native';
+import { ImageBackground, StyleSheet, Platform, Dimensions, StatusBar, SafeAreaView, View, Text, Image, ScrollView } from 'react-native';
 import Colors from '../config/Colors';
-import care from "../assets/images/about/1-care.png";
-import win from "../assets/images/about/2-win.png";
-import grow from "../assets/images/about/3-grow.png";
-import integrity from "../assets/images/about/4-integrity.png";
+import whoWeAre from "../assets/images/about/who-we-are.png";
+import values from "../assets/images/about/value-s.png";
+import location from "../assets/images/about/location.png";
+import socialHandles from "../assets/images/about/social-handles.png";
 import Headertext from '../config/Headertext';
+import { LinearGradient } from 'expo-linear-gradient';
+import backgroundImage from "../assets/images/background-main.jpg";
+import aboutBanner from '../assets/images/about-banner.png';
 
 export default About = ({ navigation }) => {
 
@@ -16,85 +19,119 @@ export default About = ({ navigation }) => {
                 <StatusBar barStyle="dark-content" hidden={false} translucent={true}></StatusBar>
             </>}
 
-            <View style={styles.container}>
-                <View style={styles.body}>
-                    
-                    <View style={styles.bodyBox}>
-                        <View style={styles.bodyBox}>
-                            
-                            <View style={styles.boxContainer}>
-                                <View style={styles.boxImage}>
-                                    <Image style={styles.image} source={care} />
-                                </View>
-                                <View style={styles.boxText}>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        We CARE
-                                    </Text>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        About Our Customers
-                                    </Text>
-                                </View>
-                            </View>
-
-                        </View>
-                        <View style={styles.bodyBox}>
-                            
-                            <View style={styles.boxContainer}>
-                                <View style={styles.boxImage}>
-                                    <Image style={styles.image} source={win} />
-                                </View>
-                                <View style={styles.boxText}>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        We WIN 
-                                    </Text>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        Together
-                                    </Text>
-                                </View>
-                            </View>
-
-                        </View>
+                <View style={styles.header}>
+                    <View style={styles.headerBox}>
+                        <Image
+                            style={styles.headerImage}
+                            source={aboutBanner}
+                        />
                     </View>
-
-                    <View style={styles.bodyBox}>
-                        <View style={styles.bodyBox}>
-                            
-                            <View style={styles.boxContainer}>
-                                <View style={styles.boxImage}>
-                                    <Image style={styles.image} source={grow} />
-                                </View>
-                                <View style={styles.boxText}>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        We GROW Ourselves
-                                    </Text>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        To Grow Our Business
-                                    </Text>
-                                </View>
-                            </View>
-
-                        </View>
-                        <View style={styles.bodyBox}>
-                            
-                            <View style={styles.boxContainer}>
-                                <View style={styles.boxImage}>
-                                    <Image style={styles.image} source={integrity} />
-                                </View>
-                                <View style={styles.boxText}>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        We ACT
-                                    </Text>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        With Integrity Always
-                                    </Text>
-                                </View>
-                            </View>
-
-                        </View>
-                    </View>
-                    
                 </View>
-            </View>
+
+                <View style={styles.body}>
+                <ImageBackground source={backgroundImage} style={{
+                    flex: 1,
+                    backgroundColor: 'rgba(0,0,0,0.45)',
+                    width: Dimensions.get("window").width,
+                    height: Dimensions.get("window").height
+                }}>
+                <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1,}}>
+                    <View style={styles.bodyBox}>
+                        <View style={styles.bodyBox}>
+                            
+                            <LinearGradient colors={[Colors.colorType4_1, Colors.colorType4_2, Colors.colorType4_3]} style={{
+                                flex: 1,
+                                borderRadius: 10,
+                                marginLeft: 10,
+                                marginRight: 10,
+                                marginBottom: 30,
+                                
+                            }}>
+                                <View style={styles.boxImage}>
+                                    <Image style={styles.image} source={whoWeAre} />
+                                </View>
+                                <View style={styles.boxText}>
+                                    <Text style={Headertext.h5, styles.text}>
+                                        WHO WE ARE
+                                    </Text>
+                                </View>
+                            </LinearGradient>
+
+                        </View>
+                        <View style={styles.bodyBox}>
+                            
+                             <LinearGradient colors={[Colors.colorType4_1, Colors.colorType4_2, Colors.colorType4_3]} style={{
+                                flex: 1,
+                                borderRadius: 10,
+                                marginLeft: 10,
+                                marginRight: 10,
+                                marginBottom: 30,
+                                
+                            }}>
+                                <View style={styles.boxImage}>
+                                    <Image style={styles.image} source={values} />
+                                </View>
+                                <View style={styles.boxText}>
+                                    <Text style={Headertext.h5, styles.text}>
+                                        VALUES 
+                                    </Text>
+                                </View>
+                            </LinearGradient>
+
+                        </View>
+                    </View>
+
+                    <View style={styles.bodyBox}>
+                        <View style={styles.bodyBox}>
+                            
+                            <LinearGradient colors={[Colors.colorType4_1, Colors.colorType4_2, Colors.colorType4_3]} style={{
+                                flex: 1,
+                                borderRadius: 10,
+                                marginLeft: 10,
+                                marginRight: 10,
+                                marginBottom: 30,
+                                
+                            }}>
+                                <View style={styles.boxImage}>
+                                    <Image style={styles.image} source={location} />
+                                </View>
+                                <View style={styles.boxText}>
+                                    <Text style={Headertext.h5, styles.text}>
+                                        LOCATION
+                                    </Text>
+                                </View>
+                            </LinearGradient>
+
+                        </View>
+
+                        <View style={styles.bodyBox}>
+
+                            <LinearGradient colors={[Colors.colorType4_1, Colors.colorType4_2, Colors.colorType4_3]} style={{
+                                flex: 1,
+                                borderRadius: 10,
+                                marginLeft: 10,
+                                marginRight: 10,
+                                marginBottom: 30,
+
+                            }}>
+                                <View style={styles.boxImage}>
+                                    <Image style={styles.image} source={socialHandles} />
+                                </View>
+                                <View style={styles.boxText}>
+                                    <Text style={Headertext.h5, styles.text}>
+                                        SOCIAL HANDLES
+                                    </Text>
+                                </View>
+                            </LinearGradient>
+
+                        </View>
+                    </View>
+
+                    
+                    
+                </ScrollView>
+                </ImageBackground>
+                </View>
         </SafeAreaView>
     );
 };
@@ -104,31 +141,39 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.bodyColor,
     },
-    body: {
+    header: {
+        flex: 2,
+        padding: 10,
+    },
+    headerBox: {
         flex: 1,
         margin: 10,
-    },  
+    },
+    headerImage: {
+        width: 360,
+        height: 200,
+        resizeMode: 'contain',
+        borderRadius: 10,
+    },
     bodyBox: {
         flex: 3, 
         flexDirection: 'row', 
     },
-    boxContainer: {
-        flex: 1,
-        backgroundColor: Colors.cardColor,
-        borderRadius: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        marginBottom: 30,
+    body: {
+        flex: 4,
     },
     boxImage: {
         flex: 3.5, 
         justifyContent: 'center',
         alignItems: 'center', 
+        padding: 10,
     },
     boxText: {
         flex: 2.5,
         justifyContent: 'center',
         alignItems: 'center',
+        
+        padding: 10,
     },
     image: {
         width: 120,
@@ -136,7 +181,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontWeight: 'bold', 
-        color: Colors.fontColorLightBlack,
+        color: Colors.fontColorWhite,
     },
 
 });

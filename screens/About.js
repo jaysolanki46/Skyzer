@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Platform, Dimensions, StatusBar, SafeAreaView, View, Text, Image, ScrollView } from 'react-native';
+import { ImageBackground, StyleSheet, Platform, Dimensions, StatusBar, SafeAreaView, View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import Colors from '../config/Colors';
 import whoWeAre from "../assets/images/about/who-we-are.png";
 import values from "../assets/images/about/value-s.png";
@@ -39,6 +39,7 @@ export default About = ({ navigation }) => {
                     <View style={styles.bodyBox}>
                         <View style={styles.bodyBox}>
                             
+                            <TouchableOpacity style={{flex: 1,}} onPress={() => navigation.navigate('WhoWeAre')}>
                             <LinearGradient colors={[Colors.colorType4_1, Colors.colorType4_2, Colors.colorType4_3]} style={{
                                 flex: 1,
                                 borderRadius: 10,
@@ -56,11 +57,14 @@ export default About = ({ navigation }) => {
                                     </Text>
                                 </View>
                             </LinearGradient>
+                            </TouchableOpacity>
 
                         </View>
                         <View style={styles.bodyBox}>
                             
-                             <LinearGradient colors={[Colors.colorType4_1, Colors.colorType4_2, Colors.colorType4_3]} style={{
+                             <TouchableOpacity style={{flex: 1,}} onPress={() => navigation.navigate('Values')}>
+                             <LinearGradient colors={[Colors.colorType4_1, Colors.colorType4_2, Colors.colorType4_3]}
+                              style={{
                                 flex: 1,
                                 borderRadius: 10,
                                 marginLeft: 10,
@@ -77,6 +81,7 @@ export default About = ({ navigation }) => {
                                     </Text>
                                 </View>
                             </LinearGradient>
+                            </TouchableOpacity>
 
                         </View>
                     </View>
@@ -84,6 +89,7 @@ export default About = ({ navigation }) => {
                     <View style={styles.bodyBox}>
                         <View style={styles.bodyBox}>
                             
+                            <TouchableOpacity style={{flex: 1,}} onPress={() => navigation.navigate('Location')}>
                             <LinearGradient colors={[Colors.colorType4_1, Colors.colorType4_2, Colors.colorType4_3]} style={{
                                 flex: 1,
                                 borderRadius: 10,
@@ -101,11 +107,13 @@ export default About = ({ navigation }) => {
                                     </Text>
                                 </View>
                             </LinearGradient>
+                            </TouchableOpacity>
 
                         </View>
 
                         <View style={styles.bodyBox}>
 
+                            <TouchableOpacity style={{ flex: 1, }} onPress={() => navigation.navigate('SocialHandles')}>
                             <LinearGradient colors={[Colors.colorType4_1, Colors.colorType4_2, Colors.colorType4_3]} style={{
                                 flex: 1,
                                 borderRadius: 10,
@@ -123,6 +131,7 @@ export default About = ({ navigation }) => {
                                     </Text>
                                 </View>
                             </LinearGradient>
+                            </TouchableOpacity>
 
                         </View>
                     </View>
@@ -161,6 +170,7 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 4,
+        paddingTop: 20,
     },
     boxImage: {
         flex: 3.5, 

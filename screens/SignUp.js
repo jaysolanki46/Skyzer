@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { ImageBackground, Button, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, KeyboardAvoidingView, StatusBar, ScrollView, LayoutAnimation, Alert, SafeAreaView } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, StatusBar, Alert, SafeAreaView } from 'react-native';
 import Headertext from '../config/Headertext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AuthContext } from '../components/AuthContext';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Configurations from '../config/Configurations';
-import { ActivityIndicator } from 'react-native-paper';
 import backgroundImage from "../assets/images/background.jpg";
-import { color } from 'react-native-reanimated';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 
 export default SignUp = ({ navigation }) => {

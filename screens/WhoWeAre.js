@@ -1,13 +1,49 @@
-import React from 'react';
-import { ImageBackground, StyleSheet, Platform, Dimensions, StatusBar, SafeAreaView, View, Text, Image } from 'react-native';
+import React, { useState } from 'react';
+import { ImageBackground, StyleSheet, Platform, StatusBar, SafeAreaView, View, ScrollView, Dimensions, Image, Text, TouchableOpacity, Alert, Linking,  } from 'react-native';
 import Colors from '../config/Colors';
-import care from "../assets/images/about/values/1-care.png";
-import win from "../assets/images/about/values/2-win.png";
-import grow from "../assets/images/about/values/3-grow.png";
-import integrity from "../assets/images/about/values/4-integrity.png";
+import backgroundImage from "../assets/images/about/headerBackground.jpg";
+import { LinearGradient } from 'expo-linear-gradient';
 import Headertext from '../config/Headertext';
+import whoWeAre from "../assets/images/about/who-we-are.png";
+import { useEffect } from 'react';
+import Configurations from '../config/Configurations';
 
 export default WhoWeAre = ({ navigation }) => {
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        let isMounted = true;
+        if (isMounted) InitTeam()
+        return () => { isMounted = false };
+    }, []);
+
+    const InitTeam = async () => {
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        try {
+            const response = await fetch(Configurations.host + "/team", requestOptions)
+            const status = await response.status;
+            const responseJson = await response.json();
+
+            if (status == 204) {
+                setIsLoading(false);
+                throw new Error('204 - No Content');
+            } else {
+                setIsLoading(false);
+                setData(responseJson);
+            }
+
+        } catch (error) {
+            console.log('Who We Are Error', error);
+            return false;
+        }
+    }
 
     return (
 
@@ -17,83 +53,88 @@ export default WhoWeAre = ({ navigation }) => {
             </>}
 
             <View style={styles.container}>
-                <View style={styles.body}>
-                    
-                    <View style={styles.bodyBox}>
-                        <View style={styles.bodyBox}>
-                            
-                            <View style={styles.boxContainer}>
-                                <View style={styles.boxImage}>
-                                    <Image style={styles.image} source={care} />
-                                </View>
-                                <View style={styles.boxText}>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        We CARE
-                                    </Text>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        About Our Customers
-                                    </Text>
-                                </View>
+
+                <View style={styles.header}>
+                    <ImageBackground source={backgroundImage} style={{
+                        width: '95%',
+                        height: 200,
+                    }} resizeMode="cover">
+                        <View style={styles.headerBox}>
+                            <View style={{flex: 1,  justifyContent: 'center', alignItems: 'center', paddingLeft: 5}}>
+                                <Text style={[Headertext.h2, {color: Colors.fontColorWhite,}]}>
+                                    WHO WE ARE
+                                </Text>
                             </View>
 
                         </View>
-                        <View style={styles.bodyBox}>
-                            
-                            <View style={styles.boxContainer}>
-                                <View style={styles.boxImage}>
-                                    <Image style={styles.image} source={win} />
-                                </View>
-                                <View style={styles.boxText}>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        We WIN 
-                                    </Text>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        Together
-                                    </Text>
-                                </View>
-                            </View>
-
-                        </View>
-                    </View>
-
-                    <View style={styles.bodyBox}>
-                        <View style={styles.bodyBox}>
-                            
-                            <View style={styles.boxContainer}>
-                                <View style={styles.boxImage}>
-                                    <Image style={styles.image} source={grow} />
-                                </View>
-                                <View style={styles.boxText}>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        We GROW Ourselves
-                                    </Text>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        To Grow Our Business
-                                    </Text>
-                                </View>
-                            </View>
-
-                        </View>
-                        <View style={styles.bodyBox}>
-                            
-                            <View style={styles.boxContainer}>
-                                <View style={styles.boxImage}>
-                                    <Image style={styles.image} source={integrity} />
-                                </View>
-                                <View style={styles.boxText}>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        We ACT
-                                    </Text>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        With Integrity Always
-                                    </Text>
-                                </View>
-                            </View>
-
-                        </View>
-                    </View>
-                    
+                       </ImageBackground>
                 </View>
+
+
+                <View style={styles.body}>
+                    <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1,}}>
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap',}}>
+                            <Text style={[Headertext.h5, {textAlign: 'justify', marginTop: 10}]} >
+                                <Text style={{fontWeight: 'bold'}}>Skyzer Technologies</Text> is the market leader in the innovation, development, and provision of Eftpos and Payment solutions and has been supporting merchants throughout New Zealand since 2007.
+                            </Text>
+                            <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                                Back then, we had a dream! Since then, we have developed a suite of payment terminal solutions that have revolutionised the way kiwi merchants accept payments for the goods and services they provided!
+                            </Text>
+                            <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                                Whether you are looking for a Micro Merchant solution for your Market Stall, or you are a major NZ retailer looking for a feature-rich integrated Eftpos solution for your business… Skyzer has got you covered!
+                            </Text>
+                            <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                                We pride ourselves on our ability to deliver payment solutions to all retailers across New Zealand, both big and small. Using only the best terminal brand in the business, Ingenico, our suite of terminal offerings, has been developed with one goal in mind… “<Text style={{ color: Colors.fontColorBluest, fontWeight: 'bold'}}>Making Payments Simple</Text>”.
+                            </Text>
+                        </View>
+
+                        <View style={{ marginTop: 20, borderRadius: 10, 
+                            borderColor: Colors.colorType4_1, alignItems: 'center', }}>
+
+                                <View style={{borderBottomWidth: 1}}>
+                                    <Text style={[Headertext.h3, { color: Colors.fontColorBluest, }]}>OUR TEAM</Text>
+                                </View>
+
+                            <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+                            {
+                                data.map(member => {
+                                    return (
+                                            <View key={member.id}  style={{ width: 170, height: 200, marginTop: 10, marginBottom: 10, }}>
+                                                <TouchableOpacity style={{ flex: 1, }} onPress={() => Linking.openURL(member.linked_in)}>
+                                                <View style={{ flex: 1, backgroundColor: Colors.colorType5_1, borderRadius: 10 }}>
+                                                    
+                                                    <View style={{
+                                                        flex: 4, justifyContent: 'center',
+                                                        alignItems: 'center',
+                                                    }}>
+                                                        <Image style={[styles.image, {borderRadius: 50}]} source={{
+                                                            uri: Configurations.host + "/images/team/" + member.image_name,
+                                                        }} />
+                                                    </View>
+
+                                                    <View style={{
+                                                        flex: 1, flexDirection: 'row', flexWrap: 'wrap',}}>
+                                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, textAlign: 'center', flex: 1, }}>
+                                                            {member.title}
+                                                        </Text>
+                                                    </View>
+
+                                                    <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap',}}>
+                                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
+                                                            {member.full_name}
+                                                        </Text>
+                                                    </View>
+                                                </View>
+                                                </TouchableOpacity>
+                                            </View>
+                                    )
+                                })
+                            }
+                            </View>
+                        </View>
+                    </ScrollView>
+                </View>
+
             </View>
         </SafeAreaView>
     );
@@ -103,40 +144,24 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.bodyColor,
+        paddingTop: Platform.OS != 'ios' ? 20 : 0, 
+    },
+    header: {
+        flex: 1.5,
+    },
+    headerBox: {
+        flex: 1,
+        flexDirection: 'row',
+        margin: 10,
     },
     body: {
-        flex: 1,
-        margin: 10,
-    },  
-    bodyBox: {
-        flex: 3, 
-        flexDirection: 'row', 
-    },
-    boxContainer: {
-        flex: 1,
-        backgroundColor: Colors.cardColor,
-        borderRadius: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        marginBottom: 30,
-    },
-    boxImage: {
-        flex: 3.5, 
-        justifyContent: 'center',
-        alignItems: 'center', 
-    },
-    boxText: {
-        flex: 2.5,
-        justifyContent: 'center',
-        alignItems: 'center',
+        flex: 4.5,
+        paddingTop: Platform.OS != 'ios' ? 40 : 0,
+        margin: 15,
     },
     image: {
-        width: 120,
-        height: 120,
+        width: 80,
+        height: 80,
+        padding: 10,
     },
-    text: {
-        fontWeight: 'bold', 
-        color: Colors.fontColorLightBlack,
-    },
-
 });

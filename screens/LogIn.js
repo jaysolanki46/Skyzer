@@ -96,7 +96,7 @@ export default LogIn = ({navigation}) => {
                       </View>
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(username, password) }}>
-                          <Text style={[Headertext.h4, { marginRight: 15, color: Colors.buttonWhite }]}>Log In</Text>
+                          <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Log In</Text>
                         </TouchableOpacity>
                           <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />
                       </View>

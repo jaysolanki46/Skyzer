@@ -9,7 +9,7 @@ import TeliumGuide from '../screens/TeliumGuide';
 import About from '../screens/About';
 import CodeList from '../screens/CodeList';
 import Profile from '../screens/Profile';
-import Contact from '../screens/Contact';
+import Support from '../screens/Support';
 import Colors from '../config/Colors';
 import { createStackNavigator } from '@react-navigation/stack';
 import Values from '../screens/Values';
@@ -55,9 +55,9 @@ function HomeTabs() {
         headerTransparent: true,
         headerBackTitleVisible: false,
       }} />
-      <Stack.Screen name="Contact" component={Contact} options={{
+      <Stack.Screen name="Support" component={Support} options={{
         headerShown: true,
-        headerTitle: "Contact",
+        headerTitle: "Support",
         headerTitleAlign: 'center',
         headerBackTitleVisible: false,
       }} />

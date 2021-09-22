@@ -33,7 +33,7 @@ const LRView = (props) => {
     );
 }
 
-export default Contact = ({ navigation }) => {
+export default Support = ({ navigation }) => {
 
     return (
 

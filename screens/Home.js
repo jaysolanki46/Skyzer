@@ -218,7 +218,7 @@ export default Home = ({ navigation }) => {
                                     flex: 3, marginTop: 5,
                                     borderRadius: 10,
                                 }}>
-                                    <TouchableOpacity style={{ flex: 1, }} onPress={() => { navigation.navigate('Contact') }}>
+                                    <TouchableOpacity style={{ flex: 1, }} onPress={() => { navigation.navigate('Support') }}>
                                         {/* CONTACT BLOCK */}
                                         <View style={{ flex: 1 }} >
                                             <View style={{ flex: 4.5, }} >

@@ -80,7 +80,7 @@ export default About = ({ navigation }) => {
                         </View>
                     </View>
 
-                    <View style={{ width: '100%', height: 200,  margin: 10, marginBottom: 30}}>
+                    <View style={{ width: '100%', height: 400,  margin: 10, marginBottom: 30}}>
                             <Text style={[Headertext.h4, { color: Colors.fontColorBluest, textDecorationLine: 'underline',  }]}>
                                 ADDRESS
                             </Text>

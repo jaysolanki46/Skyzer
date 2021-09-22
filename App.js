@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { View, ActivityIndicator } from 'react-native';
 import Tabs from './components/Tabs';
 import StartUp from './screens/StartUp';
 import LogIn from './screens/LogIn';
@@ -13,11 +12,15 @@ import { AuthContext } from './components/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StartupLoader from './screens/StartupLoader';
 import Configurations from './config/Configurations';
+import NetInfo from "@react-native-community/netinfo";
+import NoInternet from './screens/NoInternet';
 
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-    
+
+  const[isInternet, setIsInternet] = useState(false);
+
   const initialLoginState = {
     isLoading: true,
     userToken: null,
@@ -131,6 +134,11 @@ const App = () => {
   }), []);
 
   useEffect(() => {
+
+    NetInfo.fetch().then(state => {
+      state.isConnected ? setIsInternet(true) : setIsInternet(false);
+    });
+
     setTimeout(async() => {
       let userToken;
       userToken = null;
@@ -151,17 +159,21 @@ const App = () => {
   }
 
   return (
+
     <AuthContext.Provider value={authContext}>
-    <NavigationContainer>
       {
-        loginState.userToken != null ?
-          <Tabs/>
+        isInternet ? 
+          <NavigationContainer>
+            {
+              loginState.userToken != null ?
+                <Tabs />
+                :
+                <RootStackScreen />
+            }
+          </NavigationContainer>
           :
-          <RootStackScreen/>
-      }
-          
-          
-        </NavigationContainer>
+          <NoInternet />
+    }
     </AuthContext.Provider>
   );
 }

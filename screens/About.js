@@ -1,14 +1,14 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Platform, Dimensions, StatusBar, SafeAreaView, View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Platform, StatusBar, SafeAreaView, View, Text, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import Colors from '../config/Colors';
 import whoWeAre from "../assets/images/about/who-we-are.png";
 import values from "../assets/images/about/value-s.png";
-import location from "../assets/images/about/location.png";
-import socialHandles from "../assets/images/about/social-handles.png";
 import Headertext from '../config/Headertext';
 import { LinearGradient } from 'expo-linear-gradient';
-import backgroundImage from "../assets/images/background-main.jpg";
 import aboutBanner from '../assets/images/about-banner.png';
+import facebook from '../assets/images/facebook.png';
+import linkedin from '../assets/images/linkedin.png';
+import instagram from '../assets/images/instagram.png';
 
 export default About = ({ navigation }) => {
 
@@ -29,12 +29,6 @@ export default About = ({ navigation }) => {
                 </View>
 
                 <View style={styles.body}>
-                <ImageBackground source={backgroundImage} style={{
-                    flex: 1,
-                    backgroundColor: 'rgba(0,0,0,0.45)',
-                    width: Dimensions.get("window").width,
-                    height: Dimensions.get("window").height
-                }}>
                 <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1,}}>
                     <View style={styles.bodyBox}>
                         <View style={styles.bodyBox}>
@@ -86,60 +80,34 @@ export default About = ({ navigation }) => {
                         </View>
                     </View>
 
-                    <View style={styles.bodyBox}>
-                        <View style={styles.bodyBox}>
-                            
-                            <TouchableOpacity style={{flex: 1,}} onPress={() => navigation.navigate('Location')}>
-                            <LinearGradient colors={[Colors.colorType4_1, Colors.colorType4_2, Colors.colorType4_3]} style={{
-                                flex: 1,
-                                borderRadius: 10,
-                                marginLeft: 10,
-                                marginRight: 10,
-                                marginBottom: 30,
-                                
-                            }}>
-                                <View style={styles.boxImage}>
-                                    <Image style={styles.image} source={location} />
+                    <View style={{ width: '100%', height: 200,  margin: 10, marginBottom: 30}}>
+                            <Text style={[Headertext.h4, { color: Colors.fontColorBluest, textDecorationLine: 'underline',  }]}>
+                                ADDRESS
+                            </Text>
+                            <View style={{ marginTop: 10,}}>
+                                <Text style={[Headertext.h4, {color: Colors.fontColorLightBlack, fontWeight: '500'}]}>
+                                    269 Mount Smart Road,
+                                </Text>
+                                <Text style={[Headertext.h4, { color: Colors.fontColorLightBlack, fontWeight: '500', marginTop: 5 }]}>
+                                    Onehunga, Auckland 1061
+                                </Text>
+                                <Text style={[Headertext.h4, { color: Colors.fontColorLightBlack, fontWeight: '500', marginTop: 5 }]}>
+                                    New Zealand
+                                </Text>
+                            </View>
+
+                            <View style={{ marginTop: 20,}}>
+                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest, textDecorationLine: 'underline',  }]}>
+                                    FOLLOW US:
+                                </Text>
+                                <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                                <TouchableOpacity onPress={() => Linking.openURL("https://www.facebook.com/skyzernz/")} style={styles.social_button}><Image style={styles.social_logo} source={facebook} /></TouchableOpacity>
+                                    <TouchableOpacity onPress={() => Linking.openURL("https://www.linkedin.com/company/skyzer-technologies-nz?originalSubdomain=nz")} style={styles.social_button}><Image style={styles.social_logo} source={linkedin} /></TouchableOpacity>
+                                    <TouchableOpacity onPress={() => Linking.openURL("https://www.instagram.com/skyzer.technologies/")} style={styles.social_button}><Image style={styles.social_logo} source={instagram} /></TouchableOpacity>
                                 </View>
-                                <View style={styles.boxText}>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        LOCATION
-                                    </Text>
-                                </View>
-                            </LinearGradient>
-                            </TouchableOpacity>
-
-                        </View>
-
-                        <View style={styles.bodyBox}>
-
-                            <TouchableOpacity style={{ flex: 1, }} onPress={() => navigation.navigate('SocialHandles')}>
-                            <LinearGradient colors={[Colors.colorType4_1, Colors.colorType4_2, Colors.colorType4_3]} style={{
-                                flex: 1,
-                                borderRadius: 10,
-                                marginLeft: 10,
-                                marginRight: 10,
-                                marginBottom: 30,
-
-                            }}>
-                                <View style={styles.boxImage}>
-                                    <Image style={styles.image} source={socialHandles} />
-                                </View>
-                                <View style={styles.boxText}>
-                                    <Text style={Headertext.h5, styles.text}>
-                                        SOCIAL HANDLES
-                                    </Text>
-                                </View>
-                            </LinearGradient>
-                            </TouchableOpacity>
-
-                        </View>
+                            </View>
                     </View>
-
-                    
-                    
                 </ScrollView>
-                </ImageBackground>
                 </View>
         </SafeAreaView>
     );
@@ -193,5 +161,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold', 
         color: Colors.fontColorWhite,
     },
-
+    social_button: {
+        marginRight: 15,
+        borderRadius: 25,
+    },
+    social_logo: {
+        width: 50,
+        height: 50,
+        resizeMode: 'stretch'
+    },
 });

@@ -7,7 +7,7 @@ import Home from '../screens/Home';
 import TetraGuide from '../screens/TetraGuide';
 import TeliumGuide from '../screens/TeliumGuide';
 import About from '../screens/About';
-import CodeList from '../screens/CodeList';
+import Favourites from '../screens/Favourites'
 import Profile from '../screens/Profile';
 import Support from '../screens/Support';
 import Colors from '../config/Colors';
@@ -111,8 +111,8 @@ export default Tabs = () => {
       />
 
       <Tab.Screen
-        name="CodeList"
-        component={CodeList}
+        name="Favourites"
+        component={Favourites}
         options={{
           tabBarLabel: false,
           tabBarIcon: ({ focused }) => (

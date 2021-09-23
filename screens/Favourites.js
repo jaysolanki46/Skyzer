@@ -6,8 +6,9 @@ import Configurations from '../config/Configurations';
 import Headertext from '../config/Headertext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/core';
+import { Badge } from 'react-native-paper';
 
-export default TetraGuide = () => {
+export default Favourites = () => {
 
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -15,6 +16,7 @@ export default TetraGuide = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const [sessionId, setSessionId] = useState(null);
+    const [hideSearchBar, setHideSearchBar] = useState(false);
 
     const settingSession = async () => {
         await AsyncStorage.getItem('userId').then(val => setSessionId(val));
@@ -23,8 +25,6 @@ export default TetraGuide = () => {
     useEffect(() => {
         settingSession();
     }, []);
-
-    
 
     /** REFRESH THE PAGE ON EVERY VISIT */
     useFocusEffect(
@@ -45,24 +45,27 @@ export default TetraGuide = () => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/referenceGuideFunctions/tetra/user/" + sessionId, requestOptions)
+            const response = await fetch(Configurations.host + "/userFavorites/user/" + sessionId, requestOptions)
             const status = await response.status;
-            const responseJson = await response.json();
+
             if (status == 204) {
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(null);
                 setMasterDataSource(null);
-                throw new Error('204 - No Content');
+                setHideSearchBar(true);
+                throw new Error('No Content');
             } else {
+                const responseJson = await response.json();
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(responseJson);
                 setMasterDataSource(responseJson);
+                setHideSearchBar(false);
             }
 
         } catch (error) {
-            console.log('Tetra Guide Error', error);
+            console.log('Favourites Error', error);
             return false;
         }
     }
@@ -92,23 +95,26 @@ export default TetraGuide = () => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/userFavorites/tetra/user/", requestOptions);
+            const response = await fetch(Configurations.host + "/userFavorites/user/", requestOptions);
             const status = await response.status;
-            const responseJson = await response.json();
-
+           
             if (status == 204) {
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(null);
                 setMasterDataSource(null);
-                throw new Error('204 - No Content');
+                setHideSearchBar(true);
+                throw new Error('No Content');
             } else {
+                const responseJson = await response.json();
                 setFilteredDataSource(responseJson);
                 setMasterDataSource(responseJson);
+                setHideSearchBar(false);
             }
 
         } catch (error) {
-            console.log('Tetra Guide Fav Error', error);
+            
+            console.log('Favourites Update Error', error);
             return false;
         }
     }
@@ -140,9 +146,14 @@ export default TetraGuide = () => {
     const ItemView = ({ item }) => {
         return (
             <View style={[styles.listContainer]}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', 
-                backgroundColor: Colors.colorType1_1, borderRadius: 5}}>
-                    <Text style={{ color: Colors.fontColorWhite, letterSpacing: 1, fontWeight: '500' }}>TETRA</Text>
+                <View style={{ flex: 1, flexDirection: 'row', margin: 5, alignItems: 'center' }}>
+                    <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.fontColorLightBlack }}>SUPPORTED BY: </Text>
+                    {
+                        item.is_tetra ? <Badge style={[styles.badge, { backgroundColor: Colors.colorType1_1 }]}>TETRA</Badge> : null
+                    }
+                    {
+                        item.is_telium ? <Badge style={[styles.badge, { backgroundColor: Colors.colorType2_1 }]}>TELIUM</Badge> : null
+                    }
                 </View>
                 <View style={{ flex: 5 }}>
                     <View style={[styles.itemBody]}>
@@ -153,16 +164,9 @@ export default TetraGuide = () => {
 
                     <View style={styles.itemBodyRight}>
                         {
-                            item.is_favorite ?
                                 <View>
                                     <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, false)}>
                                         <Image style={styles.itemCardImage} source={require('../assets/images/tetra-star.png')} />
-                                    </TouchableOpacity>
-                                </View>
-                                :
-                                <View>
-                                    <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, true)}>
-                                            <Image style={styles.itemCardImage} source={require('../assets/images/tetra-star-outline.png')} />
                                     </TouchableOpacity>
                                 </View>
                         }
@@ -200,9 +204,8 @@ export default TetraGuide = () => {
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Image style={styles.noContent} source={require('../assets/images/no-content.png')} />
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={[Headertext.h4, { fontWeight: 'bold' }]}>NO ITEMS,</Text>
-                    <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}>SORRY!</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}> NO FAVOURITES!</Text>
                 </View>
             </View>
         );
@@ -211,15 +214,19 @@ export default TetraGuide = () => {
     function Content() {
         return (
             <View>
-                <SearchBar
-                    style={styles.searchInputText}
-                    fontColor="#c6c6c6"
-                    iconColor="#c6c6c6"
-                    cancelIconColor="#c6c6c6"
-                    placeholder="Search here"
-                    onChangeText={(text) => SearchFilterFunction(text)}
-                    onClearPress={() => SearchFilterFunction("")}
-                />
+                {
+                    !hideSearchBar ? 
+                        <SearchBar
+                            style={styles.searchInputText}
+                            fontColor="#c6c6c6"
+                            iconColor="#c6c6c6"
+                            cancelIconColor="#c6c6c6"
+                            placeholder="Search here"
+                            onChangeText={(text) => SearchFilterFunction(text)}
+                            onClearPress={() => SearchFilterFunction("")}
+                        /> : null
+                }
+                
                 <FlatList style={styles.gridView}
                     data={filteredDataSource}
                     keyExtractor={(item, index) => index.toString()}
@@ -243,6 +250,12 @@ export default TetraGuide = () => {
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" animated></StatusBar>
 
+            <View style={styles.header}>
+                <View style={styles.headerSubView}>
+                    <Text style={[Headertext.h1, { marginRight: 10, color: Colors.fontColorBluest }]}>Favourites</Text>
+                </View>
+            </View>
+
             <View style={styles.body}>
 
                 {
@@ -257,9 +270,23 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.bodyColor,
+        paddingTop: Platform.OS === 'ios' ? 0 : 20,
+    },
+    header: {
+        flex: .5,
+        width: '100%',
+    },
+    headerSubView: {
+        flex: 1,
+        flexDirection: 'row',
+        marginLeft: 10,
+        marginRight: 10,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-end',
+        backgroundColor: Colors.bodyColor,
     },
     body: {
-        flex: 1,
+        flex: 5.5,
     },
     listContainer: {
         flex: 1,
@@ -272,7 +299,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.4,
         shadowRadius: 3,
         elevation: 5,
-        flexDirection: 'row',
     },
     itemBody: {
         flex: 1,
@@ -328,5 +354,14 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         height: 100,
         marginTop: 10,
+    },
+    badge: {
+        alignSelf: 'flex-start',
+        marginLeft: 5,
+        marginRight: 5,
+        borderRadius: 5,
+        letterSpacing: 1,
+        fontWeight: '500',
+        color: Colors.fontColorWhite,
     },
 });

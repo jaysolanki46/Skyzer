@@ -58,30 +58,34 @@ export default Support = ({ navigation }) => {
                     height: Dimensions.get("window").height
                 }}>
                 <View style={styles.bodyEmail}>
-                    <TouchableOpacity onPress={() => { Linking.openURL(`mailto:support@skyzer.co.nz`) }}>
+                    
                     <View style={styles.cardEmail}>
-                        <Text style={{ color: Colors.fontColorWhite, fontWeight: 'bold', fontSize: 17, marginLeft: 'auto', margin: 10}}>
-                            support@skyzer.co.nz
-                        </Text>
+                        <TouchableOpacity style={{flex: 1, flexDirection: 'row', alignItems: 'center'}} 
+                            onPress={() => { Linking.openURL(`mailto:support@skyzer.co.nz`) }}>
+                            <Text style={{ color: Colors.fontColorWhite, fontWeight: 'bold', fontSize: 17, marginLeft: 'auto', margin: 10}}>
+                                support@skyzer.co.nz
+                            </Text>
                         <Image
                             style={{ width: 50, height: 50, borderRadius: 10, marginLeft: 'auto', marginRight: 10}}
                             source={email}
                         />
+                            </TouchableOpacity>
                     </View>
-                    </TouchableOpacity>
+                    
                 </View>
                 <View style={styles.bodyPhone}>
-                    <TouchableOpacity onPress={() => { Linking.openURL(`tel:092590322`) }}>
                     <View style={styles.cardPhone}>
-                        <Image
-                            style={{ width: 50, height: 50, borderRadius: 10, marginRight: 'auto', marginLeft: 10}}
-                            source={phone}
-                        />
-                        <Text style={{ color: Colors.fontColorWhite, fontWeight: 'bold', fontSize: 17, marginRight: 'auto', margin: 10 }}>
-                            09 259 0322
-                        </Text>
+                        <TouchableOpacity style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
+                            onPress={() => { Linking.openURL(`tel:092590322`) }}>
+                            <Image
+                                style={{ width: 50, height: 50, borderRadius: 10, marginRight: 'auto', marginLeft: 10}}
+                                source={phone}
+                            />
+                            <Text style={{ color: Colors.fontColorWhite, fontWeight: 'bold', fontSize: 17, marginRight: 'auto', margin: 10 }}>
+                                09 259 0322
+                            </Text>
+                        </TouchableOpacity>
                     </View>
-                    </TouchableOpacity>
                 </View>
             </ImageBackground>
             </View>
@@ -137,8 +141,6 @@ const styles = StyleSheet.create({
         marginRight: 100,
         borderTopRightRadius: 10,
         borderBottomRightRadius: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
     },
     bodyPhone: {
         flex: 3,
@@ -150,8 +152,6 @@ const styles = StyleSheet.create({
         marginLeft: 100,
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
     },
     footer: {
         flex: 1,

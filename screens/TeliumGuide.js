@@ -5,6 +5,7 @@ import Colors from '../config/Colors';
 import Configurations from '../config/Configurations';
 import Headertext from '../config/Headertext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/core';
 
 export default TeliumGuide = () => {
 
@@ -23,13 +24,16 @@ export default TeliumGuide = () => {
         settingSession();
     }, []);
 
-    useEffect(() => {
-        let isMounted = true;
-        wait(1000).then(() => {
-            if (isMounted) InitList()
-        });
-        return () => { isMounted = false };
-    }, [sessionId]);
+    /** REFRESH THE PAGE ON EVERY VISIT */
+    useFocusEffect(
+        React.useCallback(() => {
+            let isMounted = true;
+            wait(1000).then(() => {
+                if (isMounted) InitList()
+            });
+            return () => { isMounted = false };
+        }, [sessionId])
+    );
 
     const InitList = async () => {
 
@@ -135,12 +139,12 @@ export default TeliumGuide = () => {
         return (
             <View style={[styles.listContainer]}>
                 <View style={{
-                    flex: 1, justifyContent: 'center', alignItems: 'center',
+                    flex: 1.1, justifyContent: 'center', alignItems: 'center',
                     backgroundColor: Colors.colorType2_1, borderRadius: 5
                 }}>
                     <Text style={{ color: Colors.fontColorWhite, letterSpacing: 1, fontWeight: '500' }}>TELIUM</Text>
                 </View>
-                <View style={{ flex: 5 }}>
+                <View style={{ flex: 4.9 }}>
                     <View style={[styles.itemBody]}>
                         <View style={styles.itemBodyLeft}>
                             <Text style={styles.itemQuestion}>{item.name}</Text>
@@ -195,7 +199,7 @@ export default TeliumGuide = () => {
     function renderEmptyContainer() {
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Image style={styles.noContent} source={require('../assets/images/no-content.gif')} />
+                <Image style={styles.noContent} source={require('../assets/images/no-content-telium.png')} />
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={[Headertext.h4, { fontWeight: 'bold' }]}>NO ITEMS,</Text>
                     <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}>SORRY!</Text>

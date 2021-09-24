@@ -15,6 +15,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Values from '../screens/Values';
 import WhoWeAre from '../screens/WhoWeAre';
 import More from '../screens/More';
+import Terms from '../screens/Terms';
+import Credits from '../screens/Credits';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -65,6 +67,18 @@ function HomeTabs() {
       <Stack.Screen name="More" component={More} options={{
         headerShown: true,
         headerTitle: "More",
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
+      }} />
+      <Stack.Screen name="Terms" component={Terms} options={{
+        headerShown: true,
+        headerTitle: "Terms",
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
+      }} />
+      <Stack.Screen name="Credits" component={Credits} options={{
+        headerShown: true,
+        headerTitle: "Credits",
         headerTitleAlign: 'center',
         headerBackTitleVisible: false,
       }} />

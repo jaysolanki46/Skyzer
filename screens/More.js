@@ -12,7 +12,7 @@ import moreBanner from '../assets/images/more-banner.png';
 import Constants from 'expo-constants';
 import copyright from '../assets/images/copyright.png';
 
-export default More = () => {
+export default More = ({ navigation }) => {
 
    
     return (
@@ -30,20 +30,20 @@ export default More = () => {
 
             <View style={styles.body}>
                 <View style={{borderWidth: .5, borderColor: Colors.grey}}/>
-                <TouchableOpacity onPress={() => Alert.alert('Terms')}>
+                <TouchableOpacity onPress={() => { navigation.navigate('Terms') }}>
                     <Text style={[{ fontSize: 17, marginTop: 10, marginBottom: 10, fontWeight: '500', color: Colors.link}]}>
-                        Terms and Privacy Policy
+                        Terms & Privacy Policy
                     </Text>
                 </TouchableOpacity>
                 <View style={{ borderWidth: .5, borderColor: Colors.grey }} />
-                <TouchableOpacity onPress={() => Alert.alert('Licenses')}>
+                <TouchableOpacity onPress={() => { navigation.navigate('Terms') }}>
                     <Text style={[{ fontSize: 17, marginTop: 10, marginBottom: 10, fontWeight: '500', color: Colors.link }]}>
                         Licenses
                     </Text>
                 </TouchableOpacity>
 
                 <View style={{ borderWidth: .5, borderColor: Colors.grey }} />
-                <TouchableOpacity onPress={() => Alert.alert('Credits')}>
+                <TouchableOpacity onPress={() => { navigation.navigate('Credits') }}>
                     <Text style={[{ fontSize: 17, marginTop: 10, marginBottom: 10, fontWeight: '500', color: Colors.link }]}>
                         Credits
                     </Text>

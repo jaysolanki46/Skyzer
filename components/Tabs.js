@@ -14,6 +14,7 @@ import Colors from '../config/Colors';
 import { createStackNavigator } from '@react-navigation/stack';
 import Values from '../screens/Values';
 import WhoWeAre from '../screens/WhoWeAre';
+import More from '../screens/More';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -61,9 +62,15 @@ function HomeTabs() {
         headerTitleAlign: 'center',
         headerBackTitleVisible: false,
       }} />
+      <Stack.Screen name="More" component={More} options={{
+        headerShown: true,
+        headerTitle: "More",
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
+      }} />
     </Stack.Navigator>
   );
-}
+} 
 
 export default Tabs = () => {
 

@@ -9,7 +9,7 @@ import Configurations from '../config/Configurations';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import defaultImageUrl from '../assets/images/profile.png';
 
-export default Profile = () => {
+export default Profile = ({ navigation }) => {
 
     const [image, setImage] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
@@ -168,7 +168,7 @@ export default Profile = () => {
                                     />
                         }
                     </View>
-                    <TouchableOpacity style={{ backgroundColor: Colors.colorType3_1, padding: 10, borderRadius: 10, }} onPress={pickImage}>
+                    <TouchableOpacity style={{ backgroundColor: Colors.colorType1_3, padding: 10, borderRadius: 10, }} onPress={pickImage}>
                         <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: 'bold' }]}>Change Photo</Text>
                     </TouchableOpacity>
                     
@@ -218,7 +218,7 @@ export default Profile = () => {
                     </View>
                     <View style={{ flex: 1.2, }}>
                         <View style={[styles.fieldBlock, {justifyContent: 'center', borderBottomWidth: 0}]}>
-                            <TouchableOpacity style={{backgroundColor: Colors.colorType4_1, padding: 10, borderRadius: 10,}} onPress={() => logOut()}>
+                            <TouchableOpacity style={{backgroundColor: Colors.colorType1_1, padding: 10, borderRadius: 10,}} onPress={() => logOut()}>
                                 <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: 'bold' }]}>Log out</Text>
                             </TouchableOpacity>
                         </View>
@@ -234,7 +234,7 @@ export default Profile = () => {
             <View style={styles.header}>
                 <View style={styles.headerSubView}>
                     <Text style={[Headertext.h1, { marginRight: 10, color: Colors.fontColorBluest }]}>Profile</Text>
-                    <TouchableOpacity onPress={() => alert("Me help!!!")}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('More') }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                             <Image
                                 style={styles.help}

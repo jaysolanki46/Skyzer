@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 4.5,
-        paddingTop: Platform.OS != 'ios' ? 40 : 0,
+        paddingTop: Platform.OS != 'ios' ? 40 : 20,
         margin: 15,
     },
     image: {

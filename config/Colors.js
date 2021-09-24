@@ -43,4 +43,5 @@ export default {
     grey: '#696969',
     danger: '#ff0e0e',
     seperator: '#f1f1f1',
+    link: '#0645AD',
 }

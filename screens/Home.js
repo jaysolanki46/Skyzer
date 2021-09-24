@@ -83,7 +83,7 @@ export default Home = ({ navigation }) => {
 
                     <View style={{ flex: 1, }}>
                         <View style={[styles.headerRight]}>
-                            <TouchableOpacity style={{ borderWidth: 0.5, borderRadius: 10, borderColor: Colors.colorType1_1 }}
+                            <TouchableOpacity style={{ borderRadius: 10, borderColor: Colors.bodyColor }}
                                 onPress={() => navigation.navigate('Profile')}>
                                 {
                                     sessionUserProfile == null ?

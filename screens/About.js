@@ -101,7 +101,7 @@ export default About = ({ navigation }) => {
                                     FOLLOW US:
                                 </Text>
                                 <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                                <TouchableOpacity onPress={() => Linking.openURL("https://www.facebook.com/skyzernz/")} style={styles.social_button}><Image style={styles.social_logo} source={facebook} /></TouchableOpacity>
+                                    <TouchableOpacity onPress={() => Linking.openURL("https://www.facebook.com/skyzernz/")} style={styles.social_button}><Image style={styles.social_logo} source={facebook} /></TouchableOpacity>
                                     <TouchableOpacity onPress={() => Linking.openURL("https://www.linkedin.com/company/skyzer-technologies-nz?originalSubdomain=nz")} style={styles.social_button}><Image style={styles.social_logo} source={linkedin} /></TouchableOpacity>
                                     <TouchableOpacity onPress={() => Linking.openURL("https://www.instagram.com/skyzer.technologies/")} style={styles.social_button}><Image style={styles.social_logo} source={instagram} /></TouchableOpacity>
                                 </View>
@@ -166,8 +166,8 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
     social_logo: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         resizeMode: 'stretch'
     },
 });

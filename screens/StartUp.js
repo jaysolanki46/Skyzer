@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, ScrollView, Alert,} from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, ScrollView, Alert, Linking,} from 'react-native';
 import Colors from '../config/Colors';
 import { StatusBar } from 'react-native';
 import Modal from 'react-native-modal';
@@ -7,6 +7,9 @@ import Logo from '../components/Logo';
 import Headertext from '../config/Headertext';
 import backgroundImage from "../assets/images/background.jpg";
 import bodyImage from "../assets/images/startup_body.png";
+import facebook from '../assets/images/facebook.png';
+import linkedin from '../assets/images/linkedin.png';
+import instagram from '../assets/images/instagram.png';
 
 export default StartUp = ({navigation}) => {
     
@@ -41,8 +44,9 @@ export default StartUp = ({navigation}) => {
         <View style={styles.footer}>
           <Text style={[Headertext.h5, ]}>Follow Us:</Text>
             <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/facebook.png')} /></TouchableOpacity>
-              <TouchableOpacity style={styles.social_button}><Image style={styles.social_logo} source={require('../assets/images/linkedin.png')} /></TouchableOpacity>
+              <TouchableOpacity onPress={() => { Linking.openURL(`https://www.facebook.com/skyzernz/`) }} style={styles.social_button}><Image style={styles.social_logo} source={facebook} /></TouchableOpacity>
+              <TouchableOpacity onPress={() => { Linking.openURL(`https://www.linkedin.com/company/skyzer-technologies-nz/mycompany/`) }} style={styles.social_button}><Image style={styles.social_logo} source={linkedin} /></TouchableOpacity>
+              <TouchableOpacity onPress={() => Linking.openURL("https://www.instagram.com/skyzer.technologies/")} style={styles.social_button}><Image style={styles.social_logo} source={instagram} /></TouchableOpacity>
             </View>
         </View>
         </ImageBackground>
@@ -96,8 +100,8 @@ export default StartUp = ({navigation}) => {
         resizeMode: 'contain'
       },
       social_logo: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         resizeMode: 'stretch'
       },
       modelContainer: {

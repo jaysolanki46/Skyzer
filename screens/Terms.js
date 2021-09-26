@@ -54,13 +54,13 @@ export default Terms = () => {
                     We may collect, hold, use, and disclose information for the following purposes, and personal information will not be further processed in a manner that is incompatible with these purposes:
                 </Text>
                 <Text style={Headertext.h5, styles.paraText}>
-                    {'\u2B24'} to contact and communicate with you
+                    {'\u2B24'} To contact and communicate with you
                 </Text>
                 <Text style={Headertext.h5, styles.paraText}>
-                    {'\u2B24'} for analytics, market research, and business development, including to operate and improve associated application
+                    {'\u2B24'} For analytics, market research, and business development, including to operate and improve associated application
                 </Text>
                 <Text style={Headertext.h5, styles.paraText}>
-                    {'\u2B24'} for internal record keeping and administrative purposes
+                    {'\u2B24'} For internal record keeping and administrative purposes
                 </Text>
 
                 <Text style={[Headertext.h4, { color: Colors.fontColorBlack, marginTop: 20 }]}>Personal Information</Text>

@@ -127,7 +127,7 @@ const App = () => {
         await AsyncStorage.removeItem('username');
         await AsyncStorage.removeItem('profile');
       } catch (error) {
-        console.log("Helre" . error);
+        console.log(error);
       }
       dispatch({type: 'LOGOUT'})
     },

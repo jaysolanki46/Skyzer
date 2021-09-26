@@ -71,7 +71,7 @@ export default LogIn = ({navigation}) => {
                   </View>
                 </View>
                 :
-                <KeyboardAwareScrollView
+                <KeyboardAwareScrollView showsVerticalScrollIndicator={false}
                   enableOnAndroid={true}
                   style={{ flexGrow: 1 }}
                 >

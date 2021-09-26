@@ -35,12 +35,6 @@ export default More = ({ navigation }) => {
                         Terms & Privacy Policy
                     </Text>
                 </TouchableOpacity>
-                <View style={{ borderWidth: .5, borderColor: Colors.grey }} />
-                <TouchableOpacity onPress={() => { navigation.navigate('Terms') }}>
-                    <Text style={[{ fontSize: 17, marginTop: 10, marginBottom: 10, fontWeight: '500', color: Colors.link }]}>
-                        Licenses
-                    </Text>
-                </TouchableOpacity>
 
                 <View style={{ borderWidth: .5, borderColor: Colors.grey }} />
                 <TouchableOpacity onPress={() => { navigation.navigate('Credits') }}>

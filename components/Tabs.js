@@ -72,7 +72,7 @@ function HomeTabs() {
       }} />
       <Stack.Screen name="Terms" component={Terms} options={{
         headerShown: true,
-        headerTitle: "Terms",
+        headerTitle: "Terms & Privacy Policy",
         headerTitleAlign: 'center',
         headerBackTitleVisible: false,
       }} />

@@ -5,10 +5,10 @@ import whoWeAre from "../assets/images/about/who-we-are.png";
 import values from "../assets/images/about/value-s.png";
 import Headertext from '../config/Headertext';
 import { LinearGradient } from 'expo-linear-gradient';
-import aboutBanner from '../assets/images/about-banner.png';
-import facebook from '../assets/images/facebook.png';
-import linkedin from '../assets/images/linkedin.png';
-import instagram from '../assets/images/instagram.png';
+import AboutBanner from '../assets/images/about/about-banner.png';
+import facebookImage from '../assets/images/social/facebook.png';
+import linkedinImage from '../assets/images/social/linkedin.png';
+import instagramImage from '../assets/images/social/instagram.png';
 
 export default About = ({ navigation }) => {
 
@@ -23,7 +23,7 @@ export default About = ({ navigation }) => {
                     <View style={styles.headerBox}>
                         <Image
                             style={styles.headerImage}
-                            source={aboutBanner}
+                        source={AboutBanner}
                         />
                     </View>
                 </View>
@@ -101,9 +101,9 @@ export default About = ({ navigation }) => {
                                     FOLLOW US:
                                 </Text>
                                 <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                                    <TouchableOpacity onPress={() => Linking.openURL("https://www.facebook.com/skyzernz/")} style={styles.social_button}><Image style={styles.social_logo} source={facebook} /></TouchableOpacity>
-                                    <TouchableOpacity onPress={() => Linking.openURL("https://www.linkedin.com/company/skyzer-technologies-nz?originalSubdomain=nz")} style={styles.social_button}><Image style={styles.social_logo} source={linkedin} /></TouchableOpacity>
-                                    <TouchableOpacity onPress={() => Linking.openURL("https://www.instagram.com/skyzer.technologies/")} style={styles.social_button}><Image style={styles.social_logo} source={instagram} /></TouchableOpacity>
+                                    <TouchableOpacity onPress={() => Linking.openURL("https://www.facebook.com/skyzernz/")} style={styles.socialButton}><Image style={styles.socialLogo} source={facebookImage} /></TouchableOpacity>
+                                    <TouchableOpacity onPress={() => Linking.openURL("https://www.linkedin.com/company/skyzer-technologies-nz?originalSubdomain=nz")} style={styles.socialButton}><Image style={styles.socialLogo} source={linkedinImage} /></TouchableOpacity>
+                                    <TouchableOpacity onPress={() => Linking.openURL("https://www.instagram.com/skyzer.technologies/")} style={styles.socialButton}><Image style={styles.socialLogo} source={instagramImage} /></TouchableOpacity>
                                 </View>
                             </View>
                     </View>
@@ -161,11 +161,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold', 
         color: Colors.fontColorWhite,
     },
-    social_button: {
+    socialButton: {
         marginRight: 15,
         borderRadius: 25,
     },
-    social_logo: {
+    socialLogo: {
         width: 40,
         height: 40,
         resizeMode: 'stretch'

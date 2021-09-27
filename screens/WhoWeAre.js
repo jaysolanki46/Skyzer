@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { ImageBackground, StyleSheet, Platform, StatusBar, SafeAreaView, View, ScrollView, Dimensions, Image, Text, TouchableOpacity, Alert, Linking,  } from 'react-native';
+import { ImageBackground, StyleSheet, Platform, StatusBar, SafeAreaView, View, ScrollView, Image, Text, TouchableOpacity, Linking,  } from 'react-native';
 import Colors from '../config/Colors';
 import backgroundImage from "../assets/images/about/headerBackground.jpg";
-import { LinearGradient } from 'expo-linear-gradient';
 import Headertext from '../config/Headertext';
-import whoWeAre from "../assets/images/about/who-we-are.png";
 import { useEffect } from 'react';
 import Configurations from '../config/Configurations';
 

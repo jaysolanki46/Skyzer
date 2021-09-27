@@ -1,16 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { ImageBackground, StyleSheet, Text, View, StatusBar, Button, Image, TextInput, TouchableOpacity, ActivityIndicator, SafeAreaView, Dimensions, Alert } from 'react-native';
+import React, {  } from 'react';
+import { StyleSheet, Text, View, StatusBar, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import Colors from '../config/Colors';
-import Headertext from '../config/Headertext';
-import * as ImagePicker from 'expo-image-picker';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AuthContext } from '../components/AuthContext';
-import Configurations from '../config/Configurations';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import defaultImageUrl from '../assets/images/profile.png';
-import moreBanner from '../assets/images/more-banner.png';
+import MoreBanner from '../assets/images/more/more-banner.png';
 import Constants from 'expo-constants';
-import copyright from '../assets/images/copyright.png';
+import CopyrightImage from '../assets/images/more/copyright.png';
 
 export default More = ({ navigation }) => {
 
@@ -23,7 +16,7 @@ export default More = ({ navigation }) => {
                 <View style={styles.headerBox}>
                     <Image
                         style={styles.headerImage}
-                        source={moreBanner}
+                        source={MoreBanner}
                     />
                 </View>
             </View>
@@ -46,7 +39,7 @@ export default More = ({ navigation }) => {
                 <View style={{ borderWidth: .5, borderColor: Colors.grey }} />
                 <View style={{flexDirection: 'row', alignItems: 'center',}}>
                     <Image style={{ width: 12, height: 12, marginRight: 5 }}
-                        source={copyright} />
+                        source={CopyrightImage} />
                     <Text style={[{
                         fontSize: 12, marginTop: 5, marginBottom: 5, fontWeight: '500',
                         color: Colors.fontColorLightBlack, 

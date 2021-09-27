@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import { StyleSheet, Platform, StatusBar, SafeAreaView, Text, View, Image, Animated, TouchableOpacity, Linking, ImageBackground, Dimensions } from 'react-native';
 import Colors from '../config/Colors';
-import contactBanner from '../assets/images/contact-banner.png';
-import phone from '../assets/images/contact-phone.png';
-import email from '../assets/images/contact-email.png';
+import ContactBannerImage from '../assets/images/support/support-banner.png';
+import PhoneImage from '../assets/images/support/support-phone.png';
+import EmailImage from '../assets/images/support/support-email.png';
 import Headertext from '../config/Headertext';
-import backgroundImage from "../assets/images/background-main.jpg";
+import BackgroundImage from "../assets/images/background-main.jpg";
 
 const LRView = (props) => {
     const LRanim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
@@ -45,13 +45,13 @@ export default Support = ({ navigation }) => {
                 <View style={styles.headerImage}>
                     <Image
                         style={styles.image}
-                        source={contactBanner}
+                        source={ContactBannerImage}
                     />
                 </View>
            </View>
 
             <View style={styles.body}>
-                <ImageBackground source={backgroundImage} style={{
+                <ImageBackground source={BackgroundImage} style={{
                     flex: 1,
                     backgroundColor: 'rgba(0,0,0,0.45)',
                     width: Dimensions.get("window").width,
@@ -67,7 +67,7 @@ export default Support = ({ navigation }) => {
                             </Text>
                         <Image
                             style={{ width: 50, height: 50, borderRadius: 10, marginLeft: 'auto', marginRight: 10}}
-                            source={email}
+                            source={EmailImage}
                         />
                             </TouchableOpacity>
                     </View>
@@ -79,7 +79,7 @@ export default Support = ({ navigation }) => {
                             onPress={() => { Linking.openURL(`tel:092590322`) }}>
                             <Image
                                 style={{ width: 50, height: 50, borderRadius: 10, marginRight: 'auto', marginLeft: 10}}
-                                source={phone}
+                                source={PhoneImage}
                             />
                             <Text style={{ color: Colors.fontColorWhite, fontWeight: 'bold', fontSize: 17, marginRight: 'auto', margin: 10 }}>
                                 09 259 0322

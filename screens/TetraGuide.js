@@ -6,6 +6,11 @@ import Configurations from '../config/Configurations';
 import Headertext from '../config/Headertext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/core';
+import NoContentImage from '../assets/images/tetra/no-content.png';
+import LoaderImage from '../assets/images/list-loader.gif';
+import StarImage from '../assets/images/tetra/tetra-star.png';
+import StarOutlineImage from '../assets/images/tetra/tetra-star-outline.png'
+
 
 export default TetraGuide = () => {
 
@@ -156,13 +161,13 @@ export default TetraGuide = () => {
                             item.is_favorite ?
                                 <View>
                                     <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, false)}>
-                                        <Image style={styles.itemCardImage} source={require('../assets/images/tetra-star.png')} />
+                                            <Image style={styles.itemCardImage} source={StarImage} />
                                     </TouchableOpacity>
                                 </View>
                                 :
                                 <View>
                                     <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, true)}>
-                                            <Image style={styles.itemCardImage} source={require('../assets/images/tetra-star-outline.png')} />
+                                            <Image style={styles.itemCardImage} source={StarOutlineImage} />
                                     </TouchableOpacity>
                                 </View>
                         }
@@ -187,11 +192,11 @@ export default TetraGuide = () => {
         return (
             <View style={{ flex: 1, }}>
                 <Image style={styles.loader}
-                    source={require('../assets/images/list-loader.gif')} />
+                    source={LoaderImage} />
                 <Image style={styles.loader}
-                    source={require('../assets/images/list-loader.gif')} />
+                    source={LoaderImage} />
                 <Image style={styles.loader}
-                    source={require('../assets/images/list-loader.gif')} />
+                    source={LoaderImage} />
             </View>
         );
     }
@@ -199,7 +204,7 @@ export default TetraGuide = () => {
     function renderEmptyContainer() {
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Image style={styles.noContent} source={require('../assets/images/no-content.png')} />
+                <Image style={styles.noContent} source={NoContentImage} />
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={[Headertext.h4, { fontWeight: 'bold' }]}>NO ITEMS,</Text>
                     <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}>SORRY!</Text>

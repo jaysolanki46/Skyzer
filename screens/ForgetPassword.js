@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { ImageBackground, Linking, Button, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, KeyboardAvoidingView, StatusBar, ScrollView, LayoutAnimation, Alert, SafeAreaView } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, StatusBar, Alert, SafeAreaView } from 'react-native';
 import Headertext from '../config/Headertext';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AuthContext } from '../components/AuthContext';
-import backgroundImage from "../assets/images/background.jpg";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
+import BackgroundImage from "../assets/images/background.jpg";
 import Configurations from '../config/Configurations';
+import rightArrowImage from '../assets/images/right-arrow.png';
 
 export default ForgetPassword = ({ navigation }) => {
 
@@ -53,7 +51,7 @@ console.log(status);
     return (
 
         <SafeAreaView style={styles.container} behavior="height">
-            <ImageBackground source={backgroundImage} resizeMode="cover" style={{
+            <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
                 position: 'absolute',
                 flex: 1,
                 backgroundColor: 'rgba(0,0,0,0.45)',
@@ -88,7 +86,7 @@ console.log(status);
                                 <TouchableOpacity style={[styles.button]} onPress={() => { forgetPasswordHandle() }}>
                                     <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Send</Text>
                                 </TouchableOpacity>
-                                    <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />
+                                <Image style={[styles.icon]} source={rightArrowImage} />
                             </View>
                         </View>
                         <View style={{ marginTop: 10, marginBottom: 10, width: Dimensions.get('window').width - 100, flexDirection: 'row', alignItems: 'center', }}>
@@ -141,16 +139,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: Colors.fontColorWhite,
     },
-    modelContainer: {
-        flex: 1,
-        borderRadius: 25,
-    },
-    modelHeader: {
-        flexDirection: 'row',
-        padding: 10,
-        marginLeft: 5,
-        borderRadius: 25,
-    },
     input: {
         width: Dimensions.get('window').width - 100,
         height: 40,
@@ -172,22 +160,10 @@ const styles = StyleSheet.create({
         height: 25,
         resizeMode: 'stretch'
     },
-    iconClose: {
-        width: 15,
-        height: 15,
-        resizeMode: 'stretch'
-    },
     navButton: {
         padding: 5,
         borderWidth: 1,
         borderRadius: 5,
         borderColor: Colors.fontColorWhite,
     },
-    moveRight: {
-        marginLeft: 'auto',
-    },
-    moveLeft: {
-        marginRight: 'auto',
-    }
-
 });

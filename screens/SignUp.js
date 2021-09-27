@@ -5,8 +5,9 @@ import Headertext from '../config/Headertext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Configurations from '../config/Configurations';
-import backgroundImage from "../assets/images/background.jpg";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
+import BackgroundImage from "../assets/images/background.jpg";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import rightArrowImage from '../assets/images/right-arrow.png';
 
 export default SignUp = ({ navigation }) => {
 
@@ -134,7 +135,7 @@ export default SignUp = ({ navigation }) => {
     return (
 
         <SafeAreaView style={styles.container}>
-            <ImageBackground source={backgroundImage} resizeMode="cover" style={{
+            <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
                 position: 'absolute',
                 flex: 1,
                 backgroundColor: 'rgba(0,0,0,0.45)',
@@ -200,13 +201,13 @@ export default SignUp = ({ navigation }) => {
                                                                 <Text style={[Headertext.h4, { color: Colors.fontColorBluest }]}>Find Account Number?</Text>
                                                             </View>
                                                             <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10 }}>
-                                                                <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>Find on Dealer TMS, under Quick stats</Text>
+                                                                <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>Available on Dealer TMS, under Quick stats</Text>
                                                             </View>
                                                             <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center', margin: 10 }}>
                                                                 <Text style={[Headertext.h4, { color: Colors.fontColorBluest }]}>OR</Text>
                                                             </View>
                                                             <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10 }}>
-                                                                <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>Contact Skyzer</Text>
+                                                                <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>No Dealer TMS access! No Problem, just request to Skyzer they will tell you what yours.</Text>
                                                             </View>
                                                         </View>
                                                     }
@@ -228,7 +229,7 @@ export default SignUp = ({ navigation }) => {
                                                         <Text style={[Headertext.h4, { color: Colors.fontColorWhite }]}>Sign Up</Text>
                                                     </TouchableOpacity>
                                                     <View>
-                                                        <Image style={[styles.icon, { marginRight: 10 }]} source={require('../assets/images/right-arrow.png')} />
+                                                        <Image style={[styles.icon, { marginRight: 10 }]} source={rightArrowImage} />
                                                     </View>
                                                 </View>
                                             </View>
@@ -312,7 +313,7 @@ export default SignUp = ({ navigation }) => {
                                                         <Text style={[Headertext.h4, { color: Colors.buttonWhite }]}>Sign Up</Text>
                                                     </TouchableOpacity>
                                                     <View>
-                                                        <Image style={[styles.icon, { marginRight: 10 }]} source={require('../assets/images/right-arrow.png')} />
+                                                        <Image style={[styles.icon, { marginRight: 10 }]} source={rightArrowImage} />
                                                     </View>
                                                 </View>
                                             </View>
@@ -384,11 +385,6 @@ const styles = StyleSheet.create({
     icon: {
         width: 25,
         height: 25,
-        resizeMode: 'stretch'
-    },
-    iconClose: {
-        width: 15,
-        height: 15,
         resizeMode: 'stretch'
     },
     navButton: {

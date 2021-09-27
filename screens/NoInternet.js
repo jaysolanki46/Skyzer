@@ -4,6 +4,7 @@ import backgroundImage from "../assets/images/background.jpg";
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import { Restart } from 'fiction-expo-restart';
+import NoInternetConnectionImage from '../assets/images/no-internet.png';
 
 const NoInternet = (props) => {
     const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
@@ -41,14 +42,14 @@ export default Loading = () => {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <Image
                     style={styles.logo}
-                    source={require('../assets/images/no-internet.png')}
+                    source={NoInternetConnectionImage}
                 />
 
                 <Text style={[Headertext.h1, { color: Colors.fontColorBluest, marginTop: 20 }]}>
                     NO INTERNET
                 </Text>
 
-                <TouchableOpacity onPress={() => Restart()} style={styles.login_button}>
+                <TouchableOpacity onPress={() => Restart()} style={styles.loginButton}>
                     <Text style={[Headertext.h3, { color: Colors.buttonFont }]}>RETRY</Text>
                 </TouchableOpacity>
             </View>
@@ -57,17 +58,12 @@ export default Loading = () => {
 }
 
 const styles = StyleSheet.create({
-    tinyLogo: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-    },
     logo: {
         width: 300,
         height: 200,
         resizeMode: 'center'
     },
-    login_button: {
+    loginButton: {
         marginTop: 20,
         backgroundColor: Colors.buttonBody,
         paddingLeft: 50,

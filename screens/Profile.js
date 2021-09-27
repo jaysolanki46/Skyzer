@@ -7,7 +7,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
 import Configurations from '../config/Configurations';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import defaultImageUrl from '../assets/images/profile.png';
+import MoreImage from '../assets/images/more/more.png';
+import DefaultProfileImage from '../assets/images/profile/profile.png';
+import LoaderImage from '../assets/images/list-loader.gif';
 
 export default Profile = ({ navigation }) => {
 
@@ -139,11 +141,11 @@ export default Profile = ({ navigation }) => {
         return (
             <View style={{ flex: 1, }}>
                 <Image style={styles.loader}
-                    source={require('../assets/images/list-loader.gif')} />
+                    source={LoaderImage} />
                 <Image style={styles.loader}
-                    source={require('../assets/images/list-loader.gif')} />
+                    source={LoaderImage} />
                 <Image style={styles.loader}
-                    source={require('../assets/images/list-loader.gif')} />
+                    source={LoaderImage} />
             </View>
         );
     }
@@ -160,7 +162,7 @@ export default Profile = ({ navigation }) => {
                                 image == null ?
                                     <Image
                                         style={styles.profile}
-                                        source={defaultImageUrl}
+                                        source={DefaultProfileImage}
                                     /> :
                                     <Image
                                         style={styles.profile}
@@ -238,7 +240,7 @@ export default Profile = ({ navigation }) => {
                         <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                             <Image
                                 style={styles.help}
-                                source={require('../assets/images/help.png')}
+                                source={MoreImage}
                             />
                             <Text style={[Headertext.h5, { fontWeight: 'bold', color: Colors.fontColorBluest, margin: 5 }]}>More</Text>
                         </View>

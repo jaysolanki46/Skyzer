@@ -3,13 +3,14 @@ import { View, Text, Image, StyleSheet, SafeAreaView, StatusBar, ImageBackground
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
-import backgroundImage from "../assets/images/background.jpg";
+import BackgroundImage from "../assets/images/background.jpg";
+import successImage from '../assets/images/successfully.png';
 
 export default SignUpSuccess = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{flex: 1, }}>
-            <ImageBackground source={backgroundImage} resizeMode="cover" style={{
+            <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
                 position: 'absolute',
                 flex: 1,
                 backgroundColor: 'rgba(0,0,0,0.45)',
@@ -23,11 +24,11 @@ export default SignUpSuccess = ({ navigation }) => {
             <View style={styles.body}>
                 <Image
                     style={styles.image}
-                    source={require('../assets/images/successfully.png')}
+                        source={successImage}
                 />
                 <Text style={[Headertext.h3 ,{color: Colors.fontColorBluest, margin: 10}]}>Register Successful</Text>
                 <Text style={[Headertext.h5, { margin: 10 }]}>Your account will be activated within 1 business day</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('LogIn')} style={styles.login_button}>
+                <TouchableOpacity onPress={() => navigation.navigate('LogIn')} style={styles.loginButton}>
                     <Text style={[Headertext.h4, { color: Colors.buttonFont }]}>Proceed to Login</Text>
                 </TouchableOpacity>
             </View>
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
     },
-    login_button: {
+    loginButton: {
         backgroundColor: Colors.buttonBody,
         paddingLeft: 50,
         paddingRight: 50,

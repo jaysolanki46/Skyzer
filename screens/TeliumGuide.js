@@ -6,6 +6,10 @@ import Configurations from '../config/Configurations';
 import Headertext from '../config/Headertext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/core';
+import StarImage from '../assets/images/telium/telium-star.png';
+import StarOutlineImage from '../assets/images/telium/telium-star-outline.png';
+import LoaderImage from '../assets/images/list-loader.gif';
+import NoContentImage from '../assets/images/telium/no-content.png';
 
 export default TeliumGuide = () => {
 
@@ -156,13 +160,13 @@ export default TeliumGuide = () => {
                                 item.is_favorite ?
                                     <View>
                                         <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, false)}>
-                                            <Image style={styles.itemCardImage} source={require('../assets/images/telium-star.png')} />
+                                            <Image style={styles.itemCardImage} source={StarImage} />
                                         </TouchableOpacity>
                                     </View>
                                     :
                                     <View>
                                         <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, true)}>
-                                            <Image style={styles.itemCardImage} source={require('../assets/images/telium-star-outline.png')} />
+                                            <Image style={styles.itemCardImage} source={StarOutlineImage} />
                                         </TouchableOpacity>
                                     </View>
                             }
@@ -187,11 +191,11 @@ export default TeliumGuide = () => {
         return (
             <View style={{ flex: 1, }}>
                 <Image style={styles.loader}
-                    source={require('../assets/images/list-loader.gif')} />
+                    source={LoaderImage} />
                 <Image style={styles.loader}
-                    source={require('../assets/images/list-loader.gif')} />
+                    source={LoaderImage} />
                 <Image style={styles.loader}
-                    source={require('../assets/images/list-loader.gif')} />
+                    source={LoaderImage} />
             </View>
         );
     }
@@ -199,7 +203,7 @@ export default TeliumGuide = () => {
     function renderEmptyContainer() {
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Image style={styles.noContent} source={require('../assets/images/no-content-telium.png')} />
+                <Image style={styles.noContent} source={NoContentImage} />
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={[Headertext.h4, { fontWeight: 'bold' }]}>NO ITEMS,</Text>
                     <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}>SORRY!</Text>

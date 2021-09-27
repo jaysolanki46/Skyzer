@@ -7,6 +7,9 @@ import Headertext from '../config/Headertext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/core';
 import { Badge } from 'react-native-paper';
+import StarImage from '../assets/images/tetra/tetra-star.png';
+import LoaderImage from '../assets/images/list-loader.gif';
+import NoContentImage from '../assets/images/tetra/no-content.png';
 
 export default Favourites = () => {
 
@@ -166,7 +169,7 @@ export default Favourites = () => {
                         {
                                 <View>
                                     <TouchableOpacity onPress={() => UpdateFavouriteItem(item.id, false)}>
-                                        <Image style={styles.itemCardImage} source={require('../assets/images/tetra-star.png')} />
+                                        <Image style={styles.itemCardImage} source={StarImage} />
                                     </TouchableOpacity>
                                 </View>
                         }
@@ -191,11 +194,11 @@ export default Favourites = () => {
         return (
             <View style={{ flex: 1, }}>
                 <Image style={styles.loader}
-                    source={require('../assets/images/list-loader.gif')} />
+                    source={LoaderImage} />
                 <Image style={styles.loader}
-                    source={require('../assets/images/list-loader.gif')} />
+                    source={LoaderImage} />
                 <Image style={styles.loader}
-                    source={require('../assets/images/list-loader.gif')} />
+                    source={LoaderImage} />
             </View>
         );
     }
@@ -203,7 +206,7 @@ export default Favourites = () => {
     function renderEmptyContainer() {
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Image style={styles.noContent} source={require('../assets/images/no-content.png')} />
+                <Image style={styles.noContent} source={NoContentImage} />
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}> NO FAVOURITES!</Text>
                 </View>

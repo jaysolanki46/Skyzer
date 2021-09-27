@@ -1,16 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { ImageBackground, StyleSheet, Text, View, StatusBar, Button, Image, TextInput, TouchableOpacity, ActivityIndicator, SafeAreaView, Dimensions, Alert, ScrollView } from 'react-native';
+import React, {  } from 'react';
+import { StyleSheet, Text, StatusBar, SafeAreaView, ScrollView } from 'react-native';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
-import * as ImagePicker from 'expo-image-picker';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AuthContext } from '../components/AuthContext';
-import Configurations from '../config/Configurations';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import defaultImageUrl from '../assets/images/profile.png';
-import moreBanner from '../assets/images/more-banner.png';
-import Constants from 'expo-constants';
-import copyright from '../assets/images/copyright.png';
 
 export default Terms = () => {
 

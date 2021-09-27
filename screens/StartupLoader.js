@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react';
-import { ImageBackground, Animated, Text, View , ActivityIndicator, Image, StyleSheet} from 'react-native';
-import backgroundImage from "../assets/images/background.jpg";
+import React, { useRef } from 'react';
+import { ImageBackground, Animated, View , Image, StyleSheet} from 'react-native';
+import BackgroundImage from "../assets/images/background.jpg";
+import StartUpImage from '../assets/images/startup-logo.png';
 
 const FadeInView = (props) => {
     const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
@@ -31,7 +32,7 @@ const FadeInView = (props) => {
 export default Loading = () => {
 
     return (
-      <ImageBackground source={backgroundImage} resizeMode="cover" style={{
+      <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
         flex: 1,
         justifyContent: "center"
       }}>
@@ -39,7 +40,7 @@ export default Loading = () => {
         <FadeInView style={{flex:1, justifyContent: 'center', alignItems: 'center', }}>
             <Image
                             style={styles.logo}
-                            source={require('../assets/images/startup-logo.png')}
+                            source={StartUpImage}
                         />
         </FadeInView>
         </View>
@@ -48,11 +49,6 @@ export default Loading = () => {
 }
 
 const styles = StyleSheet.create({
-    tinyLogo: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-    },
     logo: {
         width: 500,
         height: 100,

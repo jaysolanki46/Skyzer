@@ -5,7 +5,8 @@ import Headertext from '../config/Headertext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
 import backgroundImage from "../assets/images/background.jpg";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import rightArrowImage from '../assets/images/right-arrow.png';
 
 export default LogIn = ({navigation}) => {
 
@@ -67,7 +68,7 @@ export default LogIn = ({navigation}) => {
                     <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(username, password) }}>
                       <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Log In</Text>
                     </TouchableOpacity>
-                      <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />
+                    <Image style={[styles.icon]} source={rightArrowImage} />
                   </View>
                 </View>
                 :
@@ -98,7 +99,7 @@ export default LogIn = ({navigation}) => {
                         <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(username, password) }}>
                           <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Log In</Text>
                         </TouchableOpacity>
-                          <Image style={[styles.icon]} source={require('../assets/images/right-arrow.png')} />
+                        <Image style={[styles.icon]} source={rightArrowImage} />
                       </View>
                     </View>
                   </View>
@@ -124,10 +125,6 @@ export default LogIn = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-    svgCurve: {
-        position: 'absolute',
-        width: Dimensions.get('window').width,
-      },
     container: {
       flex: 1,
     },
@@ -161,16 +158,6 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       color: Colors.fontColorWhite,
     },
-    modelContainer: {
-      flex: 1, 
-      borderRadius: 25,
-    },
-    modelHeader: {
-      flexDirection: 'row', 
-      padding: 10,
-      marginLeft: 5,
-      borderRadius: 25,
-    },
     input: {
       width: Dimensions.get('window').width - 100,
       height: 40,
@@ -193,22 +180,10 @@ const styles = StyleSheet.create({
       height: 25,
       resizeMode: 'stretch'
     },
-    iconClose: {
-      width: 15,
-      height: 15,
-      resizeMode: 'stretch'
-    },
     navButton: {
       padding: 5,
       borderWidth: 1,
       borderRadius: 5,
       borderColor: Colors.fontColorWhite,
     },
-    moveRight: {
-      marginLeft: 'auto',
-    },
-    moveLeft: {
-      marginRight: 'auto',
-    }
-    
 });

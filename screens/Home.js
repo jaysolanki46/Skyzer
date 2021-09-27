@@ -1,44 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, StatusBar, SafeAreaView, TouchableOpacity, ImageBackground, Dimensions, ScrollView } from 'react-native';
 import Headertext from '../config/Headertext';
-import { FlatGrid } from 'react-native-super-grid';
 import Colors from '../config/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
-import backgroundImage from "../assets/images/background-main.jpg";
-import { Badge } from 'react-native-paper';
+import BackgroundImage from "../assets/images/background-main.jpg";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import defaultProfile from '../assets/images/profile.png';
+import DefaultProfileImage from '../assets/images/profile/profile.png';
 import { useFocusEffect } from '@react-navigation/native';
+import TetraGuideImage from '../assets/images/home/tetra-card-book.png';
+import TeliumGuideImage from '../assets/images/home/telium-card-book.png';
+import SupportImage from '../assets/images/home/contact-card-book.png'
+import AboutImage from '../assets/images/home/about-card-book.png';
 
 export default Home = ({ navigation }) => {
     const [items, setItems] = useState([
         {
             id: 1, name: 'TETRA',
             desc: 'Complete Guide',
-            image: require('../assets/images/tetra-card-book.png'),
+            image: TetraGuideImage,
             subItems: [{ id: 1, name: 'DESK3200' }, { id: 2, name: 'DESK5000' }, { id: 3, name: 'MOVE2500' }, { id: 4, name: 'MOVE5000' }],
-            color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3, icon: require('../assets/images/tetra-guide.png')
+            color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3
         },
         {
             id: 2, name: 'TELIUM',
             desc: 'Complete Guide',
-            image: require('../assets/images/telium-card-book.png'),
+            image: TeliumGuideImage,
             subItems: [{ id: 5, name: 'ICT220' }, { id: 6, name: 'ICT250' }, { id: 7, name: 'IWL255' }, { id: 8, name: 'IWL252' }],
-            color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3, icon: require('../assets/images/telium-guide.png')
+            color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3
         },
         {
             id: 3, name: 'SUPPORT',
             desc: 'Happy to help',
-            image: require('../assets/images/contact-card-book.png'),
+            image: SupportImage,
             subItems: [{ id: 9, name: 'CALL' }, { id: 10, name: 'EMAIL' },],
-            color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3, icon: require('../assets/images/contact-us.png')
+            color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3
         },
         {
             id: 4,name: 'ABOUT US',
             desc: 'Explore the Skyzer',
-            image: require('../assets/images/about-card-book.png'),
+            image: AboutImage,
             subItems: [{ id: 11, name: 'WHO WE ARE' }, { id: 12, name: 'VALUES' }, { id: 13, name: 'LOCATION' }, { id: 14, name: 'SOCIAL HANDLES' },],
-            color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3, icon: require('../assets/images/about-us.png')
+            color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3
         },
     ]);
 
@@ -89,7 +91,7 @@ export default Home = ({ navigation }) => {
                                     sessionUserProfile == null ?
                                         <Image
                                             style={styles.profile}
-                                            source={defaultProfile}
+                                            source={DefaultProfileImage}
                                         />
                                         :
                                         <Image
@@ -108,7 +110,7 @@ export default Home = ({ navigation }) => {
                 <Text style={[Headertext.h1, { color: Colors.fontColorPurplest, }]}>Home</Text>
             </View>
             <View style={styles.body}>
-                <ImageBackground source={backgroundImage} style={{
+                <ImageBackground source={BackgroundImage} style={{
                     flex: 1,
                     backgroundColor: 'rgba(0,0,0,0.45)',
                     width: Dimensions.get("window").width,

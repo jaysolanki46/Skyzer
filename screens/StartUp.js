@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, ScrollView, Alert, Linking,} from 'react-native';
+import React, {  } from 'react';
+import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Linking,} from 'react-native';
 import Colors from '../config/Colors';
 import { StatusBar } from 'react-native';
-import Modal from 'react-native-modal';
-import Logo from '../components/Logo';
 import Headertext from '../config/Headertext';
-import backgroundImage from "../assets/images/background.jpg";
+import BackgroundImage from "../assets/images/background.jpg";
 import bodyImage from "../assets/images/startup_body.png";
-import facebook from '../assets/images/facebook.png';
-import linkedin from '../assets/images/linkedin.png';
-import instagram from '../assets/images/instagram.png';
+import facebookImage from '../assets/images/social/facebook.png';
+import linkedinImage from '../assets/images/social/linkedin.png';
+import instagramImage from '../assets/images/social/instagram.png';
 
 export default StartUp = ({navigation}) => {
     
     return (
       <View style={styles.container}>
-        <ImageBackground source={backgroundImage} resizeMode="cover" style={{
+        <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
                 flex: 1,
                 justifyContent: "center"}}>
         {Platform.OS === 'ios' && <>
@@ -30,11 +28,11 @@ export default StartUp = ({navigation}) => {
         </View>
   
         <View style={styles.body}>
-            <Image style={styles.signup_body_image} source={bodyImage} />
+            <Image style={styles.signupBodyImage} source={bodyImage} />
         </View>
   
-        <View style={styles.signup_body}>
-          <TouchableOpacity onPress={() => navigation.navigate('LogIn')} style={styles.login_button}><Text style={[Headertext.h3, {color: Colors.buttonFont}]}>Login</Text></TouchableOpacity>
+        <View style={styles.signupBody}>
+          <TouchableOpacity onPress={() => navigation.navigate('LogIn')} style={styles.loginButton}><Text style={[Headertext.h3, {color: Colors.buttonFont}]}>Login</Text></TouchableOpacity>
           <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 5}}>
             <Text style={Headertext.h5}>Don't have an account?</Text>
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}><Text style={[styles.h5, {color: Colors.fontColorBluest, marginLeft: 5, fontWeight: '500',}]}>Signup</Text></TouchableOpacity>
@@ -44,9 +42,9 @@ export default StartUp = ({navigation}) => {
         <View style={styles.footer}>
           <Text style={[Headertext.h5, ]}>Follow Us:</Text>
             <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity onPress={() => { Linking.openURL(`https://www.facebook.com/skyzernz/`) }} style={styles.social_button}><Image style={styles.social_logo} source={facebook} /></TouchableOpacity>
-              <TouchableOpacity onPress={() => { Linking.openURL(`https://www.linkedin.com/company/skyzer-technologies-nz/mycompany/`) }} style={styles.social_button}><Image style={styles.social_logo} source={linkedin} /></TouchableOpacity>
-              <TouchableOpacity onPress={() => Linking.openURL("https://www.instagram.com/skyzer.technologies/")} style={styles.social_button}><Image style={styles.social_logo} source={instagram} /></TouchableOpacity>
+              <TouchableOpacity onPress={() => { Linking.openURL(`https://www.facebook.com/skyzernz/`) }} style={styles.socialButton}><Image style={styles.socialLogo} source={facebookImage} /></TouchableOpacity>
+              <TouchableOpacity onPress={() => { Linking.openURL(`https://www.linkedin.com/company/skyzer-technologies-nz/mycompany/`) }} style={styles.socialButton}><Image style={styles.socialLogo} source={linkedinImage} /></TouchableOpacity>
+              <TouchableOpacity onPress={() => Linking.openURL("https://www.instagram.com/skyzer.technologies/")} style={styles.socialButton}><Image style={styles.socialLogo} source={instagramImage} /></TouchableOpacity>
             </View>
         </View>
         </ImageBackground>
@@ -69,7 +67,7 @@ export default StartUp = ({navigation}) => {
         alignItems: 'center',
         margin: 10,
       },
-      signup_body: {
+      signupBody: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
@@ -78,7 +76,7 @@ export default StartUp = ({navigation}) => {
         flex: 1.5,
         alignItems: 'center',
       },
-      login_button: {
+      loginButton: {
         backgroundColor: Colors.buttonBody,
         paddingLeft: 120,
         paddingRight: 120,
@@ -86,7 +84,7 @@ export default StartUp = ({navigation}) => {
         paddingBottom: 10,
         borderRadius: 10,
       },
-      social_button: {
+      socialButton: {
         margin: 5,
         borderRadius: 25,
       },
@@ -95,31 +93,13 @@ export default StartUp = ({navigation}) => {
         height: 50,
         resizeMode: 'stretch'
       },
-      signup_body_image: {
+      signupBodyImage: {
         flex:1,
         resizeMode: 'contain'
       },
-      social_logo: {
+      socialLogo: {
         width: 40,
         height: 40,
-        resizeMode: 'stretch'
-      },
-      modelContainer: {
-        flex: 1, 
-        backgroundColor: Colors.bodyColor, 
-        borderRadius: 25,
-        borderWidth: 1,
-      },
-      modelHeader: {
-        flexDirection: 'row', 
-        padding: 10,
-        marginLeft: 5,
-        backgroundColor: Colors.bodyColor,
-        borderRadius: 25,
-      },
-      iconClose: {
-        width: 15,
-        height: 15,
         resizeMode: 'stretch'
       },
   });

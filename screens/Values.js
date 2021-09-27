@@ -1,14 +1,12 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Platform, Dimensions, StatusBar, SafeAreaView, View, Text, Image, ScrollView } from 'react-native';
+import { ImageBackground, StyleSheet, Platform, StatusBar, SafeAreaView, View, Text, Image, ScrollView } from 'react-native';
 import Colors from '../config/Colors';
-import care from "../assets/images/about/values/1-care.png";
-import win from "../assets/images/about/values/2-win.png";
-import grow from "../assets/images/about/values/3-grow.png";
-import integrity from "../assets/images/about/values/4-integrity.png";
+import CareImage from "../assets/images/about/values/1-care.png";
+import WinImage from "../assets/images/about/values/2-win.png";
+import GrowImage from "../assets/images/about/values/3-grow.png";
+import IntegrityImage from "../assets/images/about/values/4-integrity.png";
 import Headertext from '../config/Headertext';
-import values from "../assets/images/about/value-s.png";
-import { LinearGradient } from 'expo-linear-gradient';
-import backgroundImage from "../assets/images/about/headerBackground.jpg";
+import BackgroundImage from "../assets/images/about/headerBackground.jpg";
 
 export default Values = ({ navigation }) => {
 
@@ -22,7 +20,7 @@ export default Values = ({ navigation }) => {
             <View style={styles.container}>
 
                 <View style={styles.header}>
-                    <ImageBackground source={backgroundImage} style={{
+                    <ImageBackground source={BackgroundImage} style={{
                         width: '95%',
                         height: 200,
                     }} resizeMode="cover">
@@ -49,7 +47,7 @@ export default Values = ({ navigation }) => {
                                         flex: 4, justifyContent: 'center',
                                         alignItems: 'center',
                                     }}>
-                                        <Image style={styles.valuesImage} source={care} />
+                                        <Image style={styles.valuesImage} source={CareImage} />
                                     </View>
 
                                     <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
@@ -67,7 +65,7 @@ export default Values = ({ navigation }) => {
                                         flex: 4, justifyContent: 'center',
                                         alignItems: 'center',
                                     }}>
-                                        <Image style={styles.valuesImage} source={win} />
+                                        <Image style={styles.valuesImage} source={WinImage} />
                                     </View>
 
                                     <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
@@ -85,7 +83,7 @@ export default Values = ({ navigation }) => {
                                         flex: 4, justifyContent: 'center',
                                         alignItems: 'center',
                                     }}>
-                                        <Image style={styles.valuesImage} source={grow} />
+                                        <Image style={styles.valuesImage} source={GrowImage} />
                                     </View>
 
                                     <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
@@ -103,7 +101,7 @@ export default Values = ({ navigation }) => {
                                         flex: 4, justifyContent: 'center',
                                         alignItems: 'center',
                                     }}>
-                                        <Image style={styles.valuesImage} source={integrity} />
+                                        <Image style={styles.valuesImage} source={IntegrityImage} />
                                     </View>
 
                                     <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
@@ -180,31 +178,6 @@ const styles = StyleSheet.create({
         flex: 4.5,
         paddingTop: Platform.OS != 'ios' ? 40 : 0,
         margin: 15,
-    },
-    bodyBox: {
-        width: 200,
-        height: 150, 
-        flexDirection: 'row', 
-    },
-    boxContainer: {
-        flex: 1,
-        backgroundColor: Colors.cardColor,
-        borderRadius: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        marginBottom: 30,
-    },
-    boxImage: {
-        flex: 3.5, 
-        justifyContent: 'center',
-        alignItems: 'center', 
-        marginTop: 10,
-    },
-    boxText: {
-        flex: 2.5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 10,
     },
     image: {
         width: 60,

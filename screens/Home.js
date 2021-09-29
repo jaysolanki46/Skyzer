@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, StatusBar, SafeAreaView, TouchableOpacity, ImageBackground, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, ImageBackground, Dimensions, ScrollView } from 'react-native';
 import Headertext from '../config/Headertext';
 import Colors from '../config/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -11,6 +11,7 @@ import TetraGuideImage from '../assets/images/home/tetra-card-book.png';
 import TeliumGuideImage from '../assets/images/home/telium-card-book.png';
 import SupportImage from '../assets/images/home/contact-card-book.png'
 import AboutImage from '../assets/images/home/about-card-book.png';
+import TopStatusBar from '../components/TopStatusBar';
 
 export default Home = ({ navigation }) => {
     const [items, setItems] = useState([
@@ -71,7 +72,7 @@ export default Home = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar barStyle="dark-content" translucent={true}></StatusBar>
+            <TopStatusBar />
             <View style={styles.header}>
                 <View style={styles.headerSubView}>
                     <View style={{ flex: 5, }}>

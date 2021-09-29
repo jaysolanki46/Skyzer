@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, StatusBar, Alert, SafeAreaView } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, Alert, SafeAreaView } from 'react-native';
 import Headertext from '../config/Headertext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Tooltip from 'react-native-walkthrough-tooltip';
@@ -8,6 +8,7 @@ import Configurations from '../config/Configurations';
 import BackgroundImage from "../assets/images/background.jpg";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import rightArrowImage from '../assets/images/right-arrow.png';
+import TopStatusBar from '../components/TopStatusBar';
 
 export default SignUp = ({ navigation }) => {
 
@@ -135,6 +136,7 @@ export default SignUp = ({ navigation }) => {
     return (
 
         <SafeAreaView style={styles.container}>
+            <TopStatusBar />
             <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
                 position: 'absolute',
                 flex: 1,
@@ -142,7 +144,6 @@ export default SignUp = ({ navigation }) => {
                 width: Dimensions.get("window").width,
                 height: Dimensions.get("window").height
             }}>
-                <StatusBar barStyle="dark-content" hidden={false} translucent={true}></StatusBar>
 
                 <View style={styles.header}>
                     {/* <Logo/> */}

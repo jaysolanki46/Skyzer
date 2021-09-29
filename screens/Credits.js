@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View, StatusBar, Image, TouchableOpacity, SafeAreaView, Dimensions } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Dimensions } from 'react-native';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import Configurations from '../config/Configurations';
 import LoaderImage from '../assets/images/list-loader.gif';
+import TopStatusBar from '../components/TopStatusBar';
 
 export default Credits = () => {
 
@@ -117,7 +118,7 @@ export default Credits = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar barStyle="dark-content" hidden={false} translucent={true}></StatusBar>
+            <TopStatusBar />
             {
                 isLoading ? Loader() : Content()
             }

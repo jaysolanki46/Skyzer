@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { ImageBackground, Animated, View , Image, StyleSheet} from 'react-native';
 import BackgroundImage from "../assets/images/background.jpg";
 import StartUpImage from '../assets/images/startup-logo.png';
+import TopStatusBar from '../components/TopStatusBar';
 
 const FadeInView = (props) => {
     const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
@@ -37,6 +38,7 @@ export default Loading = () => {
         justifyContent: "center"
       }}>
         <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+          <TopStatusBar />
         <FadeInView style={{flex:1, justifyContent: 'center', alignItems: 'center', }}>
             <Image
                             style={styles.logo}

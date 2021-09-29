@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ImageBackground, StyleSheet, Text, View, StatusBar, Button, Image, TextInput, TouchableOpacity, ActivityIndicator, SafeAreaView, Dimensions  } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator, SafeAreaView, Dimensions  } from 'react-native';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import * as ImagePicker from 'expo-image-picker';
@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import MoreImage from '../assets/images/more/more.png';
 import DefaultProfileImage from '../assets/images/profile/profile.png';
 import LoaderImage from '../assets/images/list-loader.gif';
+import TopStatusBar from '../components/TopStatusBar';
 
 export default Profile = ({ navigation }) => {
 
@@ -231,7 +232,7 @@ export default Profile = ({ navigation }) => {
     }
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar barStyle="dark-content" hidden = {false} translucent = {true}></StatusBar>
+            <TopStatusBar />
 
             <View style={styles.header}>
                 <View style={styles.headerSubView}>

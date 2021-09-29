@@ -1,10 +1,11 @@
-import React, { useRef, useEffect } from 'react';
-import { ImageBackground, Animated, Text, View, ActivityIndicator, Image, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import React, { useRef } from 'react';
+import { ImageBackground, Animated, Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import backgroundImage from "../assets/images/background.jpg";
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import { Restart } from 'fiction-expo-restart';
 import NoInternetConnectionImage from '../assets/images/no-internet.png';
+import TopStatusBar from '../components/TopStatusBar';
 
 const NoInternet = (props) => {
     const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
@@ -40,6 +41,7 @@ export default Loading = () => {
             justifyContent: "center"
         }}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <TopStatusBar />
                 <Image
                     style={styles.logo}
                     source={NoInternetConnectionImage}

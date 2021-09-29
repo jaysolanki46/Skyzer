@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, StatusBar, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, RefreshControl, SafeAreaView } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, RefreshControl, SafeAreaView } from 'react-native';
 import SearchBar from 'react-native-dynamic-search-bar';
 import Colors from '../config/Colors';
 import Configurations from '../config/Configurations';
@@ -10,6 +10,7 @@ import StarImage from '../assets/images/telium/telium-star.png';
 import StarOutlineImage from '../assets/images/telium/telium-star-outline.png';
 import LoaderImage from '../assets/images/list-loader.gif';
 import NoContentImage from '../assets/images/telium/no-content.png';
+import TopStatusBar from '../components/TopStatusBar';
 
 export default TeliumGuide = () => {
 
@@ -245,7 +246,7 @@ export default TeliumGuide = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar barStyle="dark-content" animated></StatusBar>
+            <TopStatusBar />
 
             <View style={styles.body}>
 

@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Platform, StatusBar, SafeAreaView, Text, View, Image, Animated, TouchableOpacity, Linking, ImageBackground, Dimensions } from 'react-native';
+import { StyleSheet, SafeAreaView, Text, View, Image, Animated, TouchableOpacity, Linking, ImageBackground, Dimensions } from 'react-native';
 import Colors from '../config/Colors';
 import ContactBannerImage from '../assets/images/support/support-banner.png';
 import PhoneImage from '../assets/images/support/support-phone.png';
 import EmailImage from '../assets/images/support/support-email.png';
 import Headertext from '../config/Headertext';
 import BackgroundImage from "../assets/images/background-main.jpg";
+import TopStatusBar from '../components/TopStatusBar';
 
 const LRView = (props) => {
     const LRanim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
@@ -38,9 +39,7 @@ export default Support = ({ navigation }) => {
     return (
 
         <SafeAreaView style={styles.container} behavior="height">
-            {Platform.OS === 'ios' && <>
-                <StatusBar barStyle="dark-content" hidden={false} translucent={true}></StatusBar>
-            </>}
+            <TopStatusBar />
            <View style={styles.header}>
                 <View style={styles.headerImage}>
                     <Image

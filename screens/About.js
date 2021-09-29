@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Platform, StatusBar, SafeAreaView, View, Text, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import Colors from '../config/Colors';
 import whoWeAre from "../assets/images/about/who-we-are.png";
 import values from "../assets/images/about/value-s.png";
@@ -9,16 +9,13 @@ import AboutBanner from '../assets/images/about/about-banner.png';
 import facebookImage from '../assets/images/social/facebook.png';
 import linkedinImage from '../assets/images/social/linkedin.png';
 import instagramImage from '../assets/images/social/instagram.png';
+import TopStatusBar from '../components/TopStatusBar';
 
 export default About = ({ navigation }) => {
 
     return (
-
         <SafeAreaView style={styles.container} behavior="height">
-            {Platform.OS === 'ios' && <>
-                <StatusBar barStyle="dark-content" hidden={false} translucent={true}></StatusBar>
-            </>}
-
+            <TopStatusBar />
                 <View style={styles.header}>
                     <View style={styles.headerBox}>
                         <Image

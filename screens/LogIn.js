@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { ImageBackground, Linking, Button, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, KeyboardAvoidingView, StatusBar, ScrollView, LayoutAnimation, Alert, SafeAreaView} from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, SafeAreaView} from 'react-native';
 import Headertext from '../config/Headertext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
 import backgroundImage from "../assets/images/background.jpg";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import rightArrowImage from '../assets/images/right-arrow.png';
+import TopStatusBar from '../components/TopStatusBar';
 
 export default LogIn = ({navigation}) => {
 
@@ -23,15 +24,13 @@ export default LogIn = ({navigation}) => {
   return (
     
     <SafeAreaView style={styles.container} behavior="height">
+      <TopStatusBar />
       <ImageBackground source={backgroundImage} resizeMode="cover" style={{
         position: 'absolute',
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.45)',
         width: Dimensions.get("window").width,
         height: Dimensions.get("window").height}}>
-       {Platform.OS === 'ios' && <>
-       <StatusBar barStyle="dark-content" hidden = {false} translucent = {true}></StatusBar>
-       </>}
 
         <View style={styles.header}>
           {/* <Logo/> */}

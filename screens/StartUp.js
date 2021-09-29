@@ -1,24 +1,22 @@
 import React, {  } from 'react';
-import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Linking,} from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Linking,} from 'react-native';
 import Colors from '../config/Colors';
-import { StatusBar } from 'react-native';
 import Headertext from '../config/Headertext';
 import BackgroundImage from "../assets/images/background.jpg";
 import bodyImage from "../assets/images/startup_body.png";
 import facebookImage from '../assets/images/social/facebook.png';
 import linkedinImage from '../assets/images/social/linkedin.png';
 import instagramImage from '../assets/images/social/instagram.png';
+import TopStatusBar from '../components/TopStatusBar';
 
 export default StartUp = ({navigation}) => {
     
     return (
       <View style={styles.container}>
+        <TopStatusBar />
         <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
                 flex: 1,
                 justifyContent: "center"}}>
-        {Platform.OS === 'ios' && <>
-        <StatusBar barStyle="dark-content" hidden = {false} translucent = {true}></StatusBar>
-        </>}
 
         <View style={styles.header}>
           {/* <Logo/> */}

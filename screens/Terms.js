@@ -1,13 +1,14 @@
 import React, {  } from 'react';
-import { StyleSheet, Text, StatusBar, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
+import TopStatusBar from '../components/TopStatusBar';
 
 export default Terms = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar barStyle="dark-content" hidden={false} translucent={true}></StatusBar>
+            <TopStatusBar />
             <ScrollView style={styles.body}>
                 <Text style={[Headertext.h3, { color: Colors.fontColorBlack }]}>Terms & Privacy Policy</Text>
                 <Text style={Headertext.h5, styles.paraText}>

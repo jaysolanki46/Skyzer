@@ -7,15 +7,14 @@ import GrowImage from "../assets/images/about/values/3-grow.png";
 import IntegrityImage from "../assets/images/about/values/4-integrity.png";
 import Headertext from '../config/Headertext';
 import BackgroundImage from "../assets/images/about/headerBackground.jpg";
+import TopStatusBar from '../components/TopStatusBar';
 
 export default Values = ({ navigation }) => {
 
     return (
 
         <SafeAreaView style={styles.container} behavior="height">
-            {Platform.OS === 'ios' && <>
-                <StatusBar barStyle="dark-content" hidden={false} translucent={true}></StatusBar>
-            </>}
+            <TopStatusBar />
 
             <View style={styles.container}>
 

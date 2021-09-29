@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { ImageBackground, StyleSheet, Platform, StatusBar, SafeAreaView, View, ScrollView, Image, Text, TouchableOpacity, Linking,  } from 'react-native';
+import { ImageBackground, StyleSheet, Platform, SafeAreaView, View, ScrollView, Image, Text, TouchableOpacity, Linking,  } from 'react-native';
 import Colors from '../config/Colors';
 import backgroundImage from "../assets/images/about/headerBackground.jpg";
 import Headertext from '../config/Headertext';
 import { useEffect } from 'react';
 import Configurations from '../config/Configurations';
+import TopStatusBar from '../components/TopStatusBar';
 
 export default WhoWeAre = ({ navigation }) => {
 
@@ -46,9 +47,7 @@ export default WhoWeAre = ({ navigation }) => {
     return (
 
         <SafeAreaView style={styles.container} behavior="height">
-            {Platform.OS === 'ios' && <>
-                <StatusBar barStyle="dark-content" hidden={false} translucent={true}></StatusBar>
-            </>}
+            <TopStatusBar />
 
             <View style={styles.container}>
 

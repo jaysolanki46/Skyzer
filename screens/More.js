@@ -1,17 +1,18 @@
 import React, {  } from 'react';
-import { StyleSheet, Text, View, StatusBar, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import Colors from '../config/Colors';
 import MoreBanner from '../assets/images/more/more-banner.png';
 import Constants from 'expo-constants';
 import CopyrightImage from '../assets/images/more/copyright.png';
+import TopStatusBar from '../components/TopStatusBar';
 
 export default More = ({ navigation }) => {
 
    
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar barStyle="dark-content" hidden={false} translucent={true}></StatusBar>
-
+            <TopStatusBar />
+            
             <View style={styles.header}>
                 <View style={styles.headerBox}>
                     <Image

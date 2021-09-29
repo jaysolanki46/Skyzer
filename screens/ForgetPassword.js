@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, StatusBar, Alert, SafeAreaView } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, TextInput, Alert, SafeAreaView } from 'react-native';
 import Headertext from '../config/Headertext';
 import BackgroundImage from "../assets/images/background.jpg";
 import Configurations from '../config/Configurations';
 import rightArrowImage from '../assets/images/right-arrow.png';
+import TopStatusBar from '../components/TopStatusBar';
 
 export default ForgetPassword = ({ navigation }) => {
 
@@ -51,6 +52,7 @@ console.log(status);
     return (
 
         <SafeAreaView style={styles.container} behavior="height">
+            <TopStatusBar />
             <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
                 position: 'absolute',
                 flex: 1,
@@ -58,10 +60,6 @@ console.log(status);
                 width: Dimensions.get("window").width,
                 height: Dimensions.get("window").height
             }}>
-                {Platform.OS === 'ios' && <>
-                    <StatusBar barStyle="dark-content" hidden={false} translucent={true}></StatusBar>
-                </>}
-
                 <View style={styles.header}>
                     {/* <Logo/> */}
                     <Text style={[Headertext.h1, { color: Colors.fontColorPurplest }]}>Skyzer Guide</Text>

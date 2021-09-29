@@ -1,15 +1,17 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView, StatusBar, ImageBackground, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, SafeAreaView, ImageBackground, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import BackgroundImage from "../assets/images/background.jpg";
 import successImage from '../assets/images/successfully.png';
+import TopStatusBar from '../components/TopStatusBar';
 
 export default SignUpSuccess = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{flex: 1, }}>
+            <TopStatusBar />
             <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
                 position: 'absolute',
                 flex: 1,
@@ -17,9 +19,7 @@ export default SignUpSuccess = ({ navigation }) => {
                 width: Dimensions.get("window").width,
                 height: Dimensions.get("window").height
             }}>
-            <StatusBar barStyle="dark-content" translucent={true}></StatusBar>
             <View style={styles.header}>
-
             </View>
             <View style={styles.body}>
                 <Image

@@ -46,9 +46,9 @@ export default SignUp = ({ navigation }) => {
         } else if (reg.test(email) === false) {
             setIsErrorEmail(true);
             Alert.alert("Error", "Invalid email");
-        } else if (account.length != 4) {
+        } else if (account.length < 4) {
             setIsErrorAccount(true);
-            Alert.alert("Error", "Account must be 4 digit long");
+            Alert.alert("Error", "Account at least 4 digit long");
         } else {
             setIsErrorEmail(false);
             setIsErrorAccount(false);
@@ -79,7 +79,7 @@ export default SignUp = ({ navigation }) => {
             try {
                 const responseDivision = await fetch(Configurations.host + "/divisions/division/" + account, requestOptions);
                 const statusDivision = await responseDivision.status;
-
+                
                 if (statusDivision != 200) {
                     /** 200 - OK */
                     throw Error("Account doesn't exist");
@@ -98,7 +98,7 @@ export default SignUp = ({ navigation }) => {
     const createUser = async (username, email, password, account) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-
+        
         var raw = JSON.stringify({
             "username": username,
             "email": email,
@@ -192,7 +192,7 @@ export default SignUp = ({ navigation }) => {
                                                     borderColor: isErrorAccount ? Colors.danger : Colors.white
                                                 }]} placeholder="Account number i.e. 1234"
                                                     placeholderTextColor={Colors.fontColorWhite} keyboardType="default"
-                                                    maxLength={4}
+                                                    minLength={4}
                                                     onChangeText={(Account) => setAccount(Account)} selectionColor={Colors.white} />
                                                 <Tooltip
                                                     isVisible={toolTipVisible}

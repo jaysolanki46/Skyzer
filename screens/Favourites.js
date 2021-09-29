@@ -163,7 +163,15 @@ export default Favourites = () => {
                     <View style={[styles.itemBody]}>
                     <View style={styles.itemBodyLeft}>
                         <Text style={styles.itemQuestion}>{item.name}</Text>
-                        <Text style={styles.itemAnswer}>{item.short_solution}</Text>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                {
+                                    item.is_function ? <Badge style={styles.badgeType}>FUNCTION</Badge> : null
+                                }
+                                {
+                                    item.is_menu ? <Badge style={styles.badgeType}>MENU</Badge> : null
+                                }
+                                <Text style={styles.itemAnswer}>{item.short_solution}</Text>
+                        </View>
                     </View>
 
                     <View style={styles.itemBodyRight}>
@@ -320,6 +328,13 @@ const styles = StyleSheet.create({
         color: Colors.fontColorLightBlack,
         fontWeight: '700',
         margin: 5,
+    },
+    badgeType: {
+        margin: 5,
+        borderRadius: 5,
+        color: Colors.fontColorWhite,
+        backgroundColor: Colors.grey,
+        fontWeight: '700',
     },
     itemAnswer: {
         fontSize: 13,

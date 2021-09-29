@@ -89,7 +89,7 @@ export default WhoWeAre = ({ navigation }) => {
                             borderColor: Colors.colorType4_1, alignItems: 'center', }}>
 
                                 <View style={{borderBottomWidth: 1}}>
-                                    <Text style={[Headertext.h3, { color: Colors.fontColorBluest, }]}>OUR TEAM</Text>
+                                <Text style={[Headertext.h3, { color: Colors.fontColorBluest, }]}>Our Leadership Team</Text>
                                 </View>
 
                             <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>

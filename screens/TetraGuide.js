@@ -11,6 +11,7 @@ import LoaderImage from '../assets/images/list-loader.gif';
 import StarImage from '../assets/images/tetra/tetra-star.png';
 import StarOutlineImage from '../assets/images/tetra/tetra-star-outline.png'
 import TopStatusBar from '../components/TopStatusBar';
+import { Badge } from 'react-native-paper';
 
 export default TetraGuide = () => {
 
@@ -153,7 +154,15 @@ export default TetraGuide = () => {
                     <View style={[styles.itemBody]}>
                     <View style={styles.itemBodyLeft}>
                         <Text style={styles.itemQuestion}>{item.name}</Text>
-                        <Text style={styles.itemAnswer}>{item.short_solution}</Text>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                {
+                                    item.is_function ? <Badge style={styles.badge}>FUNCTION</Badge> : null
+                                }
+                                {
+                                    item.is_menu ? <Badge style={styles.badge}>MENU</Badge> : null
+                                }
+                                <Text style={styles.itemAnswer}>{item.short_solution}</Text>
+                        </View>
                     </View>
 
                     <View style={styles.itemBodyRight}>
@@ -295,6 +304,13 @@ const styles = StyleSheet.create({
         color: Colors.fontColorLightBlack,
         fontWeight: '700',
         margin: 5,
+    },
+    badge: {
+        margin: 5,
+        borderRadius: 5,
+        color: Colors.fontColorWhite,
+        backgroundColor: Colors.colorType1_1,
+        fontWeight: '700',
     },
     itemAnswer: {
         fontSize: 13,

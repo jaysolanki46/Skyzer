@@ -15,7 +15,7 @@ export default Values = ({ navigation }) => {
 
         <SafeAreaView style={styles.container} behavior="height">
             <TopStatusBar />
-
+            <ScrollView showsVerticalScrollIndicator={false} style={{ fled: 1 }}>
             <View style={styles.container}>
 
                 <View style={styles.header}>
@@ -36,7 +36,7 @@ export default Values = ({ navigation }) => {
 
 
                 <View style={styles.body}>
-                    <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1,}}>
+                    <View showsVerticalScrollIndicator={false} style={{ flex: 1,}}>
 
                         <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
                             <View style={{ width: 170, height: 200, marginTop: 10, marginBottom: 10, }}>
@@ -152,9 +152,9 @@ export default Values = ({ navigation }) => {
                             </View>
                            
                         </View>
-                    </ScrollView>
+                    </View>
                 </View>
-            </View>
+            </View></ScrollView>
         </SafeAreaView>
     );
 };

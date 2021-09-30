@@ -48,9 +48,8 @@ export default WhoWeAre = ({ navigation }) => {
 
         <SafeAreaView style={styles.container} behavior="height">
             <TopStatusBar />
-
+            <ScrollView showsVerticalScrollIndicator={false} style={{ fled: 1 }}>
             <View style={styles.container}>
-
                 <View style={styles.header}>
                     <ImageBackground source={backgroundImage} style={{
                         width: '95%',
@@ -69,7 +68,7 @@ export default WhoWeAre = ({ navigation }) => {
 
 
                 <View style={styles.body}>
-                    <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1,}}>
+                    <View style={{ flex: 1,}}>
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap',}}>
                             <Text style={[Headertext.h5, {textAlign: 'justify', marginTop: 10}]} >
                                 <Text style={{fontWeight: 'bold'}}>Skyzer Technologies</Text> is the market leader in the innovation, development, and provision of Eftpos and Payment solutions and has been supporting merchants throughout New Zealand since 2007.
@@ -129,10 +128,11 @@ export default WhoWeAre = ({ navigation }) => {
                             }
                             </View>
                         </View>
-                    </ScrollView>
+                    </View>
                 </View>
 
             </View>
+            </ScrollView>
         </SafeAreaView>
     );
 };

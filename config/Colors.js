@@ -25,10 +25,6 @@ export default {
     colorType3_2: '#2ECCCD',
     colorType3_3: '#48D5E4',
 
-    // colorType4_1: '#EC6E5D',
-    // colorType4_2: '#EA9069',
-    // colorType4_3: '#FBA578',
-
     colorType4_1: '#2D74D5',
     colorType4_2: '#567FD5',
     colorType4_3: '#7588D4',
@@ -44,4 +40,5 @@ export default {
     danger: '#ff0e0e',
     seperator: '#f1f1f1',
     link: '#0645AD',
+    bluest: '#2F3B67',
 }

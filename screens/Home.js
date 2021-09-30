@@ -11,6 +11,7 @@ import TetraGuideImage from '../assets/images/home/tetra-card-book.png';
 import TeliumGuideImage from '../assets/images/home/telium-card-book.png';
 import SupportImage from '../assets/images/home/contact-card-book.png'
 import AboutImage from '../assets/images/home/about-card-book.png';
+import NitroImage from '../assets/images/home/nitro-card-book.png';
 import TopStatusBar from '../components/TopStatusBar';
 
 export default Home = ({ navigation }) => {
@@ -37,10 +38,17 @@ export default Home = ({ navigation }) => {
             color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3
         },
         {
-            id: 4,name: 'ABOUT US',
+            id: 4, name: 'NITRO',
+            desc: 'Get your package',
+            image: NitroImage,
+            subItems: [{ id: 11, name: 'SEND ON EMAIL' }, ,],
+            color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3
+        },
+        {
+            id: 5,name: 'ABOUT US',
             desc: 'Explore the Skyzer',
             image: AboutImage,
-            subItems: [{ id: 11, name: 'WHO WE ARE' }, { id: 12, name: 'VALUES' }, { id: 13, name: 'LOCATION' }, { id: 14, name: 'SOCIAL HANDLES' },],
+            subItems: [{ id: 12, name: 'WHO WE ARE' }, { id: 13, name: 'VALUES' }, { id: 14, name: 'LOCATION' }, { id: 16, name: 'SOCIAL HANDLES' },],
             color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3
         },
     ]);
@@ -222,7 +230,7 @@ export default Home = ({ navigation }) => {
                                     borderRadius: 10,
                                 }}>
                                     <TouchableOpacity style={{ flex: 1, }} onPress={() => { navigation.navigate('Support') }}>
-                                        {/* CONTACT BLOCK */}
+                                        {/* SUPPORT BLOCK */}
                                         <View style={{ flex: 1 }} >
                                             <View style={{ flex: 4.5, }} >
                                                 <View style={{ flex: 1, flexDirection: 'row', }}>
@@ -263,6 +271,59 @@ export default Home = ({ navigation }) => {
                         </View>
                         {/* END BLOCK 1 - 3 COMPONENTS */}
 
+                        {/* BLOCK 2 - 2 COMPONENTS */}
+                        <View style={{
+                            width: Dimensions.get("window").width,
+                            height: 150,
+                            flexDirection: 'row',
+                            padding: 10,
+                        }}>
+                            <LinearGradient colors={[items[3].color1, items[3].color2, items[3].color3]} style={{
+                                width: '50%',
+                                height: '98%',
+                                borderRadius: 10,
+                            }}>
+                                <TouchableOpacity style={{ flex: 1, }} onPress={() => { navigation.navigate('Nitro') }}>
+                                    {/* NITRO BLOCK */}
+                                    <View style={{ flex: 1, }}>
+                                        <View style={{ flex: 4, }} >
+                                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                                <View style={{ flex: 4, padding: 10, justifyContent: 'center' }}>
+                                                    <Text style={[Headertext.h4, { color: Colors.fontColorWhite, }]}>{items[3].name}</Text>
+                                                    <Text style={[{ color: Colors.fontColorWhite, fontSize: 13 }]}>{items[3].desc}</Text>
+                                                </View>
+                                                <View style={{ flex: 2, justifyContent: 'center', overflow: 'hidden', }}>
+                                                    <Image style={{
+                                                        width: 50,
+                                                        height: 50,
+                                                        marginLeft: 25,
+                                                    }} source={items[3].image} />
+                                                </View>
+                                            </View>
+                                        </View>
+                                        <View style={{
+                                            flex: 2, flexDirection: 'row', flexWrap: 'wrap',
+                                            paddingLeft: Platform.OS === 'ios' ? 10: 5,
+                                        }} >
+                                            {
+                                                items[3].subItems.map(subItem => {
+                                                    return (
+                                                        <View key={subItem.id} style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', margin: 1, }}>
+                                                            <Text style={[styles.bottomTags, { fontSize: 5, }]}>{'\u2B24'}</Text>
+                                                            <Text style={styles.bottomTags}>{subItem.name}</Text>
+                                                        </View>
+                                                    )
+                                                })
+                                            }
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            </LinearGradient>
+
+                        </View>
+                        {/* END BLOCK 2 - 2 COMPONENTS */}
+
+                        {/* BLOCK 3 - 1 COMPONENT */}
                         <View style={{
                             width: Dimensions.get("window").width,
                             height: 30,
@@ -274,7 +335,6 @@ export default Home = ({ navigation }) => {
                             </Text>
                         </View>
 
-                        {/* BLOCK 2 - 1 COMPONENT */}
                         <View style={{
                             width: Dimensions.get("window").width,
                             height: 170,
@@ -282,7 +342,7 @@ export default Home = ({ navigation }) => {
                             paddingRight: 10,
                         }}>
 
-                            <LinearGradient colors={[items[3].color1, items[3].color2, items[3].color3]} style={{
+                            <LinearGradient colors={[items[4].color1, items[4].color2, items[4].color3]} style={{
                                 flex: 1, borderRadius: 10,
                             }}>
                                 <TouchableOpacity style={{ flex: 1, }} onPress={() => { navigation.navigate('About') }}>
@@ -290,12 +350,12 @@ export default Home = ({ navigation }) => {
                                         <View style={{ flex: 4, }}>
                                             <View style={{ flex: 1, }}>
                                                 <View style={{ flex: 4, padding: 10, justifyContent: 'center' }}>
-                                                    <Text style={[Headertext.h3, { color: Colors.fontColorWhite, }]}>{items[3].name}</Text>
-                                                    <Text style={[Headertext.h5, { color: Colors.fontColorWhite, }]}>{items[3].desc}</Text>
+                                                    <Text style={[Headertext.h3, { color: Colors.fontColorWhite, }]}>{items[4].name}</Text>
+                                                    <Text style={[Headertext.h5, { color: Colors.fontColorWhite, }]}>{items[4].desc}</Text>
                                                 </View>
                                                 <View style={{ flex: 2, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingLeft: 10, }}>
                                                     {
-                                                        items[3].subItems.map(subItem => {
+                                                        items[4].subItems.map(subItem => {
                                                             return (
                                                                 <View key={subItem.id} style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', margin: 1, }}>
                                                                     <Text style={[styles.bottomTags, { fontSize: 5, }]}>{'\u2B24'}</Text>
@@ -312,7 +372,7 @@ export default Home = ({ navigation }) => {
                                                 width: 120,
                                                 height: 120,
                                                 marginLeft: 50,
-                                            }} source={items[3].image} />
+                                            }} source={items[4].image} />
                                         </View>
                                     </View>
                                 </TouchableOpacity>

@@ -16,6 +16,8 @@ export default About = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container} behavior="height">
             <TopStatusBar />
+            <ScrollView showsVerticalScrollIndicator={false} style={{flex:1}}>
+              
                 <View style={styles.header}>
                     <View style={styles.headerBox}>
                         <Image
@@ -26,7 +28,7 @@ export default About = ({ navigation }) => {
                 </View>
 
                 <View style={styles.body}>
-                <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1,}}>
+                <View style={{ flex: 1,}}>
                     <View style={styles.bodyBox}>
                         <View style={styles.bodyBox}>
                             
@@ -104,8 +106,9 @@ export default About = ({ navigation }) => {
                                 </View>
                             </View>
                     </View>
-                </ScrollView>
                 </View>
+                </View>
+        </ScrollView>
         </SafeAreaView>
     );
 };

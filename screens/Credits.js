@@ -71,7 +71,7 @@ export default Credits = () => {
                     }}>
 
                         <View style={{ borderBottomWidth: 1 }}>
-                            <Text style={[Headertext.h3, { color: Colors.fontColorBluest, }]}>Meet the Team</Text>
+                            <Text style={[Headertext.h3, { color: Colors.fontColorBluest, }]}>Application Core Team</Text>
                         </View>
 
                         <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>

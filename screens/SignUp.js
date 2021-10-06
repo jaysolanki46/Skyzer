@@ -248,7 +248,7 @@ export default SignUp = ({ navigation }) => {
                                         <View>
                                             <TextInput style={[styles.input, { borderColor: Colors.white }]} placeholder="Username"
                                                 placeholderTextColor={Colors.fontColorWhite} keyboardType="default"
-                                                onChangeText={(Username) => props.setUsername(Username)} selectionColor={Colors.white} />
+                                                onChangeText={(Username) => setUsername(Username)} selectionColor={Colors.white} />
 
                                             <TextInput style={[styles.input, {
                                                 borderColor: isErrorEmail ? Colors.danger : Colors.white

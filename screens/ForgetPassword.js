@@ -34,9 +34,10 @@ export default ForgetPassword = ({ navigation }) => {
 console.log(status);
                 if (status != 200) {
                     /** 200 - OK */
-                    throw Error("User does not exist!");
+                    Alert.alert("Error", "User does not exist!");
+                    return false;
                 } else {
-                    Alert.alert("Success", "Your details has been to this email!", [{ onPress: () => navigation.navigate('LogIn') }]);
+                    Alert.alert("Success", "Login details has been sent to your email!", [{ onPress: () => navigation.navigate('LogIn') }]);
                     return true;
                 }
             } catch (error) {

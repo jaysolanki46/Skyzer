@@ -31,7 +31,7 @@ export default ForgetPassword = ({ navigation }) => {
             try {
                 const response = await fetch(Configurations.host + "/users/forgetPassword/" + email, requestOptions);
                 const status = await response.status;
-console.log(status);
+
                 if (status != 200) {
                     /** 200 - OK */
                     Alert.alert("Error", "User does not exist!");

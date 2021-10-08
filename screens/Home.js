@@ -46,7 +46,7 @@ export default Home = ({ navigation }) => {
             color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3
         },
         {
-            id: 5, name: 'BULLETIN',
+            id: 5, name: 'BULLETINS',
             desc: 'Get update yourself',
             image: BulletinImage,
             subItems: [{ id: 12, name: 'TECHNICAL BULLETIN' },],
@@ -357,20 +357,20 @@ export default Home = ({ navigation }) => {
                                     borderRadius: 10,
                                     flex: 1,
                                 }}>
-                                    <TouchableOpacity style={{ flex: 1, }} onPress={() => { navigation.navigate('Nitro') }}>
+                                    <TouchableOpacity style={{ flex: 1, }} onPress={() => { navigation.navigate('Bulletins') }}>
                                         {/* BULLETIN BLOCK */}
                                         <View style={{ flex: 1, }}>
                                             <View style={{ flex: 4, }} >
                                                 <View style={{ flex: 1, flexDirection: 'row' }}>
-                                                    <View style={{ flex: 4, padding: 10, justifyContent: 'center' }}>
+                                                    <View style={{ flex: 4.1, padding: 10, justifyContent: 'center', }}>
                                                         <Text style={[Headertext.h4, { color: Colors.fontColorWhite, }]}>{items[4].name}</Text>
                                                         <Text style={[{ color: Colors.fontColorWhite, fontSize: 13 }]}>{items[4].desc}</Text>
                                                     </View>
-                                                    <View style={{ flex: 2, justifyContent: 'center', overflow: 'hidden', }}>
+                                                    <View style={{ flex: 1.9, justifyContent: 'center', overflow: 'hidden', }}>
                                                         <Image style={{
                                                             width: 50,
                                                             height: 50,
-                                                            marginLeft: 25,
+                                                            marginLeft: 20,
                                                         }} source={items[4].image} />
                                                     </View>
                                                 </View>

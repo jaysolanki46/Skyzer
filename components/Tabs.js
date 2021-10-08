@@ -18,6 +18,7 @@ import More from '../screens/More';
 import Terms from '../screens/Terms';
 import Credits from '../screens/Credits';
 import Nitro from '../screens/Nitro';
+import Bulletins from '../screens/Bulletins';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -86,6 +87,12 @@ function HomeTabs() {
       <Stack.Screen name="Nitro" component={Nitro} options={{
         headerShown: true,
         headerTitle: "Nitro",
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
+      }} />
+      <Stack.Screen name="Bulletins" component={Bulletins} options={{
+        headerShown: true,
+        headerTitle: "Bulletins",
         headerTitleAlign: 'center',
         headerBackTitleVisible: false,
       }} />

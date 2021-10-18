@@ -14,6 +14,8 @@ import StartupLoader from './screens/StartupLoader';
 import Configurations from './config/Configurations';
 import NetInfo from "@react-native-community/netinfo";
 import NoInternet from './screens/NoInternet';
+import * as Keychain from 'react-native-keychain';
+import * as SecureStore from 'expo-secure-store';
 
 const Drawer = createDrawerNavigator();
 
@@ -24,7 +26,7 @@ const App = () => {
   const initialLoginState = {
     isLoading: true,
     userToken: null,
-    username: null,
+    email: null,
     
     email: null,
     password: null,
@@ -42,14 +44,14 @@ const App = () => {
       case 'LOGIN':
         return {
           ...prevState,
-          username: action.id,
+          email: action.email,
           userToken: action.token,
           isLoading: false,
         };
       case 'LOGOUT':
         return {
           ...prevState,
-          username: null,
+          email: null,
           userToken: null,
           isLoading: false,
         };  
@@ -59,7 +61,7 @@ const App = () => {
   const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
 
   const authContext = React.useMemo(() => ({
-    logIn: async(username, password) => {
+    logIn: async(email, password) => {
       let userToken = null;
 
       /** AUTH USER */
@@ -68,7 +70,7 @@ const App = () => {
       myHeaders.append("Content-Type", "application/json");
       
       var raw = JSON.stringify({
-        "username": username,
+        "email": email,
         "password": password
       });
 
@@ -80,52 +82,33 @@ const App = () => {
       };
 
       try {
-        const response = await fetch(Configurations.host + "/user/auth/", requestOptions);
+        const response = await fetch(Configurations.host + "/authenticate", requestOptions);
         const status = await response.status;
         const responseJson = await response.json();
-
+        
         if (status != 200) {
           throw new Error("Status:" + status + " Invalid user");
         } else {
 
           /** SET USER SESSION OBJECT */
           const userArray = JSON.parse(JSON.stringify(responseJson));
-          userToken = userArray.username;
-          await AsyncStorage.setItem('userToken', userToken);
-          await AsyncStorage.setItem('userId', userArray.id.toString());
-          await AsyncStorage.setItem('username', userArray.username);
-          userArray.image != null ? await AsyncStorage.setItem('profile', userArray.image) : "";
+          userToken = "Bearer " + userArray.token;
+
+          await SecureStore.setItemAsync("email", email);
+          await SecureStore.setItemAsync("token", userToken);
         }
 
       } catch (error) {
-        console.log('Login Error:', error);
-        alert("Invalid username or password!");
+        alert("Invalid email or password!");
       }
-      console.log("user tocken:" + userToken)
-      dispatch({ type: 'LOGIN', id: username, token: userToken })
-
-      /* if(username == 'Jay' && password == 'pass') {
-        
-        try {
-          userToken = 'u12';
-          await AsyncStorage.setItem('userToken', userToken);
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        alert("Invalid username or password!");
-      }
-      console.log("user tocken:" + userToken)
-      dispatch({type: 'LOGIN', id: username, token: userToken})*/
+      dispatch({ type: 'LOGIN', email: email, token: userToken })
 
     },
     logOut: async() => {
 
       try {
-        await AsyncStorage.removeItem('userToken');
-        await AsyncStorage.removeItem('userId');
-        await AsyncStorage.removeItem('username');
-        await AsyncStorage.removeItem('profile');
+        await SecureStore.deleteItemAsync("email");
+        await SecureStore.deleteItemAsync("token");
       } catch (error) {
         console.log(error);
       }
@@ -143,7 +126,7 @@ const App = () => {
       let userToken;
       userToken = null;
       try {
-        userToken =  await AsyncStorage.getItem('userToken');
+        userToken = await SecureStore.getItemAsync("token");
       } catch (error) {
         console.log(error);
       }

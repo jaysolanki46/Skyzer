@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, ImageBackground, Dimensions, ScrollView } from 'react-native';
 import Headertext from '../config/Headertext';
 import Colors from '../config/Colors';
@@ -14,6 +14,8 @@ import AboutImage from '../assets/images/home/about-card-book.png';
 import NitroImage from '../assets/images/home/nitro-card-book.png';
 import BulletinImage from '../assets/images/home/bulletin-card-book.png';
 import TopStatusBar from '../components/TopStatusBar';
+import Configurations from '../config/Configurations';
+import * as SecureStore from 'expo-secure-store';
 
 export default Home = ({ navigation }) => {
     const [items, setItems] = useState([
@@ -61,19 +63,64 @@ export default Home = ({ navigation }) => {
         },
     ]);
 
-    const [sessionUsername, setSessionUsername] = useState(null);
-    const [sessionUserProfile, setSessionUserProfile] = useState(null);
+    const [userEmail, setUserEmail] = useState(null);
+    const [userPassword, setUserPassword] = useState(null);
+    const [userToken, setUserToken] = useState(null);
+    const [userName, setUserName] = useState(null);
+    const [userProfile, setUserProfile] = useState(null);
 
-    const settingSession = async () => {
-        setSessionUsername(await AsyncStorage.getItem('username'));
-        setSessionUserProfile(await AsyncStorage.getItem('profile'));
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+    }
+    const initStates = async () => {
+        await SecureStore.getItemAsync("email").then(val => setUserEmail(val));
+        await SecureStore.getItemAsync("token").then(val => setUserToken(val));
+    }
+
+    useEffect(() => {
+        initStates();
+    }, []);
+
+    const InitUser = async () => {
+
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", userToken);
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        try {
+            const response = await fetch(Configurations.host + "/skyzer-guide/users/user/" + userEmail, requestOptions)
+            const status = await response.status;
+            console.log(status);
+
+            if (status == 200) {
+                const responseJson = await response.json();
+                const userArray = JSON.parse(JSON.stringify(responseJson));
+                setUserName(userArray.username);
+                setUserProfile(userArray.image);
+            } else {
+                throw new Error('Something went wrong!');
+            }
+
+        } catch (error) {
+            console.log('Home Error', error);
+            return false;
+        }
     }
 
     /** REFRESH THE PAGE ON EVERY VISIT */
     useFocusEffect(
         React.useCallback(() => {
-            settingSession();
-        }, [])
+            let isMounted = true;
+            wait(100).then(() => {
+                if (isMounted) InitUser()
+            });
+            return () => { isMounted = false };
+        }, [userEmail, userToken])
     );
 
     var hours = new Date().getHours(); // Current hour
@@ -93,7 +140,8 @@ export default Home = ({ navigation }) => {
                 <View style={styles.headerSubView}>
                     <View style={{ flex: 5, }}>
                         <View style={{ flexDirection: 'row' }}>
-                            <Text style={[Headertext.h4, { fontWeight: '300' }]}>Hello,</Text><Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}> {sessionUsername}!</Text>
+                            <Text style={[Headertext.h4, { fontWeight: '300' }]}>Hello,</Text>
+                            <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}> {userName}!</Text>
                         </View>
                         <Text style={Headertext.h5}>
                             {currentMsg}
@@ -105,7 +153,7 @@ export default Home = ({ navigation }) => {
                             <TouchableOpacity style={{ borderRadius: 10, borderColor: Colors.bodyColor }}
                                 onPress={() => navigation.navigate('Profile')}>
                                 {
-                                    sessionUserProfile == null ?
+                                    userProfile == null ?
                                         <Image
                                             style={styles.profile}
                                             source={DefaultProfileImage}
@@ -113,7 +161,7 @@ export default Home = ({ navigation }) => {
                                         :
                                         <Image
                                             style={styles.profile}
-                                            source={{ uri: sessionUserProfile }}
+                                            source={{ uri: userProfile }}
                                         />
                                 }
 

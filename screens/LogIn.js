@@ -11,14 +11,14 @@ import TopStatusBar from '../components/TopStatusBar';
 
 export default LogIn = ({navigation}) => {
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const  { logIn } = React.useContext(AuthContext);
   
-  const logInHandle = (username, password) => {
-    logIn(username, password);
+  const logInHandle = (email, password) => {
+    logIn(email, password);
   }
 
   return (
@@ -46,7 +46,7 @@ export default LogIn = ({navigation}) => {
             {
               Platform.OS === 'ios' ?
                 <View>
-                  <TextInput selectionColor={Colors.white} style={styles.input} placeholder="Username" placeholderTextColor={Colors.fontColorWhite} keyboardType="default" onChangeText={(Username) => setUsername(Username)} />
+                  <TextInput selectionColor={Colors.white} style={styles.input} placeholder="Email" placeholderTextColor={Colors.fontColorWhite} keyboardType="default" onChangeText={(Email) => setEmail(Email)} />
                   <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
                     <TextInput selectionColor={Colors.white} style={styles.input} placeholder="Password"
                       placeholderTextColor={Colors.fontColorWhite}
@@ -64,7 +64,7 @@ export default LogIn = ({navigation}) => {
 
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(username, password) }}>
+                    <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(email, password) }}>
                       <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Log In</Text>
                     </TouchableOpacity>
                     <Image style={[styles.icon]} source={rightArrowImage} />
@@ -77,7 +77,7 @@ export default LogIn = ({navigation}) => {
                 >
                   <View style={{ height: 300 }}>
                     <View>
-                      <TextInput style={styles.input} placeholder="Username" placeholderTextColor={Colors.fontColorWhite} keyboardType="default" onChangeText={(Username) => setUsername(Username)} />
+                      <TextInput style={styles.input} placeholder="Email" placeholderTextColor={Colors.fontColorWhite} keyboardType="default" onChangeText={(Email) => setEmail(Email)} />
                       <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
                         <TextInput style={styles.input} placeholder="Password"
                           placeholderTextColor={Colors.fontColorWhite}
@@ -95,7 +95,7 @@ export default LogIn = ({navigation}) => {
 
                       </View>
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(username, password) }}>
+                        <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(email, password) }}>
                           <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Log In</Text>
                         </TouchableOpacity>
                         <Image style={[styles.icon]} source={rightArrowImage} />

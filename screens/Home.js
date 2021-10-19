@@ -113,6 +113,10 @@ export default Home = ({ navigation }) => {
                 setUserName(userArray.username);
                 setUserProfile(userArray.image);
                 await AsyncStorage.setItem('userId', userArray.id.toString());
+                if (userProfile != null) {
+                    await AsyncStorage.setItem('profile', userProfile);
+                }
+                
                 setIsLoading(false);
             } else {
                 Alert.alert(

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator, SafeAreaView, Dimensions  } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator, SafeAreaView, Dimensions, Alert  } from 'react-native';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import * as ImagePicker from 'expo-image-picker';
@@ -11,11 +11,12 @@ import MoreImage from '../assets/images/more/more.png';
 import DefaultProfileImage from '../assets/images/profile/profile.png';
 import LoaderImage from '../assets/images/list-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
+import * as SecureStore from 'expo-secure-store';
 
 export default Profile = ({ navigation }) => {
 
+    const [userToken, setUserToken] = useState(null);
     const [image, setImage] = useState(null);
-    const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [isImageLoading, setIsImageLoading] = useState(false);
 
@@ -23,13 +24,13 @@ export default Profile = ({ navigation }) => {
     const [dealer, setDealer] = useState(null);
     const [username, setUsername] = useState(null);
     const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
 
     const [sessionId, setSessionId] = useState(null);
 
     const settingSession = async () => {
-        setSessionId(await AsyncStorage.getItem('userId'));
-        setImage(await AsyncStorage.getItem('profile'));
+        await AsyncStorage.getItem('userId').then(val => setSessionId(val));
+        await AsyncStorage.getItem('profile').then(val => setImage(val));
+        await SecureStore.getItemAsync('token').then(val => setUserToken(val));
     }
 
     useEffect(() => {
@@ -45,40 +46,44 @@ export default Profile = ({ navigation }) => {
     }, []);
 
     useEffect(() => {
-        let isMounted = true;
-        wait(1000).then(() => {
-            if (isMounted) InitList()
-        });
-        return () => { isMounted = false };
-    }, [sessionId]);
+        if (sessionId != null && userToken != null) {
+            InitUser()
+        }
+    }, [sessionId, userToken]);
 
-    const wait = (timeout) => {
-        return new Promise(resolve => setTimeout(resolve, timeout));
-    }
+    const InitUser = async () => {
 
-    const InitList = async () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", userToken);
 
         var requestOptions = {
             method: 'GET',
+            headers: myHeaders,
             redirect: 'follow'
         };
 
         try {
-            const response = await fetch(Configurations.host + "/users/" + sessionId, requestOptions)
+            const response = await fetch(Configurations.host + "/skyzer-guide/users/" + sessionId, requestOptions)
             const status = await response.status;
-            
-            if (status == 204) {
-                setIsLoading(false);
-                throw new Error('No Content');
-            } else {
+            console.log(status)
+            if (status == 200) {
                 const responseJson = await response.json();
                 const userArray = JSON.parse(JSON.stringify(responseJson));
                 setAccount(userArray.division.division);
                 setDealer(userArray.division.dealer_name);
                 setUsername(userArray.username);
                 setEmail(userArray.email);
-                setPassword(userArray.password);
                 setIsLoading(false);
+            } else {
+                Alert.alert(
+                    "Security Alert",
+                    "Please login again!",
+                    [
+                        // { text: "OK", onPress: () => logOut() }
+                    ]
+                );
+                setIsLoading(false);
+                throw new Error('No Content');
             }
 
         } catch (error) {
@@ -105,6 +110,8 @@ export default Profile = ({ navigation }) => {
           setIsImageLoading(true);
           var myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
+          myHeaders.append("Authorization", userToken);
+
           var raw = JSON.stringify({
               "id": sessionId,
               "image": result.uri
@@ -118,7 +125,7 @@ export default Profile = ({ navigation }) => {
           };
 
           try {
-              const response = await fetch(Configurations.host + "/user/image/", requestOptions)
+              const response = await fetch(Configurations.host + "/skyzer-guide/user/image/", requestOptions)
               const status = await response.status;
 
               if (status != 200) {
@@ -199,24 +206,6 @@ export default Profile = ({ navigation }) => {
                         <View style={styles.fieldBlock}>
                             <Text style={[Headertext.h5, { color: Colors.fontColorLightBlack, fontWeight: 'bold' }]}>Username</Text>
                             <Text style={[Headertext.h5, { color: Colors.fontColorBlack, fontWeight: 'bold' }]}>{username}</Text>
-                        </View>
-                    </View>
-                    <View style={{ flex: 1.2,}}>
-                        <View style={styles.fieldBlock}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center',}}>
-                            <Text style={[Headertext.h5, { color: Colors.fontColorLightBlack, fontWeight: 'bold' }]}>Password</Text>
-                            {
-                                showPassword ?
-                                    <MaterialCommunityIcons name="eye" size={24} style={{ marginLeft: 5 }}
-                                        color={Colors.grey} onPress={() => setShowPassword(false)} />
-                                    :
-                                    <MaterialCommunityIcons name="eye-off" size={24} style={{ marginLeft: 5 }}
-                                        color={Colors.grey} onPress={() => setShowPassword(true)} />
-                            }
-                            </View>
-                            <Text style={[Headertext.h5, { color: Colors.fontColorBlack, fontWeight: 'bold' }]}>
-                                {showPassword ? password : "****"}
-                            </Text>
                         </View>
                     </View>
                     <View style={{ flex: 1.2, }}>

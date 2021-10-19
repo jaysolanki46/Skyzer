@@ -63,7 +63,7 @@ export default SignUp = ({ navigation }) => {
             };
 
             try {
-                const responseEmail = await fetch(Configurations.host + "/users/user/" + email, requestOptions);
+                const responseEmail = await fetch(Configurations.host + "/skyzer-guide/users/user/alreadyExist/" + email, requestOptions);
                 const statusEmail = await responseEmail.status;
 
                 if (statusEmail == 200) {
@@ -77,19 +77,18 @@ export default SignUp = ({ navigation }) => {
             }
 
             try {
-                const responseDivision = await fetch(Configurations.host + "/divisions/division/" + account, requestOptions);
+                const responseDivision = await fetch(Configurations.host + "/skyzer-guide/divisions/division/validDivision/" + account, requestOptions);
                 const statusDivision = await responseDivision.status;
                 
-                if (statusDivision != 200) {
-                    /** 200 - OK */
-                    throw Error("Account doesn't exist");
-                } else {
-                    /** CREATE NEW USER */
+                if (statusDivision == 200) {
                     createUser(username, email, password, account);
+                } else if (statusDivision == 401) {
+                    Alert.alert("Error", "Account doesn't exist, please check your account number again. OR Contact Skyzer if you are not sure.");
+                    setIsErrorAccount(true);
+                    return false;
                 }
             } catch (error) {
-                setIsErrorAccount(true);
-                Alert.alert("Error", "Account doesn't exist, please check your account number again. OR Contact Skyzer if you are not sure.");
+                console.log("Division Error:" + error);
                 return false;
             }
         }
@@ -116,7 +115,7 @@ export default SignUp = ({ navigation }) => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/user", requestOptions);
+            const response = await fetch(Configurations.host + "/skyzer-guide/user", requestOptions);
             const status = await response.status;
 
             if (status != 201) {

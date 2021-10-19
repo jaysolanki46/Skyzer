@@ -109,6 +109,9 @@ const App = () => {
       try {
         await SecureStore.deleteItemAsync("email");
         await SecureStore.deleteItemAsync("token");
+        await AsyncStorage.removeItem('userId');
+        await AsyncStorage.removeItem('profile');
+        
       } catch (error) {
         console.log(error);
       }

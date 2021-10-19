@@ -72,18 +72,6 @@ function HomeTabs() {
         headerTitleAlign: 'center',
         headerBackTitleVisible: false,
       }} />
-      <Stack.Screen name="Terms" component={Terms} options={{
-        headerShown: true,
-        headerTitle: "Terms & Privacy Policy",
-        headerTitleAlign: 'center',
-        headerBackTitleVisible: false,
-      }} />
-      <Stack.Screen name="Credits" component={Credits} options={{
-        headerShown: true,
-        headerTitle: "Credits",
-        headerTitleAlign: 'center',
-        headerBackTitleVisible: false,
-      }} />
       <Stack.Screen name="Nitro" component={Nitro} options={{
         headerShown: true,
         headerTitle: "Nitro",
@@ -99,6 +87,32 @@ function HomeTabs() {
     </Stack.Navigator>
   );
 } 
+
+function ProfileTabs() {
+  return (
+    <Stack.Navigator screenOptions={{ headerStyle: { shadowOffset: { height: 0, width: 0 }, elevation: 0, } }}>
+      <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+      <Stack.Screen name="More" component={More} options={{
+        headerShown: true,
+        headerTitle: "More",
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
+      }} />
+      <Stack.Screen name="Terms" component={Terms} options={{
+        headerShown: true,
+        headerTitle: "Terms & Privacy Policy",
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
+      }} />
+      <Stack.Screen name="Credits" component={Credits} options={{
+        headerShown: true,
+        headerTitle: "Credits",
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
+      }} />
+    </Stack.Navigator>
+  );
+}
 
 export default Tabs = () => {
 
@@ -174,8 +188,8 @@ export default Tabs = () => {
       />
 
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="ProfileTabs"
+        component={ProfileTabs}
         options={{
           tabBarLabel: false,
           tabBarIcon: ({ focused }) => (

@@ -189,7 +189,7 @@ export default Home = ({ navigation }) => {
                     <View style={{ flex: 1, }}>
                         <View style={[styles.headerRight]}>
                             <TouchableOpacity style={{ borderRadius: 10, borderColor: Colors.bodyColor }}
-                                onPress={() => navigation.navigate('Profile')}>
+                                    onPress={() => navigation.navigate('ProfileTabs')}>
                                 {
                                     userProfile == null ?
                                         <Image

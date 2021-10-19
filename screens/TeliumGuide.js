@@ -12,9 +12,11 @@ import LoaderImage from '../assets/images/list-loader.gif';
 import NoContentImage from '../assets/images/telium/no-content.png';
 import TopStatusBar from '../components/TopStatusBar';
 import { Badge } from 'react-native-paper';
+import * as SecureStore from 'expo-secure-store';
 
 export default TeliumGuide = () => {
 
+    const [userToken, setUserToken] = useState(null);
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState([]);
     const [masterDataSource, setMasterDataSource] = useState([]);
@@ -24,6 +26,7 @@ export default TeliumGuide = () => {
 
     const settingSession = async () => {
         await AsyncStorage.getItem('userId').then(val => setSessionId(val));
+        await SecureStore.getItemAsync('token').then(val => setUserToken(val));
     }
 
     useEffect(() => {
@@ -34,22 +37,26 @@ export default TeliumGuide = () => {
     useFocusEffect(
         React.useCallback(() => {
             let isMounted = true;
-            wait(1000).then(() => {
-                if (isMounted) InitList()
+            wait(500).then(() => {
+                if (isMounted && sessionId != null && userToken != null) InitList()
             });
             return () => { isMounted = false };
-        }, [sessionId])
+        }, [sessionId, userToken])
     );
 
     const InitList = async () => {
 
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", userToken);
+
         var requestOptions = {
             method: 'GET',
+            headers: myHeaders,
             redirect: 'follow'
         };
 
         try {
-            const response = await fetch(Configurations.host + "/referenceGuideFunctions/telium/user/" + sessionId, requestOptions)
+            const response = await fetch(Configurations.host + "/skyzer-guide/referenceGuideFunctions/telium/user/" + sessionId, requestOptions)
             const status = await response.status;
             const responseJson = await response.json();
             if (status == 204) {
@@ -76,6 +83,7 @@ export default TeliumGuide = () => {
         var myHeaders = new Headers();
         var methodType = "";
         myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", userToken);
 
         isCreate ? methodType = 'POST' : methodType = 'DELETE'
 
@@ -96,7 +104,7 @@ export default TeliumGuide = () => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/userFavorites/telium/user/", requestOptions);
+            const response = await fetch(Configurations.host + "/skyzer-guide/userFavorites/telium/user/", requestOptions);
             const status = await response.status;
             const responseJson = await response.json();
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, ImageBackground, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, ImageBackground, Dimensions, ScrollView, Alert } from 'react-native';
 import Headertext from '../config/Headertext';
 import Colors from '../config/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -16,6 +16,8 @@ import BulletinImage from '../assets/images/home/bulletin-card-book.png';
 import TopStatusBar from '../components/TopStatusBar';
 import Configurations from '../config/Configurations';
 import * as SecureStore from 'expo-secure-store';
+import { AuthContext } from '../components/AuthContext';
+import LoaderImage from '../assets/images/list-loader.gif';
 
 export default Home = ({ navigation }) => {
     const [items, setItems] = useState([
@@ -64,10 +66,12 @@ export default Home = ({ navigation }) => {
     ]);
 
     const [userEmail, setUserEmail] = useState(null);
-    const [userPassword, setUserPassword] = useState(null);
     const [userToken, setUserToken] = useState(null);
     const [userName, setUserName] = useState(null);
     const [userProfile, setUserProfile] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const { logOut } = React.useContext(AuthContext);
 
     const wait = (timeout) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
@@ -80,6 +84,12 @@ export default Home = ({ navigation }) => {
     useEffect(() => {
         initStates();
     }, []);
+
+    useEffect(() => {
+        if (userToken != null) {
+            InitUser()
+        }
+    }, [userEmail, userToken]);
 
     const InitUser = async () => {
 
@@ -102,25 +112,35 @@ export default Home = ({ navigation }) => {
                 const userArray = JSON.parse(JSON.stringify(responseJson));
                 setUserName(userArray.username);
                 setUserProfile(userArray.image);
+                await AsyncStorage.setItem('userId', userArray.id.toString());
+                setIsLoading(false);
             } else {
-                throw new Error('Something went wrong!');
+                Alert.alert(
+                    "Security Alert",
+                    "Please login again!",
+                    [
+                        { text: "OK", onPress: () => logOut() }
+                    ]
+                );
+                setIsLoading(false);
+                throw new Error(status);
             }
 
         } catch (error) {
             console.log('Home Error', error);
+            setIsLoading(false);
             return false;
         }
     }
 
-    /** REFRESH THE PAGE ON EVERY VISIT */
+    const InitProfile = async () => {
+        await AsyncStorage.getItem('profile').then(val => setUserProfile(val));
+    }
+    /** REFRESH THE PROFILE ON EVERY VISIT */
     useFocusEffect(
         React.useCallback(() => {
-            let isMounted = true;
-            wait(100).then(() => {
-                if (isMounted) InitUser()
-            });
-            return () => { isMounted = false };
-        }, [userEmail, userToken])
+            InitProfile()
+        }, [])
     );
 
     var hours = new Date().getHours(); // Current hour
@@ -133,9 +153,23 @@ export default Home = ({ navigation }) => {
         currentMsg = "Good evening, what are you up to?";
     }
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <TopStatusBar />
+
+    function Loader() {
+        return (
+            <View style={{ flex: 1, }}>
+                <Image style={styles.loader}
+                    source={LoaderImage} />
+                <Image style={styles.loader}
+                    source={LoaderImage} />
+                <Image style={styles.loader}
+                    source={LoaderImage} />
+            </View>
+        );
+    }
+
+    function Content() {
+        return (
+            <View style={{ flex: 1, }}>
             <View style={styles.header}>
                 <View style={styles.headerSubView}>
                     <View style={{ flex: 5, }}>
@@ -508,6 +542,15 @@ export default Home = ({ navigation }) => {
 
                 </ImageBackground>
             </View>
+            </View>
+        );
+    }
+    return (
+        <SafeAreaView style={styles.container}>
+            <TopStatusBar />
+            {
+                isLoading ? Loader() : Content()
+            }
         </SafeAreaView>
     );
 }
@@ -557,5 +600,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         color: Colors.fontColorWhite,
         margin: 1,
+    },
+    loader: {
+        width: Dimensions.get('window').width,
+        height: 100,
+        marginTop: 10,
     },
 });

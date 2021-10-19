@@ -11,9 +11,11 @@ import StarImage from '../assets/images/tetra/tetra-star.png';
 import LoaderImage from '../assets/images/list-loader.gif';
 import NoContentImage from '../assets/images/tetra/no-content.png';
 import TopStatusBar from '../components/TopStatusBar';
+import * as SecureStore from 'expo-secure-store';
 
 export default Favourites = () => {
 
+    const [userToken, setUserToken] = useState(null);
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState([]);
     const [masterDataSource, setMasterDataSource] = useState([]);
@@ -24,6 +26,7 @@ export default Favourites = () => {
 
     const settingSession = async () => {
         await AsyncStorage.getItem('userId').then(val => setSessionId(val));
+        await SecureStore.getItemAsync('token').then(val => setUserToken(val));
     }
 
     useEffect(() => {
@@ -34,22 +37,26 @@ export default Favourites = () => {
     useFocusEffect(
         React.useCallback(() => {
             let isMounted = true;
-            wait(1000).then(() => {
-                if (isMounted) InitList()
+            wait(500).then(() => {
+                if (isMounted && sessionId != null && userToken != null) InitList()
             });
             return () => { isMounted = false };
-        }, [sessionId])
+        }, [sessionId, userToken])
     );
 
     const InitList = async () => {
 
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", userToken);
+
         var requestOptions = {
             method: 'GET',
+            headers: myHeaders,
             redirect: 'follow'
         };
 
         try {
-            const response = await fetch(Configurations.host + "/userFavorites/user/" + sessionId, requestOptions)
+            const response = await fetch(Configurations.host + "/skyzer-guide/userFavorites/user/" + sessionId, requestOptions)
             const status = await response.status;
 
             if (status == 204) {
@@ -79,6 +86,7 @@ export default Favourites = () => {
         var myHeaders = new Headers();
         var methodType = "";
         myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", userToken);
 
         isCreate ? methodType = 'POST' : methodType = 'DELETE'
 
@@ -99,7 +107,7 @@ export default Favourites = () => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/userFavorites/user/", requestOptions);
+            const response = await fetch(Configurations.host + "/skyzer-guide/userFavorites/user/", requestOptions);
             const status = await response.status;
            
             if (status == 204) {

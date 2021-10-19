@@ -5,9 +5,11 @@ import Headertext from '../config/Headertext';
 import Configurations from '../config/Configurations';
 import LoaderImage from '../assets/images/list-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
+import * as SecureStore from 'expo-secure-store';
 
 export default Credits = () => {
 
+    const [userToken, setUserToken] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
 
@@ -15,23 +17,35 @@ export default Credits = () => {
         return new Promise(resolve => setTimeout(resolve, timeout));
     }
     
+    const settingSession = async () => {
+        await SecureStore.getItemAsync('token').then(val => setUserToken(val));
+    }
+
+    useEffect(() => {
+        settingSession();
+    }, []);
+
     useEffect(() => {
         let isMounted = true;
         wait(500).then(() => {
-            if (isMounted) InitTeam()
+            if (isMounted && userToken != null) InitTeam()
         });
         return () => { isMounted = false };
-    }, []);
+    }, [userToken]);
 
     const InitTeam = async () => {
 
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", userToken);
+
         var requestOptions = {
             method: 'GET',
+            headers: myHeaders,
             redirect: 'follow'
         };
 
         try {
-            const response = await fetch(Configurations.host + "/teamCredits", requestOptions)
+            const response = await fetch(Configurations.host + "/skyzer-guide/teamCredits", requestOptions)
             const status = await response.status;
             const responseJson = await response.json();
 
@@ -87,7 +101,7 @@ export default Credits = () => {
                                                         alignItems: 'center',
                                                     }}>
                                                         <Image style={[styles.image, { borderRadius: 50 }]} source={{
-                                                            uri: Configurations.host + "/images/team/" + member.image_name,
+                                                            uri: Configurations.host + "/skyzer-guide/images/team/" + member.image_name,
                                                         }} />
                                                     </View>
 

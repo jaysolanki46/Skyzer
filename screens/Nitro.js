@@ -1,16 +1,25 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, SafeAreaView, Text, View, Image, Animated, TouchableOpacity, Linking, ImageBackground, Dimensions, ScrollView, TextInput, Alert } from 'react-native';
 import Colors from '../config/Colors';
 import NitroBannerImage from '../assets/images/nitro/nitro-banner.png';
 import TopStatusBar from '../components/TopStatusBar';
 import Headertext from '../config/Headertext';
 import Configurations from '../config/Configurations';
-
+import * as SecureStore from 'expo-secure-store';
 
 export default Nitro = ({ navigation }) => {
 
+    const [userToken, setUserToken] = useState(null);
     const [isErrorEmail, setIsErrorEmail] = useState(false);
     const [email, setEmail] = useState('');
+
+    const settingSession = async () => {
+        await SecureStore.getItemAsync('token').then(val => setUserToken(val));
+    }
+    
+    useEffect(() => {
+        settingSession();
+    }, []);
 
     const sendLink = async (email) => {
 
@@ -26,6 +35,7 @@ export default Nitro = ({ navigation }) => {
 
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Authorization", userToken);
 
             var requestOptions = {
                 method: 'GET',
@@ -34,11 +44,10 @@ export default Nitro = ({ navigation }) => {
             };
 
             try {
-                const response = await fetch(Configurations.host + "/nitroPackage/sendLink/" + email, requestOptions);
+                const response = await fetch(Configurations.host + "/skyzer-guide/nitroPackage/sendLink/" + email, requestOptions);
                 const status = await response.status;
 
                 if (status == 200) {
-                    /** 200 - OK */
                     setEmail('');
                     Alert.alert("Success", "Package link sent!");
                 }
@@ -72,7 +81,7 @@ export default Nitro = ({ navigation }) => {
                             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                                 <TextInput style={[styles.input, {
                                     borderColor: isErrorEmail ? Colors.danger : Colors.bluest
-                                }]} placeholder="ex. abc@domain.co.nz"
+                                }]} placeholder="ex. abc@domain.co.nz" value={email}
                                     placeholderTextColor={Colors.fontColorBluest} keyboardType="email-address"
                                     onChangeText={(Email) => setEmail(Email)} selectionColor={Colors.bluest} />
 

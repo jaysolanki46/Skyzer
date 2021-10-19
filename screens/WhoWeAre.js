@@ -6,27 +6,41 @@ import Headertext from '../config/Headertext';
 import { useEffect } from 'react';
 import Configurations from '../config/Configurations';
 import TopStatusBar from '../components/TopStatusBar';
+import * as SecureStore from 'expo-secure-store';
 
 export default WhoWeAre = ({ navigation }) => {
 
+    const [userToken, setUserToken] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
 
+    const settingSession = async () => {
+        await SecureStore.getItemAsync('token').then(val => setUserToken(val));
+    }
+
+    useEffect(() => {
+        settingSession();
+    }, []);
+
     useEffect(() => {
         let isMounted = true;
-        if (isMounted) InitTeam()
+            if (isMounted && userToken) InitTeam();
         return () => { isMounted = false };
-    }, []);
+    }, [userToken]);
 
     const InitTeam = async () => {
 
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", userToken);
+
         var requestOptions = {
             method: 'GET',
+            headers: myHeaders,
             redirect: 'follow'
         };
 
         try {
-            const response = await fetch(Configurations.host + "/team", requestOptions)
+            const response = await fetch(Configurations.host + "/skyzer-guide/team", requestOptions)
             const status = await response.status;
             const responseJson = await response.json();
 
@@ -104,7 +118,7 @@ export default WhoWeAre = ({ navigation }) => {
                                                         alignItems: 'center',
                                                     }}>
                                                         <Image style={[styles.image, {borderRadius: 50}]} source={{
-                                                            uri: Configurations.host + "/images/team/" + member.image_name,
+                                                            uri: Configurations.host + "/skyzer-guide/images/team/" + member.image_name,
                                                         }} />
                                                     </View>
 

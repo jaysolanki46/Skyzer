@@ -8,28 +8,42 @@ import LoaderImage from '../assets/images/list-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
 import BulletinImage from '../assets/images/home/bulletin-card-book.png';
 import ExternalLinkImage from '../assets/images/bulletin/external-link.png';
+import * as SecureStore from 'expo-secure-store';
 
 export default Bulletins = ({navigation}) => {
 
+    const [userToken, setUserToken] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const [dataSource, setDataSource] = useState([]);
 
+    const settingSession = async () => {
+        await SecureStore.getItemAsync('token').then(val => setUserToken(val));
+    }
+
     useEffect(() => {
-        wait(1000).then(() => {
-            InitList();
-        });
+        settingSession();
     }, []);
+
+    useEffect(() => {
+        if (userToken != null) {
+            InitList()
+        }
+    }, [userToken]);
 
     const InitList = async () => {
 
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", userToken);
+
         var requestOptions = {
             method: 'GET',
+            headers: myHeaders,
             redirect: 'follow'
         };
 
         try {
-            const response = await fetch(Configurations.host + "/bulletins", requestOptions)
+            const response = await fetch(Configurations.host + "/skyzer-guide/bulletins", requestOptions)
             const status = await response.status;
             const responseJson = await response.json();
             if (status != 200) {

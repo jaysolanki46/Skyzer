@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, SafeAreaView} from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, SafeAreaView, Alert} from 'react-native';
 import Headertext from '../config/Headertext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
@@ -18,7 +18,19 @@ export default LogIn = ({navigation}) => {
   const  { logIn } = React.useContext(AuthContext);
   
   const logInHandle = (email, password) => {
-    logIn(email, password);
+
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+
+    if (email === null || email === "" ||
+      password === null || password === "") {
+      Alert.alert("Error", "Email and password are required");
+
+    } else if (reg.test(email) === false) {
+      Alert.alert("Error", "Invalid email");
+
+    } else {
+      logIn(email, password);
+    }
   }
 
   return (

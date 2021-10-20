@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, RefreshControl, SafeAreaView, Linking } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, RefreshControl, SafeAreaView, Linking, Alert } from 'react-native';
 import Colors from '../config/Colors';
 import Configurations from '../config/Configurations';
 import Headertext from '../config/Headertext';
@@ -9,6 +9,8 @@ import TopStatusBar from '../components/TopStatusBar';
 import BulletinImage from '../assets/images/home/bulletin-card-book.png';
 import ExternalLinkImage from '../assets/images/bulletin/external-link.png';
 import * as SecureStore from 'expo-secure-store';
+import { AuthContext } from '../components/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default Bulletins = ({navigation}) => {
 
@@ -16,6 +18,8 @@ export default Bulletins = ({navigation}) => {
     const [isLoading, setIsLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const [dataSource, setDataSource] = useState([]);
+
+    const { logOut } = React.useContext(AuthContext);
 
     const settingSession = async () => {
         await SecureStore.getItemAsync('token').then(val => setUserToken(val));
@@ -45,23 +49,33 @@ export default Bulletins = ({navigation}) => {
         try {
             const response = await fetch(Configurations.host + "/skyzer-guide/bulletins", requestOptions)
             const status = await response.status;
-            const responseJson = await response.json();
-            if (status != 200) {
-                setIsLoading(false);
-                setRefreshing(false);
-                setDataSource(null);
-                throw new Error();
-            } else {
+
+            if(status == 200) {
+                const responseJson = await response.json();
                 setIsLoading(false);
                 setRefreshing(false);
                 setDataSource(responseJson);
+
+            } else if (status == 401) {
+                Alert.alert(
+                    "Security Alert",
+                    "Please login again!",
+                    [
+                        { text: "OK", onPress: () => logOut() }
+                    ]
+                );
+                throw new Error(status);
+
+            } else {
+                setIsLoading(false);
+                setRefreshing(false);
+                setDataSource(null);
+                throw new Error(status);
             }
 
         } catch (error) {
-            setIsLoading(false);
-            setRefreshing(false);
-            console.log('Bulletins Error', error);
-            return false;
+            console.log(new Date().toLocaleString() + " | " + "Screen: Bulletins.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
+            //return false;
         }
     }
 

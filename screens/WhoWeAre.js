@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ImageBackground, StyleSheet, Platform, SafeAreaView, View, ScrollView, Image, Text, TouchableOpacity, Linking,  } from 'react-native';
+import { ImageBackground, StyleSheet, Platform, SafeAreaView, View, ScrollView, Image, Text, TouchableOpacity, Linking, Alert,  } from 'react-native';
 import Colors from '../config/Colors';
 import backgroundImage from "../assets/images/about/headerBackground.jpg";
 import Headertext from '../config/Headertext';
@@ -7,12 +7,16 @@ import { useEffect } from 'react';
 import Configurations from '../config/Configurations';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
+import { AuthContext } from '../components/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default WhoWeAre = ({ navigation }) => {
 
     const [userToken, setUserToken] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
+
+    const { logOut } = React.useContext(AuthContext);
 
     const settingSession = async () => {
         await SecureStore.getItemAsync('token').then(val => setUserToken(val));
@@ -42,19 +46,29 @@ export default WhoWeAre = ({ navigation }) => {
         try {
             const response = await fetch(Configurations.host + "/skyzer-guide/team", requestOptions)
             const status = await response.status;
-            const responseJson = await response.json();
 
-            if (status == 204) {
-                setIsLoading(false);
-                throw new Error('204 - No Content');
-            } else {
+            if (status == 200) {
+                const responseJson = await response.json();
                 setIsLoading(false);
                 setData(responseJson);
+
+            } else if (status == 401) {
+                Alert.alert(
+                    "Security Alert",
+                    "Please login again!",
+                    [
+                        { text: "OK", onPress: () => logOut() }
+                    ]
+                );
+                throw new Error(status);
+
+            } else {
+                throw new Error(status);
             }
 
         } catch (error) {
-            console.log('Who We Are Error', error);
-            return false;
+            console.log(new Date().toLocaleString() + " | " + "Screen: WhoWeAre.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
+            //return false;
         }
     }
 

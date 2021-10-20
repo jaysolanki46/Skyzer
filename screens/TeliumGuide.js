@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, RefreshControl, SafeAreaView } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, RefreshControl, SafeAreaView, Alert } from 'react-native';
 import SearchBar from 'react-native-dynamic-search-bar';
 import Colors from '../config/Colors';
 import Configurations from '../config/Configurations';
@@ -13,6 +13,7 @@ import NoContentImage from '../assets/images/telium/no-content.png';
 import TopStatusBar from '../components/TopStatusBar';
 import { Badge } from 'react-native-paper';
 import * as SecureStore from 'expo-secure-store';
+import { AuthContext } from '../components/AuthContext';
 
 export default TeliumGuide = () => {
 
@@ -23,6 +24,8 @@ export default TeliumGuide = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const [sessionId, setSessionId] = useState(null);
+
+    const { logOut } = React.useContext(AuthContext);
 
     const settingSession = async () => {
         await AsyncStorage.getItem('userId').then(val => setSessionId(val));
@@ -58,22 +61,32 @@ export default TeliumGuide = () => {
         try {
             const response = await fetch(Configurations.host + "/skyzer-guide/referenceGuideFunctions/telium/user/" + sessionId, requestOptions)
             const status = await response.status;
-            const responseJson = await response.json();
-            if (status == 204) {
-                setIsLoading(false);
-                setRefreshing(false);
-                setFilteredDataSource(null);
-                setMasterDataSource(null);
-                throw new Error('204 - No Content');
-            } else {
+
+            if(status == 200) {
+                const responseJson = await response.json();
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(responseJson);
                 setMasterDataSource(responseJson);
+            } else if (status == 401) {
+                Alert.alert(
+                    "Security Alert",
+                    "Please login again!",
+                    [
+                        { text: "OK", onPress: () => logOut() }
+                    ]
+                );
+                throw new Error(status);
+            } else {
+                setIsLoading(false);
+                setRefreshing(false);
+                setFilteredDataSource(null);
+                setMasterDataSource(null);
+                throw new Error(status);
             }
 
         } catch (error) {
-            console.log('Telium Guide Error', error);
+            console.log(new Date().toLocaleString() + " | " + "Screen: TeliumGuide.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
             return false;
         }
     }
@@ -106,22 +119,33 @@ export default TeliumGuide = () => {
         try {
             const response = await fetch(Configurations.host + "/skyzer-guide/userFavorites/telium/user/", requestOptions);
             const status = await response.status;
-            const responseJson = await response.json();
 
-            if (status == 204) {
+            if (status == 200) {
+                const responseJson = await response.json();
+                setFilteredDataSource(responseJson);
+                setMasterDataSource(responseJson);
+
+            } else if (status == 401) {
+                Alert.alert(
+                    "Security Alert",
+                    "Please login again!",
+                    [
+                        { text: "OK", onPress: () => logOut() }
+                    ]
+                );
+                throw new Error(status);
+
+            } else {
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(null);
                 setMasterDataSource(null);
-                throw new Error('204 - No Content');
-            } else {
-                setFilteredDataSource(responseJson);
-                setMasterDataSource(responseJson);
+                throw new Error(status);
             }
 
         } catch (error) {
-            console.log('Telium Guide Fav Error', error);
-            return false;
+            console.log(new Date().toLocaleString() + " | " + "Screen: TeliumGuide.js" + " | " + "Module: Favorite" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
+            //return false;
         }
     }
 
@@ -202,8 +226,10 @@ export default TeliumGuide = () => {
 
     const OnRefresh = React.useCallback(() => {
         setRefreshing(true);
-        wait(1000).then(() => InitList());
-    }, [sessionId]);
+        wait(500).then(() => {
+            if (sessionId != null && userToken != null) InitList()
+        });
+    }, [sessionId, userToken]);
 
     function Loader() {
         return (

@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Dimensions, Linking } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Dimensions, Linking, Alert } from 'react-native';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import Configurations from '../config/Configurations';
 import LoaderImage from '../assets/images/list-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
+import { AuthContext } from '../components/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default Credits = () => {
 
     const [userToken, setUserToken] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
+
+    const { logOut } = React.useContext(AuthContext);
 
     const wait = (timeout) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
@@ -47,19 +51,29 @@ export default Credits = () => {
         try {
             const response = await fetch(Configurations.host + "/skyzer-guide/teamCredits", requestOptions)
             const status = await response.status;
-            const responseJson = await response.json();
 
-            if (status == 204) {
-                setIsLoading(false);
-                throw new Error('No Content');
-            } else {
+            if (status == 200) {
+                const responseJson = await response.json();
                 setIsLoading(false);
                 setData(responseJson);
+
+            } else if (status == 401) {
+                Alert.alert(
+                    "Security Alert",
+                    "Please login again!",
+                    [
+                        { text: "OK", onPress: () => logOut() }
+                    ]
+                );
+                throw new Error(status);
+
+            } else {
+                setIsLoading(false);
+                throw new Error(status);
             }
 
         } catch (error) {
-            console.log('Who We Are Error', error);
-            return false;
+            console.log(new Date().toLocaleString() + " | " + "Screen: Credits.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
         }
     }
 

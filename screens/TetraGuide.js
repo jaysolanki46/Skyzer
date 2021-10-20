@@ -61,9 +61,9 @@ export default TetraGuide = () => {
         try {
             const response = await fetch(Configurations.host + "/skyzer-guide/referenceGuideFunctions/tetra/user/" + sessionId, requestOptions)
             const status = await response.status;
-            const responseJson = await response.json();
 
             if (status == 200) {
+                const responseJson = await response.json();
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(responseJson);
@@ -78,6 +78,7 @@ export default TetraGuide = () => {
                     ]
                 );
                 throw new Error(status);
+                
             } else {
                 setIsLoading(false);
                 setRefreshing(false);
@@ -87,8 +88,7 @@ export default TetraGuide = () => {
             }
 
         } catch (error) {
-            console.log('Tetra Guide Error', error);
-            return false;
+            console.log(new Date().toLocaleString() + " | " + "Screen: TetraGuide.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
         }
     }
 
@@ -120,9 +120,9 @@ export default TetraGuide = () => {
         try {
             const response = await fetch(Configurations.host + "/skyzer-guide/userFavorites/tetra/user/", requestOptions);
             const status = await response.status;
-            const responseJson = await response.json();
 
             if(status == 200) {
+                const responseJson = await response.json();
                 setFilteredDataSource(responseJson);
                 setMasterDataSource(responseJson);
 
@@ -145,8 +145,8 @@ export default TetraGuide = () => {
             }
 
         } catch (error) {
-            console.log('Tetra Guide Fav Error', error);
-            return false;
+            console.log(new Date().toLocaleString() + " | " + "Screen: TetraGuide.js" + " | " + "Module: Favorite" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
+            //return false;
         }
     }
 
@@ -225,8 +225,11 @@ export default TetraGuide = () => {
 
     const OnRefresh = React.useCallback(() => {
         setRefreshing(true);
-        wait(1000).then(() => InitList());
-    }, [sessionId]);
+        wait(500).then(() => {
+            if (sessionId != null && userToken != null) InitList()
+        });
+    }, [sessionId, userToken]);
+
 
     function Loader() {
         return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, RefreshControl, SafeAreaView } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, RefreshControl, SafeAreaView, Alert } from 'react-native';
 import SearchBar from 'react-native-dynamic-search-bar';
 import Colors from '../config/Colors';
 import Configurations from '../config/Configurations';
@@ -12,6 +12,7 @@ import LoaderImage from '../assets/images/list-loader.gif';
 import NoContentImage from '../assets/images/tetra/no-content.png';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
+import { AuthContext } from '../components/AuthContext';
 
 export default Favourites = () => {
 
@@ -23,6 +24,8 @@ export default Favourites = () => {
     const [refreshing, setRefreshing] = useState(false);
     const [sessionId, setSessionId] = useState(null);
     const [hideSearchBar, setHideSearchBar] = useState(false);
+
+    const { logOut } = React.useContext(AuthContext);
 
     const settingSession = async () => {
         await AsyncStorage.getItem('userId').then(val => setSessionId(val));
@@ -59,25 +62,36 @@ export default Favourites = () => {
             const response = await fetch(Configurations.host + "/skyzer-guide/userFavorites/user/" + sessionId, requestOptions)
             const status = await response.status;
 
-            if (status == 204) {
-                setIsLoading(false);
-                setRefreshing(false);
-                setFilteredDataSource(null);
-                setMasterDataSource(null);
-                setHideSearchBar(true);
-                throw new Error('No Content');
-            } else {
+            if (status == 200) {
                 const responseJson = await response.json();
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(responseJson);
                 setMasterDataSource(responseJson);
                 setHideSearchBar(false);
+
+            } else if (status == 401) {
+                Alert.alert(
+                    "Security Alert",
+                    "Please login again!",
+                    [
+                        { text: "OK", onPress: () => logOut() }
+                    ]
+                );
+                throw new Error(status);
+
+            } else {
+                setIsLoading(false);
+                setRefreshing(false);
+                setFilteredDataSource(null);
+                setMasterDataSource(null);
+                setHideSearchBar(true);
+                throw new Error(status);
             }
 
         } catch (error) {
-            console.log('Favourites Error', error);
-            return false;
+            console.log(new Date().toLocaleString() + " | " + "Screen: Favourites.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
+            //return false;
         }
     }
 
@@ -109,25 +123,35 @@ export default Favourites = () => {
         try {
             const response = await fetch(Configurations.host + "/skyzer-guide/userFavorites/user/", requestOptions);
             const status = await response.status;
-           
-            if (status == 204) {
+            
+            if(status == 200) {
+                const responseJson = await response.json();
+                setFilteredDataSource(responseJson);
+                setMasterDataSource(responseJson);
+                setHideSearchBar(false);
+
+            } else if (status == 401) {
+                Alert.alert(
+                    "Security Alert",
+                    "Please login again!",
+                    [
+                        { text: "OK", onPress: () => logOut() }
+                    ]
+                );
+                throw new Error(status);
+                
+            } else {
                 setIsLoading(false);
                 setRefreshing(false);
                 setFilteredDataSource(null);
                 setMasterDataSource(null);
                 setHideSearchBar(true);
-                throw new Error('No Content');
-            } else {
-                const responseJson = await response.json();
-                setFilteredDataSource(responseJson);
-                setMasterDataSource(responseJson);
-                setHideSearchBar(false);
+                throw new Error(status);
             }
 
         } catch (error) {
-            
-            console.log('Favourites Update Error', error);
-            return false;
+            console.log(new Date().toLocaleString() + " | " + "Screen: Favourites.js" + " | " + "Module: Update Favourites" + " | " +  "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
+            //return false;
         }
     }
 
@@ -204,8 +228,10 @@ export default Favourites = () => {
 
     const OnRefresh = React.useCallback(() => {
         setRefreshing(true);
-        wait(1000).then(() => InitList());
-    }, [sessionId]);
+        wait(500).then(() => {
+            if (sessionId != null && userToken != null) InitList()
+        });
+    }, [sessionId, userToken]);
 
     function Loader() {
         return (

@@ -19,13 +19,13 @@ export default Profile = ({ navigation }) => {
     const [image, setImage] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isImageLoading, setIsImageLoading] = useState(false);
-
     const [account, setAccount] = useState(null);
     const [dealer, setDealer] = useState(null);
     const [username, setUsername] = useState(null);
     const [email, setEmail] = useState(null);
-
     const [sessionId, setSessionId] = useState(null);
+
+    const { logOut } = React.useContext(AuthContext);
 
     const settingSession = async () => {
         await AsyncStorage.getItem('userId').then(val => setSessionId(val));
@@ -65,7 +65,7 @@ export default Profile = ({ navigation }) => {
         try {
             const response = await fetch(Configurations.host + "/skyzer-guide/users/" + sessionId, requestOptions)
             const status = await response.status;
-            console.log(status)
+
             if (status == 200) {
                 const responseJson = await response.json();
                 const userArray = JSON.parse(JSON.stringify(responseJson));
@@ -74,26 +74,24 @@ export default Profile = ({ navigation }) => {
                 setUsername(userArray.username);
                 setEmail(userArray.email);
                 setIsLoading(false);
-            } else {
+
+            } else if (status == 401) {
                 Alert.alert(
                     "Security Alert",
                     "Please login again!",
                     [
-                        // { text: "OK", onPress: () => logOut() }
+                        { text: "OK", onPress: () => logOut() }
                     ]
                 );
-                setIsLoading(false);
-                throw new Error('No Content');
+                throw new Error(status);
+            } else {
+                throw new Error(status);
             }
 
         } catch (error) {
-            setIsLoading(false);
-            console.log('Profile Init Error', error);
-            return false;
+            console.log(new Date().toLocaleString() + " | " + "Screen: Profile.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
         }
     }
-
-    const  { logOut } = React.useContext(AuthContext);
 
     const pickImage = async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -128,16 +126,28 @@ export default Profile = ({ navigation }) => {
               const response = await fetch(Configurations.host + "/skyzer-guide/user/image/", requestOptions)
               const status = await response.status;
 
-              if (status != 200) {
-                  throw new Error(status + ' Something went wrong');
-              } else {
+              if (status == 200) {
                   await AsyncStorage.removeItem('profile');
                   await AsyncStorage.setItem('profile', result.uri);
-                  alert("Profile update!")
+                  Alert.alert("Profile update!")
+
+              } else if (status == 401) {
+                  Alert.alert(
+                      "Security Alert",
+                      "Please login again!",
+                      [
+                          { text: "OK", onPress: () => logOut() }
+                      ]
+                  );
+                  throw new Error(status);
+
+              } else {
+                  Alert.alert("Something went wrong!");
+                  throw new Error(status);
               }
 
           } catch (error) {
-              console.log('Profile Error', error);
+              console.log(new Date().toLocaleString() + " | " + "Screen: Profile.js" + " | " + "Module: Profile Image Update" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
           }
 
         setImage(result.uri);

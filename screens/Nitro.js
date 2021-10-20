@@ -6,12 +6,16 @@ import TopStatusBar from '../components/TopStatusBar';
 import Headertext from '../config/Headertext';
 import Configurations from '../config/Configurations';
 import * as SecureStore from 'expo-secure-store';
+import { AuthContext } from '../components/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default Nitro = ({ navigation }) => {
 
     const [userToken, setUserToken] = useState(null);
     const [isErrorEmail, setIsErrorEmail] = useState(false);
     const [email, setEmail] = useState('');
+
+    const { logOut } = React.useContext(AuthContext);
 
     const settingSession = async () => {
         await SecureStore.getItemAsync('token').then(val => setUserToken(val));
@@ -50,11 +54,25 @@ export default Nitro = ({ navigation }) => {
                 if (status == 200) {
                     setEmail('');
                     Alert.alert("Success", "Package link sent!");
+
+                } else if (status == 401) {
+                    Alert.alert(
+                        "Security Alert",
+                        "Please login again!",
+                        [
+                            { text: "OK", onPress: () => logOut() }
+                        ]
+                    );
+                    throw new Error(status);
+
+                } else {
+                    Alert.alert("Error", "Something went wrong, Please contact Skyzer!");
+                    throw new Error(status);
                 }
+
             } catch (error) {
-                setIsErrorEmail(true);
-                Alert.alert("Error", "Something went wrong, Please contact Skyzer!");
-                return false;
+                console.log(new Date().toLocaleString() + " | " + "Screen: Nitro.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
+                //return false;
             }
         }
     }

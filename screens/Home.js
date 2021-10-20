@@ -105,7 +105,6 @@ export default Home = ({ navigation }) => {
         try {
             const response = await fetch(Configurations.host + "/skyzer-guide/users/user/" + userEmail, requestOptions)
             const status = await response.status;
-            console.log(status);
 
             if (status == 200) {
                 const responseJson = await response.json();
@@ -116,8 +115,8 @@ export default Home = ({ navigation }) => {
                 if (userProfile != null) {
                     await AsyncStorage.setItem('profile', userProfile);
                 }
-                
                 setIsLoading(false);
+
             } else {
                 Alert.alert(
                     "Security Alert",
@@ -126,14 +125,11 @@ export default Home = ({ navigation }) => {
                         { text: "OK", onPress: () => logOut() }
                     ]
                 );
-                setIsLoading(false);
                 throw new Error(status);
             }
 
         } catch (error) {
-            console.log('Home Error', error);
-            setIsLoading(false);
-            return false;
+            console.log(new Date().toLocaleString() + " | " + "Screen: Home.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
         }
     }
 

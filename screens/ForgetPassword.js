@@ -6,6 +6,7 @@ import BackgroundImage from "../assets/images/background.jpg";
 import Configurations from '../config/Configurations';
 import rightArrowImage from '../assets/images/right-arrow.png';
 import TopStatusBar from '../components/TopStatusBar';
+import * as SecureStore from 'expo-secure-store';
 
 export default ForgetPassword = ({ navigation }) => {
 
@@ -29,23 +30,18 @@ export default ForgetPassword = ({ navigation }) => {
             };
             
             try {
-                const response = await fetch(Configurations.host + "/users/forgetPassword/" + email, requestOptions);
+                const response = await fetch(Configurations.host + "/skyzer-guide/users/verifyUserAndSendCodeOnForgetPassword/" + email, requestOptions);
                 const status = await response.status;
 
-                if (status != 200) {
-                    /** 200 - OK */
-                    Alert.alert("Error", "User does not exist!");
-                    return false;
+                if (status == 200) {
+                    await SecureStore.setItemAsync("forgetEmail", email);
+                    Alert.alert("Success", "We have sent verification code to your email address", [{ onPress: () => navigation.navigate('ForgetPasswordCode') }]);
                 } else {
-                    Alert.alert("Success", "Login details has been sent to your email!", [{ onPress: () => navigation.navigate('LogIn') }]);
-                    return true;
+                    Alert.alert("Error", "User does not exist!");
                 }
             } catch (error) {
                 setIsErrorEmail(true);
-                console.log(error);
-                console.log(isErrorEmail);
-                Alert.alert("Error", "User does not exist!");
-                return false;
+                console.log(new Date().toLocaleString() + " | " + "Screen: ForgetPassword.js" + " | " + "Status: " + error + " | " + "User: " + email);
             }
         }
     }
@@ -81,7 +77,7 @@ export default ForgetPassword = ({ navigation }) => {
                                 placeholderTextColor={Colors.fontColorWhite} keyboardType="email-address"
                                 onChangeText={(Email) => setEmail(Email)} selectionColor={Colors.white} />
                             
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                                 <TouchableOpacity style={[styles.button]} onPress={() => { forgetPasswordHandle() }}>
                                     <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Send</Text>
                                 </TouchableOpacity>

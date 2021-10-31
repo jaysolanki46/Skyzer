@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Tabs from './components/Tabs';
-import StartUp from './screens/StartUp';
-import LogIn from './screens/LogIn';
 import RootStackScreen from './components/RootStackScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { 
@@ -14,7 +11,6 @@ import StartupLoader from './screens/StartupLoader';
 import Configurations from './config/Configurations';
 import NetInfo from "@react-native-community/netinfo";
 import NoInternet from './screens/NoInternet';
-import * as Keychain from 'react-native-keychain';
 import * as SecureStore from 'expo-secure-store';
 
 const Drawer = createDrawerNavigator();

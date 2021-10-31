@@ -42,6 +42,7 @@ export default ResetPassword = ({ navigation }) => {
         
         if (status == 200) {
           navigation.navigate('RestPasswordSuccess');
+          await AsyncStorage.removeItem('forgetEmail');
         } else {
           throw new Error(status);
         }

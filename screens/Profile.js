@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator, Saf
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import * as ImagePicker from 'expo-image-picker';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
 import Configurations from '../config/Configurations';
 import AsyncStorage from '@react-native-async-storage/async-storage';

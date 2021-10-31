@@ -93,6 +93,25 @@ export default Credits = () => {
     function Content() {
         return (
                 <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, }}>
+
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', margin: 10}}>
+                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                        <Text style={{ fontWeight: 'bold' }}>Skyzer Technologies</Text> would like to say a very, very special thank you to the application core team for creating a really AWESOME product.
+                        </Text>
+                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                            This was a new level of responsibility for you, and you performed exceptionally well organizing the team, delegating tasks and overseeing the entire app to successful completion.
+                        </Text>
+                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                            Your ability to work through unforeseen challenges and collaborate so well with the rest of the team is impressive and shows exceptional critical thinking skills and a true dedication to this company.
+                        </Text>
+                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                            We pride ourselves on your hard work and dedication to making every critical project a great success. As always, we are counting on you to go the extra mile.
+                        </Text>
+                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                            Thank you once again for all your contributions.
+                        </Text>
+                    </View>
+
                     <View style={{
                         marginTop: 20, borderRadius: 10,
                         borderColor: Colors.colorType4_1, alignItems: 'center',

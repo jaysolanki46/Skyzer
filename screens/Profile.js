@@ -8,7 +8,7 @@ import Configurations from '../config/Configurations';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MoreImage from '../assets/images/more/more.png';
 import DefaultProfileImage from '../assets/images/profile/profile.png';
-import LoaderImage from '../assets/images/list-loader.gif';
+import LoaderImage from '../assets/images/loaders/profile-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
 
@@ -157,10 +157,6 @@ export default Profile = ({ navigation }) => {
     function Loader() {
         return (
             <View style={{ flex: 1, }}>
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-                <Image style={styles.loader}
-                    source={LoaderImage} />
                 <Image style={styles.loader}
                     source={LoaderImage} />
             </View>
@@ -314,8 +310,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     loader: {
-        width: Dimensions.get('window').width,
-        height: 100,
+        width: 370,
+        height: 400,
         marginTop: 10,
     },
 });

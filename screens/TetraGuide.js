@@ -7,7 +7,7 @@ import Headertext from '../config/Headertext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/core';
 import NoContentImage from '../assets/images/tetra/no-content.png';
-import LoaderImage from '../assets/images/list-loader.gif';
+import LoaderImage from '../assets/images/loaders/list-loader.gif';
 import StarImage from '../assets/images/tetra/tetra-star.png';
 import StarOutlineImage from '../assets/images/tetra/tetra-star-outline.png'
 import TopStatusBar from '../components/TopStatusBar';
@@ -40,9 +40,12 @@ export default TetraGuide = () => {
     useFocusEffect(
         React.useCallback(() => {
             let isMounted = true;
+            /* HOLD EXECUTION FOR SOME TIME
             wait(500).then(() => {
                 if (isMounted && sessionId != null && userToken != null) InitList()
             });
+            */
+            if (isMounted && sessionId != null && userToken != null) InitList()
             return () => { isMounted = false };
         }, [sessionId, userToken])
     );
@@ -176,7 +179,7 @@ export default TetraGuide = () => {
 
     const ItemView = ({ item }) => {
         return (
-            <View style={[styles.listContainer]}>
+            <View style={[styles.listContainer]} key={item.id}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', 
                 backgroundColor: Colors.colorType1_1, borderRadius: 5}}>
                     <Text style={{ color: Colors.fontColorWhite, letterSpacing: 1, fontWeight: '500' }}>TETRA</Text>
@@ -225,7 +228,7 @@ export default TetraGuide = () => {
 
     const OnRefresh = React.useCallback(() => {
         setRefreshing(true);
-        wait(500).then(() => {
+        wait(1000).then(() => {
             if (sessionId != null && userToken != null) InitList()
         });
     }, [sessionId, userToken]);

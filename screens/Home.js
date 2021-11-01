@@ -17,9 +17,11 @@ import TopStatusBar from '../components/TopStatusBar';
 import Configurations from '../config/Configurations';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
-import LoaderImage from '../assets/images/list-loader.gif';
+import LoadOneLineImage from '../assets/images/loaders/one-line-loader.gif';
+import LoadBlockImage from '../assets/images/loaders/blocks-loader.gif';
 
 export default Home = ({ navigation }) => {
+
     const [items, setItems] = useState([
         {
             id: 1, name: 'TETRA',
@@ -73,9 +75,6 @@ export default Home = ({ navigation }) => {
 
     const { logOut } = React.useContext(AuthContext);
 
-    const wait = (timeout) => {
-        return new Promise(resolve => setTimeout(resolve, timeout));
-    }
     const initStates = async () => {
         await SecureStore.getItemAsync("email").then(val => setUserEmail(val));
         await SecureStore.getItemAsync("token").then(val => setUserToken(val));
@@ -139,7 +138,7 @@ export default Home = ({ navigation }) => {
     /** REFRESH THE PROFILE ON EVERY VISIT */
     useFocusEffect(
         React.useCallback(() => {
-            InitProfile()
+                InitProfile()
         }, [])
     );
 
@@ -157,12 +156,16 @@ export default Home = ({ navigation }) => {
     function Loader() {
         return (
             <View style={{ flex: 1, }}>
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-                <Image style={styles.loader}
-                    source={LoaderImage} />
+                <View style={{ marginTop: 40, }}>
+                    <Image style={styles.oneLineLoader} source={LoadOneLineImage} />
+                    <Image style={styles.oneLineLoader} source={LoadOneLineImage} />
+                </View>
+                <View style={{ marginTop: 20, }}>
+                    <Image style={[styles.oneLineLoader, {width: 250}]} source={LoadOneLineImage} />
+                </View>
+                <View style={{ marginTop: 20, }}>
+                    <Image style={styles.blockLoader} source={LoadBlockImage} />
+                </View>
             </View>
         );
     }
@@ -601,9 +604,12 @@ const styles = StyleSheet.create({
         color: Colors.fontColorWhite,
         margin: 1,
     },
-    loader: {
-        width: Dimensions.get('window').width,
-        height: 100,
-        marginTop: 10,
+    blockLoader: {
+        width: 370,
+        height: 350,
     },
+    oneLineLoader: {
+        width: 370,
+        height: 20,
+    }
 });

@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaVi
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import Configurations from '../config/Configurations';
-import LoaderImage from '../assets/images/list-loader.gif';
+import LoaderImage from '../assets/images/loaders/description-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
@@ -17,10 +17,6 @@ export default Credits = () => {
 
     const { logOut } = React.useContext(AuthContext);
 
-    const wait = (timeout) => {
-        return new Promise(resolve => setTimeout(resolve, timeout));
-    }
-    
     const settingSession = async () => {
         await SecureStore.getItemAsync('token').then(val => setUserToken(val));
     }
@@ -31,9 +27,7 @@ export default Credits = () => {
 
     useEffect(() => {
         let isMounted = true;
-        wait(500).then(() => {
             if (isMounted && userToken != null) InitTeam()
-        });
         return () => { isMounted = false };
     }, [userToken]);
 
@@ -80,8 +74,6 @@ export default Credits = () => {
     function Loader() {
         return (
             <View style={{ flex: 1, }}>
-                <Image style={styles.loader}
-                    source={LoaderImage} />
                 <Image style={styles.loader}
                     source={LoaderImage} />
                 <Image style={styles.loader}
@@ -187,7 +179,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     loader: {
-        width: Dimensions.get('window').width,
+        width: 370,
         height: 100,
         marginTop: 10,
     },

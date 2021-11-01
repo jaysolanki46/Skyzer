@@ -4,7 +4,7 @@ import Colors from '../config/Colors';
 import Configurations from '../config/Configurations';
 import Headertext from '../config/Headertext';
 import NoContentImage from '../assets/images/tetra/no-content.png';
-import LoaderImage from '../assets/images/list-loader.gif';
+import LoaderImage from '../assets/images/loaders/list-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
 import BulletinImage from '../assets/images/home/bulletin-card-book.png';
 import ExternalLinkImage from '../assets/images/bulletin/external-link.png';
@@ -31,7 +31,7 @@ export default Bulletins = ({navigation}) => {
 
     useEffect(() => {
         if (userToken != null) {
-            InitList()
+            wait(500).then(() => InitList());
         }
     }, [userToken]);
 
@@ -106,13 +106,9 @@ export default Bulletins = ({navigation}) => {
         );
     };
 
-    const wait = (timeout) => {
-        return new Promise(resolve => setTimeout(resolve, timeout));
-    }
-
     const OnRefresh = React.useCallback(() => {
         setRefreshing(true);
-        wait(1000).then(() => InitList());
+        InitList();
     }, []);
 
     function Loader() {

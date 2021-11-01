@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/core';
 import { Badge } from 'react-native-paper';
 import StarImage from '../assets/images/tetra/tetra-star.png';
-import LoaderImage from '../assets/images/list-loader.gif';
+import LoaderImage from '../assets/images/loaders/list-loader.gif';
 import NoContentImage from '../assets/images/tetra/no-content.png';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
@@ -40,9 +40,7 @@ export default Favourites = () => {
     useFocusEffect(
         React.useCallback(() => {
             let isMounted = true;
-            wait(500).then(() => {
                 if (isMounted && sessionId != null && userToken != null) InitList()
-            });
             return () => { isMounted = false };
         }, [sessionId, userToken])
     );
@@ -221,14 +219,14 @@ export default Favourites = () => {
             </View>
         );
     };
-
+    
     const wait = (timeout) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
     }
 
     const OnRefresh = React.useCallback(() => {
         setRefreshing(true);
-        wait(500).then(() => {
+        wait(1000).then(() => {
             if (sessionId != null && userToken != null) InitList()
         });
     }, [sessionId, userToken]);

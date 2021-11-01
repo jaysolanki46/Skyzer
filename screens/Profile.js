@@ -48,10 +48,9 @@ export default Profile = ({ navigation }) => {
         if (sessionId != null && userToken != null) {
             InitUser()
         }
-    }, [sessionId, userToken]);
+    }, [sessionId, image, userToken]);
 
     const InitUser = async () => {
-
         var myHeaders = new Headers();
         myHeaders.append("Authorization", userToken);
 
@@ -68,6 +67,7 @@ export default Profile = ({ navigation }) => {
             if (status == 200) {
                 const responseJson = await response.json();
                 const userArray = JSON.parse(JSON.stringify(responseJson));
+                setImage(userArray.image);
                 setAccount(userArray.division.division);
                 setDealer(userArray.division.dealer_name);
                 setUsername(userArray.username);

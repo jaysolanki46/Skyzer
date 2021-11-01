@@ -110,6 +110,7 @@ export default Home = ({ navigation }) => {
                 const userArray = JSON.parse(JSON.stringify(responseJson));
                 setUserName(userArray.username);
                 setUserProfile(userArray.image);
+                console.log(userName + "==" + userProfile);
                 await AsyncStorage.setItem('userId', userArray.id.toString());
                 if (userProfile != null) {
                     await AsyncStorage.setItem('profile', userProfile);
@@ -605,11 +606,13 @@ const styles = StyleSheet.create({
         margin: 1,
     },
     blockLoader: {
-        width: 370,
+        width: 390,
         height: 350,
+        alignSelf: 'center',
     },
     oneLineLoader: {
         width: 370,
         height: 20,
+
     }
 });

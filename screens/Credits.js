@@ -87,7 +87,7 @@ export default Credits = () => {
                 <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, }}>
 
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', margin: 10}}>
-                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                        <Text style={[Headertext.h5, { textAlign: 'justify',}]} >
                         <Text style={{ fontWeight: 'bold' }}>Skyzer Technologies</Text> would like to say a very, very special thank you to the application core team for creating a really AWESOME product.
                         </Text>
                         <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >

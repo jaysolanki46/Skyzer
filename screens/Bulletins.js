@@ -31,7 +31,7 @@ export default Bulletins = ({navigation}) => {
 
     useEffect(() => {
         if (userToken != null) {
-            wait(500).then(() => InitList());
+            InitList();
         }
     }, [userToken]);
 

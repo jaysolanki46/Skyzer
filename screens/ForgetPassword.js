@@ -7,9 +7,11 @@ import Configurations from '../config/Configurations';
 import rightArrowImage from '../assets/images/right-arrow.png';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
+import { useRoute } from '@react-navigation/native';
 
 export default ForgetPassword = ({ navigation }) => {
 
+    const route = useRoute();
     const [email, setEmail] = useState('');
     const [isErrorEmail, setIsErrorEmail] = useState(false);
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -36,12 +38,34 @@ export default ForgetPassword = ({ navigation }) => {
                 if (status == 200) {
                     await SecureStore.setItemAsync("forgetEmail", email);
                     Alert.alert("Success", "We have sent verification code to your email address", [{ onPress: () => navigation.navigate('ForgetPasswordCode') }]);
+                } else if (status == 404) {
+                    Alert.alert("Error", "User does not exist!");
                 } else {
                     Alert.alert("Error", "User does not exist!");
+                    throw new Error(status);
                 }
+
             } catch (error) {
-                setIsErrorEmail(true);
-                console.log(new Date().toLocaleString() + " | " + "Screen: ForgetPassword.js" + " | " + "Status: " + error + " | " + "User: " + email);
+                
+                var myErrorHeaders = new Headers();
+                var errorMethodType = "POST";
+                myErrorHeaders.append("Content-Type", "application/json");
+
+                var erroRaw = JSON.stringify({
+                    "screen": route.name,
+                    "module": "NA",
+                    "user": email,
+                    "status": error.message
+                });
+
+                var errorRequestOptions = {
+                    method: errorMethodType,
+                    headers: myErrorHeaders,
+                    body: erroRaw,
+                    redirect: 'follow'
+                };
+
+                await fetch(Configurations.host + "/logs/error", errorRequestOptions);
             }
         }
     }

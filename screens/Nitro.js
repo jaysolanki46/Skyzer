@@ -8,9 +8,11 @@ import Configurations from '../config/Configurations';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRoute } from '@react-navigation/native';
 
 export default Nitro = ({ navigation }) => {
 
+    const route = useRoute();
     const [userToken, setUserToken] = useState(null);
     const [isErrorEmail, setIsErrorEmail] = useState(false);
     const [email, setEmail] = useState('');
@@ -66,13 +68,31 @@ export default Nitro = ({ navigation }) => {
                     throw new Error(status);
 
                 } else {
-                    Alert.alert("Error", "Something went wrong, Please contact Skyzer!");
+                    Alert.alert("Error", "Something went wrong, please contact Skyzer!");
                     throw new Error(status);
                 }
 
             } catch (error) {
-                console.log(new Date().toLocaleString() + " | " + "Screen: Nitro.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
-                //return false;
+                
+                var myErrorHeaders = new Headers();
+                var errorMethodType = "POST";
+                myErrorHeaders.append("Content-Type", "application/json");
+
+                var erroRaw = JSON.stringify({
+                    "screen": route.name,
+                    "module": "NA",
+                    "user": await SecureStore.getItemAsync("email"),
+                    "status": error.message
+                });
+
+                var errorRequestOptions = {
+                    method: errorMethodType,
+                    headers: myErrorHeaders,
+                    body: erroRaw,
+                    redirect: 'follow'
+                };
+
+                await fetch(Configurations.host + "/logs/error", errorRequestOptions);
             }
         }
     }

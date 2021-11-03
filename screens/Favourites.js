@@ -13,9 +13,11 @@ import NoContentImage from '../assets/images/tetra/no-content.png';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
+import { useRoute } from '@react-navigation/native';
 
 export default Favourites = () => {
 
+    const route = useRoute();
     const [userToken, setUserToken] = useState(null);
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -84,12 +86,34 @@ export default Favourites = () => {
                 setFilteredDataSource(null);
                 setMasterDataSource(null);
                 setHideSearchBar(true);
+                Alert.alert(
+                    "Error",
+                    "Something went wrong!"
+                );
                 throw new Error(status);
             }
 
         } catch (error) {
-            console.log(new Date().toLocaleString() + " | " + "Screen: Favourites.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
-            //return false;
+
+            var myErrorHeaders = new Headers();
+            var errorMethodType = "POST";
+            myErrorHeaders.append("Content-Type", "application/json");
+
+            var erroRaw = JSON.stringify({
+                "screen": route.name,
+                "module": "NA",
+                "user": await SecureStore.getItemAsync("email"),
+                "status": error.message
+            });
+
+            var errorRequestOptions = {
+                method: errorMethodType,
+                headers: myErrorHeaders,
+                body: erroRaw,
+                redirect: 'follow'
+            };
+
+            await fetch(Configurations.host + "/logs/error", errorRequestOptions);
         }
     }
 
@@ -141,15 +165,34 @@ export default Favourites = () => {
             } else {
                 setIsLoading(false);
                 setRefreshing(false);
-                setFilteredDataSource(null);
-                setMasterDataSource(null);
-                setHideSearchBar(true);
+                Alert.alert(
+                    "Error",
+                    "Something went wrong!"
+                );
                 throw new Error(status);
             }
 
         } catch (error) {
-            console.log(new Date().toLocaleString() + " | " + "Screen: Favourites.js" + " | " + "Module: Update Favourites" + " | " +  "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
-            //return false;
+
+            var myErrorHeaders = new Headers();
+            var errorMethodType = "POST";
+            myErrorHeaders.append("Content-Type", "application/json");
+
+            var erroRaw = JSON.stringify({
+                "screen": route.name,
+                "module": "UpdateFavouriteItem",
+                "user": await SecureStore.getItemAsync("email"),
+                "status": error.message
+            });
+
+            var errorRequestOptions = {
+                method: errorMethodType,
+                headers: myErrorHeaders,
+                body: erroRaw,
+                redirect: 'follow'
+            };
+
+            await fetch(Configurations.host + "/logs/error", errorRequestOptions);
         }
     }
 

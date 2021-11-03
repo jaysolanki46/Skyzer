@@ -8,10 +8,12 @@ import Configurations from '../config/Configurations';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRoute } from '@react-navigation/native';
+import LoaderImage from '../assets/images/loaders/description-loader.gif';
 
 export default WhoWeAre = ({ navigation }) => {
 
+    const route = useRoute();
     const [userToken, setUserToken] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
@@ -53,6 +55,7 @@ export default WhoWeAre = ({ navigation }) => {
                 setData(responseJson);
 
             } else if (status == 401) {
+
                 Alert.alert(
                     "Security Alert",
                     "Please login again!",
@@ -63,13 +66,117 @@ export default WhoWeAre = ({ navigation }) => {
                 throw new Error(status);
 
             } else {
+
+                Alert.alert(
+                    "Error",
+                    "Something went wrong!"
+                );
                 throw new Error(status);
             }
 
         } catch (error) {
-            console.log(new Date().toLocaleString() + " | " + "Screen: WhoWeAre.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
-            //return false;
+
+            var myErrorHeaders = new Headers();
+            var errorMethodType = "POST";
+            myErrorHeaders.append("Content-Type", "application/json");
+
+            var erroRaw = JSON.stringify({
+                "screen": route.name,
+                "module": "NA",
+                "user": await SecureStore.getItemAsync("email"),
+                "status": error.message
+            });
+
+            var errorRequestOptions = {
+                method: errorMethodType,
+                headers: myErrorHeaders,
+                body: erroRaw,
+                redirect: 'follow'
+            };
+
+            await fetch(Configurations.host + "/logs/error", errorRequestOptions);
         }
+    }
+
+    function Loader() {
+        return (
+            <View style={{ flex: 1, }}>
+                <Image style={styles.loader}
+                    source={LoaderImage} />
+                <Image style={styles.loader}
+                    source={LoaderImage} />
+            </View>
+        );
+    }
+    function Content() {
+        return (
+            <View style={styles.body}>
+                <View style={{ flex: 1, }}>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
+                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                            <Text style={{ fontWeight: 'bold' }}>Skyzer Technologies</Text> is the market leader in the innovation, development, and provision of Eftpos and Payment solutions and has been supporting merchants throughout New Zealand since 2007.
+                        </Text>
+                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                            Back then, we had a dream! Since then, we have developed a suite of payment terminal solutions that have revolutionised the way kiwi merchants accept payments for the goods and services they provided!
+                        </Text>
+                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                            Whether you are looking for a Micro Merchant solution for your Market Stall, or you are a major NZ retailer looking for a feature-rich integrated Eftpos solution for your business… Skyzer has got you covered!
+                        </Text>
+                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                            We pride ourselves on our ability to deliver payment solutions to all retailers across New Zealand, both big and small. Using only the best terminal brand in the business, Ingenico, our suite of terminal offerings, has been developed with one goal in mind… “<Text style={{ color: Colors.fontColorBluest, fontWeight: 'bold' }}>Making Payments Simple</Text>”.
+                        </Text>
+                    </View>
+
+                    <View style={{
+                        marginTop: 20, borderRadius: 10,
+                        borderColor: Colors.colorType4_1, alignItems: 'center',
+                    }}>
+
+                        <View style={{ borderBottomWidth: 1 }}>
+                            <Text style={[Headertext.h3, { color: Colors.fontColorBluest, }]}>Our Leadership Team</Text>
+                        </View>
+
+                        <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+                            {
+                                data.map(member => {
+                                    return (
+                                        <View key={member.id} style={{ width: 170, height: 200, marginTop: 10, marginBottom: 10, }}>
+                                            <TouchableOpacity style={{ flex: 1, }} onPress={() => Linking.openURL(member.linked_in)}>
+                                                <View style={{ flex: 1, backgroundColor: Colors.colorType5_1, borderRadius: 10 }}>
+
+                                                    <View style={{
+                                                        flex: 4, justifyContent: 'center',
+                                                        alignItems: 'center',
+                                                    }}>
+                                                        <Image style={[styles.image, { borderRadius: 50 }]} source={{
+                                                            uri: Configurations.host + "/images/team/" + member.image_name,
+                                                        }} />
+                                                    </View>
+
+                                                    <View style={{
+                                                        flex: 1, flexDirection: 'row', flexWrap: 'wrap',
+                                                    }}>
+                                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, textAlign: 'center', flex: 1, }}>
+                                                            {member.title}
+                                                        </Text>
+                                                    </View>
+
+                                                    <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
+                                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
+                                                            {member.full_name}
+                                                        </Text>
+                                                    </View>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                    )
+                                })
+                            }
+                        </View>
+                    </View>
+                </View>
+            </View>
+        );
     }
 
     return (
@@ -77,89 +184,29 @@ export default WhoWeAre = ({ navigation }) => {
         <SafeAreaView style={styles.container} behavior="height">
             <TopStatusBar />
             <ScrollView showsVerticalScrollIndicator={false} style={{ fled: 1 }}>
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <ImageBackground source={backgroundImage} style={{
-                        width: '95%',
-                        height: 200,
-                    }} resizeMode="cover">
-                        <View style={styles.headerBox}>
-                            <View style={{flex: 1,  justifyContent: 'center', alignItems: 'center', paddingLeft: 5}}>
-                                <Text style={[Headertext.h2, {color: Colors.fontColorWhite,}]}>
-                                    WHO WE ARE
-                                </Text>
-                            </View>
-
-                        </View>
-                       </ImageBackground>
-                </View>
-
-
-                <View style={styles.body}>
-                    <View style={{ flex: 1,}}>
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap',}}>
-                            <Text style={[Headertext.h5, {textAlign: 'justify', marginTop: 10}]} >
-                                <Text style={{fontWeight: 'bold'}}>Skyzer Technologies</Text> is the market leader in the innovation, development, and provision of Eftpos and Payment solutions and has been supporting merchants throughout New Zealand since 2007.
-                            </Text>
-                            <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
-                                Back then, we had a dream! Since then, we have developed a suite of payment terminal solutions that have revolutionised the way kiwi merchants accept payments for the goods and services they provided!
-                            </Text>
-                            <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
-                                Whether you are looking for a Micro Merchant solution for your Market Stall, or you are a major NZ retailer looking for a feature-rich integrated Eftpos solution for your business… Skyzer has got you covered!
-                            </Text>
-                            <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
-                                We pride ourselves on our ability to deliver payment solutions to all retailers across New Zealand, both big and small. Using only the best terminal brand in the business, Ingenico, our suite of terminal offerings, has been developed with one goal in mind… “<Text style={{ color: Colors.fontColorBluest, fontWeight: 'bold'}}>Making Payments Simple</Text>”.
-                            </Text>
-                        </View>
-
-                        <View style={{ marginTop: 20, borderRadius: 10, 
-                            borderColor: Colors.colorType4_1, alignItems: 'center', }}>
-
-                                <View style={{borderBottomWidth: 1}}>
-                                <Text style={[Headertext.h3, { color: Colors.fontColorBluest, }]}>Our Leadership Team</Text>
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <ImageBackground source={backgroundImage} style={{
+                            width: '95%',
+                            height: 200,
+                        }} resizeMode="cover">
+                            <View style={styles.headerBox}>
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingLeft: 5 }}>
+                                    <Text style={[Headertext.h2, { color: Colors.fontColorWhite, }]}>
+                                        WHO WE ARE
+                                    </Text>
                                 </View>
 
-                            <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-                            {
-                                data.map(member => {
-                                    return (
-                                            <View key={member.id}  style={{ width: 170, height: 200, marginTop: 10, marginBottom: 10, }}>
-                                                <TouchableOpacity style={{ flex: 1, }} onPress={() => Linking.openURL(member.linked_in)}>
-                                                <View style={{ flex: 1, backgroundColor: Colors.colorType5_1, borderRadius: 10 }}>
-                                                    
-                                                    <View style={{
-                                                        flex: 4, justifyContent: 'center',
-                                                        alignItems: 'center',
-                                                    }}>
-                                                        <Image style={[styles.image, {borderRadius: 50}]} source={{
-                                                            uri: Configurations.host + "/images/team/" + member.image_name,
-                                                        }} />
-                                                    </View>
-
-                                                    <View style={{
-                                                        flex: 1, flexDirection: 'row', flexWrap: 'wrap',}}>
-                                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, textAlign: 'center', flex: 1, }}>
-                                                            {member.title}
-                                                        </Text>
-                                                    </View>
-
-                                                    <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap',}}>
-                                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
-                                                            {member.full_name}
-                                                        </Text>
-                                                    </View>
-                                                </View>
-                                                </TouchableOpacity>
-                                            </View>
-                                    )
-                                })
-                            }
                             </View>
-                        </View>
+                        </ImageBackground>
                     </View>
-                </View>
 
-            </View>
+                    {
+                        isLoading ? Loader() : Content()
+                    }
+                    
+
+                </View>
             </ScrollView>
         </SafeAreaView>
     );
@@ -188,5 +235,10 @@ const styles = StyleSheet.create({
         width: 80,
         height: 80,
         padding: 10,
+    },
+    loader: {
+        width: 370,
+        height: 100,
+        marginTop: 10,
     },
 });

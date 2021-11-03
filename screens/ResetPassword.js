@@ -8,9 +8,11 @@ import rightArrowImage from '../assets/images/right-arrow.png';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRoute } from '@react-navigation/native';
 
 export default ResetPassword = ({ navigation }) => {
 
+  const route = useRoute();
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   
@@ -42,12 +44,38 @@ export default ResetPassword = ({ navigation }) => {
         
         if (status == 200) {
           navigation.navigate('RestPasswordSuccess');
-          await AsyncStorage.removeItem('forgetEmail');
+          await SecureStore.deleteItemAsync("forgetEmail");
+
         } else {
+
+          Alert.alert(
+            "Error",
+            "Something went wrong!"
+          );
           throw new Error(status);
         }
+
       } catch (error) {
-        console.log(new Date().toLocaleString() + " | " + "Screen: ResetPassword.js" + " | " + "Status: " + error + " | " + "User: " + email);
+        
+        var myErrorHeaders = new Headers();
+        var errorMethodType = "POST";
+        myErrorHeaders.append("Content-Type", "application/json");
+
+        var erroRaw = JSON.stringify({
+          "screen": route.name,
+          "module": "NA",
+          "user": await SecureStore.getItemAsync("forgetEmail"),
+          "status": error.message
+        });
+
+        var errorRequestOptions = {
+          method: errorMethodType,
+          headers: myErrorHeaders,
+          body: erroRaw,
+          redirect: 'follow'
+        };
+
+        await fetch(Configurations.host + "/logs/error", errorRequestOptions);
       }
     }
   }

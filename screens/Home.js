@@ -19,8 +19,11 @@ import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
 import LoadOneLineImage from '../assets/images/loaders/one-line-loader.gif';
 import LoadBlockImage from '../assets/images/loaders/blocks-loader.gif';
+import {useRoute} from '@react-navigation/native';
 
 export default Home = ({ navigation }) => {
+
+    const route = useRoute();
 
     const [items, setItems] = useState([
         {
@@ -91,7 +94,7 @@ export default Home = ({ navigation }) => {
     }, [userEmail, userToken]);
 
     const InitUser = async () => {
-
+        
         var myHeaders = new Headers();
         myHeaders.append("Authorization", userToken);
 
@@ -116,13 +119,20 @@ export default Home = ({ navigation }) => {
                 }
                 setIsLoading(false);
 
-            } else {
+            } else if (status == 401) {
                 Alert.alert(
                     "Security Alert",
                     "Please login again!",
                     [
                         { text: "OK", onPress: () => logOut() }
                     ]
+                );
+                throw new Error(status);
+            } else {
+                setIsLoading(false);
+                Alert.alert(
+                    "Error",
+                    "Something went wrong!"
                 );
                 throw new Error(status);
             }
@@ -134,9 +144,9 @@ export default Home = ({ navigation }) => {
             myErrorHeaders.append("Content-Type", "application/json");
 
             var erroRaw = JSON.stringify({
-                "screen": "Home.js",
+                "screen": route.name,
                 "module": "NA",
-                "user": userEmail,
+                "user": await SecureStore.getItemAsync("email"),
                 "status": error.message
             });
 

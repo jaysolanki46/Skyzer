@@ -9,9 +9,11 @@ import BackgroundImage from "../assets/images/background.jpg";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import rightArrowImage from '../assets/images/right-arrow.png';
 import TopStatusBar from '../components/TopStatusBar';
+import { useRoute } from '@react-navigation/native';
 
 export default SignUp = ({ navigation }) => {
 
+    const route = useRoute();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -67,12 +69,43 @@ export default SignUp = ({ navigation }) => {
                 const statusEmail = await responseEmail.status;
 
                 if (statusEmail == 200) {
-                    /** 200 - OK */
-                    throw Error("Email already exist");
+                    setIsErrorEmail(true);
+                    Alert.alert(
+                        "Error",
+                        "Email already exist"
+                    );
+                    return false;
+
+                } else if (statusEmail != 404) {
+                    setIsErrorEmail(true);
+                    Alert.alert(
+                        "Error",
+                        "Something went wrong!"
+                    );
+                    throw new Error(statusEmail);
                 }
+
             } catch (error) {
-                setIsErrorEmail(true);
-                Alert.alert("Error", "Email already exist, please try to login");
+
+                var myErrorHeaders = new Headers();
+                var errorMethodType = "POST";
+                myErrorHeaders.append("Content-Type", "application/json");
+
+                var erroRaw = JSON.stringify({
+                    "screen": route.name,
+                    "module": "EmailAlreadyExist",
+                    "user": email,
+                    "status": error.message
+                });
+
+                var errorRequestOptions = {
+                    method: errorMethodType,
+                    headers: myErrorHeaders,
+                    body: erroRaw,
+                    redirect: 'follow'
+                };
+
+                await fetch(Configurations.host + "/logs/error", errorRequestOptions);
                 return false;
             }
 
@@ -82,13 +115,37 @@ export default SignUp = ({ navigation }) => {
                 
                 if (statusDivision == 200) {
                     createUser(username, email, password, account);
-                } else if (statusDivision == 401) {
-                    Alert.alert("Error", "Account doesn't exist, please check your account number again. OR Contact Skyzer if you are not sure.");
+                } else if (statusDivision == 404) {
                     setIsErrorAccount(true);
+                    Alert.alert("Error", "Invalid account number");
                     return false;
+                } else {
+                    setIsErrorAccount(true);
+                    Alert.alert("Error", "Invalid account number");
+                    throw new Error(statusDivision);
                 }
+                
             } catch (error) {
-                console.log("Division Error:" + error);
+
+                var myErrorHeaders = new Headers();
+                var errorMethodType = "POST";
+                myErrorHeaders.append("Content-Type", "application/json");
+
+                var erroRaw = JSON.stringify({
+                    "screen": route.name,
+                    "module": "ValidateAccount",
+                    "user": email,
+                    "status": error.message
+                });
+
+                var errorRequestOptions = {
+                    method: errorMethodType,
+                    headers: myErrorHeaders,
+                    body: erroRaw,
+                    redirect: 'follow'
+                };
+
+                await fetch(Configurations.host + "/logs/error", errorRequestOptions);
                 return false;
             }
         }
@@ -118,17 +175,38 @@ export default SignUp = ({ navigation }) => {
             const response = await fetch(Configurations.host + "/user", requestOptions);
             const status = await response.status;
 
-            if (status != 201) {
-                /** 201 - CREATED */
-                throw Error("Something went wrong!");
-            } else {
-                /** SUCCESS */
-                console.log("user created");
-                //clearState();
+            if(status == 201) {
                 navigation.navigate('SignUpSuccess');
+            } else {
+                Alert.alert(
+                    "Error",
+                    "Something went wrong!"
+                );
+                throw new Error(status);
             }
+
         } catch (error) {
-            console.log(error);
+
+            var myErrorHeaders = new Headers();
+            var errorMethodType = "POST";
+            myErrorHeaders.append("Content-Type", "application/json");
+
+            var erroRaw = JSON.stringify({
+                "screen": route.name,
+                "module": "NA",
+                "user": email,
+                "status": error.message
+            });
+
+            var errorRequestOptions = {
+                method: errorMethodType,
+                headers: myErrorHeaders,
+                body: erroRaw,
+                redirect: 'follow'
+            };
+
+            await fetch(Configurations.host + "/logs/error", errorRequestOptions);
+            return false;
         }
     }
 

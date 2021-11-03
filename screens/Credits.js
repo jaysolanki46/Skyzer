@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Dimensions, Linking, Alert } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Linking, Alert } from 'react-native';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import Configurations from '../config/Configurations';
@@ -7,10 +7,11 @@ import LoaderImage from '../assets/images/loaders/description-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRoute } from '@react-navigation/native';
 
 export default Credits = () => {
 
+    const route = useRoute();
     const [userToken, setUserToken] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
@@ -62,12 +63,33 @@ export default Credits = () => {
                 throw new Error(status);
 
             } else {
-                setIsLoading(false);
+                Alert.alert(
+                    "Error",
+                    "Something went wrong!"
+                );
                 throw new Error(status);
             }
 
         } catch (error) {
-            console.log(new Date().toLocaleString() + " | " + "Screen: Credits.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
+            var myErrorHeaders = new Headers();
+            var errorMethodType = "POST";
+            myErrorHeaders.append("Content-Type", "application/json");
+
+            var erroRaw = JSON.stringify({
+                "screen": route.name,
+                "module": "NA",
+                "user": await SecureStore.getItemAsync("email"),
+                "status": error.message
+            });
+
+            var errorRequestOptions = {
+                method: errorMethodType,
+                headers: myErrorHeaders,
+                body: erroRaw,
+                redirect: 'follow'
+            };
+
+            await fetch(Configurations.host + "/logs/error", errorRequestOptions);
         }
     }
 

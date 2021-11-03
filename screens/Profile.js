@@ -11,9 +11,11 @@ import DefaultProfileImage from '../assets/images/profile/profile.png';
 import LoaderImage from '../assets/images/loaders/profile-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
+import { useRoute } from '@react-navigation/native';
 
 export default Profile = ({ navigation }) => {
 
+    const route = useRoute();
     const [userToken, setUserToken] = useState(null);
     const [image, setImage] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -84,11 +86,34 @@ export default Profile = ({ navigation }) => {
                 );
                 throw new Error(status);
             } else {
+                Alert.alert(
+                    "Error",
+                    "Something went wrong!"
+                );
                 throw new Error(status);
             }
 
         } catch (error) {
-            console.log(new Date().toLocaleString() + " | " + "Screen: Profile.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
+            
+            var myErrorHeaders = new Headers();
+            var errorMethodType = "POST";
+            myErrorHeaders.append("Content-Type", "application/json");
+
+            var erroRaw = JSON.stringify({
+                "screen": route.name,
+                "module": "NA",
+                "user": await SecureStore.getItemAsync("email"),
+                "status": error.message
+            });
+
+            var errorRequestOptions = {
+                method: errorMethodType,
+                headers: myErrorHeaders,
+                body: erroRaw,
+                redirect: 'follow'
+            };
+
+            await fetch(Configurations.host + "/logs/error", errorRequestOptions);
         }
     }
 
@@ -146,7 +171,26 @@ export default Profile = ({ navigation }) => {
               }
 
           } catch (error) {
-              console.log(new Date().toLocaleString() + " | " + "Screen: Profile.js" + " | " + "Module: Profile Image Update" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
+
+              var myErrorHeaders = new Headers();
+              var errorMethodType = "POST";
+              myErrorHeaders.append("Content-Type", "application/json");
+
+              var erroRaw = JSON.stringify({
+                  "screen": route.name,
+                  "module": "pickImage",
+                  "user": await SecureStore.getItemAsync("email"),
+                  "status": error.message
+              });
+
+              var errorRequestOptions = {
+                  method: errorMethodType,
+                  headers: myErrorHeaders,
+                  body: erroRaw,
+                  redirect: 'follow'
+              };
+
+              await fetch(Configurations.host + "/logs/error", errorRequestOptions);
           }
 
         setImage(result.uri);

@@ -11,9 +11,11 @@ import ExternalLinkImage from '../assets/images/bulletin/external-link.png';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRoute } from '@react-navigation/native';
 
 export default Bulletins = ({navigation}) => {
 
+    const route = useRoute();
     const [userToken, setUserToken] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
@@ -45,7 +47,7 @@ export default Bulletins = ({navigation}) => {
             headers: myHeaders,
             redirect: 'follow'
         };
-
+       
         try {
             const response = await fetch(Configurations.host + "/bulletins", requestOptions)
             const status = await response.status;
@@ -70,12 +72,33 @@ export default Bulletins = ({navigation}) => {
                 setIsLoading(false);
                 setRefreshing(false);
                 setDataSource(null);
+                Alert.alert(
+                    "Error",
+                    "Something went wrong!"
+                );
                 throw new Error(status);
             }
 
         } catch (error) {
-            console.log(new Date().toLocaleString() + " | " + "Screen: Bulletins.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
-            //return false;
+            var myErrorHeaders = new Headers();
+            var errorMethodType = "POST";
+            myErrorHeaders.append("Content-Type", "application/json");
+
+            var erroRaw = JSON.stringify({
+                "screen": route.name,
+                "module": "NA",
+                "user": await SecureStore.getItemAsync("email"),
+                "status": error.message
+            });
+
+            var errorRequestOptions = {
+                method: errorMethodType,
+                headers: myErrorHeaders,
+                body: erroRaw,
+                redirect: 'follow'
+            };
+
+            await fetch(Configurations.host + "/logs/error", errorRequestOptions);
         }
     }
 
@@ -109,7 +132,7 @@ export default Bulletins = ({navigation}) => {
     const OnRefresh = React.useCallback(() => {
         setRefreshing(true);
         InitList();
-    }, []);
+    }, [userToken]);
 
     function Loader() {
         return (

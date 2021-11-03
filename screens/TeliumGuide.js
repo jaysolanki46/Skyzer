@@ -14,9 +14,11 @@ import TopStatusBar from '../components/TopStatusBar';
 import { Badge } from 'react-native-paper';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
+import { useRoute } from '@react-navigation/native';
 
 export default TeliumGuide = () => {
 
+    const route = useRoute();
     const [userToken, setUserToken] = useState(null);
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -76,16 +78,34 @@ export default TeliumGuide = () => {
                 );
                 throw new Error(status);
             } else {
-                setIsLoading(false);
-                setRefreshing(false);
-                setFilteredDataSource(null);
-                setMasterDataSource(null);
+                Alert.alert(
+                    "Error",
+                    "Something went wrong!"
+                );
                 throw new Error(status);
             }
 
         } catch (error) {
-            console.log(new Date().toLocaleString() + " | " + "Screen: TeliumGuide.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
-            return false;
+
+            var myErrorHeaders = new Headers();
+            var errorMethodType = "POST";
+            myErrorHeaders.append("Content-Type", "application/json");
+
+            var erroRaw = JSON.stringify({
+                "screen": route.name,
+                "module": "NA",
+                "user": await SecureStore.getItemAsync("email"),
+                "status": error.message
+            });
+
+            var errorRequestOptions = {
+                method: errorMethodType,
+                headers: myErrorHeaders,
+                body: erroRaw,
+                redirect: 'follow'
+            };
+
+            await fetch(Configurations.host + "/logs/error", errorRequestOptions);
         }
     }
 
@@ -134,16 +154,34 @@ export default TeliumGuide = () => {
                 throw new Error(status);
 
             } else {
-                setIsLoading(false);
-                setRefreshing(false);
-                setFilteredDataSource(null);
-                setMasterDataSource(null);
+                Alert.alert(
+                    "Error",
+                    "Something went wrong!"
+                );
                 throw new Error(status);
             }
 
         } catch (error) {
-            console.log(new Date().toLocaleString() + " | " + "Screen: TeliumGuide.js" + " | " + "Module: Favorite" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
-            //return false;
+
+            var myErrorHeaders = new Headers();
+            var errorMethodType = "POST";
+            myErrorHeaders.append("Content-Type", "application/json");
+
+            var erroRaw = JSON.stringify({
+                "screen": route.name,
+                "module": "UpdateFavouriteItem",
+                "user": await SecureStore.getItemAsync("email"),
+                "status": error.message
+            });
+
+            var errorRequestOptions = {
+                method: errorMethodType,
+                headers: myErrorHeaders,
+                body: erroRaw,
+                redirect: 'follow'
+            };
+
+            await fetch(Configurations.host + "/logs/error", errorRequestOptions);
         }
     }
 

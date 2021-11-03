@@ -44,7 +44,7 @@ export default WhoWeAre = ({ navigation }) => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/skyzer-guide/team", requestOptions)
+            const response = await fetch(Configurations.host + "/team", requestOptions)
             const status = await response.status;
 
             if (status == 200) {
@@ -132,7 +132,7 @@ export default WhoWeAre = ({ navigation }) => {
                                                         alignItems: 'center',
                                                     }}>
                                                         <Image style={[styles.image, {borderRadius: 50}]} source={{
-                                                            uri: Configurations.host + "/skyzer-guide/images/team/" + member.image_name,
+                                                            uri: Configurations.host + "/images/team/" + member.image_name,
                                                         }} />
                                                     </View>
 

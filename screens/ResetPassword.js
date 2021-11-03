@@ -37,7 +37,7 @@ export default ResetPassword = ({ navigation }) => {
       };
 
       try {
-        const response = await fetch(Configurations.host + "/skyzer-guide/users/resetPassword", requestOptions);
+        const response = await fetch(Configurations.host + "/users/resetPassword", requestOptions);
         const status = await response.status;
         
         if (status == 200) {

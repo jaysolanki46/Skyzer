@@ -102,7 +102,7 @@ export default Home = ({ navigation }) => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/skyzer-guide/users/user/" + userEmail, requestOptions)
+            const response = await fetch(Configurations.host + "/users/user/" + userEmail, requestOptions)
             const status = await response.status;
 
             if (status == 200) {
@@ -110,7 +110,6 @@ export default Home = ({ navigation }) => {
                 const userArray = JSON.parse(JSON.stringify(responseJson));
                 setUserName(userArray.username);
                 setUserProfile(userArray.image);
-                console.log(userName + "==" + userProfile);
                 await AsyncStorage.setItem('userId', userArray.id.toString());
                 if (userProfile != null) {
                     await AsyncStorage.setItem('profile', userProfile);
@@ -129,7 +128,26 @@ export default Home = ({ navigation }) => {
             }
 
         } catch (error) {
-            console.log(new Date().toLocaleString() + " | " + "Screen: Home.js" + " | " + "Status: " + error + " | " + "User: " + await AsyncStorage.getItem("userId"));
+            
+            var myErrorHeaders = new Headers();
+            var errorMethodType = "POST";
+            myErrorHeaders.append("Content-Type", "application/json");
+
+            var erroRaw = JSON.stringify({
+                "screen": "Home.js",
+                "module": "NA",
+                "user": userEmail,
+                "status": error.message
+            });
+
+            var errorRequestOptions = {
+                method: errorMethodType,
+                headers: myErrorHeaders,
+                body: erroRaw,
+                redirect: 'follow'
+            };
+            
+            await fetch(Configurations.host + "/logs/error", errorRequestOptions);
         }
     }
 

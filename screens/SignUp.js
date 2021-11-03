@@ -63,7 +63,7 @@ export default SignUp = ({ navigation }) => {
             };
 
             try {
-                const responseEmail = await fetch(Configurations.host + "/skyzer-guide/users/user/alreadyExist/" + email, requestOptions);
+                const responseEmail = await fetch(Configurations.host + "/users/user/alreadyExist/" + email, requestOptions);
                 const statusEmail = await responseEmail.status;
 
                 if (statusEmail == 200) {
@@ -77,7 +77,7 @@ export default SignUp = ({ navigation }) => {
             }
 
             try {
-                const responseDivision = await fetch(Configurations.host + "/skyzer-guide/divisions/division/validDivision/" + account, requestOptions);
+                const responseDivision = await fetch(Configurations.host + "/divisions/division/validDivision/" + account, requestOptions);
                 const statusDivision = await responseDivision.status;
                 
                 if (statusDivision == 200) {
@@ -115,7 +115,7 @@ export default SignUp = ({ navigation }) => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/skyzer-guide/user", requestOptions);
+            const response = await fetch(Configurations.host + "/user", requestOptions);
             const status = await response.status;
 
             if (status != 201) {

@@ -47,7 +47,7 @@ export default Bulletins = ({navigation}) => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/skyzer-guide/bulletins", requestOptions)
+            const response = await fetch(Configurations.host + "/bulletins", requestOptions)
             const status = await response.status;
 
             if(status == 200) {

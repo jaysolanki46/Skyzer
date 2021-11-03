@@ -57,7 +57,7 @@ export default TeliumGuide = () => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/skyzer-guide/referenceGuideFunctions/telium/user/" + sessionId, requestOptions)
+            const response = await fetch(Configurations.host + "/referenceGuideFunctions/telium/user/" + sessionId, requestOptions)
             const status = await response.status;
 
             if(status == 200) {
@@ -115,7 +115,7 @@ export default TeliumGuide = () => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/skyzer-guide/userFavorites/telium/user/", requestOptions);
+            const response = await fetch(Configurations.host + "/userFavorites/telium/user/", requestOptions);
             const status = await response.status;
 
             if (status == 200) {

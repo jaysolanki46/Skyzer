@@ -62,7 +62,7 @@ export default TetraGuide = () => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/skyzer-guide/referenceGuideFunctions/tetra/user/" + sessionId, requestOptions)
+            const response = await fetch(Configurations.host + "/referenceGuideFunctions/tetra/user/" + sessionId, requestOptions)
             const status = await response.status;
 
             if (status == 200) {
@@ -121,7 +121,7 @@ export default TetraGuide = () => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/skyzer-guide/userFavorites/tetra/user/", requestOptions);
+            const response = await fetch(Configurations.host + "/userFavorites/tetra/user/", requestOptions);
             const status = await response.status;
 
             if(status == 200) {

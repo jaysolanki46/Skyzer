@@ -43,7 +43,7 @@ export default Credits = () => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/skyzer-guide/teamCredits", requestOptions)
+            const response = await fetch(Configurations.host + "/teamCredits", requestOptions)
             const status = await response.status;
 
             if (status == 200) {
@@ -126,7 +126,7 @@ export default Credits = () => {
                                                         alignItems: 'center',
                                                     }}>
                                                         <Image style={[styles.image, { borderRadius: 50 }]} source={{
-                                                            uri: Configurations.host + "/skyzer-guide/images/team/" + member.image_name,
+                                                            uri: Configurations.host + "/images/team/" + member.image_name,
                                                         }} />
                                                     </View>
 

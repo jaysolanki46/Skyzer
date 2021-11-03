@@ -48,7 +48,7 @@ export default Nitro = ({ navigation }) => {
             };
 
             try {
-                const response = await fetch(Configurations.host + "/skyzer-guide/nitroPackage/sendLink/" + email, requestOptions);
+                const response = await fetch(Configurations.host + "/nitroPackage/sendLink/" + email, requestOptions);
                 const status = await response.status;
 
                 if (status == 200) {

@@ -30,7 +30,7 @@ export default ForgetPassword = ({ navigation }) => {
             };
             
             try {
-                const response = await fetch(Configurations.host + "/skyzer-guide/users/verifyUserAndSendCodeOnForgetPassword/" + email, requestOptions);
+                const response = await fetch(Configurations.host + "/users/verifyUserAndSendCodeOnForgetPassword/" + email, requestOptions);
                 const status = await response.status;
 
                 if (status == 200) {

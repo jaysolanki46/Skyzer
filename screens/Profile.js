@@ -61,7 +61,7 @@ export default Profile = ({ navigation }) => {
         };
 
         try {
-            const response = await fetch(Configurations.host + "/skyzer-guide/users/" + sessionId, requestOptions)
+            const response = await fetch(Configurations.host + "/users/" + sessionId, requestOptions)
             const status = await response.status;
 
             if (status == 200) {
@@ -122,7 +122,7 @@ export default Profile = ({ navigation }) => {
           };
 
           try {
-              const response = await fetch(Configurations.host + "/skyzer-guide/user/image/", requestOptions)
+              const response = await fetch(Configurations.host + "/user/image/", requestOptions)
               const status = await response.status;
 
               if (status == 200) {

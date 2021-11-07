@@ -36,7 +36,6 @@ User Guide app is a powerful and user-friendly cross platform application, speci
           <td><a href="#"><img alt="Eclipse" title="Eclipse" height="40px" width="50px"
                         src="https://user-images.githubusercontent.com/25057099/140631253-12eade74-6fd6-4cd0-b1be-bccf02043d70.png" /> EXPO
           </a>
-
         </td>
       </tr>
   </tbody>

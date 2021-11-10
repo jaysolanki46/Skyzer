@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, SafeAreaView, Alert} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, Alert} from 'react-native';
 import Headertext from '../config/Headertext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../components/AuthContext';
-import backgroundImage from "../assets/images/background.jpg";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import rightArrowImage from '../assets/images/right-arrow.png';
 import TopStatusBar from '../components/TopStatusBar';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default LogIn = ({navigation}) => {
 
@@ -35,33 +35,28 @@ export default LogIn = ({navigation}) => {
 
   return (
     
-    <SafeAreaView style={styles.container} behavior="height">
+    <View style={styles.container} behavior="height">
       <TopStatusBar />
-      <ImageBackground source={backgroundImage} resizeMode="cover" style={{
-        position: 'absolute',
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.45)',
-        width: Dimensions.get("window").width,
-        height: Dimensions.get("window").height}}>
-
+      <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{
+        flex: 1,}}>
         <View style={styles.header}>
           {/* <Logo/> */}
-          <Text style={[Headertext.h1, {color: Colors.fontColorPurplest}]}>Skyzer Guide</Text>
-          <Text style={[Headertext.h5, {color: Colors.fontColorLightBlack, fontWeight: '600'}]}>Let you explore the terminal</Text>
+          <Text style={[Headertext.h1, {color: Colors.fontWhite}]}>SKYZER GUIDE</Text>
         </View>
 
         <View style={styles.body}>
-          <View style={styles.bodyForm} showsVerticalScrollIndicator={false}>
-            <View style={{ margin: 15 }}>
+          <LinearGradient colors={[Colors.modelColor, Colors.modelColor, Colors.modelColor]} style={styles.bodyForm} >
+          <View showsVerticalScrollIndicator={false}>
+            <View style={{ justifyContent: 'center', alignItems: 'center',}}>
               <Text style={styles.bodyFormHeader}> Welcome Back </Text>
             </View>
             {
               Platform.OS === 'ios' ?
                 <View>
-                  <TextInput selectionColor={Colors.white} style={styles.input} placeholder="Email" placeholderTextColor={Colors.fontColorWhite} keyboardType="default" onChangeText={(Email) => setEmail(Email)} />
+                  <TextInput selectionColor={Colors.white} style={styles.input} placeholder="Email" placeholderTextColor={Colors.fontWhite} keyboardType="default" onChangeText={(Email) => setEmail(Email)} />
                   <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
                     <TextInput selectionColor={Colors.white} style={styles.input} placeholder="Password"
-                      placeholderTextColor={Colors.fontColorWhite}
+                      placeholderTextColor={Colors.fontWhite}
                       keyboardType="default" secureTextEntry={!showPassword}
                       onChangeText={(Password) => setPassword(Password)} />
                     {
@@ -77,7 +72,7 @@ export default LogIn = ({navigation}) => {
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(email, password) }}>
-                      <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Log In</Text>
+                      <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontWhite }]}>Log In</Text>
                     </TouchableOpacity>
                     <Image style={[styles.icon]} source={rightArrowImage} />
                   </View>
@@ -89,10 +84,10 @@ export default LogIn = ({navigation}) => {
                 >
                   <View style={{ height: 300 }}>
                     <View>
-                      <TextInput style={styles.input} placeholder="Email" placeholderTextColor={Colors.fontColorWhite} keyboardType="default" onChangeText={(Email) => setEmail(Email)} />
+                      <TextInput style={styles.input} placeholder="Email" placeholderTextColor={Colors.fontWhite} keyboardType="default" onChangeText={(Email) => setEmail(Email)} />
                       <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
                         <TextInput style={styles.input} placeholder="Password"
-                          placeholderTextColor={Colors.fontColorWhite}
+                          placeholderTextColor={Colors.fontWhite}
                           keyboardType="default" secureTextEntry={!showPassword}
                           onChangeText={(Password) => setPassword(Password)} />
                         {
@@ -108,7 +103,7 @@ export default LogIn = ({navigation}) => {
                       </View>
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <TouchableOpacity style={[styles.button]} onPress={() => { logInHandle(email, password) }}>
-                          <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Log In</Text>
+                          <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontWhite }]}>Log In</Text>
                         </TouchableOpacity>
                         <Image style={[styles.icon]} source={rightArrowImage} />
                       </View>
@@ -118,20 +113,17 @@ export default LogIn = ({navigation}) => {
             }
             <View style={{ marginTop: 10, marginBottom: 10, width: Dimensions.get('window').width - 100, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
               <TouchableOpacity style={[styles.navButton]} onPress={() => navigation.navigate('SignUp')}>
-                <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: '700' }]}>Sign Up</Text>
+                <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: '700' }]}>Sign Up</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.navButton, { marginLeft: 'auto', }]} onPress={() => navigation.navigate('ForgetPassword')}>
-                <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: '700' }]}>Forget Password?</Text>
+                <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: '700' }]}>Forget Password</Text>
               </TouchableOpacity>
             </View>
           </View>
+        </LinearGradient>
         </View>
-
-      <View style={styles.footer}>
-
-      </View>
-      </ImageBackground>
-    </SafeAreaView>
+      </LinearGradient>
+    </View>
   );
 };
 
@@ -145,11 +137,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     body: {
-      flex: 4,
+      flex: 5,
       alignItems: 'center',
-    },
-    footer: {
-      flex: 1,
     },
     bodyForm: {
       width: Dimensions.get('window').width - 60,
@@ -157,7 +146,7 @@ const styles = StyleSheet.create({
       marginTop: 30,
       marginLeft: 70,
       marginRight: 70,
-      color: Colors.fontColorWhite,
+      color: Colors.fontWhite,
       borderRadius: 10,
       height: 350,
       backgroundColor: Colors.cardBodyColor,
@@ -167,7 +156,7 @@ const styles = StyleSheet.create({
     bodyFormHeader: {
       fontSize: 25,
       fontWeight: 'bold',
-      color: Colors.fontColorWhite,
+      color: Colors.fontWhite,
     },
     input: {
       width: Dimensions.get('window').width - 100,
@@ -176,9 +165,9 @@ const styles = StyleSheet.create({
       marginBottom: 15,
       padding: 10,
       borderRadius: 10,
-      borderBottomColor: Colors.fontColorWhite,
+      borderBottomColor: Colors.fontWhite,
       borderBottomWidth: 1,
-      color: Colors.fontColorWhite,
+      color: Colors.fontWhite,
     },
     button: {
       marginTop: 15,
@@ -193,8 +182,7 @@ const styles = StyleSheet.create({
     },
     navButton: {
       padding: 5,
-      borderWidth: 1,
       borderRadius: 5,
-      borderColor: Colors.fontColorWhite,
+      backgroundColor: Colors.white,
     },
 });

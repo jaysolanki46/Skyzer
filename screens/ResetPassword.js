@@ -9,6 +9,7 @@ import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRoute } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default ResetPassword = ({ navigation }) => {
 
@@ -82,31 +83,25 @@ export default ResetPassword = ({ navigation }) => {
 
   return (
 
-    <SafeAreaView style={styles.container} behavior="height">
+    <View style={styles.container} behavior="height">
       <TopStatusBar />
-      <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
-        position: 'absolute',
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.45)',
-        width: Dimensions.get("window").width,
-        height: Dimensions.get("window").height
-      }}>
+      <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{ flex: 1, }} >
         <View style={styles.header}>
           {/* <Logo/> */}
-          <Text style={[Headertext.h1, { color: Colors.fontColorPurplest }]}>Skyzer Guide</Text>
-          <Text style={[Headertext.h5, { color: Colors.fontColorLightBlack, fontWeight: '600' }]}>Let you explore the terminal</Text>
+          <Text style={[Headertext.h1, { color: Colors.fontWhite }]}>SKYZER GUIDE</Text>
         </View>
 
         <View style={styles.body}>
-          <View style={styles.bodyForm} showsVerticalScrollIndicator={false}>
+          <LinearGradient colors={[Colors.modelColor, Colors.modelColor, Colors.modelColor]} style={styles.bodyForm} >
+          <View showsVerticalScrollIndicator={false}>
             <View style={{ margin: 15, alignItems: 'center',}}>
               <Text style={styles.bodyFormHeader}> Create new password </Text>
-              <Text style={[Headertext.h5, { color: Colors.fontColorWhite }]}> Enter the new password  </Text>
+              <Text style={[Headertext.h5, { color: Colors.fontWhite }]}> Enter the new password  </Text>
             </View>
             <View>
               <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
                 <TextInput style={styles.input} placeholder="Password"
-                  placeholderTextColor={Colors.fontColorWhite}
+                  placeholderTextColor={Colors.fontWhite}
                   keyboardType="default" secureTextEntry={!showPassword}
                   onChangeText={(Password) => setPassword(Password)} />
                 {
@@ -121,19 +116,17 @@ export default ResetPassword = ({ navigation }) => {
 
               <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                 <TouchableOpacity style={[styles.button]} onPress={() => { resetPassword() }}>
-                  <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Reset</Text>
+                  <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontWhite }]}>Reset</Text>
                 </TouchableOpacity>
                 <Image style={[styles.icon]} source={rightArrowImage} />
               </View>
             </View>
           </View>
+          </LinearGradient>
         </View>
 
-        <View style={styles.footer}>
-
-        </View>
-      </ImageBackground>
-    </SafeAreaView>
+      </LinearGradient>
+    </View>
   );
 };
 
@@ -147,11 +140,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   body: {
-    flex: 4,
+    flex: 5,
     alignItems: 'center',
-  },
-  footer: {
-    flex: 1,
   },
   bodyForm: {
     width: Dimensions.get('window').width - 60,
@@ -159,7 +149,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginLeft: 70,
     marginRight: 70,
-    color: Colors.fontColorWhite,
+    color: Colors.fontWhite,
     borderRadius: 10,
     height: 300,
     backgroundColor: Colors.cardBodyColor,
@@ -169,7 +159,7 @@ const styles = StyleSheet.create({
   bodyFormHeader: {
     fontSize: 25,
     fontWeight: 'bold',
-    color: Colors.fontColorWhite,
+    color: Colors.fontWhite,
   },
   input: {
     width: Dimensions.get('window').width - 100,
@@ -178,9 +168,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     padding: 10,
     borderRadius: 10,
-    borderBottomColor: Colors.fontColorWhite,
+    borderBottomColor: Colors.fontWhite,
     borderBottomWidth: 1,
-    color: Colors.fontColorWhite,
+    color: Colors.fontWhite,
   },
   button: {
     marginTop: 15,
@@ -197,6 +187,6 @@ const styles = StyleSheet.create({
     padding: 5,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: Colors.fontColorWhite,
+    borderColor: Colors.fontWhite,
   },
 });

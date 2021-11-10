@@ -14,6 +14,7 @@ import {
 } from 'react-native-confirmation-code-field';
 import * as SecureStore from 'expo-secure-store';
 import { useRoute } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const CELL_SIZE = 55;
 const CELL_BORDER_RADIUS = 8;
@@ -184,27 +185,21 @@ export default ForgetPasswordCode = ({ navigation }) => {
 
     return (
 
-        <SafeAreaView style={styles.container} behavior="height">
+        <View style={styles.container} behavior="height">
             <TopStatusBar />
-            <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
-                position: 'absolute',
-                flex: 1,
-                backgroundColor: 'rgba(0,0,0,0.45)',
-                width: Dimensions.get("window").width,
-                height: Dimensions.get("window").height
-            }}>
+            <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{ flex: 1, }} >
                 <View style={styles.header}>
                     {/* <Logo/> */}
-                    <Text style={[Headertext.h1, { color: Colors.fontColorPurplest }]}>Skyzer Guide</Text>
-                    <Text style={[Headertext.h5, { color: Colors.fontColorLightBlack, fontWeight: '600' }]}>Let you explore the terminal</Text>
+                    <Text style={[Headertext.h1, { color: Colors.fontWhite }]}>SKYZER GUIDE</Text>
                 </View>
 
                 <View style={styles.body}>
-                    <View style={styles.bodyForm} showsVerticalScrollIndicator={false}>
+                    <LinearGradient colors={[Colors.modelColor, Colors.modelColor, Colors.modelColor]} style={styles.bodyForm} >
+                    <View showsVerticalScrollIndicator={false}>
                         <View style={{ margin: 15,alignItems: 'center' }}>
                             <Text style={styles.bodyFormHeader}> Verification </Text>
-                            <Text style={[Headertext.h5, { color: Colors.fontColorWhite }]}> Please enter the verification code  </Text>
-                            <Text style={[Headertext.h5, { color: Colors.fontColorWhite }]}> we send to your email address </Text>
+                            <Text style={[Headertext.h5, { color: Colors.fontWhite }]}> Please enter the verification code  </Text>
+                            <Text style={[Headertext.h5, { color: Colors.fontWhite }]}> we send to your email address </Text>
                         </View>
                         <View>
                             <CodeField
@@ -219,25 +214,22 @@ export default ForgetPasswordCode = ({ navigation }) => {
                                 renderCell={renderCell}
                             />
                         </View>
-                        <View style={{ width: Dimensions.get('window').width - 110, flexDirection: 'row', alignItems: 'center', }}>
-                            <TouchableOpacity style={[styles.button]} onPress={() => { verifyCode() }}>
-                                <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Verify</Text>
+                        <View style={{ width: Dimensions.get('window').width - 110, flexDirection: 'row', alignItems: 'center', alignSelf: 'center'}}>
+                            <TouchableOpacity style={[styles.button, { flexDirection: 'row'}]} onPress={() => { verifyCode() }}>
+                                <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontWhite }]}>Verify</Text>
+                                <Image style={[styles.icon]} source={rightArrowImage} />
                             </TouchableOpacity>
-                            <Image style={[styles.icon]} source={rightArrowImage} />
                         </View>
-                        <View style={{ marginTop: 30, marginBottom: 10, width: Dimensions.get('window').width - 110, flexDirection: 'row', alignItems: 'center', }}>
+                            <View style={{ marginTop: 30, marginBottom: 10, width: Dimensions.get('window').width - 110, flexDirection: 'row', alignItems: 'center', alignSelf: 'center' }}>
                             <TouchableOpacity style={[styles.navButton]} onPress={() => { resendCode() }}>
-                                <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: '700' }]}>Resend code?</Text>
+                                <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: '700' }]}>Resend code?</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
+                    </LinearGradient>
                 </View>
-
-                <View style={styles.footer}>
-
-                </View>
-            </ImageBackground>
-        </SafeAreaView>
+            </LinearGradient>
+        </View>
     );
 };
 
@@ -251,11 +243,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     body: {
-        flex: 4,
+        flex: 5,
         alignItems: 'center',
-    },
-    footer: {
-        flex: 1,
     },
     bodyForm: {
         width: Dimensions.get('window').width - 60,
@@ -263,7 +252,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
         marginLeft: 70,
         marginRight: 70,
-        color: Colors.fontColorWhite,
+        color: Colors.fontWhite,
         borderRadius: 10,
         height: 350,
         backgroundColor: Colors.cardBodyColor,
@@ -273,7 +262,7 @@ const styles = StyleSheet.create({
     bodyFormHeader: {
         fontSize: 25,
         fontWeight: 'bold',
-        color: Colors.fontColorWhite,
+        color: Colors.fontWhite,
     },
     input: {
         width: Dimensions.get('window').width - 100,
@@ -283,7 +272,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         borderBottomWidth: 1,
-        color: Colors.fontColorWhite,
+        color: Colors.fontWhite,
     },
     button: {
         marginTop: 15,
@@ -298,9 +287,8 @@ const styles = StyleSheet.create({
     },
     navButton: {
         padding: 5,
-        borderWidth: 1,
         borderRadius: 5,
-        borderColor: Colors.fontColorWhite,
+        backgroundColor: Colors.white,
     },
 
     codeFiledRoot: {
@@ -317,7 +305,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center',
         borderRadius: CELL_BORDER_RADIUS,
-        color: '#3759b8',
+        color: Colors.fontBlack,
         backgroundColor: '#fff',
         overflow: 'hidden',
         

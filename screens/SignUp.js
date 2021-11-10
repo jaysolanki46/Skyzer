@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, Alert, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions, TextInput, Alert } from 'react-native';
 import Headertext from '../config/Headertext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import Configurations from '../config/Configurations';
-import BackgroundImage from "../assets/images/background.jpg";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import rightArrowImage from '../assets/images/right-arrow.png';
 import TopStatusBar from '../components/TopStatusBar';
 import { useRoute } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default SignUp = ({ navigation }) => {
 
@@ -212,26 +212,21 @@ export default SignUp = ({ navigation }) => {
 
     return (
 
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <TopStatusBar />
-            <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
-                position: 'absolute',
+            <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{
                 flex: 1,
-                backgroundColor: 'rgba(0,0,0,0.45)',
-                width: Dimensions.get("window").width,
-                height: Dimensions.get("window").height
             }}>
-
                 <View style={styles.header}>
                     {/* <Logo/> */}
-                    <Text style={[Headertext.h1, { color: Colors.fontColorPurplest }]}>Skyzer Guide</Text>
-                    <Text style={[Headertext.h5, { color: Colors.fontColorLightBlack, fontWeight: '600' }]}>Let you explore the terminal</Text>
+                    <Text style={[Headertext.h1, { color: Colors.fontWhite }]}>SKYZER GUIDE</Text>
                 </View>
 
                 <View style={styles.body}>
+                    <LinearGradient colors={[Colors.modelColor, Colors.modelColor, Colors.modelColor]} style={styles.bodyForm} >
                     <View style={styles.bodyForm}>
-                        <View style={{ marginTop: 15 }}>
-                            <Text style={styles.bodyFormHeader}> Create an Account </Text>
+                        <View style={{ marginTop: 15, justifyContent: 'center', alignItems: 'center', }}>
+                            <Text style={styles.bodyFormHeader}> Create Your Account </Text>
                         </View>
                         {
                             Platform.OS === 'ios' ?
@@ -240,18 +235,18 @@ export default SignUp = ({ navigation }) => {
                                     <View style={{ height: 600 }}>
                                         <View>
                                             <TextInput style={[styles.input, { borderColor: Colors.white }]} placeholder="Username"
-                                                placeholderTextColor={Colors.fontColorWhite} keyboardType="default"
+                                                placeholderTextColor={Colors.fontWhite} keyboardType="default"
                                                 onChangeText={(Username) => setUsername(Username)} selectionColor={Colors.white} />
 
                                             <TextInput style={[styles.input, {
                                                 borderColor: isErrorEmail ? Colors.danger : Colors.white
                                             }]} placeholder="Email"
-                                                placeholderTextColor={Colors.fontColorWhite} keyboardType="email-address"
+                                                placeholderTextColor={Colors.fontWhite} keyboardType="email-address"
                                                 onChangeText={(Email) => setEmail(Email)} selectionColor={Colors.white} />
 
                                             <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
                                                 <TextInput style={[styles.input, { borderColor: Colors.white }]} placeholder="Password"
-                                                    placeholderTextColor={Colors.fontColorWhite}
+                                                    placeholderTextColor={Colors.fontWhite}
                                                     keyboardType="default" secureTextEntry={!showPassword}
                                                     onChangeText={(Password) => setPassword(Password)} selectionColor={Colors.white} />
                                                 {
@@ -268,25 +263,28 @@ export default SignUp = ({ navigation }) => {
                                                 <TextInput style={[styles.input, {
                                                     borderColor: isErrorAccount ? Colors.danger : Colors.white
                                                 }]} placeholder="Account number i.e. 1234"
-                                                    placeholderTextColor={Colors.fontColorWhite} keyboardType="default"
+                                                    placeholderTextColor={Colors.fontWhite} keyboardType="default"
                                                     minLength={4}
                                                     onChangeText={(Account) => setAccount(Account)} selectionColor={Colors.white} />
+
                                                 <Tooltip
-                                                    isVisible={toolTipVisible}
+                                                    isVisible={toolTipVisible} 
                                                     content={
-                                                        <View style={{ flex: 1, padding: 5 }}>
+                                                        <View style={{ flex: 1, margin: -10,}}>
+                                                            <LinearGradient colors={[Colors.modelColor, Colors.modelColor, Colors.modelColor]} style={{ flex: 1, padding: 5, paddingTop: 10, }}>
                                                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 5, }}>
-                                                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest }]}>Find Account Number?</Text>
+                                                                <Text style={[Headertext.h4]}>Find Account Number?</Text>
                                                             </View>
-                                                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10 }}>
+                                                                <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, borderColor: Colors.white, margin: 10, padding: 10 }}>
                                                                 <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>Available on Dealer TMS, under Quick stats</Text>
                                                             </View>
                                                             <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center', margin: 10 }}>
-                                                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest }]}>OR</Text>
+                                                                <Text style={[Headertext.h4]}>OR</Text>
                                                             </View>
-                                                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10 }}>
+                                                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, borderColor: Colors.white, margin: 10, padding: 10 }}>
                                                                 <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>No Dealer TMS access! No Problem, just request to Skyzer they will tell you what yours.</Text>
                                                             </View>
+                                                            </LinearGradient>
                                                         </View>
                                                     }
                                                     placement="bottom"
@@ -299,12 +297,12 @@ export default SignUp = ({ navigation }) => {
 
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', margin: 10, }}>
                                                 <TouchableOpacity style={[styles.navButton]} onPress={() => navigation.navigate('LogIn')}>
-                                                    <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: '700' }]}>Already a member?</Text>
+                                                    <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: '700' }]}>Already a member</Text>
                                                 </TouchableOpacity>
 
                                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                                     <TouchableOpacity style={[styles.button]} onPress={() => { signInHandle(username, email, password, account); }}>
-                                                        <Text style={[Headertext.h4, { color: Colors.fontColorWhite }]}>Sign Up</Text>
+                                                        <Text style={[Headertext.h4, { color: Colors.fontWhite }]}>Sign Up</Text>
                                                     </TouchableOpacity>
                                                     <View>
                                                         <Image style={[styles.icon, { marginRight: 10 }]} source={rightArrowImage} />
@@ -324,18 +322,18 @@ export default SignUp = ({ navigation }) => {
                                     <View style={{ height: 500 }}>
                                         <View>
                                             <TextInput style={[styles.input, { borderColor: Colors.white }]} placeholder="Username"
-                                                placeholderTextColor={Colors.fontColorWhite} keyboardType="default"
+                                                placeholderTextColor={Colors.fontWhite} keyboardType="default"
                                                 onChangeText={(Username) => setUsername(Username)} selectionColor={Colors.white} />
 
                                             <TextInput style={[styles.input, {
                                                 borderColor: isErrorEmail ? Colors.danger : Colors.white
                                             }]} placeholder="Email"
-                                                placeholderTextColor={Colors.fontColorWhite} keyboardType="email-address"
+                                                placeholderTextColor={Colors.fontWhite} keyboardType="email-address"
                                                 onChangeText={(Email) => setEmail(Email)} selectionColor={Colors.white} />
 
                                             <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
                                                 <TextInput style={[styles.input, { borderColor: Colors.white }]} placeholder="Password"
-                                                    placeholderTextColor={Colors.fontColorWhite}
+                                                    placeholderTextColor={Colors.fontWhite}
                                                     keyboardType="default" secureTextEntry={!showPassword}
                                                     onChangeText={(Password) => setPassword(Password)} selectionColor={Colors.white} />
                                                 {
@@ -352,43 +350,45 @@ export default SignUp = ({ navigation }) => {
                                                 <TextInput style={[styles.input, {
                                                     borderColor: isErrorAccount ? Colors.danger : Colors.white
                                                 }]} placeholder="Account number i.e. 1234"
-                                                    placeholderTextColor={Colors.fontColorWhite} keyboardType="default"
+                                                    placeholderTextColor={Colors.fontWhite} keyboardType="default"
                                                     maxLength={4}
                                                     onChangeText={(Account) => setAccount(Account)} selectionColor={Colors.white} />
-                                                <Tooltip
-                                                    isVisible={toolTipVisible}
-                                                    content={
-                                                        <View style={{ flex: 1, padding: 5 }}>
-                                                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 5, }}>
-                                                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest }]}>Find Account Number?</Text>
+                                                    <Tooltip
+                                                        isVisible={toolTipVisible}
+                                                        content={
+                                                            <View style={{ flex: 1, margin: -10, }}>
+                                                                <LinearGradient colors={[Colors.modelColor, Colors.modelColor, Colors.modelColor]} style={{ flex: 1, padding: 5, paddingTop: 10, }}>
+                                                                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 5, }}>
+                                                                        <Text style={[Headertext.h4]}>Find Account Number?</Text>
+                                                                    </View>
+                                                                    <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, borderColor: Colors.white, margin: 10, padding: 10 }}>
+                                                                        <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>Available on Dealer TMS, under Quick stats</Text>
+                                                                    </View>
+                                                                    <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center', margin: 10 }}>
+                                                                        <Text style={[Headertext.h4]}>OR</Text>
+                                                                    </View>
+                                                                    <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, borderColor: Colors.white, margin: 10, padding: 10 }}>
+                                                                        <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>No Dealer TMS access! No Problem, just request to Skyzer they will tell you what yours.</Text>
+                                                                    </View>
+                                                                </LinearGradient>
                                                             </View>
-                                                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10 }}>
-                                                                <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>Find on Dealer TMS, under Quick stats</Text>
-                                                            </View>
-                                                            <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center', margin: 10 }}>
-                                                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest }]}>OR</Text>
-                                                            </View>
-                                                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 5, margin: 10, padding: 10 }}>
-                                                                <Text style={[Headertext.h5, { fontWeight: 'bold' }]}>Contact Skyzer</Text>
-                                                            </View>
-                                                        </View>
-                                                    }
-                                                    placement="bottom"
-                                                    onClose={() => setToolTipVisible(false)}
-                                                >
-                                                </Tooltip>
+                                                        }
+                                                        placement="bottom"
+                                                        onClose={() => setToolTipVisible(false)}
+                                                    >
+                                                    </Tooltip>
                                                 <MaterialCommunityIcons name="comment-question" size={24} style={{ marginLeft: -25 }}
                                                     color={Colors.white} onPress={() => setToolTipVisible(true)} />
                                             </View>
 
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', margin: 10, }}>
                                                 <TouchableOpacity style={[styles.navButton]} onPress={() => navigation.navigate('LogIn')}>
-                                                    <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: '700' }]}>Already a member?</Text>
+                                                    <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: '700' }]}>Already a member</Text>
                                                 </TouchableOpacity>
 
                                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                                     <TouchableOpacity style={[styles.button]} onPress={() => { signInHandle(username, email, password, account); }}>
-                                                        <Text style={[Headertext.h4, { color: Colors.buttonWhite }]}>Sign Up</Text>
+                                                        <Text style={[Headertext.h4, ]}>Sign Up</Text>
                                                     </TouchableOpacity>
                                                     <View>
                                                         <Image style={[styles.icon, { marginRight: 10 }]} source={rightArrowImage} />
@@ -400,12 +400,10 @@ export default SignUp = ({ navigation }) => {
                                 </KeyboardAwareScrollView>
                         }
                     </View>
+                    </LinearGradient>
                 </View>
-
-                <View style={styles.footer}>
-                </View>
-            </ImageBackground>
-        </SafeAreaView>
+            </LinearGradient>
+        </View>
     );
 };
 
@@ -419,11 +417,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     body: {
-        flex: 4,
+        flex: 5,
         alignItems: 'center',
-    },
-    footer: {
-        flex: 1,
     },
     bodyForm: {
         width: Dimensions.get('window').width - 60,
@@ -431,17 +426,16 @@ const styles = StyleSheet.create({
         marginTop: 30,
         marginLeft: 70,
         marginRight: 70,
-        color: Colors.fontColorWhite,
+        color: Colors.fontWhite,
         borderRadius: 10,
         height: 450,
-        backgroundColor: Colors.cardBodyColor,
         justifyContent: 'center',
         alignItems: 'center',
     },
     bodyFormHeader: {
         fontSize: 25,
         fontWeight: 'bold',
-        color: Colors.fontColorWhite,
+        color: Colors.fontWhite,
     },
     input: {
         width: 300,
@@ -452,7 +446,7 @@ const styles = StyleSheet.create({
         paddingRight: 50,
         borderRadius: 10,
         borderBottomWidth: 1,
-        color: Colors.fontColorWhite,
+        color: Colors.fontWhite,
     },
     button: {
         marginTop: 15,
@@ -467,8 +461,7 @@ const styles = StyleSheet.create({
     },
     navButton: {
         padding: 5,
-        borderWidth: 1,
         borderRadius: 5,
-        borderColor: Colors.fontColorWhite,
+        backgroundColor: Colors.white,
     },
 });

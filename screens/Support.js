@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
-import { StyleSheet, SafeAreaView, Text, View, Image, Animated, TouchableOpacity, Linking, ImageBackground, Dimensions } from 'react-native';
+import { StyleSheet, SafeAreaView, Text, View, Image, Animated, TouchableOpacity, Linking } from 'react-native';
 import Colors from '../config/Colors';
 import ContactBannerImage from '../assets/images/support/support-banner.png';
 import PhoneImage from '../assets/images/support/support-phone.png';
 import EmailImage from '../assets/images/support/support-email.png';
 import Headertext from '../config/Headertext';
-import BackgroundImage from "../assets/images/background-main.jpg";
 import TopStatusBar from '../components/TopStatusBar';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const LRView = (props) => {
     const LRanim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
@@ -39,7 +39,8 @@ export default Support = ({ navigation }) => {
     return (
 
         <SafeAreaView style={styles.container} behavior="height">
-            <TopStatusBar />
+        <TopStatusBar />
+        <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{ flex: 1, }} >
            <View style={styles.header}>
                 <View style={styles.headerImage}>
                     <Image
@@ -50,59 +51,51 @@ export default Support = ({ navigation }) => {
            </View>
 
             <View style={styles.body}>
-                <ImageBackground source={BackgroundImage} style={{
-                    flex: 1,
-                    backgroundColor: 'rgba(0,0,0,0.45)',
-                    width: Dimensions.get("window").width,
-                    height: Dimensions.get("window").height
-                }}>
-                <View style={styles.bodyEmail}>
-                    
-                    <View style={styles.cardEmail}>
-                        <TouchableOpacity style={{flex: 1, flexDirection: 'row', alignItems: 'center'}} 
+                <View style={{ flex: 1, flexDirection: 'row'}}>
+                        
+                        <View style={styles.box}>
+                            <TouchableOpacity style={{flex: 1, }} 
                             onPress={() => { Linking.openURL(`mailto:support@skyzer.co.nz`) }}>
-                            <Text style={{ color: Colors.fontColorWhite, fontWeight: 'bold', fontSize: 17, marginLeft: 'auto', margin: 10}}>
-                                support@skyzer.co.nz
-                            </Text>
-                        <Image
-                            style={{ width: 50, height: 50, borderRadius: 10, marginLeft: 'auto', marginRight: 10}}
-                            source={EmailImage}
-                        />
+                                <View style={{
+                                    flex: 4, 
+                                    justifyContent: 'center',}}>
+                                        <Image
+                                            style={styles.boxImage}
+                                            source={EmailImage}
+                                        />
+                                    </View>
+                                    <View style={{ flex: 1,}}>
+                                        <Text style={[Headertext.h5, { alignSelf: 'center'}]}>
+                                            Email Us
+                                        </Text>
+                                    </View>
                             </TouchableOpacity>
-                    </View>
-                    
+                        </View>
+
+                        <View style={styles.box}>
+                            <TouchableOpacity style={{flex: 1, }} 
+                                onPress={() => { Linking.openURL(`tel:092590322`) }}>
+                                <View style={{
+                                    flex: 4,
+                                    justifyContent: 'center',
+                                }}>
+                                    <Image
+                                        style={styles.boxImage}
+                                        source={PhoneImage}
+                                    />
+                                </View>
+                                <View style={{ flex: 1, }}>
+                                    <Text style={[Headertext.h5, { alignSelf: 'center' }]}>
+                                        Call Us
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
                 </View>
-                <View style={styles.bodyPhone}>
-                    <View style={styles.cardPhone}>
-                        <TouchableOpacity style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
-                            onPress={() => { Linking.openURL(`tel:092590322`) }}>
-                            <Image
-                                style={{ width: 50, height: 50, borderRadius: 10, marginRight: 'auto', marginLeft: 10}}
-                                source={PhoneImage}
-                            />
-                            <Text style={{ color: Colors.fontColorWhite, fontWeight: 'bold', fontSize: 17, marginRight: 'auto', margin: 10 }}>
-                                09 259 0322
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </ImageBackground>
             </View>
-            
-            <LRView style={styles.footer}>
-                <View style={{borderBottomWidth: 1, borderBottomColor: Colors.seperator, 
-                    borderBottomRightRadius: 10, borderBottomLeftRadius: 10,}}>
-                    <Text style={Headertext.h4}>
-                        OPERATING HOURS
-                    </Text>
-                </View>
-                <Text style={{fontSize: 17, fontWeight: 'bold', color: Colors.fontColorLightBlack}}>
-                    MON - FRI
-                </Text>
-                <Text style={{ fontSize: 17, fontWeight: 'bold', color: Colors.fontColorLightBlack }}>
-                    8:00 AM - 5:00 PM
-                </Text>
-            </LRView>
+
+            </LinearGradient>
         </SafeAreaView>
     );
 };
@@ -110,10 +103,9 @@ export default Support = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.bodyColor,
     },
     header: {
-        flex: 2,
+        flex: 3,
         padding: 10,
     },
     headerImage: {
@@ -121,46 +113,24 @@ const styles = StyleSheet.create({
         margin: 10,
     },  
     image: {
-        width: 360,
-        height: 200,
+        width: 400,
+        height: 300,
         resizeMode: 'contain',
         borderRadius: 10,
     },  
     body: {
         flex: 3,
     },
-    bodyEmail: {
-        flex: 3,
-    },
-    cardEmail: {
+    box: {
+        flex: 3, 
+        borderWidth: 1, 
+        borderColor: Colors.white, 
+        borderRadius: 10, 
+        margin: 10,
+    },  
+    boxImage: {
+        width: 70,
         height: 70,
-        backgroundColor: Colors.colorType3_2,
-        marginTop: 50,
-        marginBottom: 50,
-        marginRight: 100,
-        borderTopRightRadius: 10,
-        borderBottomRightRadius: 10,
-    },
-    bodyPhone: {
-        flex: 3,
-    },
-    cardPhone: {
-        height: 70,
-        backgroundColor: Colors.colorType3_2,
-        marginBottom: 100,
-        marginLeft: 100,
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
-    },
-    footer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 2,
-        borderColor: Colors.contactCardColor,
-        marginLeft: 30,
-        marginRight: 30,
-        marginBottom: 10,
-        borderRadius: 10,
-    },
+        alignSelf: 'center'
+    }
 });

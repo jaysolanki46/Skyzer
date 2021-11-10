@@ -6,15 +6,16 @@ import Configurations from '../config/Configurations';
 import Headertext from '../config/Headertext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/core';
-import StarImage from '../assets/images/telium/telium-star.png';
-import StarOutlineImage from '../assets/images/telium/telium-star-outline.png';
+import StarImage from '../assets/images/mutual/star.png';
+import StarOutlineImage from '../assets/images/mutual/star-outline.png';
 import LoaderImage from '../assets/images/loaders/list-loader.gif';
-import NoContentImage from '../assets/images/telium/no-content.png';
+import NoContentImage from '../assets/images/mutual/no-content.png';
 import TopStatusBar from '../components/TopStatusBar';
 import { Badge } from 'react-native-paper';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
 import { useRoute } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default TeliumGuide = () => {
 
@@ -214,9 +215,9 @@ export default TeliumGuide = () => {
             <View style={[styles.listContainer]}>
                 <View style={{
                     flex: 1.1, justifyContent: 'center', alignItems: 'center',
-                    backgroundColor: Colors.colorType2_1, borderRadius: 5
+                    backgroundColor: Colors.block2Color1of3, borderRadius: 5
                 }}>
-                    <Text style={{ color: Colors.fontColorWhite, letterSpacing: 1, fontWeight: '500' }}>TELIUM</Text>
+                    <Text style={{ color: Colors.fontWhite, letterSpacing: 1, fontWeight: '500' }}>TELIUM</Text>
                 </View>
                 <View style={{ flex: 4.9 }}>
                     <View style={[styles.itemBody]}>
@@ -285,8 +286,7 @@ export default TeliumGuide = () => {
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Image style={styles.noContent} source={NoContentImage} />
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={[Headertext.h4, { fontWeight: 'bold' }]}>NO ITEMS,</Text>
-                    <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}>SORRY!</Text>
+                    <Text style={[Headertext.h4, { fontWeight: 'bold' }]}>No Result Found</Text>
                 </View>
             </View>
         );
@@ -296,15 +296,14 @@ export default TeliumGuide = () => {
         return (
             <View>
                 <SearchBar
+                    darkMode={true}
                     style={styles.searchInputText}
-                    fontColor="#c6c6c6"
-                    iconColor="#c6c6c6"
-                    cancelIconColor="#c6c6c6"
                     placeholder="Search here"
                     onChangeText={(text) => SearchFilterFunction(text)}
                     onClearPress={() => SearchFilterFunction("")}
                 />
                 <FlatList style={styles.gridView}
+                    darkMode={true}
                     data={filteredDataSource}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={ItemView}
@@ -313,9 +312,10 @@ export default TeliumGuide = () => {
                         <RefreshControl
                             refreshing={refreshing}
                             onRefresh={OnRefresh}
-                            tintColor={Colors.colorType2_1}
-                            colors={[Colors.colorType2_1]}
+                            tintColor={Colors.white}
+                            colors={[Colors.white]}
                             title="Pull to refresh"
+                            titleColor={Colors.white}
                         />
                     }
                 />
@@ -326,13 +326,14 @@ export default TeliumGuide = () => {
     return (
         <SafeAreaView style={styles.container}>
             <TopStatusBar />
-
+            <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{ flex: 1, }} >
             <View style={styles.body}>
 
                 {
                     isLoading ? Loader() : Content()
                 }
             </View>
+            </LinearGradient>
         </SafeAreaView>
     );
 }
@@ -340,7 +341,6 @@ export default TeliumGuide = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.bodyColor,
     },
     body: {
         flex: 1,
@@ -350,12 +350,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         margin: 5,
-        backgroundColor: Colors.colorType5_1,
-        shadowColor: '#000',
-        shadowOffset: { width: 1, height: 1 },
-        shadowOpacity: 0.4,
-        shadowRadius: 3,
-        elevation: 5,
+        borderWidth: 1,
+        borderColor: Colors.white,
         flexDirection: 'row',
     },
     itemBody: {
@@ -371,20 +367,21 @@ const styles = StyleSheet.create({
     },
     itemQuestion: {
         fontSize: 15,
-        color: Colors.fontColorLightBlack,
+        color: Colors.fontWhite,
         fontWeight: '700',
         margin: 5,
     },
     badge: {
         margin: 5,
         borderRadius: 5,
-        color: Colors.fontColorWhite,
-        backgroundColor: Colors.colorType2_1,
+        color: Colors.fontWhite,
+        borderWidth: 1,
+        backgroundColor: Colors.block2Color1of3,
         fontWeight: '700',
     },
     itemAnswer: {
         fontSize: 13,
-        color: Colors.fontColorLightBlack,
+        color: Colors.fontWhite,
         fontWeight: '700',
         margin: 5,
     },
@@ -397,14 +394,9 @@ const styles = StyleSheet.create({
         height: 40,
         width: '97%',
         margin: 5,
-        borderColor: '#009688',
+        borderWidth: 1,
+        borderColor: Colors.fontWhite,
         borderRadius: 10,
-        backgroundColor: Colors.colorType5_1,
-        shadowColor: '#000',
-        shadowOffset: { width: 1, height: 1 },
-        shadowOpacity: 0.4,
-        shadowRadius: 3,
-        elevation: 5,
     },
     gridView: {
         width: '100%',

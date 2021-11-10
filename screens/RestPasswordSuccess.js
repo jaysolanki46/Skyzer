@@ -1,24 +1,18 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView, ImageBackground, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
-import BackgroundImage from "../assets/images/background.jpg";
 import successImage from '../assets/images/successfully.png';
 import TopStatusBar from '../components/TopStatusBar';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default RestPasswordSuccess = ({ navigation }) => {
 
     return (
-        <SafeAreaView style={{flex: 1, }}>
+        <View style={{flex: 1, }}>
             <TopStatusBar />
-            <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
-                position: 'absolute',
-                flex: 1,
-                backgroundColor: 'rgba(0,0,0,0.45)',
-                width: Dimensions.get("window").width,
-                height: Dimensions.get("window").height
-            }}>
+            <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{ flex: 1, }} >
             <View style={styles.header}>
             </View>
             <View style={styles.body}>
@@ -26,13 +20,15 @@ export default RestPasswordSuccess = ({ navigation }) => {
                     style={styles.image}
                         source={successImage}
                 />
-                <Text style={[Headertext.h3 ,{color: Colors.fontColorBluest, margin: 10}]}>Reset Password Successful</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('LogIn')} style={styles.loginButton}>
-                    <Text style={[Headertext.h4, { color: Colors.buttonFont }]}>Proceed to Login</Text>
+                <Text style={[Headertext.h3 ,{color: Colors.fontWhite, margin: 10}]}>Password Changed</Text>
+                    <LinearGradient colors={[Colors.buttonColor1of2, Colors.buttonColor2of2]} style={styles.loginButton}>
+                <TouchableOpacity onPress={() => navigation.navigate('LogIn')} >
+                    <Text style={[Headertext.h4, { color: Colors.fontWhite }]}>Proceed to Login</Text>
                 </TouchableOpacity>
+                </LinearGradient>
             </View>
-            </ImageBackground>
-        </SafeAreaView>
+            </LinearGradient>
+        </View>
     );
 }
 
@@ -42,7 +38,6 @@ const styles = StyleSheet.create({
         height: 60,
     },
     loginButton: {
-        backgroundColor: Colors.buttonBody,
         paddingLeft: 50,
         paddingRight: 50,
         paddingTop: 10,

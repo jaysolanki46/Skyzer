@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, ImageBackground, Dimensions, ScrollView, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, Dimensions, ScrollView, Alert } from 'react-native';
 import Headertext from '../config/Headertext';
 import Colors from '../config/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
-import BackgroundImage from "../assets/images/background-main.jpg";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DefaultProfileImage from '../assets/images/profile/profile.png';
 import { useFocusEffect } from '@react-navigation/native';
@@ -31,42 +30,42 @@ export default Home = ({ navigation }) => {
             desc: 'Complete Guide',
             image: TetraGuideImage,
             subItems: [{ id: 1, name: 'DESK3200' }, { id: 2, name: 'DESK5000' }, { id: 3, name: 'MOVE2500' }, { id: 4, name: 'MOVE5000' }],
-            color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3
+            color1: Colors.block1Color1of3, color2: Colors.block1Color2of3, color3: Colors.block1Color3of3
         },
         {
             id: 2, name: 'TELIUM',
             desc: 'Complete Guide',
             image: TeliumGuideImage,
             subItems: [{ id: 5, name: 'ICT220' }, { id: 6, name: 'ICT250' }, { id: 7, name: 'IWL255' }, { id: 8, name: 'IWL252' }],
-            color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3
+            color1: Colors.block2Color1of3, color2: Colors.block2Color2of3, color3: Colors.block2Color3of3
         },
         {
             id: 3, name: 'SUPPORT',
             desc: 'Happy to help',
             image: SupportImage,
             subItems: [{ id: 9, name: 'CALL' }, { id: 10, name: 'EMAIL' },],
-            color1: Colors.colorType3_1, color2: Colors.colorType3_2, color3: Colors.colorType3_3
+            color1: Colors.block3Color1of3, color2: Colors.block3Color2of3, color3: Colors.block3Color3of3
         },
         {
             id: 4, name: 'NITRO',
             desc: 'Get your package',
             image: NitroImage,
             subItems: [{ id: 11, name: 'SEND ON EMAIL' }, ,],
-            color1: Colors.colorType2_1, color2: Colors.colorType2_2, color3: Colors.colorType2_3
+            color1: Colors.block4Color1of3, color2: Colors.block4Color2of3, color3: Colors.block4Color3of3
         },
         {
             id: 5, name: 'BULLETINS',
             desc: 'Get update yourself',
             image: BulletinImage,
             subItems: [{ id: 12, name: 'TECHNICAL BULLETIN' },],
-            color1: Colors.colorType1_1, color2: Colors.colorType1_2, color3: Colors.colorType1_3
+            color1: Colors.block5Color1of3, color2: Colors.block5Color2of3, color3: Colors.block5Color3of3
         },
         {
             id: 6,name: 'ABOUT US',
             desc: 'Explore the Skyzer',
             image: AboutImage,
             subItems: [{ id: 13, name: 'WHO WE ARE' }, { id: 14, name: 'VALUES' }, { id: 15, name: 'LOCATION' }, { id: 16, name: 'SOCIAL HANDLES' },],
-            color1: Colors.colorType4_1, color2: Colors.colorType4_2, color3: Colors.colorType4_3
+            color1: Colors.block6Color1of3, color2: Colors.block6Color2of3, color3: Colors.block6Color3of3
         },
     ]);
 
@@ -207,7 +206,7 @@ export default Home = ({ navigation }) => {
                     <View style={{ flex: 5, }}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={[Headertext.h4, { fontWeight: '300' }]}>Hello,</Text>
-                            <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}> {userName}!</Text>
+                            <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontWhite }]}> {userName}!</Text>
                         </View>
                         <Text style={Headertext.h5}>
                             {currentMsg}
@@ -237,16 +236,10 @@ export default Home = ({ navigation }) => {
                 </View>
             </View>
             <View style={styles.bodyTop}>
-                <Text style={[Headertext.h1, { marginRight: 10, color: Colors.fontColorBluest }]}>Your</Text>
-                <Text style={[Headertext.h1, { color: Colors.fontColorPurplest, }]}>Home</Text>
+                <Text style={[Headertext.h1, { marginRight: 10, color: Colors.fontWhite }]}>Your</Text>
+                <Text style={[Headertext.h1, { color: Colors.fontWhite, }]}>Home</Text>
             </View>
             <View style={styles.body}>
-                <ImageBackground source={BackgroundImage} style={{
-                    flex: 1,
-                    backgroundColor: 'rgba(0,0,0,0.45)',
-                    width: Dimensions.get("window").width,
-                    height: Dimensions.get("window").height
-                }}>
                     <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, paddingBottom: 60, }}>
 
                         {/* BLOCK 1 - 3 COMPONENTS */}
@@ -273,8 +266,8 @@ export default Home = ({ navigation }) => {
                                         {/* TETRA BLOCK */}
                                         <View style={{ flex: 1, }}>
                                             <View style={{ flex: 2, justifyContent: 'center' }}>
-                                                <Text style={[Headertext.h3, { color: Colors.fontColorWhite, alignSelf: 'center', }]}>{items[0].name}</Text>
-                                                <Text style={[Headertext.h5, { color: Colors.fontColorWhite, alignSelf: 'center', }]}>{items[0].desc}</Text>
+                                                <Text style={[Headertext.h3, { color: Colors.fontWhite, alignSelf: 'center', }]}>{items[0].name}</Text>
+                                                <Text style={[Headertext.h5, { color: Colors.fontWhite, alignSelf: 'center', }]}>{items[0].desc}</Text>
                                             </View>
                                             <View style={{ flex: 4, justifyContent: 'center', overflow: 'hidden', }}>
                                                 <Image style={{
@@ -320,8 +313,8 @@ export default Home = ({ navigation }) => {
                                             <View style={{ flex: 4, }} >
                                                 <View style={{ flex: 1, flexDirection: 'row' }}>
                                                     <View style={{ flex: 4, paddingLeft: 16, paddingTop: 16,}}>
-                                                        <Text style={[Headertext.h4, { color: Colors.fontColorWhite, }]}>{items[1].name}</Text>
-                                                        <Text style={[{ color: Colors.fontColorWhite, fontSize: 13 }]}>{items[1].desc}</Text>
+                                                        <Text style={[Headertext.h4, { color: Colors.fontWhite, }]}>{items[1].name}</Text>
+                                                        <Text style={[{ color: Colors.fontWhite, fontSize: 13 }]}>{items[1].desc}</Text>
                                                     </View>
                                                     <View style={{ flex: 2, justifyContent: 'center', overflow: 'hidden', }}>
                                                         <Image style={{
@@ -370,8 +363,8 @@ export default Home = ({ navigation }) => {
                                                         }} source={items[2].image} />
                                                     </View>
                                                     <View style={{ flex: 4, paddingTop: 16, }}>
-                                                        <Text style={[Headertext.h4, { color: Colors.fontColorWhite, }]}>{items[2].name}</Text>
-                                                        <Text style={[{ color: Colors.fontColorWhite, fontSize: 13, }]}>{items[2].desc}</Text>
+                                                        <Text style={[Headertext.h4, { color: Colors.fontWhite, }]}>{items[2].name}</Text>
+                                                        <Text style={[{ color: Colors.fontWhite, fontSize: 13, }]}>{items[2].desc}</Text>
                                                     </View>
                                                 </View>
                                             </View>
@@ -429,8 +422,8 @@ export default Home = ({ navigation }) => {
                                             <View style={{ flex: 4, }} >
                                                 <View style={{ flex: 1, flexDirection: 'row' }}>
                                                     <View style={{ flex: 4, padding: 10, justifyContent: 'center' }}>
-                                                        <Text style={[Headertext.h4, { color: Colors.fontColorWhite, }]}>{items[3].name}</Text>
-                                                        <Text style={[{ color: Colors.fontColorWhite, fontSize: 13 }]}>{items[3].desc}</Text>
+                                                        <Text style={[Headertext.h4, { color: Colors.fontWhite, }]}>{items[3].name}</Text>
+                                                        <Text style={[{ color: Colors.fontWhite, fontSize: 13 }]}>{items[3].desc}</Text>
                                                     </View>
                                                     <View style={{ flex: 2, justifyContent: 'center', overflow: 'hidden', }}>
                                                         <Image style={{
@@ -477,8 +470,8 @@ export default Home = ({ navigation }) => {
                                             <View style={{ flex: 4, }} >
                                                 <View style={{ flex: 1, flexDirection: 'row' }}>
                                                     <View style={{ flex: 4.1, padding: 10, justifyContent: 'center', }}>
-                                                        <Text style={[Headertext.h4, { color: Colors.fontColorWhite, }]}>{items[4].name}</Text>
-                                                        <Text style={[{ color: Colors.fontColorWhite, fontSize: 13 }]}>{items[4].desc}</Text>
+                                                        <Text style={[Headertext.h4, { color: Colors.fontWhite, }]}>{items[4].name}</Text>
+                                                        <Text style={[{ color: Colors.fontWhite, fontSize: 13 }]}>{items[4].desc}</Text>
                                                     </View>
                                                     <View style={{ flex: 1.9, justifyContent: 'center', overflow: 'hidden', }}>
                                                         <Image style={{
@@ -538,8 +531,8 @@ export default Home = ({ navigation }) => {
                                         <View style={{ flex: 4, }}>
                                             <View style={{ flex: 1, }}>
                                                 <View style={{ flex: 4, padding: 10, justifyContent: 'center' }}>
-                                                    <Text style={[Headertext.h3, { color: Colors.fontColorWhite, }]}>{items[5].name}</Text>
-                                                    <Text style={[Headertext.h5, { color: Colors.fontColorWhite, }]}>{items[5].desc}</Text>
+                                                    <Text style={[Headertext.h3, { color: Colors.fontWhite, }]}>{items[5].name}</Text>
+                                                    <Text style={[Headertext.h5, { color: Colors.fontWhite, }]}>{items[5].desc}</Text>
                                                 </View>
                                                 <View style={{ flex: 2, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingLeft: 10, }}>
                                                     {
@@ -572,7 +565,6 @@ export default Home = ({ navigation }) => {
                     </ScrollView>
 
 
-                </ImageBackground>
             </View>
             </View>
         );
@@ -580,9 +572,11 @@ export default Home = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <TopStatusBar />
+            <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{flex: 1,}} >
             {
                 isLoading ? Loader() : Content()
             }
+            </LinearGradient>
         </SafeAreaView>
     );
 }
@@ -590,7 +584,7 @@ export default Home = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.bodyColor,
+        backgroundColor: Colors.backgroundColor1of3,
         paddingTop: Platform.OS === 'ios' ? null : 20,
     },
     header: {
@@ -602,7 +596,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginLeft: 10,
         marginRight: 10,
-        backgroundColor: Colors.bodyColor,
         alignItems: 'center',
     },
     headerRight: {
@@ -624,13 +617,12 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 10,
-        backgroundColor: Colors.profilBackground,
     },
     bottomTags: {
         fontSize: 10,
         fontWeight: 'bold',
         justifyContent: 'center',
-        color: Colors.fontColorWhite,
+        color: Colors.fontWhite,
         margin: 1,
     },
     blockLoader: {

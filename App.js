@@ -96,6 +96,26 @@ const App = () => {
 
       } catch (error) {
         alert("Invalid email or password!");
+        var myErrorHeaders = new Headers();
+            var errorMethodType = "POST";
+            myErrorHeaders.append("Content-Type", "application/json");
+
+            var erroRaw = JSON.stringify({
+                "screen": "APP",
+                "module": "NA",
+                "user": email,
+                "status": error.message
+            });
+
+            var errorRequestOptions = {
+                method: errorMethodType,
+                headers: myErrorHeaders,
+                body: erroRaw,
+                redirect: 'follow'
+            };
+
+            await fetch(Configurations.host + "/logs/error", errorRequestOptions);
+            return false;
       }
       dispatch({ type: 'LOGIN', email: email, token: userToken })
 

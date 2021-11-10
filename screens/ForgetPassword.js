@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, TextInput, Alert, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, TextInput, Alert } from 'react-native';
 import Headertext from '../config/Headertext';
-import BackgroundImage from "../assets/images/background.jpg";
 import Configurations from '../config/Configurations';
 import rightArrowImage from '../assets/images/right-arrow.png';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
 import { useRoute } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default ForgetPassword = ({ navigation }) => {
 
@@ -72,55 +72,50 @@ export default ForgetPassword = ({ navigation }) => {
 
     return (
 
-        <SafeAreaView style={styles.container} behavior="height">
+        <View style={styles.container} behavior="height">
             <TopStatusBar />
-            <ImageBackground source={BackgroundImage} resizeMode="cover" style={{
-                position: 'absolute',
-                flex: 1,
-                backgroundColor: 'rgba(0,0,0,0.45)',
-                width: Dimensions.get("window").width,
-                height: Dimensions.get("window").height
-            }}>
+            <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{flex: 1,}} >
                 <View style={styles.header}>
                     {/* <Logo/> */}
-                    <Text style={[Headertext.h1, { color: Colors.fontColorPurplest }]}>Skyzer Guide</Text>
-                    <Text style={[Headertext.h5, { color: Colors.fontColorLightBlack, fontWeight: '600' }]}>Let you explore the terminal</Text>
+                    <Text style={[Headertext.h1, { color: Colors.fontWhite }]}>SKYZER GUIDE</Text>
                 </View>
 
                 <View style={styles.body}>
-                    <View style={styles.bodyForm} showsVerticalScrollIndicator={false}>
+                    <LinearGradient colors={[Colors.modelColor, Colors.modelColor, Colors.modelColor]} style={styles.bodyForm} >
+                    <View showsVerticalScrollIndicator={false}>
                         <View style={{ margin: 15,alignItems: 'center' }}>
                             <Text style={styles.bodyFormHeader}> Forget password </Text>
-                            <Text style={[Headertext.h5, {color: Colors.fontColorWhite}]}> Enter the email address associated  </Text>
-                            <Text style={[Headertext.h5, {color: Colors.fontColorWhite }]}> with your account. </Text>
+                            <Text style={[Headertext.h5, {color: Colors.fontWhite}]}> Enter the email address associated  </Text>
+                            <Text style={[Headertext.h5, {color: Colors.fontWhite }]}> with your account. </Text>
                         </View>
                         <View>
                             <TextInput style={[styles.input, {
                                 borderColor: isErrorEmail ? Colors.danger : Colors.white,
                             }]} placeholder="Email"
-                                placeholderTextColor={Colors.fontColorWhite} keyboardType="email-address"
+                                placeholderTextColor={Colors.fontWhite} keyboardType="email-address"
                                 onChangeText={(Email) => setEmail(Email)} selectionColor={Colors.white} />
                             
                             <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                                <TouchableOpacity style={[styles.button]} onPress={() => { forgetPasswordHandle() }}>
-                                    <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontColorWhite }]}>Send</Text>
+                                    <TouchableOpacity style={[styles.button, { flexDirection: 'row',}]} onPress={() => { forgetPasswordHandle() }}>
+                                    <Text style={[Headertext.h4, { marginRight: 15, color: Colors.fontWhite }]}>Send</Text>
+                                        <Image style={[styles.icon]} source={rightArrowImage} />
                                 </TouchableOpacity>
-                                <Image style={[styles.icon]} source={rightArrowImage} />
                             </View>
                         </View>
                         <View style={{ marginTop: 10, marginBottom: 10, width: Dimensions.get('window').width - 100, flexDirection: 'row', alignItems: 'center', }}>
                             <TouchableOpacity style={[styles.navButton]} onPress={() => navigation.navigate('LogIn')}>
-                                <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: '700' }]}>One more try?</Text>
+                                <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: '700' }]}>Log In</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
+                    </LinearGradient>
                 </View>
 
                 <View style={styles.footer}>
 
                 </View>
-            </ImageBackground>
-        </SafeAreaView>
+            </LinearGradient>
+        </View>
     );
 };
 
@@ -146,7 +141,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
         marginLeft: 70,
         marginRight: 70,
-        color: Colors.fontColorWhite,
+        color: Colors.fontWhite,
         borderRadius: 10,
         height: 350,
         backgroundColor: Colors.cardBodyColor,
@@ -156,7 +151,7 @@ const styles = StyleSheet.create({
     bodyFormHeader: {
         fontSize: 25,
         fontWeight: 'bold',
-        color: Colors.fontColorWhite,
+        color: Colors.fontWhite,
     },
     input: {
         width: Dimensions.get('window').width - 100,
@@ -166,7 +161,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         borderBottomWidth: 1,
-        color: Colors.fontColorWhite,
+        color: Colors.fontWhite,
     },
     button: {
         marginTop: 15,
@@ -183,6 +178,6 @@ const styles = StyleSheet.create({
         padding: 5,
         borderWidth: 1,
         borderRadius: 5,
-        borderColor: Colors.fontColorWhite,
+        backgroundColor: Colors.white,
     },
 });

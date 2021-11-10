@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
-import { ImageBackground, Animated, Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import backgroundImage from "../assets/images/background.jpg";
+import { Animated, Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import { Restart } from 'fiction-expo-restart';
 import NoInternetConnectionImage from '../assets/images/no-internet.png';
 import TopStatusBar from '../components/TopStatusBar';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const NoInternet = (props) => {
     const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
@@ -36,9 +36,8 @@ const NoInternet = (props) => {
 export default Loading = () => {
 
     return (
-        <ImageBackground source={backgroundImage} resizeMode="cover" style={{
+        <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor2of3]} style={{
             flex: 1,
-            justifyContent: "center"
         }}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <TopStatusBar />
@@ -47,15 +46,19 @@ export default Loading = () => {
                     source={NoInternetConnectionImage}
                 />
 
-                <Text style={[Headertext.h1, { color: Colors.fontColorBluest, marginTop: 20 }]}>
-                    NO INTERNET
+                <Text style={[Headertext.h1, { color: Colors.fontWhite, marginTop: 20 }]}>
+                    No Connection
                 </Text>
 
-                <TouchableOpacity onPress={() => Restart()} style={styles.loginButton}>
-                    <Text style={[Headertext.h3, { color: Colors.buttonFont }]}>RETRY</Text>
+                <TouchableOpacity onPress={() => Restart()} >
+                    <LinearGradient colors={[Colors.mainColor1of3,
+                        Colors.mainColor2of3,
+                        Colors.mainColor3of3]} style={styles.loginButton}>
+                            <Text style={[Headertext.h3, { color: Colors.fontWhite }]}>RETRY</Text>
+                    </LinearGradient>
                 </TouchableOpacity>
             </View>
-        </ImageBackground>
+        </LinearGradient>
     )
 }
 
@@ -67,7 +70,6 @@ const styles = StyleSheet.create({
     },
     loginButton: {
         marginTop: 20,
-        backgroundColor: Colors.buttonBody,
         paddingLeft: 50,
         paddingRight: 50,
         paddingTop: 10,

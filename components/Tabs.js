@@ -19,6 +19,7 @@ import Terms from '../screens/Terms';
 import Credits from '../screens/Credits';
 import Nitro from '../screens/Nitro';
 import Bulletins from '../screens/Bulletins';
+import { color } from 'react-native-reanimated';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -26,25 +27,32 @@ const Stack = createStackNavigator();
 function HomeTabs() {
   return (
     //<Stack.Navigator screenOptions={{ headerTitle: false, headerStyle: { shadowOffset: { height: 0, width: 0 } } }}>
-    <Stack.Navigator screenOptions={{ headerStyle: { shadowOffset: { height: 0, width: 0 }, elevation: 0, } }}>
+    <Stack.Navigator screenOptions={{ 
+      headerStyle: { shadowOffset: { height: 0, width: 0 },
+                    elevation: 0, 
+                    backgroundColor: Colors.backgroundColor1of3,
+                    },
+      headerTitleStyle: {
+        color: Colors.fontWhite,
+      },
+      headerTintColor: Colors.fontWhite,
+      headerTitleAlign: 'center',
+      headerBackTitleVisible: false,
+                  }}>
+
       <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
       <Stack.Screen name="TetraGuide" component={TetraGuide} options={{
         headerShown: true, 
         headerTitle: "Tetra Guide",
-        headerTitleAlign: 'center',
-        headerBackTitleVisible: false,
         }} />
       <Stack.Screen name="TeliumGuide" component={TeliumGuide} options={{
         headerShown: true,
         headerTitle: "Telium Guide",
-        headerTitleAlign: 'center',
-        headerBackTitleVisible: false,
       }} />
       <Stack.Screen name="About" component={About} options={{
         headerShown: true,
         headerTitle: "About",
-        headerTitleAlign: 'center',
-        headerBackTitleVisible: false,
+        
       }} />
       <Stack.Screen name="WhoWeAre" component={WhoWeAre} options={{
         headerShown: true,
@@ -119,11 +127,9 @@ export default Tabs = () => {
   return (
     <Tab.Navigator
       initialRouteName="HomeTabs"
-      activeColor={Colors.active}
-      inactiveColor={Colors.inactive}
       labelStyle={{ fontSize: 12 }}
       barStyle={{
-        backgroundColor: 'transparent',
+        backgroundColor: Colors.backgroundColor1of3,
         elevation: 0,
       }}
       shifting={true}
@@ -140,18 +146,15 @@ export default Tabs = () => {
             <View style={{ alignItems: 'center', width: 90,
                 flexDirection: 'row',
                 justifyContent: focused ? null : 'center',
-                backgroundColor: focused? Colors.cardBodyColor : null,
+                borderWidth: focused ? 1 : null,
+                borderColor: focused ? Colors.white : null,
                 borderRadius: focused ? 10 : null,
             }}>
-              {
-                focused ? <Image style={styles.icon}
-                  source={require('../assets/images/menu-icons/home.png')} /> :
-                  <Image style={styles.iconOutline}
-                    source={require('../assets/images/menu-icons/home-outline.png')} />
-              }
+              <Image style={styles.icon}
+                source={require('../assets/images/menu-icons/home.png')} />
               {
                 focused ?
-                  <Text style={{ color: Colors.fontColorWhite, fontWeight: 'bold' }}>Home</Text> :
+                  <Text style={{ color: Colors.fontWhite, fontWeight: 'bold' }}>Home</Text> :
                   null
               }
             </View>
@@ -168,18 +171,15 @@ export default Tabs = () => {
             <View style={{ alignItems: 'center', width: 115,
               flexDirection: 'row',
               justifyContent: focused ? null : 'center',
-              backgroundColor: focused ? Colors.cardBodyColor : null,
+              borderWidth: focused ? 1 : null,
+              borderColor: focused ? Colors.white : null,
               borderRadius: focused ? 10 : null,
               }}>
-              {
-                focused ? <Image style={styles.icon}
-                  source={require('../assets/images/menu-icons/favourite.png')} /> :
-                  <Image style={styles.iconOutline}
-                    source={require('../assets/images/menu-icons/favourite-outline.png')} />
-              }
+              <Image style={styles.icon}
+                source={require('../assets/images/menu-icons/favourite.png')} />
               {
                 focused ?
-                  <Text style={{ color: Colors.fontColorWhite, fontWeight: 'bold' }}>Favourites</Text> :
+                  <Text style={{ color: Colors.fontWhite, fontWeight: 'bold' }}>Favourites</Text> :
                   null
               }
             </View>
@@ -196,17 +196,14 @@ export default Tabs = () => {
             <View style={{ alignItems: 'center', width: 100, 
               flexDirection: 'row',
               justifyContent: focused ? null : 'center',
-              backgroundColor: focused ? Colors.cardBodyColor : null,
+              borderWidth: focused ? 1 : null,
+              borderColor: focused ? Colors.white : null,
               borderRadius: focused ? 10 : null, }}>
-              {
-                focused ? <Image style={styles.icon}
-                  source={require('../assets/images/menu-icons/profile.png')} /> :
-                  <Image style={styles.iconOutline}
-                    source={require('../assets/images/menu-icons/profile-outline.png')} />
-              }
+              <Image style={styles.icon}
+                source={require('../assets/images/menu-icons/profile.png')} />
               {
                 focused ?
-                  <Text style={{ color: Colors.fontColorWhite, fontWeight: 'bold' }}>Profile</Text> :
+                  <Text style={{ color: Colors.fontWhite, fontWeight: 'bold' }}>Profile</Text> :
                   null
               }
             </View>

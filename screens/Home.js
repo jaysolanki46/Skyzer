@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, Dimensions, ScrollView, Alert, Modal } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, Dimensions, ScrollView, Alert, Modal, Pressable, Linking } from 'react-native';
 import Headertext from '../config/Headertext';
 import Colors from '../config/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -362,43 +362,54 @@ export default Home = ({ navigation }) => {
 
                                             <View style={styles.modelViewBody}>
                                                 <View style={styles.modalView}>
-                                                    <View style={{width: 300, height: 300}}>
-                                                        <View style={{ flex: 1 }}>
-                                                            <View style={{ flex: 1,  marginLeft: 'auto', justifyContent: 'center', }}>
+                                                    <View style={{width: 300, height: 400}}>
+                                                        <View style={{ flex: 1, padding: 10 }}>
+                                                        <View style={{ flex: 1, marginLeft: 'auto',}}>
+                                                                <Pressable onPress={() => setModalSupportVisible(false)}>
                                                                 <Image style={{
                                                                     width: 20,
                                                                     height: 20,
                                                                 }} source={CloseImage} />
+                                                                </Pressable>
                                                             </View>
                                                             <View style={{ flex: 4.5, }}>
                                                                 <View style={{ flex: 1 }}>
-                                                                    <View style={{ flex: 4,  justifyContent: 'center', alignItems: 'center'}}>
+                                                                    <View style={{ flex: 3, alignItems: 'center'}}>
                                                                         <Image style={{
-                                                                            width: 150,
-                                                                            height: 150,
+                                                                            width: 120,
+                                                                            height: 120,
                                                                         }} source={SupportBannerImage} />
                                                                     </View>
-                                                                    <View style={{ flex: 2,  flexDirection:'row', justifyContent: 'space-around' }}>
+                                                                    <View style={{ flex: 1, alignItems: 'center' }}>
+                                                                        <Text style={Headertext.h4}>Technical Support</Text>
+                                                                    </View>
+                                                                    <View style={{ flex: 2,  flexDirection:'row', alignItems: 'center',
+                                                                            justifyContent: 'space-around', borderTopWidth: 1, borderBottomWidth: 1, 
+                                                                            borderColor: Colors.block3Color1of3, margin: -10, borderRadius: 10,}}>
                                                                         <View style={{ alignItems: 'center' }}>
+                                                                            <Pressable onPress={() => { Linking.openURL(`tel:092590322`) }}>
                                                                             <Image style={{
                                                                                 width: 50,
                                                                                 height: 50,
                                                                             }} source={SupportPhoneButtonImage} />
-                                                                            <Text style={Headertext.h4}>Call now</Text>
+                                                                            </Pressable>
+                                                                            <Text style={Headertext.h5}>Call Us</Text>
                                                                         </View>
 
                                                                         <View style={{ alignItems: 'center' }}>
+                                                                            <Pressable onPress={() => { Linking.openURL(`mailto:support@skyzer.co.nz`) }}>
                                                                             <Image style={{
                                                                                 width: 50,
                                                                                 height: 50,
                                                                             }} source={SupportEmailButtonImage} />
-                                                                            <Text style={Headertext.h4}>Email now</Text>
+                                                                            </Pressable>
+                                                                            <Text style={Headertext.h5}>Email Us</Text>
                                                                         </View>
                                                                     </View>
                                                                 </View>
                                                             </View>
-                                                            <View style={{ flex: .5, }}>
-
+                                                            <View style={{ flex: .5, alignItems: 'center', justifyContent: 'flex-end'}}>
+                                                                <Text style={[Headertext.h5, { fontSize: 10 }]}>MON - FRI | 8:00 AM - 5:00 PM</Text>
                                                             </View>
                                                         </View>
                                                     </View>
@@ -702,5 +713,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 5,
         alignItems: "center",
+        borderWidth: 1,
+        borderColor: Colors.block3Color1of3,
     },
 });

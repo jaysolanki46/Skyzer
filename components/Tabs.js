@@ -9,7 +9,6 @@ import TeliumGuide from '../screens/TeliumGuide';
 import About from '../screens/About';
 import Favourites from '../screens/Favourites'
 import Profile from '../screens/Profile';
-import Support from '../screens/Support';
 import Colors from '../config/Colors';
 import { createStackNavigator } from '@react-navigation/stack';
 import Values from '../screens/Values';
@@ -19,7 +18,6 @@ import Terms from '../screens/Terms';
 import Credits from '../screens/Credits';
 import Nitro from '../screens/Nitro';
 import Bulletins from '../screens/Bulletins';
-import { color } from 'react-native-reanimated';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -28,10 +26,7 @@ function HomeTabs() {
   return (
     //<Stack.Navigator screenOptions={{ headerTitle: false, headerStyle: { shadowOffset: { height: 0, width: 0 } } }}>
     <Stack.Navigator screenOptions={{ 
-      headerStyle: { shadowOffset: { height: 0, width: 0 },
-                    elevation: 0, 
-                    backgroundColor: Colors.backgroundColor1of3,
-                    },
+      headerStyle: { backgroundColor: Colors.backgroundColor1of3, shadowColor: 'transparent' },
       headerTitleStyle: {
         color: Colors.fontWhite,
       },
@@ -56,29 +51,11 @@ function HomeTabs() {
       }} />
       <Stack.Screen name="WhoWeAre" component={WhoWeAre} options={{
         headerShown: true,
-        headerTitle: false,
-        headerTitleAlign: 'center',
-        headerTransparent: true,
-        headerBackTitleVisible: false,
+        headerTitle: "Who We Are",
       }} />
       <Stack.Screen name="Values" component={Values} options={{
         headerShown: true,
-        headerTitle: false,
-        headerTitleAlign: 'center',
-        headerTransparent: true,
-        headerBackTitleVisible: false,
-      }} />
-      <Stack.Screen name="Support" component={Support} options={{
-        headerShown: true,
-        headerTitle: "Support",
-        headerTitleAlign: 'center',
-        headerBackTitleVisible: false,
-      }} />
-      <Stack.Screen name="More" component={More} options={{
-        headerShown: true,
-        headerTitle: "More",
-        headerTitleAlign: 'center',
-        headerBackTitleVisible: false,
+        headerTitle: "Values",
       }} />
       <Stack.Screen name="Nitro" component={Nitro} options={{
         headerShown: true,
@@ -98,13 +75,20 @@ function HomeTabs() {
 
 function ProfileTabs() {
   return (
-    <Stack.Navigator screenOptions={{ headerStyle: { shadowOffset: { height: 0, width: 0 }, elevation: 0, } }}>
-      <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
-      <Stack.Screen name="More" component={More} options={{
-        headerShown: true,
-        headerTitle: "More",
+    <Stack.Navigator screenOptions={{ 
+      headerStyle: {
+        backgroundColor: Colors.backgroundColor1of3, shadowColor: 'transparent'},
+        headerTitleStyle: {
+          color: Colors.fontWhite,
+        },
+        headerTintColor: Colors.fontWhite,
         headerTitleAlign: 'center',
         headerBackTitleVisible: false,
+      }}>
+      
+      <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+      <Stack.Screen name="More" component={More} options={{
+        headerTitle: "More",
       }} />
       <Stack.Screen name="Terms" component={Terms} options={{
         headerShown: true,

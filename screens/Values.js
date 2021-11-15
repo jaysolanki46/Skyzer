@@ -18,29 +18,12 @@ export default Values = ({ navigation }) => {
             <ScrollView showsVerticalScrollIndicator={false} style={{ fled: 1 }}>
             <View style={styles.container}>
 
-                <View style={styles.header}>
-                    <ImageBackground source={BackgroundImage} style={{
-                        width: '95%',
-                        height: 200,
-                    }} resizeMode="cover">
-                        <View style={styles.headerBox}>
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingLeft: 5 }}>
-                                <Text style={[Headertext.h2, { color: Colors.fontColorWhite, }]}>
-                                    VALUES
-                                </Text>
-                            </View>
-
-                        </View>
-                    </ImageBackground>
-                </View>
-
-
                 <View style={styles.body}>
                     <View showsVerticalScrollIndicator={false} style={{ flex: 1,}}>
 
                         <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
                             <View style={{ width: 170, height: 200, marginTop: 10, marginBottom: 10, }}>
-                                <View style={{ flex: 1, backgroundColor: Colors.colorType5_1, borderRadius: 10 }}>
+                                <View style={{ flex: 1, backgroundColor: Colors.modelColor, borderRadius: 10 }}>
 
                                     <View style={{
                                         flex: 4, justifyContent: 'center',
@@ -50,7 +33,7 @@ export default Values = ({ navigation }) => {
                                     </View>
 
                                     <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
-                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
+                                        <Text style={Headertext.h5, { color: Colors.fontWhite, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
                                             We CARE About Our Customers
                                         </Text>
                                     </View>
@@ -58,7 +41,7 @@ export default Values = ({ navigation }) => {
                             </View>
 
                             <View style={{ width: 170, height: 200, marginTop: 10, marginBottom: 10, }}>
-                                <View style={{ flex: 1, backgroundColor: Colors.colorType5_1, borderRadius: 10 }}>
+                                <View style={{ flex: 1, backgroundColor: Colors.modelColor, borderRadius: 10 }}>
 
                                     <View style={{
                                         flex: 4, justifyContent: 'center',
@@ -68,7 +51,7 @@ export default Values = ({ navigation }) => {
                                     </View>
 
                                     <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
-                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
+                                        <Text style={Headertext.h5, { color: Colors.fontWhite, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
                                             We WIN Together
                                         </Text>
                                     </View>
@@ -76,7 +59,7 @@ export default Values = ({ navigation }) => {
                             </View>
 
                             <View style={{ width: 170, height: 200, marginTop: 10, marginBottom: 10, }}>
-                                <View style={{ flex: 1, backgroundColor: Colors.colorType5_1, borderRadius: 10 }}>
+                                <View style={{ flex: 1, backgroundColor: Colors.modelColor, borderRadius: 10 }}>
 
                                     <View style={{
                                         flex: 4, justifyContent: 'center',
@@ -86,7 +69,7 @@ export default Values = ({ navigation }) => {
                                     </View>
 
                                     <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
-                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
+                                        <Text style={Headertext.h5, { color: Colors.fontWhite, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
                                             We GROW Ourselves To Grow Our Business
                                         </Text>
                                     </View>
@@ -94,7 +77,7 @@ export default Values = ({ navigation }) => {
                             </View>
 
                             <View style={{ width: 170, height: 200, marginTop: 10, marginBottom: 10, }}>
-                                <View style={{ flex: 1, backgroundColor: Colors.colorType5_1, borderRadius: 10 }}>
+                                <View style={{ flex: 1, backgroundColor: Colors.modelColor, borderRadius: 10 }}>
 
                                     <View style={{
                                         flex: 4, justifyContent: 'center',
@@ -104,7 +87,7 @@ export default Values = ({ navigation }) => {
                                     </View>
 
                                     <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
-                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
+                                        <Text style={Headertext.h5, { color: Colors.fontWhite, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
                                             We ACT With Integrity Always
                                         </Text>
                                     </View>
@@ -116,7 +99,7 @@ export default Values = ({ navigation }) => {
 
                         <View style={{ width: '100%', padding: 10, marginTop: 20}}>
                             <View style={{marginTop: 10}}>
-                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest, }]}>
+                                <Text style={[Headertext.h4, { color: Colors.fontWhite, }]}>
                                     We CARE About Our Customers
                                 </Text>
                                 <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 5 }]} >
@@ -125,7 +108,7 @@ export default Values = ({ navigation }) => {
                             </View>
 
                             <View style={{ marginTop: 30 }}>
-                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest, }]}>
+                                <Text style={[Headertext.h4, { color: Colors.fontWhite, }]}>
                                     We WIN Together
                                 </Text>
                                 <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 5 }]} >
@@ -134,7 +117,7 @@ export default Values = ({ navigation }) => {
                             </View>
 
                             <View style={{ marginTop: 30 }}>
-                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest, }]}>
+                                <Text style={[Headertext.h4, { color: Colors.fontWhite, }]}>
                                     We GROW Ourselves To Grow Our Business
                                 </Text>
                                 <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 5 }]} >
@@ -143,7 +126,7 @@ export default Values = ({ navigation }) => {
                             </View>
 
                             <View style={{ marginTop: 30 }}>
-                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest, }]}>
+                                <Text style={[Headertext.h4, { color: Colors.fontWhite, }]}>
                                     We ACT With Integrity Always
                                 </Text>
                                 <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 5 }]} >
@@ -162,20 +145,9 @@ export default Values = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.bodyColor,
-        paddingTop: Platform.OS != 'ios' ? 20 : 0,
-    },
-    header: {
-        flex: 1.5,
-    },
-    headerBox: {
-        flex: 1,
-        flexDirection: 'row',
-        margin: 10,
+        backgroundColor: Colors.backgroundColor1of3,
     },
     body: {
-        flex: 4.5,
-        paddingTop: Platform.OS != 'ios' ? 40 : 0,
         margin: 15,
     },
     image: {

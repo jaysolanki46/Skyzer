@@ -4,11 +4,11 @@ import Colors from '../config/Colors';
 import MoreBanner from '../assets/images/more/more-banner.png';
 import Constants from 'expo-constants';
 import CopyrightImage from '../assets/images/more/copyright.png';
+import VersionImage from '../assets/images/more/version.png';
 import TopStatusBar from '../components/TopStatusBar';
 
 export default More = ({ navigation }) => {
 
-   
     return (
         <SafeAreaView style={styles.container}>
             <TopStatusBar />
@@ -23,35 +23,42 @@ export default More = ({ navigation }) => {
             </View>
 
             <View style={styles.body}>
-                <View style={{borderWidth: .5, borderColor: Colors.grey}}/>
+                <View style={{borderWidth: .5, borderColor: Colors.white}}/>
                 <TouchableOpacity onPress={() => { navigation.navigate('Terms') }}>
-                    <Text style={[{ fontSize: 17, marginTop: 10, marginBottom: 10, fontWeight: '500', color: Colors.link}]}>
+                    <Text style={[{ fontSize: 17, marginTop: 10, marginBottom: 10, fontWeight: '500', color: Colors.fontWhite}]}>
                         Terms & Privacy Policy
                     </Text>
                 </TouchableOpacity>
 
-                <View style={{ borderWidth: .5, borderColor: Colors.grey }} />
+                <View style={{ borderWidth: .5, borderColor: Colors.white }} />
                 <TouchableOpacity onPress={() => { navigation.navigate('Credits') }}>
-                    <Text style={[{ fontSize: 17, marginTop: 10, marginBottom: 10, fontWeight: '500', color: Colors.link }]}>
+                    <Text style={[{ fontSize: 17, marginTop: 10, marginBottom: 10, fontWeight: '500', color: Colors.fontWhite }]}>
                         Credits
                     </Text>
                 </TouchableOpacity>
 
-                <View style={{ borderWidth: .5, borderColor: Colors.grey }} />
+                <View style={{ borderWidth: .5, borderColor: Colors.white }} />
                 <View style={{flexDirection: 'row', alignItems: 'center',}}>
                     <Image style={{ width: 12, height: 12, marginRight: 5 }}
                         source={CopyrightImage} />
                     <Text style={[{
                         fontSize: 12, marginTop: 5, marginBottom: 5, fontWeight: '500',
-                        color: Colors.fontColorLightBlack, 
+                        color: Colors.fontWhite, 
                     }]}>
                          {new Date().getFullYear()} Skyzer Technologies
                     </Text>
                 </View>
-                
-                <Text style={[{ fontSize: 12, fontWeight: '500', color: Colors.fontColorLightBlack }]}>
-                    Version {Constants.manifest.version}
-                </Text>
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                    <Image style={{ width: 12, height: 12, marginRight: 5 }}
+                        source={VersionImage} />
+                    <Text style={[{
+                        fontSize: 12, marginTop: 5, marginBottom: 5, fontWeight: '500',
+                        color: Colors.fontWhite,
+                    }]}>
+                        Version {Constants.manifest.version}
+                    </Text>
+                </View>
             </View>
         </SafeAreaView>
     );
@@ -60,8 +67,7 @@ export default More = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Platform.OS === 'ios' ? 0 : 20,
-        backgroundColor: Colors.bodyColor,
+        backgroundColor: Colors.backgroundColor1of3,
     },
     header: {
         flex: 3,

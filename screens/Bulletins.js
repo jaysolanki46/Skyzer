@@ -109,10 +109,7 @@ export default Bulletins = ({navigation}) => {
                     flex: 1, justifyContent: 'center', alignItems: 'center', borderRadius: 5, 
                         backgroundColor: Colors.block5Color1of3
                 }}>
-                    <Image style={{
-                        width: 50,
-                        height: 50,
-                    }} source={BulletinImage} />
+                        <Text style={styles.text}>B{item.number}</Text>
                 </View>
                 <View style={{ flex: 4.5,}}>
                     <Text style={styles.text}>Technical Bulletin No.{item.number}</Text>

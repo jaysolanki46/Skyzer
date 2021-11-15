@@ -224,12 +224,12 @@ export default Favourites = () => {
         return (
             <View style={[styles.listContainer]}>
                 <View style={{ flex: 1, flexDirection: 'row', margin: 5, alignItems: 'center' }}>
-                    <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.fontColorLightBlack }}>SUPPORTED BY: </Text>
+                    <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.fontWhite }}>SUPPORTED BY: </Text>
                     {
-                        item.is_tetra ? <Badge style={[styles.badge, { backgroundColor: Colors.colorType1_1 }]}>TETRA</Badge> : null
+                        item.is_tetra ? <Badge style={[styles.badge, { backgroundColor: Colors.block1Color1of3 }]}>TETRA</Badge> : null
                     }
                     {
-                        item.is_telium ? <Badge style={[styles.badge, { backgroundColor: Colors.colorType2_1 }]}>TELIUM</Badge> : null
+                        item.is_telium ? <Badge style={[styles.badge, { backgroundColor: Colors.block2Color1of3 }]}>TELIUM</Badge> : null
                     }
                 </View>
                 <View style={{ flex: 5 }}>
@@ -292,7 +292,7 @@ export default Favourites = () => {
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Image style={styles.noContent} source={NoContentImage} />
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}> NO FAVOURITES!</Text>
+                    <Text style={[Headertext.h4, { fontWeight: 'bold',}]}> NO FAVOURITES!</Text>
                 </View>
             </View>
         );
@@ -305,9 +305,7 @@ export default Favourites = () => {
                     !hideSearchBar ? 
                         <SearchBar
                             style={styles.searchInputText}
-                            fontColor="#c6c6c6"
-                            iconColor="#c6c6c6"
-                            cancelIconColor="#c6c6c6"
+                            darkMode={true}
                             placeholder="Search here"
                             onChangeText={(text) => SearchFilterFunction(text)}
                             onClearPress={() => SearchFilterFunction("")}
@@ -323,9 +321,9 @@ export default Favourites = () => {
                         <RefreshControl
                             refreshing={refreshing}
                             onRefresh={OnRefresh}
-                            tintColor={Colors.colorType1_1}
-                            colors={[Colors.colorType1_1]}
+                            tintColor={Colors.white}
                             title="Pull to refresh"
+                            titleColor={Colors.white}
                         />
                     }
                 />
@@ -339,7 +337,7 @@ export default Favourites = () => {
 
             <View style={styles.header}>
                 <View style={styles.headerSubView}>
-                    <Text style={[Headertext.h1, { marginRight: 10, color: Colors.fontColorBluest }]}>Favourites</Text>
+                    <Text style={[Headertext.h1, { marginRight: 10, color: Colors.fontWhite }]}>Favourites</Text>
                 </View>
             </View>
 
@@ -356,7 +354,7 @@ export default Favourites = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.bodyColor,
+        backgroundColor: Colors.backgroundColor1of3,
         paddingTop: Platform.OS === 'ios' ? 0 : 20,
     },
     header: {
@@ -370,7 +368,6 @@ const styles = StyleSheet.create({
         marginRight: 10,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: Colors.bodyColor,
     },
     body: {
         flex: 5.5,
@@ -380,12 +377,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         margin: 5,
-        backgroundColor: Colors.colorType5_1,
-        shadowColor: '#000',
-        shadowOffset: { width: 1, height: 1 },
-        shadowOpacity: 0.4,
-        shadowRadius: 3,
-        elevation: 5,
+        borderWidth: 1,
+        borderColor: Colors.white,
     },
     itemBody: {
         flex: 1,
@@ -400,20 +393,22 @@ const styles = StyleSheet.create({
     },
     itemQuestion: {
         fontSize: 15,
-        color: Colors.fontColorLightBlack,
+        color: Colors.fontWhite,
         fontWeight: '700',
         margin: 5,
     },
     badgeType: {
         margin: 5,
         borderRadius: 5,
-        color: Colors.fontColorWhite,
-        backgroundColor: Colors.grey,
+        color: Colors.fontWhite,
         fontWeight: '700',
+        borderWidth: 1,
+        borderColor: Colors.white,
+        backgroundColor: Colors.transparent,
     },
     itemAnswer: {
         fontSize: 13,
-        color: Colors.fontColorLightBlack,
+        color: Colors.fontWhite,
         fontWeight: '700',
         margin: 5,
     },
@@ -426,14 +421,9 @@ const styles = StyleSheet.create({
         height: 40,
         width: '97%',
         margin: 5,
-        borderColor: '#009688',
         borderRadius: 10,
-        backgroundColor: Colors.colorType5_1,
-        shadowColor: '#000',
-        shadowOffset: { width: 1, height: 1 },
-        shadowOpacity: 0.4,
-        shadowRadius: 3,
-        elevation: 5,
+        borderWidth: 1,
+        borderColor: Colors.white,
     },
     gridView: {
         width: '100%',
@@ -456,6 +446,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         letterSpacing: 1,
         fontWeight: '500',
-        color: Colors.fontColorWhite,
+        color: Colors.fontWhite,
     },
 });

@@ -20,10 +20,18 @@ export default About = ({ navigation }) => {
               
                 <View style={styles.header}>
                     <View style={styles.headerBox}>
-                        <Image
-                            style={styles.headerImage}
-                        source={AboutBanner}
-                        />
+                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                            <Text style={{ fontWeight: 'bold' }}>Skyzer Technologies</Text> specialise in the provision of Eftpos payments solutions for the New Zealand market.
+                        </Text>
+                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                            As the distributor of the Ingenico range of EFTPOS hardware, Skyzer prides itself on bringing best of breed payment solutions to our customers.
+                        </Text>
+                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                            Skyzer's payment systems enable commerce in a wide range of industries - from nationwide fashion retailers, fast food chains and supermarket giants, to taxi fleets, cafes and tradespeople.
+                        </Text>
+                        <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
+                            Operating through a strong dealer network across New Zealand, Skyzer Technologies is the country's leading distributor of Payments solutions.
+                        </Text>
                     </View>
                 </View>
 
@@ -33,13 +41,13 @@ export default About = ({ navigation }) => {
                         <View style={styles.bodyBox}>
                             
                             <TouchableOpacity style={{flex: 1,}} onPress={() => navigation.navigate('WhoWeAre')}>
-                                    <LinearGradient colors={[Colors.block6Color1of3, Colors.block6Color2of3, Colors.block6Color3of3]} style={{
+                            <View style={{
                                 flex: 1,
                                 borderRadius: 10,
                                 marginLeft: 10,
                                 marginRight: 10,
                                 marginBottom: 30,
-                                
+                                backgroundColor: Colors.modelColor
                             }}>
                                 <View style={styles.boxImage}>
                                     <Image style={styles.image} source={whoWeAre} />
@@ -49,21 +57,21 @@ export default About = ({ navigation }) => {
                                         WHO WE ARE
                                     </Text>
                                 </View>
-                            </LinearGradient>
+                            </View>
                             </TouchableOpacity>
 
                         </View>
                         <View style={styles.bodyBox}>
                             
                              <TouchableOpacity style={{flex: 1,}} onPress={() => navigation.navigate('Values')}>
-                                    <LinearGradient colors={[Colors.block6Color1of3, Colors.block6Color2of3, Colors.block6Color3of3]}
+                            <View 
                               style={{
                                 flex: 1,
                                 borderRadius: 10,
                                 marginLeft: 10,
                                 marginRight: 10,
                                 marginBottom: 30,
-                                
+                                backgroundColor: Colors.modelColor
                             }}>
                                 <View style={styles.boxImage}>
                                     <Image style={styles.image} source={values} />
@@ -73,7 +81,7 @@ export default About = ({ navigation }) => {
                                         VALUES 
                                     </Text>
                                 </View>
-                            </LinearGradient>
+                            </View>
                             </TouchableOpacity>
 
                         </View>
@@ -138,7 +146,6 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 4,
-        paddingTop: 20,
     },
     boxImage: {
         flex: 3.5, 

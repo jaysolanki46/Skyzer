@@ -123,7 +123,7 @@ export default WhoWeAre = ({ navigation }) => {
                             Whether you are looking for a Micro Merchant solution for your Market Stall, or you are a major NZ retailer looking for a feature-rich integrated Eftpos solution for your business… Skyzer has got you covered!
                         </Text>
                         <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10 }]} >
-                            We pride ourselves on our ability to deliver payment solutions to all retailers across New Zealand, both big and small. Using only the best terminal brand in the business, Ingenico, our suite of terminal offerings, has been developed with one goal in mind… “<Text style={{ color: Colors.fontColorBluest, fontWeight: 'bold' }}>Making Payments Simple</Text>”.
+                            We pride ourselves on our ability to deliver payment solutions to all retailers across New Zealand, both big and small. Using only the best terminal brand in the business, Ingenico, our suite of terminal offerings, has been developed with one goal in mind… “<Text style={{ color: Colors.fontWhite, fontWeight: 'bold' }}>Making Payments Simple</Text>”.
                         </Text>
                     </View>
 
@@ -132,8 +132,8 @@ export default WhoWeAre = ({ navigation }) => {
                         borderColor: Colors.colorType4_1, alignItems: 'center',
                     }}>
 
-                        <View style={{ borderBottomWidth: 1 }}>
-                            <Text style={[Headertext.h3, { color: Colors.fontColorBluest, }]}>Our Leadership Team</Text>
+                        <View style={{ borderBottomWidth: 1, borderColor: Colors.white, }}>
+                            <Text style={[Headertext.h3, { color: Colors.fontWhite, }]}>Our Leadership Team</Text>
                         </View>
 
                         <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
@@ -142,7 +142,7 @@ export default WhoWeAre = ({ navigation }) => {
                                     return (
                                         <View key={member.id} style={{ width: 170, height: 200, marginTop: 10, marginBottom: 10, }}>
                                             <TouchableOpacity style={{ flex: 1, }} onPress={() => Linking.openURL(member.linked_in)}>
-                                                <View style={{ flex: 1, backgroundColor: Colors.colorType5_1, borderRadius: 10 }}>
+                                                <View style={{ flex: 1, backgroundColor: Colors.modelColor, borderRadius: 10 }}>
 
                                                     <View style={{
                                                         flex: 4, justifyContent: 'center',
@@ -156,13 +156,13 @@ export default WhoWeAre = ({ navigation }) => {
                                                     <View style={{
                                                         flex: 1, flexDirection: 'row', flexWrap: 'wrap',
                                                     }}>
-                                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, textAlign: 'center', flex: 1, }}>
+                                                        <Text style={Headertext.h5, { color: Colors.fontWhite, textAlign: 'center', flex: 1, }}>
                                                             {member.title}
                                                         </Text>
                                                     </View>
 
                                                     <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
-                                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
+                                                        <Text style={Headertext.h5, { color: Colors.fontWhite, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
                                                             {member.full_name}
                                                         </Text>
                                                     </View>
@@ -186,19 +186,6 @@ export default WhoWeAre = ({ navigation }) => {
             <ScrollView showsVerticalScrollIndicator={false} style={{ fled: 1 }}>
                 <View style={styles.container}>
                     <View style={styles.header}>
-                        <ImageBackground source={backgroundImage} style={{
-                            width: '95%',
-                            height: 200,
-                        }} resizeMode="cover">
-                            <View style={styles.headerBox}>
-                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingLeft: 5 }}>
-                                    <Text style={[Headertext.h2, { color: Colors.fontColorWhite, }]}>
-                                        WHO WE ARE
-                                    </Text>
-                                </View>
-
-                            </View>
-                        </ImageBackground>
                     </View>
 
                     {
@@ -215,20 +202,9 @@ export default WhoWeAre = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.bodyColor,
-        paddingTop: Platform.OS != 'ios' ? 20 : 0, 
-    },
-    header: {
-        flex: 1.5,
-    },
-    headerBox: {
-        flex: 1,
-        flexDirection: 'row',
-        margin: 10,
+        backgroundColor: Colors.backgroundColor1of3,
     },
     body: {
-        flex: 4.5,
-        paddingTop: Platform.OS != 'ios' ? 40 : 20,
         margin: 15,
     },
     image: {

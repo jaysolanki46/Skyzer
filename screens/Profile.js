@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator, SafeAreaView, Dimensions, Alert  } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator, SafeAreaView, Alert  } from 'react-native';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import * as ImagePicker from 'expo-image-picker';
@@ -12,6 +12,7 @@ import LoaderImage from '../assets/images/loaders/profile-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
 import { useRoute } from '@react-navigation/native';
+import LogoutImage from '../assets/images/profile/logout.png';
 
 export default Profile = ({ navigation }) => {
 
@@ -227,40 +228,41 @@ export default Profile = ({ navigation }) => {
                                     />
                         }
                     </View>
-                    <TouchableOpacity style={{ backgroundColor: Colors.colorType1_3, padding: 10, borderRadius: 10, }} onPress={pickImage}>
-                        <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: 'bold' }]}>Change Photo</Text>
+                    <TouchableOpacity style={{ backgroundColor: Colors.white, padding: 10, borderRadius: 10, }} onPress={pickImage}>
+                        <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: 'bold' }]}>Change Photo</Text>
                     </TouchableOpacity>
                     
                 </View>
                 <View style={styles.bodyDetails}>
                     <View style={{flex:1.2,}}>
                         <View style={styles.fieldBlock}>
-                            <Text style={[Headertext.h5 ,{color: Colors.fontColorLightBlack, fontWeight: 'bold'}]}>Account</Text>
-                            <Text style={[Headertext.h5, { color: Colors.fontColorBlack, fontWeight: 'bold' }]}>{account}</Text>
+                            <Text style={[Headertext.h5 ,{color: Colors.fontWhite, fontWeight: 'bold'}]}>Account</Text>
+                            <Text style={[Headertext.h5, { color: Colors.fontWhite, fontWeight: 'bold' }]}>{account}</Text>
                         </View>          
                     </View>
                     <View style={{ flex: 1.2,}}>
                         <View style={styles.fieldBlock}>
-                            <Text style={[Headertext.h5, { color: Colors.fontColorLightBlack, fontWeight: 'bold' }]}>Dealer</Text>
-                            <Text style={[Headertext.h5, { color: Colors.fontColorBlack, fontWeight: 'bold' }]}>{dealer}</Text>
+                            <Text style={[Headertext.h5, { color: Colors.fontWhite, fontWeight: 'bold' }]}>Dealer</Text>
+                            <Text style={[Headertext.h5, { color: Colors.fontWhite, fontWeight: 'bold' }]}>{dealer}</Text>
                         </View>
                     </View>
                     <View style={{ flex: 1.2, }}>
                         <View style={styles.fieldBlock}>
-                            <Text style={[Headertext.h5, { color: Colors.fontColorLightBlack, fontWeight: 'bold' }]}>Email</Text>
-                            <Text style={[Headertext.h5, { color: Colors.fontColorBlack, fontWeight: 'bold' }]}>{email}</Text>
+                            <Text style={[Headertext.h5, { color: Colors.fontWhite, fontWeight: 'bold' }]}>Email</Text>
+                            <Text style={[Headertext.h5, { color: Colors.fontWhite, fontWeight: 'bold' }]}>{email}</Text>
                         </View>
                     </View>
                     <View style={{ flex: 1.2,}}>
                         <View style={styles.fieldBlock}>
-                            <Text style={[Headertext.h5, { color: Colors.fontColorLightBlack, fontWeight: 'bold' }]}>Username</Text>
-                            <Text style={[Headertext.h5, { color: Colors.fontColorBlack, fontWeight: 'bold' }]}>{username}</Text>
+                            <Text style={[Headertext.h5, { color: Colors.fontWhite, fontWeight: 'bold' }]}>Username</Text>
+                            <Text style={[Headertext.h5, { color: Colors.fontWhite, fontWeight: 'bold' }]}>{username}</Text>
                         </View>
                     </View>
                     <View style={{ flex: 1.2, }}>
                         <View style={[styles.fieldBlock, {justifyContent: 'center', borderBottomWidth: 0}]}>
-                            <TouchableOpacity style={{backgroundColor: Colors.colorType1_1, padding: 10, borderRadius: 10,}} onPress={() => logOut()}>
-                                <Text style={[Headertext.h5, { color: Colors.fontColorWhite, fontWeight: 'bold' }]}>Log out</Text>
+                            <TouchableOpacity style={{backgroundColor: Colors.white, padding: 10, borderRadius: 10, flexDirection: 'row', alignItems: 'center'}} onPress={() => logOut()}>
+                                <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: 'bold' }]}>Logout</Text>
+                                <Image style={{ width: 15, height: 15, marginLeft: 10 }} source={LogoutImage} />
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -274,14 +276,14 @@ export default Profile = ({ navigation }) => {
 
             <View style={styles.header}>
                 <View style={styles.headerSubView}>
-                    <Text style={[Headertext.h1, { marginRight: 10, color: Colors.fontColorBluest }]}>Profile</Text>
+                    <Text style={[Headertext.h1, { marginRight: 10, color: Colors.fontWhite }]}>Profile</Text>
                     <TouchableOpacity onPress={() => { navigation.navigate('More') }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                             <Image
                                 style={styles.help}
                                 source={MoreImage}
                             />
-                            <Text style={[Headertext.h5, { fontWeight: 'bold', color: Colors.fontColorBluest, margin: 5 }]}>More</Text>
+                            <Text style={[Headertext.h5, { fontWeight: 'bold', color: Colors.fontWhite, margin: 5 }]}>More</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -300,7 +302,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: Platform.OS === 'ios' ? 0 : 20,
-        backgroundColor: Colors.bodyColor,
+        backgroundColor: Colors.backgroundColor1of3,
     },
     header: {
         flex: .5,
@@ -312,7 +314,6 @@ const styles = StyleSheet.create({
         marginRight: 10,
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: Colors.bodyColor,
     },
     body: {
         flex: 5.5,
@@ -322,7 +323,6 @@ const styles = StyleSheet.create({
     bodyProfile: {
         flex: 2.5,
         borderRadius: 10,
-        borderColor: Colors.colorType5_1,
         alignItems: 'center',
     },
     bodyProfileInner: {

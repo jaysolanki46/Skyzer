@@ -131,8 +131,8 @@ export default Credits = () => {
                         borderColor: Colors.colorType4_1, alignItems: 'center',
                     }}>
 
-                        <View style={{ borderBottomWidth: 1 }}>
-                            <Text style={[Headertext.h3, { color: Colors.fontColorBluest, }]}>Application Core Team</Text>
+                        <View style={{ borderBottomWidth: 1, borderColor: Colors.white }}>
+                            <Text style={[Headertext.h3, { color: Colors.fontWhite, }]}>Application Core Team</Text>
                         </View>
 
                         <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
@@ -141,7 +141,7 @@ export default Credits = () => {
                                     return (
                                         <View key={member.id} style={{ width: 170, height: 200, marginTop: 10, marginBottom: 10, }}>
                                             <TouchableOpacity style={{ flex: 1, }} onPress={() => Linking.openURL(member.linked_in)}>
-                                                <View style={{ flex: 1, backgroundColor: Colors.colorType5_1, borderRadius: 10 }}>
+                                                <View style={{ flex: 1, backgroundColor: Colors.modelColor, borderRadius: 10 }}>
 
                                                     <View style={{
                                                         flex: 4, justifyContent: 'center',
@@ -155,13 +155,13 @@ export default Credits = () => {
                                                     <View style={{
                                                         flex: 1, flexDirection: 'row', flexWrap: 'wrap',
                                                     }}>
-                                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, textAlign: 'center', flex: 1, }}>
+                                                        <Text style={Headertext.h5, { color: Colors.fontWhite, textAlign: 'center', flex: 1, }}>
                                                             {member.title}
                                                         </Text>
                                                     </View>
 
                                                     <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
-                                                        <Text style={Headertext.h5, { color: Colors.fontColorBluest, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
+                                                        <Text style={Headertext.h5, { color: Colors.fontWhite, fontWeight: 'bold', textAlign: 'center', flex: 1, }}>
                                                             {member.full_name}
                                                         </Text>
                                                     </View>
@@ -192,8 +192,7 @@ export default Credits = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Platform.OS === 'ios' ? 0 : 20,
-        backgroundColor: Colors.bodyColor,
+        backgroundColor: Colors.backgroundColor1of3,
     },
     image: {
         width: 80,

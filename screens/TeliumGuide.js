@@ -313,7 +313,6 @@ export default TeliumGuide = () => {
                             refreshing={refreshing}
                             onRefresh={OnRefresh}
                             tintColor={Colors.white}
-                            colors={[Colors.white]}
                             title="Pull to refresh"
                             titleColor={Colors.white}
                         />

@@ -111,6 +111,8 @@ const styles = StyleSheet.create({
     headerImage: {
         flex: 1,
         margin: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
     },  
     image: {
         width: 400,

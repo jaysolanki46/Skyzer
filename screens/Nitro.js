@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, SafeAreaView, Text, View, Image, Animated, TouchableOpacity, Linking, ImageBackground, Dimensions, ScrollView, TextInput, Alert } from 'react-native';
+import { StyleSheet, SafeAreaView, Text, View, Image, TouchableOpacity, ScrollView, TextInput, Alert } from 'react-native';
 import Colors from '../config/Colors';
 import NitroBannerImage from '../assets/images/nitro/nitro-banner.png';
 import TopStatusBar from '../components/TopStatusBar';
@@ -7,7 +7,6 @@ import Headertext from '../config/Headertext';
 import Configurations from '../config/Configurations';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute } from '@react-navigation/native';
 
 export default Nitro = ({ navigation }) => {
@@ -115,22 +114,22 @@ export default Nitro = ({ navigation }) => {
             <View style={styles.body}>
                     <View style={{ flex: 1}}>
                         <View style={{ height: 100, width: '100%', padding: 10}}>
-                            <Text style={[Headertext.h5, { fontWeight: 'bold', color: Colors.fontColorBluest }]}>Enter your email</Text>
+                            <Text style={[Headertext.h5, { fontWeight: 'bold', color: Colors.fontWhite }]}>Enter your email</Text>
                             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                                 <TextInput style={[styles.input, {
-                                    borderColor: isErrorEmail ? Colors.danger : Colors.bluest
+                                    borderColor: isErrorEmail ? Colors.danger : Colors.white
                                 }]} placeholder="ex. abc@domain.co.nz" value={email}
-                                    placeholderTextColor={Colors.fontColorBluest} keyboardType="email-address"
-                                    onChangeText={(Email) => setEmail(Email)} selectionColor={Colors.bluest} />
+                                    placeholderTextColor={Colors.fontWhite} keyboardType="email-address"
+                                    onChangeText={(Email) => setEmail(Email)} selectionColor={Colors.white} />
 
-                                <TouchableOpacity onPress={() => { sendLink(email)}} style={styles.sendLinkButton}>
-                                <Text style={[Headertext.h5, { color: Colors.buttonFont }]}>Send link</Text>
-                            </TouchableOpacity>
+                                <TouchableOpacity style={[styles.sendLinkButton]} onPress={() => { sendLink(email) }}>
+                                    <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: '700' }]}>Sign Up</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
 
                         <View style={{ height: 300, width: '100%', padding: 10 }}>
-                            <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}>How it works!</Text>
+                            <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontWhite }]}>How it works!</Text>
                             <Text style={[Headertext.h5, { textAlign: 'justify', marginTop: 10, marginBottom: 10 }]} >
                                 {'\u2B24'}&nbsp;Enter your email and hit send link button
                             </Text>
@@ -157,7 +156,7 @@ export default Nitro = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.bodyColor,
+        backgroundColor: Colors.backgroundColor1of3,
     },
     header: {
         flex: 2,
@@ -185,10 +184,10 @@ const styles = StyleSheet.create({
         paddingRight: 50,
         borderRadius: 10,
         borderBottomWidth: 1,
-        color: Colors.fontColorBluest,
+        color: Colors.fontWhite,
     },
     sendLinkButton: {
-        backgroundColor: Colors.colorType2_1,
+        backgroundColor: Colors.white,
         paddingLeft: 20,
         paddingRight: 20,
         paddingTop: 10,

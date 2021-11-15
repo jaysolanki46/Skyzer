@@ -7,13 +7,13 @@ import Headertext from '../config/Headertext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/core';
 import { Badge } from 'react-native-paper';
-import StarImage from '../assets/images/tetra/tetra-star.png';
 import LoaderImage from '../assets/images/loaders/list-loader.gif';
-import NoContentImage from '../assets/images/tetra/no-content.png';
+import NoContentImage from '../assets/images/mutual/no-content.png';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
 import { useRoute } from '@react-navigation/native';
+import StarImage from '../assets/images/mutual/star.png';
 
 export default Favourites = () => {
 

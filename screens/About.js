@@ -33,7 +33,7 @@ export default About = ({ navigation }) => {
                         <View style={styles.bodyBox}>
                             
                             <TouchableOpacity style={{flex: 1,}} onPress={() => navigation.navigate('WhoWeAre')}>
-                            <LinearGradient colors={[Colors.colorType4_1, Colors.colorType4_2, Colors.colorType4_3]} style={{
+                                    <LinearGradient colors={[Colors.block6Color1of3, Colors.block6Color2of3, Colors.block6Color3of3]} style={{
                                 flex: 1,
                                 borderRadius: 10,
                                 marginLeft: 10,
@@ -56,7 +56,7 @@ export default About = ({ navigation }) => {
                         <View style={styles.bodyBox}>
                             
                              <TouchableOpacity style={{flex: 1,}} onPress={() => navigation.navigate('Values')}>
-                             <LinearGradient colors={[Colors.colorType4_1, Colors.colorType4_2, Colors.colorType4_3]}
+                                    <LinearGradient colors={[Colors.block6Color1of3, Colors.block6Color2of3, Colors.block6Color3of3]}
                               style={{
                                 flex: 1,
                                 borderRadius: 10,
@@ -80,23 +80,23 @@ export default About = ({ navigation }) => {
                     </View>
 
                     <View style={{ width: '100%', height: 400,  margin: 10, marginBottom: 30}}>
-                            <Text style={[Headertext.h4, { color: Colors.fontColorBluest, textDecorationLine: 'underline',  }]}>
+                            <Text style={[Headertext.h4, { textDecorationLine: 'underline',  }]}>
                                 ADDRESS
                             </Text>
                             <View style={{ marginTop: 10,}}>
-                                <Text style={[Headertext.h4, {color: Colors.fontColorLightBlack, fontWeight: '500'}]}>
+                                <Text style={[Headertext.h4, {fontWeight: '500'}]}>
                                     269 Mount Smart Road,
                                 </Text>
-                                <Text style={[Headertext.h4, { color: Colors.fontColorLightBlack, fontWeight: '500', marginTop: 5 }]}>
+                                <Text style={[Headertext.h4, { fontWeight: '500', marginTop: 5 }]}>
                                     Onehunga, Auckland 1061
                                 </Text>
-                                <Text style={[Headertext.h4, { color: Colors.fontColorLightBlack, fontWeight: '500', marginTop: 5 }]}>
+                                <Text style={[Headertext.h4, { fontWeight: '500', marginTop: 5 }]}>
                                     New Zealand
                                 </Text>
                             </View>
 
                             <View style={{ marginTop: 20,}}>
-                                <Text style={[Headertext.h4, { color: Colors.fontColorBluest, textDecorationLine: 'underline',  }]}>
+                                <Text style={[Headertext.h4, { textDecorationLine: 'underline',  }]}>
                                     FOLLOW US:
                                 </Text>
                                 <View style={{ flexDirection: 'row', marginTop: 10 }}>
@@ -116,7 +116,7 @@ export default About = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.bodyColor,
+        backgroundColor: Colors.backgroundColor1of3
     },
     header: {
         flex: 2,
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontWeight: 'bold', 
-        color: Colors.fontColorWhite,
+        color: Colors.fontWhite,
     },
     socialButton: {
         marginRight: 15,

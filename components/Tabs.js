@@ -51,7 +51,7 @@ function HomeTabs() {
       }} />
       <Stack.Screen name="About" component={About} options={{
         headerShown: true,
-        headerTitle: "About",
+        headerTitle: "About Us",
         
       }} />
       <Stack.Screen name="WhoWeAre" component={WhoWeAre} options={{

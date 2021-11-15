@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, Dimensions, ScrollView, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, Dimensions, ScrollView, Alert, Modal } from 'react-native';
 import Headertext from '../config/Headertext';
 import Colors from '../config/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -19,6 +19,10 @@ import { AuthContext } from '../components/AuthContext';
 import LoadOneLineImage from '../assets/images/loaders/one-line-loader.gif';
 import LoadBlockImage from '../assets/images/loaders/blocks-loader.gif';
 import {useRoute} from '@react-navigation/native';
+import CloseImage from '../assets/images/home/close.png'
+import SupportBannerImage from '../assets/images/home/support-banner.png'
+import SupportEmailButtonImage from '../assets/images/home/support-email-button.png'
+import SupportPhoneButtonImage from '../assets/images/home/support-phone-button.png'
 
 export default Home = ({ navigation }) => {
 
@@ -74,6 +78,7 @@ export default Home = ({ navigation }) => {
     const [userName, setUserName] = useState(null);
     const [userProfile, setUserProfile] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [modalSupportVisible, setModalSupportVisible] = useState(false);
 
     const { logOut } = React.useContext(AuthContext);
 
@@ -350,7 +355,58 @@ export default Home = ({ navigation }) => {
                                     flex: 3, marginTop: 5,
                                     borderRadius: 10,
                                 }}>
-                                    <TouchableOpacity style={{ flex: 1, }} onPress={() => { navigation.navigate('Support') }}>
+                                        <Modal
+                                            animationType="slide"
+                                            transparent={true}
+                                            visible={modalSupportVisible}>
+
+                                            <View style={styles.modelViewBody}>
+                                                <View style={styles.modalView}>
+                                                    <View style={{width: 300, height: 300}}>
+                                                        <View style={{ flex: 1 }}>
+                                                            <View style={{ flex: 1,  marginLeft: 'auto', justifyContent: 'center', }}>
+                                                                <Image style={{
+                                                                    width: 20,
+                                                                    height: 20,
+                                                                }} source={CloseImage} />
+                                                            </View>
+                                                            <View style={{ flex: 4.5, }}>
+                                                                <View style={{ flex: 1 }}>
+                                                                    <View style={{ flex: 4,  justifyContent: 'center', alignItems: 'center'}}>
+                                                                        <Image style={{
+                                                                            width: 150,
+                                                                            height: 150,
+                                                                        }} source={SupportBannerImage} />
+                                                                    </View>
+                                                                    <View style={{ flex: 2,  flexDirection:'row', justifyContent: 'space-around' }}>
+                                                                        <View style={{ alignItems: 'center' }}>
+                                                                            <Image style={{
+                                                                                width: 50,
+                                                                                height: 50,
+                                                                            }} source={SupportPhoneButtonImage} />
+                                                                            <Text style={Headertext.h4}>Call now</Text>
+                                                                        </View>
+
+                                                                        <View style={{ alignItems: 'center' }}>
+                                                                            <Image style={{
+                                                                                width: 50,
+                                                                                height: 50,
+                                                                            }} source={SupportEmailButtonImage} />
+                                                                            <Text style={Headertext.h4}>Email now</Text>
+                                                                        </View>
+                                                                    </View>
+                                                                </View>
+                                                            </View>
+                                                            <View style={{ flex: .5, }}>
+
+                                                            </View>
+                                                        </View>
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        </Modal>
+
+                                    <TouchableOpacity style={{ flex: 1, }} onPress={() => setModalSupportVisible(true) }>
                                         {/* SUPPORT BLOCK */}
                                         <View style={{ flex: 1 }} >
                                             <View style={{ flex: 4.5, }} >
@@ -634,5 +690,17 @@ const styles = StyleSheet.create({
         width: 370,
         height: 20,
 
-    }
+    },
+    modelViewBody: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: Colors.modelColor,
+        borderRadius: 20,
+        padding: 5,
+        alignItems: "center",
+    },
 });

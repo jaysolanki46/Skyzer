@@ -3,14 +3,13 @@ import { Dimensions, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, 
 import Colors from '../config/Colors';
 import Configurations from '../config/Configurations';
 import Headertext from '../config/Headertext';
-import NoContentImage from '../assets/images/tetra/no-content.png';
+import NoContentImage from '../assets/images/mutual/no-content.png';
 import LoaderImage from '../assets/images/loaders/list-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
-import BulletinImage from '../assets/images/home/bulletin-card-book.png';
+import BulletinImage from '../assets/images/bulletin/bulletin-banner.png';
 import ExternalLinkImage from '../assets/images/bulletin/external-link.png';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute } from '@react-navigation/native';
 
 export default Bulletins = ({navigation}) => {
@@ -107,7 +106,8 @@ export default Bulletins = ({navigation}) => {
             <TouchableOpacity style={{ flex: 1 }} onPress={() => Linking.openURL(item.link)}>
             <View style={[styles.listContainer]}>
                 <View style={{
-                    flex: 1, justifyContent: 'center', alignItems: 'center',
+                    flex: 1, justifyContent: 'center', alignItems: 'center', borderRadius: 5, 
+                        backgroundColor: Colors.block5Color1of3
                 }}>
                     <Image style={{
                         width: 50,
@@ -153,7 +153,7 @@ export default Bulletins = ({navigation}) => {
                 <Image style={styles.noContent} source={NoContentImage} />
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={[Headertext.h4, { fontWeight: 'bold' }]}>NO ITEMS,</Text>
-                    <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontColorBluest }]}>SORRY!</Text>
+                    <Text style={[Headertext.h4, { fontWeight: 'bold', color: Colors.fontWhite }]}>SORRY!</Text>
                 </View>
             </View>
         );
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: Colors.bodyColor
+        backgroundColor: Colors.backgroundColor1of3
     },
     body: {
         flex: 1,
@@ -208,17 +208,13 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         margin: 5,
-        backgroundColor: Colors.colorType5_1,
-        shadowColor: '#000',
-        shadowOffset: { width: 1, height: 1 },
-        shadowOpacity: 0.4,
-        shadowRadius: 3,
-        elevation: 5,
         flexDirection: 'row',
+        borderWidth: 1,
+        borderColor: Colors.white,
     },
     text: {
         fontSize: 15,
-        color: Colors.fontColorBluest,
+        color: Colors.fontWhite,
         fontWeight: '700',
         margin: 5,
     },

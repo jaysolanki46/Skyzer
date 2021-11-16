@@ -143,6 +143,7 @@ export default Credits = () => {
                                             <TouchableOpacity style={{ flex: 1, }} onPress={() => Linking.openURL(member.linked_in)}>
                                                 <View style={{ flex: 1, backgroundColor: Colors.modelColor, borderRadius: 10 }}>
 
+
                                                     <View style={{
                                                         flex: 4, justifyContent: 'center',
                                                         alignItems: 'center',

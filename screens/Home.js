@@ -16,13 +16,12 @@ import TopStatusBar from '../components/TopStatusBar';
 import Configurations from '../config/Configurations';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
-import LoadOneLineImage from '../assets/images/loaders/one-line-loader.gif';
-import LoadBlockImage from '../assets/images/loaders/blocks-loader.gif';
 import {useRoute} from '@react-navigation/native';
 import CloseImage from '../assets/images/home/close.png'
 import SupportBannerImage from '../assets/images/home/support-banner.png'
 import SupportEmailButtonImage from '../assets/images/home/support-email-button.png'
 import SupportPhoneButtonImage from '../assets/images/home/support-phone-button.png'
+import Loader from '../utils/Loader';
 
 export default Home = ({ navigation }) => {
 
@@ -183,24 +182,6 @@ export default Home = ({ navigation }) => {
         currentMsg = "Good afternoon, what are you up to?";
     } else if (hours >= 17 && hours < 24) {
         currentMsg = "Good evening, what are you up to?";
-    }
-
-
-    function Loader() {
-        return (
-            <View style={{ flex: 1, }}>
-                <View style={{ marginTop: 40, }}>
-                    <Image style={styles.oneLineLoader} source={LoadOneLineImage} />
-                    <Image style={styles.oneLineLoader} source={LoadOneLineImage} />
-                </View>
-                <View style={{ marginTop: 20, }}>
-                    <Image style={[styles.oneLineLoader, {width: 250}]} source={LoadOneLineImage} />
-                </View>
-                <View style={{ marginTop: 20, }}>
-                    <Image style={styles.blockLoader} source={LoadBlockImage} />
-                </View>
-            </View>
-        );
     }
 
     function Content() {
@@ -641,7 +622,7 @@ export default Home = ({ navigation }) => {
             <TopStatusBar />
             <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{flex: 1,}} >
             {
-                isLoading ? Loader() : Content()
+                isLoading ? <Loader/> : Content()
             }
             </LinearGradient>
         </SafeAreaView>
@@ -691,16 +672,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         color: Colors.fontWhite,
         margin: 1,
-    },
-    blockLoader: {
-        width: 390,
-        height: 350,
-        alignSelf: 'center',
-    },
-    oneLineLoader: {
-        width: 370,
-        height: 20,
-
     },
     modelViewBody: {
         flex: 1,

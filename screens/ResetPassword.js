@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, TextInput, Alert, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, TextInput, Alert } from 'react-native';
 import Headertext from '../config/Headertext';
-import BackgroundImage from "../assets/images/background.jpg";
 import Configurations from '../config/Configurations';
 import rightArrowImage from '../assets/images/right-arrow.png';
 import TopStatusBar from '../components/TopStatusBar';
@@ -182,11 +181,5 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     resizeMode: 'stretch'
-  },
-  navButton: {
-    padding: 5,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: Colors.fontWhite,
   },
 });

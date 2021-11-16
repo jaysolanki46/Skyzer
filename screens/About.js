@@ -4,8 +4,6 @@ import Colors from '../config/Colors';
 import whoWeAre from "../assets/images/about/who-we-are.png";
 import values from "../assets/images/about/value-s.png";
 import Headertext from '../config/Headertext';
-import { LinearGradient } from 'expo-linear-gradient';
-import AboutBanner from '../assets/images/about/about-banner.png';
 import facebookImage from '../assets/images/social/facebook.png';
 import linkedinImage from '../assets/images/social/linkedin.png';
 import instagramImage from '../assets/images/social/instagram.png';
@@ -92,20 +90,20 @@ export default About = ({ navigation }) => {
                                 ADDRESS
                             </Text>
                             <View style={{ marginTop: 10,}}>
-                                <Text style={[Headertext.h4, {fontWeight: '500'}]}>
+                                <Text style={[Headertext.h5, {fontWeight: '500'}]}>
                                     269 Mount Smart Road,
                                 </Text>
-                                <Text style={[Headertext.h4, { fontWeight: '500', marginTop: 5 }]}>
+                                <Text style={[Headertext.h5, { fontWeight: '500', marginTop: 5 }]}>
                                     Onehunga, Auckland 1061
                                 </Text>
-                                <Text style={[Headertext.h4, { fontWeight: '500', marginTop: 5 }]}>
+                                <Text style={[Headertext.h5, { fontWeight: '500', marginTop: 5 }]}>
                                     New Zealand
                                 </Text>
                             </View>
 
                             <View style={{ marginTop: 20,}}>
                                 <Text style={[Headertext.h4, { textDecorationLine: 'underline',  }]}>
-                                    FOLLOW US:
+                                    FOLLOW US
                                 </Text>
                                 <View style={{ flexDirection: 'row', marginTop: 10 }}>
                                     <TouchableOpacity onPress={() => Linking.openURL("https://www.facebook.com/skyzernz/")} style={styles.socialButton}><Image style={styles.socialLogo} source={facebookImage} /></TouchableOpacity>
@@ -133,12 +131,6 @@ const styles = StyleSheet.create({
     headerBox: {
         flex: 1,
         margin: 10,
-    },
-    headerImage: {
-        width: 360,
-        height: 200,
-        resizeMode: 'contain',
-        borderRadius: 10,
     },
     bodyBox: {
         flex: 3, 

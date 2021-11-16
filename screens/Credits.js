@@ -3,11 +3,11 @@ import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaVi
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import Configurations from '../config/Configurations';
-import LoaderImage from '../assets/images/loaders/description-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
 import { useRoute } from '@react-navigation/native';
+import Loader from '../utils/Loader';
 
 export default Credits = () => {
 
@@ -93,17 +93,6 @@ export default Credits = () => {
         }
     }
 
-    function Loader() {
-        return (
-            <View style={{ flex: 1, }}>
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-            </View>
-        );
-    }
-
     function Content() {
         return (
                 <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, }}>
@@ -181,7 +170,7 @@ export default Credits = () => {
         <SafeAreaView style={styles.container}>
             <TopStatusBar />
             {
-                isLoading ? Loader() : Content()
+                isLoading ? <Loader/> : Content()
             }
         </SafeAreaView>
 
@@ -198,10 +187,5 @@ const styles = StyleSheet.create({
         width: 80,
         height: 80,
         padding: 10,
-    },
-    loader: {
-        width: 370,
-        height: 100,
-        marginTop: 10,
     },
 });

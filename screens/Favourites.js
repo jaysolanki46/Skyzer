@@ -7,13 +7,13 @@ import Headertext from '../config/Headertext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/core';
 import { Badge } from 'react-native-paper';
-import LoaderImage from '../assets/images/loaders/list-loader.gif';
 import NoContentImage from '../assets/images/mutual/no-content.png';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
 import { useRoute } from '@react-navigation/native';
 import StarImage from '../assets/images/mutual/star.png';
+import Loader from '../utils/Loader';
 
 export default Favourites = () => {
 
@@ -70,6 +70,13 @@ export default Favourites = () => {
                 setMasterDataSource(responseJson);
                 setHideSearchBar(false);
 
+            } else if (status == 204) {
+                setIsLoading(false);
+                setRefreshing(false);
+                setFilteredDataSource(null);
+                setMasterDataSource(null);
+                setHideSearchBar(true);
+                
             } else if (status == 401) {
                 Alert.alert(
                     "Security Alert",
@@ -274,19 +281,6 @@ export default Favourites = () => {
         });
     }, [sessionId, userToken]);
 
-    function Loader() {
-        return (
-            <View style={{ flex: 1, }}>
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-            </View>
-        );
-    }
-
     function renderEmptyContainer() {
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -344,7 +338,7 @@ export default Favourites = () => {
             <View style={styles.body}>
 
                 {
-                    isLoading ? Loader() : Content()
+                    isLoading ? <Loader/> : Content()
                 }
             </View>
         </SafeAreaView>
@@ -433,11 +427,6 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         width: 200,
         height: 300,
-    },
-    loader: {
-        width: Dimensions.get('window').width,
-        height: 100,
-        marginTop: 10,
     },
     badge: {
         alignSelf: 'flex-start',

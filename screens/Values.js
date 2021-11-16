@@ -1,12 +1,11 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Platform, StatusBar, SafeAreaView, View, Text, Image, ScrollView } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, Image, ScrollView } from 'react-native';
 import Colors from '../config/Colors';
 import CareImage from "../assets/images/about/values/1-care.png";
 import WinImage from "../assets/images/about/values/2-win.png";
 import GrowImage from "../assets/images/about/values/3-grow.png";
 import IntegrityImage from "../assets/images/about/values/4-integrity.png";
 import Headertext from '../config/Headertext';
-import BackgroundImage from "../assets/images/about/headerBackground.jpg";
 import TopStatusBar from '../components/TopStatusBar';
 
 export default Values = ({ navigation }) => {
@@ -150,19 +149,8 @@ const styles = StyleSheet.create({
     body: {
         margin: 15,
     },
-    image: {
-        width: 60,
-        height: 60,
-        padding: 10,
-    },
     valuesImage: {
         width: 120,
         height: 120,
     },
-    text: {
-        fontWeight: 'bold', 
-        color: Colors.fontColorLightBlack,
-        textAlign: 'center',
-    },
-
 });

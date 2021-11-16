@@ -8,11 +8,11 @@ import Configurations from '../config/Configurations';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MoreImage from '../assets/images/more/more.png';
 import DefaultProfileImage from '../assets/images/profile/profile.png';
-import LoaderImage from '../assets/images/loaders/profile-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
 import * as SecureStore from 'expo-secure-store';
 import { useRoute } from '@react-navigation/native';
 import LogoutImage from '../assets/images/profile/logout.png';
+import Loader from '../utils/Loader';
 
 export default Profile = ({ navigation }) => {
 
@@ -199,15 +199,6 @@ export default Profile = ({ navigation }) => {
       }
     };
 
-    function Loader() {
-        return (
-            <View style={{ flex: 1, }}>
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-            </View>
-        );
-    }
-
     function Content() {
         return (
             <View style={{flex : 1}}>
@@ -291,7 +282,7 @@ export default Profile = ({ navigation }) => {
             
             <View style={styles.body}>
                 {
-                    isLoading ? Loader() : Content()
+                    isLoading ? <Loader/> : Content()
                 }
             </View>
         </SafeAreaView>
@@ -352,10 +343,5 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         borderRadius: 5,
-    },
-    loader: {
-        width: 370,
-        height: 400,
-        marginTop: 10,
     },
 });

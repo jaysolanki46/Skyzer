@@ -89,11 +89,6 @@ export default StartUp = ({navigation}) => {
         margin: 5,
         borderRadius: 25,
       },
-      logo: {
-        width: 120,
-        height: 50,
-        resizeMode: 'stretch'
-      },
       signupBodyImage: {
         flex:1,
         resizeMode: 'contain'

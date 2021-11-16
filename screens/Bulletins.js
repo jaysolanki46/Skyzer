@@ -4,13 +4,12 @@ import Colors from '../config/Colors';
 import Configurations from '../config/Configurations';
 import Headertext from '../config/Headertext';
 import NoContentImage from '../assets/images/mutual/no-content.png';
-import LoaderImage from '../assets/images/loaders/list-loader.gif';
 import TopStatusBar from '../components/TopStatusBar';
-import BulletinImage from '../assets/images/bulletin/bulletin-banner.png';
 import ExternalLinkImage from '../assets/images/bulletin/external-link.png';
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
 import { useRoute } from '@react-navigation/native';
+import Loader from '../utils/Loader';
 
 export default Bulletins = ({navigation}) => {
 
@@ -131,19 +130,6 @@ export default Bulletins = ({navigation}) => {
         InitList();
     }, [userToken]);
 
-    function Loader() {
-        return (
-            <View style={{ flex: 1, }}>
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-            </View>
-        );
-    }
-
     function renderEmptyContainer() {
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -184,7 +170,7 @@ export default Bulletins = ({navigation}) => {
             <View style={styles.body}>
 
                 {
-                    isLoading ? Loader() : Content()
+                    isLoading ? <Loader/> : Content()
                 }
             </View>
         </SafeAreaView>
@@ -223,10 +209,5 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         width: 200,
         height: 300,
-    },
-    loader: {
-        width: Dimensions.get('window').width,
-        height: 100,
-        marginTop: 10,
     },
 });

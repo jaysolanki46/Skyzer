@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Colors from '../config/Colors';
-import { ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, TextInput, Alert, SafeAreaView, Animated } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, Alert, Animated } from 'react-native';
 import Headertext from '../config/Headertext';
-import BackgroundImage from "../assets/images/background.jpg";
 import Configurations from '../config/Configurations';
 import rightArrowImage from '../assets/images/right-arrow.png';
 import TopStatusBar from '../components/TopStatusBar';

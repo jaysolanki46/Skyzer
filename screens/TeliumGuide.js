@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, RefreshControl, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, RefreshControl, SafeAreaView, Alert } from 'react-native';
 import SearchBar from 'react-native-dynamic-search-bar';
 import Colors from '../config/Colors';
 import Configurations from '../config/Configurations';
@@ -8,7 +8,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/core';
 import StarImage from '../assets/images/mutual/star.png';
 import StarOutlineImage from '../assets/images/mutual/star-outline.png';
-import LoaderImage from '../assets/images/loaders/list-loader.gif';
 import NoContentImage from '../assets/images/mutual/no-content.png';
 import TopStatusBar from '../components/TopStatusBar';
 import { Badge } from 'react-native-paper';
@@ -16,6 +15,7 @@ import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from '../components/AuthContext';
 import { useRoute } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import Loader from '../utils/Loader';
 
 export default TeliumGuide = () => {
 
@@ -268,19 +268,6 @@ export default TeliumGuide = () => {
         });
     }, [sessionId, userToken]);
 
-    function Loader() {
-        return (
-            <View style={{ flex: 1, }}>
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-                <Image style={styles.loader}
-                    source={LoaderImage} />
-            </View>
-        );
-    }
-
     function renderEmptyContainer() {
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -329,7 +316,7 @@ export default TeliumGuide = () => {
             <View style={styles.body}>
 
                 {
-                    isLoading ? Loader() : Content()
+                    isLoading ? <Loader/> : Content()
                 }
             </View>
             </LinearGradient>
@@ -405,10 +392,5 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         width: 200,
         height: 300,
-    },
-    loader: {
-        width: Dimensions.get('window').width,
-        height: 100,
-        marginTop: 10,
     },
 });

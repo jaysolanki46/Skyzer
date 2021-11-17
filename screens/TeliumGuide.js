@@ -162,6 +162,9 @@ export default TeliumGuide = () => {
                 throw new Error(status);
             }
 
+            /** After update clear the search bar */
+            setSearch('');
+
         } catch (error) {
 
             var myErrorHeaders = new Headers();
@@ -288,6 +291,7 @@ export default TeliumGuide = () => {
                     placeholder="Search here"
                     onChangeText={(text) => SearchFilterFunction(text)}
                     onClearPress={() => SearchFilterFunction("")}
+                    value={search}
                 />
                 <FlatList style={styles.gridView}
                     darkMode={true}

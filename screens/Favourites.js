@@ -179,6 +179,9 @@ export default Favourites = () => {
                 throw new Error(status);
             }
 
+            /** After update clear the search bar */
+            setSearch('');           
+
         } catch (error) {
 
             var myErrorHeaders = new Headers();
@@ -303,6 +306,7 @@ export default Favourites = () => {
                             placeholder="Search here"
                             onChangeText={(text) => SearchFilterFunction(text)}
                             onClearPress={() => SearchFilterFunction("")}
+                            value={search}
                         /> : null
                 }
                 

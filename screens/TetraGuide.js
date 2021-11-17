@@ -169,6 +169,9 @@ export default TetraGuide = () => {
                 throw new Error(status);
             }
 
+            /** After update clear the search bar */
+            setSearch('');
+
         } catch (error) {
             
             var myErrorHeaders = new Headers();
@@ -293,6 +296,7 @@ export default TetraGuide = () => {
                     placeholder="Search here"
                     onChangeText={(text) => SearchFilterFunction(text)}
                     onClearPress={() => SearchFilterFunction("")}
+                    value={search}
                 />
                 <FlatList style={styles.gridView}
                     darkMode={true}

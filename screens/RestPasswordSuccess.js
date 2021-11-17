@@ -21,9 +21,9 @@ export default RestPasswordSuccess = ({ navigation }) => {
                         source={successImage}
                 />
                 <Text style={[Headertext.h3 ,{color: Colors.fontWhite, margin: 10}]}>Password Changed</Text>
-                    <LinearGradient colors={[Colors.buttonColor1of2, Colors.buttonColor2of2]} style={styles.loginButton}>
+                <LinearGradient colors={[Colors.white, Colors.white]} style={styles.loginButton}>
                 <TouchableOpacity onPress={() => navigation.navigate('LogIn')} >
-                    <Text style={[Headertext.h4, { color: Colors.fontWhite }]}>Proceed to Login</Text>
+                    <Text style={[Headertext.h4, { color: Colors.fontBlack }]}>Proceed to Login</Text>
                 </TouchableOpacity>
                 </LinearGradient>
             </View>

@@ -351,7 +351,7 @@ export default SignUp = ({ navigation }) => {
                                                     borderColor: isErrorAccount ? Colors.danger : Colors.white
                                                 }]} placeholder="Account number i.e. 1234"
                                                     placeholderTextColor={Colors.fontWhite} keyboardType="default"
-                                                    maxLength={4}
+                                                    minLength={4}
                                                     onChangeText={(Account) => setAccount(Account)} selectionColor={Colors.white} />
                                                     <Tooltip
                                                         isVisible={toolTipVisible}

@@ -47,7 +47,7 @@ export default LogIn = ({navigation}) => {
         <View style={styles.body}>
           <LinearGradient colors={[Colors.modelColor, Colors.modelColor, Colors.modelColor]} style={styles.bodyForm} >
           <View showsVerticalScrollIndicator={false}>
-            <View style={{ justifyContent: 'center', alignItems: 'center',}}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
               <Text style={styles.bodyFormHeader}> Welcome Back </Text>
             </View>
             {
@@ -82,7 +82,7 @@ export default LogIn = ({navigation}) => {
                   enableOnAndroid={true}
                   style={{ flexGrow: 1 }}
                 >
-                  <View style={{ height: 300 }}>
+                  <View style={{ height: 250, }}>
                     <View>
                       <TextInput style={styles.input} placeholder="Email" placeholderTextColor={Colors.fontWhite} keyboardType="default" onChangeText={(Email) => setEmail(Email)} />
                       <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
@@ -111,7 +111,7 @@ export default LogIn = ({navigation}) => {
                   </View>
                 </KeyboardAwareScrollView>
             }
-            <View style={{ marginTop: 10, marginBottom: 10, width: Dimensions.get('window').width - 100, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
+              <View style={{ marginTop: 10, marginBottom: Platform.OS === 'ios' ? 10 : 50, width: Dimensions.get('window').width - 100, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
               <TouchableOpacity style={[styles.navButton]} onPress={() => navigation.navigate('SignUp')}>
                 <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: '700' }]}>Sign Up</Text>
               </TouchableOpacity>
@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
     },
     bodyForm: {
       width: Dimensions.get('window').width - 60,
-      height: 50,
       marginTop: 30,
       marginLeft: 70,
       marginRight: 70,

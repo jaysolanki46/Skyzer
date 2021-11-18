@@ -62,6 +62,10 @@ export default Favourites = () => {
             const response = await fetch(Configurations.host + "/userFavorites/user/" + sessionId, requestOptions)
             const status = await response.status;
 
+            /** DEFAULT SETTINGS */
+            setSearch("");
+            /** ENDS */
+
             if (status == 200) {
                 const responseJson = await response.json();
                 setIsLoading(false);
@@ -155,9 +159,9 @@ export default Favourites = () => {
             
             if(status == 200) {
                 const responseJson = await response.json();
-                setFilteredDataSource(responseJson);
                 setMasterDataSource(responseJson);
                 setHideSearchBar(false);
+                SearchFilterFunction(search, responseJson);
 
             } else if (status == 401) {
                 Alert.alert(
@@ -169,6 +173,14 @@ export default Favourites = () => {
                 );
                 throw new Error(status);
                 
+            } else if (status == 204) {
+                setIsLoading(false);
+                setRefreshing(false);
+                setFilteredDataSource(null);
+                setMasterDataSource(null);
+                setHideSearchBar(true);
+                setSearch("");
+
             } else {
                 setIsLoading(false);
                 setRefreshing(false);
@@ -178,9 +190,6 @@ export default Favourites = () => {
                 );
                 throw new Error(status);
             }
-
-            /** After update clear the search bar */
-            setSearch('');           
 
         } catch (error) {
 
@@ -206,10 +215,10 @@ export default Favourites = () => {
         }
     }
 
-    function SearchFilterFunction(text) {
-        if (text && Array.isArray(masterDataSource)) {
+    function SearchFilterFunction(text, datasource) {
+        if (text && Array.isArray(datasource)) {
             const excludeColumns = ["id"];
-            const newData = masterDataSource.filter(function (item) {
+            const newData = datasource.filter(function (item) {
 
                 /** ONLY SEARCH ON NAMES
                 const itemData = item.name ? item.name : '';
@@ -225,7 +234,7 @@ export default Favourites = () => {
             setFilteredDataSource(newData);
             setSearch(text);
         } else {
-            setFilteredDataSource(masterDataSource);
+            setFilteredDataSource(datasource);
             setSearch(text);
         }
     };
@@ -304,8 +313,8 @@ export default Favourites = () => {
                             style={styles.searchInputText}
                             darkMode={true}
                             placeholder="Search here"
-                            onChangeText={(text) => SearchFilterFunction(text)}
-                            onClearPress={() => SearchFilterFunction("")}
+                            onChangeText={(text) => SearchFilterFunction(text, masterDataSource)}
+                            onClearPress={() => SearchFilterFunction("", masterDataSource)}
                             value={search}
                         /> : null
                 }

@@ -141,8 +141,8 @@ export default TeliumGuide = () => {
 
             if (status == 200) {
                 const responseJson = await response.json();
-                setFilteredDataSource(responseJson);
                 setMasterDataSource(responseJson);
+                SearchFilterFunction(search, responseJson);
 
             } else if (status == 401) {
                 Alert.alert(
@@ -161,9 +161,6 @@ export default TeliumGuide = () => {
                 );
                 throw new Error(status);
             }
-
-            /** After update clear the search bar */
-            setSearch('');
 
         } catch (error) {
 
@@ -189,10 +186,10 @@ export default TeliumGuide = () => {
         }
     }
 
-    function SearchFilterFunction(text) {
-        if (text && Array.isArray(masterDataSource)) {
+    function SearchFilterFunction(text, datasource) {
+        if (text && Array.isArray(datasource)) {
             const excludeColumns = ["id"];
-            const newData = masterDataSource.filter(function (item) {
+            const newData = datasource.filter(function (item) {
 
                 /** ONLY SEARCH ON NAMES
                 const itemData = item.name ? item.name : '';
@@ -208,7 +205,7 @@ export default TeliumGuide = () => {
             setFilteredDataSource(newData);
             setSearch(text);
         } else {
-            setFilteredDataSource(masterDataSource);
+            setFilteredDataSource(datasource);
             setSearch(text);
         }
     };
@@ -289,8 +286,8 @@ export default TeliumGuide = () => {
                     darkMode={true}
                     style={styles.searchInputText}
                     placeholder="Search here"
-                    onChangeText={(text) => SearchFilterFunction(text)}
-                    onClearPress={() => SearchFilterFunction("")}
+                    onChangeText={(text) => SearchFilterFunction(text, masterDataSource)}
+                    onClearPress={() => SearchFilterFunction("", masterDataSource)}
                     value={search}
                 />
                 <FlatList style={styles.gridView}

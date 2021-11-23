@@ -22,11 +22,11 @@ export default SignUpSuccess = ({ navigation }) => {
                 />
                 <Text style={[Headertext.h3 ,{color: Colors.fontWhite, margin: 10}]}>Register Successful</Text>
                 <Text style={[Headertext.h5, { margin: 10 }]}>Your account will be activated within 1 business day</Text>
-                <LinearGradient colors={[Colors.white, Colors.white]} style={styles.loginButton} >
                     <TouchableOpacity onPress={() => navigation.navigate('LogIn')} >
-                        <Text style={[Headertext.h4, { color: Colors.fontBlack }]}>Proceed to Login</Text>
+                         <LinearGradient colors={[Colors.white, Colors.white]} style={styles.loginButton} >
+                            <Text style={[Headertext.h4, { color: Colors.fontBlack }]}>Proceed to Login</Text>
+                        </LinearGradient>
                     </TouchableOpacity>
-                </LinearGradient>
             </View>
             </LinearGradient>
         </View>

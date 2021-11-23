@@ -54,7 +54,7 @@ export default Nitro = ({ navigation }) => {
 
                 if (status == 200) {
                     setEmail('');
-                    Alert.alert("Success", "Package link sent!");
+                    Alert.alert("Success", "Package has been sent!");
 
                 } else if (status == 401) {
                     Alert.alert(
@@ -123,7 +123,7 @@ export default Nitro = ({ navigation }) => {
                                     onChangeText={(Email) => setEmail(Email)} selectionColor={Colors.white} />
 
                                 <TouchableOpacity style={[styles.sendLinkButton]} onPress={() => { sendLink(email) }}>
-                                    <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: '700' }]}>Sign Up</Text>
+                                    <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: '700' }]}>Send</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

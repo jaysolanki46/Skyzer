@@ -298,7 +298,7 @@ export default Favourites = () => {
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Image style={styles.noContent} source={NoContentImage} />
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={[Headertext.h4, { fontWeight: 'bold',}]}> NO FAVOURITES!</Text>
+                    <Text style={[Headertext.h4, { fontWeight: 'bold',}]}> No Favourites!</Text>
                 </View>
             </View>
         );

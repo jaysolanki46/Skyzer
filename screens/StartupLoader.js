@@ -35,7 +35,6 @@ export default Loading = () => {
 
   return (
     <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{
-      borderRadius: 10,
       flex: 1,
     }}>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

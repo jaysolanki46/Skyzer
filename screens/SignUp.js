@@ -218,8 +218,8 @@ export default SignUp = ({ navigation }) => {
                 flex: 1,
             }}>
                 <View style={styles.header}>
-                    {/* <Logo/> */}
-                    <Text style={[Headertext.h1, { color: Colors.fontWhite }]}>SKYZER GUIDE</Text>
+                    <Logo/>
+                    <Text style={[Headertext.h1, { color: Colors.fontWhite }]}>Skyzer Guide</Text>
                 </View>
 
                 <View style={styles.body}>
@@ -415,6 +415,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
+        marginTop: 20,
     },
     body: {
         flex: 5,

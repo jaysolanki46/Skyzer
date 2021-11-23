@@ -9,6 +9,7 @@ import * as SecureStore from 'expo-secure-store';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRoute } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import Logo from '../components/Logo';
 
 export default ResetPassword = ({ navigation }) => {
 
@@ -86,8 +87,8 @@ export default ResetPassword = ({ navigation }) => {
       <TopStatusBar />
       <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{ flex: 1, }} >
         <View style={styles.header}>
-          {/* <Logo/> */}
-          <Text style={[Headertext.h1, { color: Colors.fontWhite }]}>SKYZER GUIDE</Text>
+          <Logo/>
+          <Text style={[Headertext.h1, { color: Colors.fontWhite }]}>Skyzer Guide</Text>
         </View>
 
         <View style={styles.body}>
@@ -137,6 +138,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    marginTop: 20,
   },
   body: {
     flex: 5,

@@ -8,6 +8,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import rightArrowImage from '../assets/images/right-arrow.png';
 import TopStatusBar from '../components/TopStatusBar';
 import { LinearGradient } from 'expo-linear-gradient';
+import Logo from '../components/Logo';
 
 export default LogIn = ({navigation}) => {
 
@@ -40,8 +41,8 @@ export default LogIn = ({navigation}) => {
       <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{
         flex: 1,}}>
         <View style={styles.header}>
-          {/* <Logo/> */}
-          <Text style={[Headertext.h1, {color: Colors.fontWhite}]}>SKYZER GUIDE</Text>
+          <Logo/>
+          <Text style={[Headertext.h1, {marginLeft: 5}]}>Skyzer Guide</Text>
         </View>
 
         <View style={styles.body}>
@@ -135,6 +136,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'flex-end',
       alignItems: 'center',
+      marginTop: 20,
     },
     body: {
       flex: 5,

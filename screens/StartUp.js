@@ -2,7 +2,7 @@ import React, {  } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Linking,} from 'react-native';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
-import bodyImage from "../assets/images/startup_body.png";
+import bodyImage from "../assets/images/logo.png";
 import facebookImage from '../assets/images/social/facebook.png';
 import linkedinImage from '../assets/images/social/linkedin.png';
 import instagramImage from '../assets/images/social/instagram.png';
@@ -15,13 +15,12 @@ export default StartUp = ({navigation}) => {
       <View style={styles.container}>
         <TopStatusBar />
         <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{
-            borderRadius: 10,
             flex: 1,
           }}>
         <View style={styles.header}>
           {/* <Logo/> */}
           <Text style={[Headertext.h1, {color: Colors.fontWhite}]}>Welcome to</Text>
-          <Text style={[Headertext.h1, { color: Colors.fontWhite}]}>SKYZER GUIDE</Text>
+          <Text style={[Headertext.h1, { color: Colors.fontWhite}]}>Skyzer Guide</Text>
             {/* <Text style={[Headertext.h5, {color: Colors.fontColorLightBlack, fontWeight: '600'}]}>Let you explore the terminal</Text> */}
         </View>
   

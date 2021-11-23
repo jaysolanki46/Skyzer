@@ -51,10 +51,10 @@ export default Loading = () => {
                 </Text>
 
                 <TouchableOpacity onPress={() => Restart()} >
-                    <LinearGradient colors={[Colors.mainColor1of3,
-                        Colors.mainColor2of3,
-                        Colors.mainColor3of3]} style={styles.loginButton}>
-                            <Text style={[Headertext.h3, { color: Colors.fontWhite }]}>RETRY</Text>
+                    <LinearGradient colors={[Colors.white,
+                        Colors.white,
+                        ]} style={styles.loginButton}>
+                            <Text style={[Headertext.h3, { color: Colors.fontBlack }]}>RETRY</Text>
                     </LinearGradient>
                 </TouchableOpacity>
             </View>

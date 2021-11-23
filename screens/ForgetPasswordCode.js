@@ -14,6 +14,7 @@ import {
 import * as SecureStore from 'expo-secure-store';
 import { useRoute } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import Logo from '../components/Logo';
 
 const CELL_SIZE = 55;
 const CELL_BORDER_RADIUS = 8;
@@ -188,8 +189,8 @@ export default ForgetPasswordCode = ({ navigation }) => {
             <TopStatusBar />
             <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor3of3]} style={{ flex: 1, }} >
                 <View style={styles.header}>
-                    {/* <Logo/> */}
-                    <Text style={[Headertext.h1, { color: Colors.fontWhite }]}>SKYZER GUIDE</Text>
+                    <Logo/>
+                    <Text style={[Headertext.h1, { color: Colors.fontWhite }]}>Skyzer Guide</Text>
                 </View>
 
                 <View style={styles.body}>
@@ -223,6 +224,9 @@ export default ForgetPasswordCode = ({ navigation }) => {
                             <TouchableOpacity style={[styles.navButton]} onPress={() => { resendCode() }}>
                                 <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: '700' }]}>Resend code?</Text>
                             </TouchableOpacity>
+                             <TouchableOpacity style={[styles.navButton, { marginLeft: 'auto', }]} onPress={() => navigation.navigate('LogIn')}>
+                                <Text style={[Headertext.h5, { color: Colors.fontBlack, fontWeight: '700' }]}>Log In</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     </LinearGradient>
@@ -240,6 +244,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
+        marginTop: 20,
     },
     body: {
         flex: 5,

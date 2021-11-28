@@ -368,7 +368,7 @@ export default Home = ({ navigation }) => {
                                                                             justifyContent: 'space-around', borderTopWidth: 1, borderBottomWidth: 1, 
                                                                             borderColor: Colors.block3Color1of3, margin: -10, borderRadius: 10,}}>
                                                                         <View style={{ alignItems: 'center' }}>
-                                                                            <Pressable onPress={() => { Linking.openURL(`tel:092590322`) }}>
+                                                                            <Pressable onPress={() => { Linking.openURL('tel:092590322') }}>
                                                                             <Image style={{
                                                                                 width: 50,
                                                                                 height: 50,
@@ -378,7 +378,8 @@ export default Home = ({ navigation }) => {
                                                                         </View>
 
                                                                         <View style={{ alignItems: 'center' }}>
-                                                                            <Pressable onPress={() => { Linking.openURL(`mailto:support@skyzer.co.nz`) }}>
+                                                                            <Pressable onPress={() => { Linking.openURL('mailto:support@skyzer.co.nz') }}
+                                                                            >
                                                                             <Image style={{
                                                                                 width: 50,
                                                                                 height: 50,

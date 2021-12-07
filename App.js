@@ -177,6 +177,7 @@ const App = () => {
           <NoInternet />
     }
     </AuthContext.Provider>
+
   );
 }
 

@@ -86,7 +86,7 @@ function ProfileTabs() {
         headerBackTitleVisible: false,
       }}>
       
-      <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+      <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} an />
       <Stack.Screen name="More" component={More} options={{
         headerTitle: "More",
       }} />
@@ -110,6 +110,7 @@ export default Tabs = () => {
 
   return (
     <Tab.Navigator
+      
       initialRouteName="HomeTabs"
       labelStyle={{ fontSize: 12 }}
       barStyle={{

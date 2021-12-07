@@ -3,37 +3,11 @@ import { Animated, Text, View, Image, StyleSheet, TouchableOpacity } from 'react
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
 import { Restart } from 'fiction-expo-restart';
-import NoInternetConnectionImage from '../assets/images/no-internet.png';
+import NoInternetConnectionImage from '../assets/images/successfully.png';
 import TopStatusBar from '../components/TopStatusBar';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const NoInternet = (props) => {
-    const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
-
-    React.useEffect(() => {
-        Animated.timing(
-            fadeAnim,
-            {
-                toValue: 1,
-                duration: 2000,
-                useNativeDriver: true,
-            }
-        ).start();
-    }, [fadeAnim])
-
-    return (
-        <Animated.View
-            style={{
-                ...props.style,
-                opacity: fadeAnim,
-            }}
-        >
-            {props.children}
-        </Animated.View>
-    );
-}
-
-export default Loading = () => {
+export default NoInternet = () => {
 
     return (
         <LinearGradient colors={[Colors.backgroundColor1of3, Colors.backgroundColor2of3, Colors.backgroundColor2of3]} style={{
@@ -54,7 +28,7 @@ export default Loading = () => {
                     <LinearGradient colors={[Colors.white,
                         Colors.white,
                         ]} style={styles.loginButton}>
-                            <Text style={[Headertext.h3, { color: Colors.fontBlack }]}>RETRY</Text>
+                            <Text style={[Headertext.h3, { color: Colors.fontBlack }]}>Retry</Text>
                     </LinearGradient>
                 </TouchableOpacity>
             </View>

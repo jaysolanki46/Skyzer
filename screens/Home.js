@@ -665,6 +665,7 @@ const styles = StyleSheet.create({
     profile: {
         width: 60,
         height: 60,
+        resizeMode: 'contain',
         borderRadius: 10,
     },
     bottomTags: {

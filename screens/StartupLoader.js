@@ -6,13 +6,13 @@ import TopStatusBar from '../components/TopStatusBar';
 import Colors from '../config/Colors';
 
 const FadeInView = (props) => {
-  const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
+  const fadeAnim = useRef(new Animated.Value(1)).current  // Initial value for opacity: 0
 
   React.useEffect(() => {
     Animated.timing(
       fadeAnim,
       {
-        toValue: 1,
+        toValue: 0,
         duration: 2000,
         useNativeDriver: true,
       }

@@ -1,9 +1,7 @@
-import React, { useRef } from 'react';
-import { Animated, Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 import Colors from '../config/Colors';
 import Headertext from '../config/Headertext';
-import { Restart } from 'fiction-expo-restart';
-import NoInternetConnectionImage from '../assets/images/successfully.png';
 import TopStatusBar from '../components/TopStatusBar';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -15,39 +13,13 @@ export default NoInternet = () => {
         }}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <TopStatusBar />
-                <Image
-                    style={styles.logo}
-                    source={NoInternetConnectionImage}
-                />
-
-                <Text style={[Headertext.h1, { color: Colors.fontWhite, marginTop: 20 }]}>
-                    No Connection
+                <Text style={[Headertext.h4, { color: Colors.fontWhite, marginTop: 20, textAlign: 'center' }]}>
+                    Skyzer Guide Connection Lost
                 </Text>
-
-                <TouchableOpacity onPress={() => Restart()} >
-                    <LinearGradient colors={[Colors.white,
-                        Colors.white,
-                        ]} style={styles.loginButton}>
-                            <Text style={[Headertext.h3, { color: Colors.fontBlack }]}>Retry</Text>
-                    </LinearGradient>
-                </TouchableOpacity>
+                <Text style={[Headertext.h5, { color: Colors.fontWhite, marginTop: 5, textAlign: 'center' }]}>
+                    Skyzer Guide has lost network connection. Please restart the app to continue.
+                </Text>
             </View>
         </LinearGradient>
     )
 }
-
-const styles = StyleSheet.create({
-    logo: {
-        width: 300,
-        height: 200,
-        resizeMode: 'center'
-    },
-    loginButton: {
-        marginTop: 20,
-        paddingLeft: 50,
-        paddingRight: 50,
-        paddingTop: 10,
-        paddingBottom: 10,
-        borderRadius: 10,
-    },
-});
